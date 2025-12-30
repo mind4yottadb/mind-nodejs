@@ -1,5 +1,5 @@
 import {exit} from 'node:process'
-import mind from './index.js'
+import mind from '../js/index.js'
 
 const ydb = new mind
 

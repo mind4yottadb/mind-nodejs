@@ -13,7 +13,7 @@
 const mindConst = require("./constants");
 
 const driverName = 'mind4yottadb'
-const driverVersion = '0.0.1'
+const driverVersion = '0.1.0'
 const driverDescription = 'MIND for YottaDB node.js driver'
 
 module.exports = async function (that, writer, reader, resolve, reject, username, password) {

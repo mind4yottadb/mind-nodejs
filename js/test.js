@@ -4,7 +4,7 @@ import mind from './index.js'
 const ydb = new mind
 
 
-await ydb.connect('127.0.0.1', 10000, "admin", "admin").catch(err => {
+const res = await ydb.connect('127.0.0.1', 10000, "admin", "admin").catch(err => {
         console.log('Error is: ' + err)
         exit()
     }
@@ -37,7 +37,7 @@ console.dir(await ydb.fs.readdir('/opt/yottadb/current', ''))
 //await ydb.fs.renameFile('/tmp/stef/aaa.txt', '/tmp/stef/a')
 //await ydb.fs.removeFile('/tmp/stef/aaa.txt')
 
-//console.dir(ydb, {width: 5})
+console.dir(ydb, {width: 5})
 ydb.disconnect()
 /*
 ydb.connect('127.0.0.1', 10000, "admin", "admin").then(() => {

@@ -62,7 +62,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         }
 
         // proceed with the process array
-        if (dataA[ix] !== '%4') reject('invalid packet signature at line: ' + ix + 'Expected: %4')
+        if (dataA[ix] !== '%3') reject('invalid packet signature at line: ' + ix + ' Expected: %3')
 
         const processLength = parseInt(dataA[ix].slice(1))
 
@@ -71,20 +71,17 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         for (ix = ix + 1; ix < iy + processLength * 2; ix += 2) {
             const name = mindConst.extractSimpleString(dataA[ix])
 
-            if (name !== "cwd") {
-                const strValue = mindConst.extractSimpleString(dataA[ix + 1])
-                Object.defineProperties(that.process, {
-                    [mindConst.extractSimpleString(dataA[ix])]: {
-                        value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
-                        enumerable: true,
-                        configurable: true
-                    }
-                })
-            }
+            const strValue = mindConst.extractSimpleString(dataA[ix + 1])
+            Object.defineProperties(that.process, {
+                [mindConst.extractSimpleString(dataA[ix])]: {
+                    value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
+                    enumerable: true,
+                    configurable: true
+                }
+            })
         }
 
         // and terminate with the env vars
-        const envObj = {}
         const envLength = parseInt(dataA[ix].slice(1))
 
         Object.defineProperties(that.process, {

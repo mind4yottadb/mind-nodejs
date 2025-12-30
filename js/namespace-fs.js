@@ -111,7 +111,33 @@ class fs {
                 if (data.charAt(0) === '-') {
                     reject(mindConst.getBlob(data).slice(1))
                 }
-                resolve(data.slice(1).split(','))
+                resolve(data.slice(3 + data.indexOf(mindConst.CRLF)).split(','))
+            })
+        })
+    }
+
+    // ************************************
+    // readtree
+    // ************************************
+    readtree = function (path = '', mask = '*') {
+        const that = this
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'fs.readtree'
+            that.writer("*3" + mindConst.CRLF +
+                mindConst.getBlob(opCode) +
+                mindConst.getBlob(path) +
+                mindConst.getBlob(mask)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(mindConst.getBlob(data).slice(1))
+                }
+                resolve(data.slice(3 + data.indexOf(mindConst.CRLF)).split(','))
             })
         })
     }

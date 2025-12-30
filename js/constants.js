@@ -1,4 +1,4 @@
-/*#################################################################
+/*###############################################################
 #                                                               #
 # Copyright (c) 2025 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
@@ -8,8 +8,7 @@
 #   under a license.  If you do not know the terms of           #
 #   the license, please stop and do not read further.           #
 #                                                               #
-#################################################################*/
-
+###############################################################*/
 
 module.exports = {
     CRLF: '\r\n',

@@ -13,11 +13,24 @@
 */
 
 const {expect} = require("chai");
+const mind = require("../../js");
+const {exit} = require("node:process");
 
-describe("CLIENT: Dashboard: gld file", async () => {
+describe("namespace: fs: mkdir", async () => {
     it("Test # 30: When gld file is missing", async () => {
-        // we rename first the global file
-        console.log('testing')
+        const ydb = new mind
+
+        await ydb.connect('127.0.0.1', 10000, "admin", "admin").catch(err => {
+                console.log('Error is: ' + err)
+                exit()
+            }
+        )
+
+        console.log(await ydb.fs.mkdir('/tmp/stef/newdir2.j;'))
+
+        ydb.disconnect()
+
+
     });
 });
 

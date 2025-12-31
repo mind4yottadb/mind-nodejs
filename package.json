@@ -4,7 +4,7 @@
   "description": "node.js driver for MIND for YottaDB",
   "main": "js/index.js",
   "scripts": {
-    "test": "mocha ./test/bootstrap.js --exit --retries=10 --recursive --timeout=300000"
+    "test": "mocha ./test/bootstrap.js --exit --recursive --timeout=300000"
   },
   "repository": {
     "type": "git",

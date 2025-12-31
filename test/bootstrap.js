@@ -16,11 +16,10 @@ const {expect} = require('chai');
 const _ = require('lodash');
 
 before(async function () {
-    global.expect = expect;
+    //global.expect = expect;
 
 });
 
-// close browser and reset global variables
 after(async function () {
 });
 

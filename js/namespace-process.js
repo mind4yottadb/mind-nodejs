@@ -10,7 +10,7 @@
 #                                                               #
 ###############################################################*/
 
-const mindConst = require("./constants");
+const RESP3 = require("./RESP3");
 
 class process {
     exec = function (args) {
@@ -29,8 +29,8 @@ class process {
 
             // send command
             const opCode = 'process.cwdGet'
-            that.writer("*1" + mindConst.CRLF +
-                mindConst.getBlob(opCode)
+            that.writer("*1" + RESP3.CRLF +
+                RESP3.getBlob(opCode)
             );
 
             that.reader(data => {
@@ -51,9 +51,9 @@ class process {
 
             // send command
             const opCode = 'process.cwdSet'
-            that.writer("*2" + mindConst.CRLF +
-                mindConst.getBlob(opCode) +
-                mindConst.getBlob(path)
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.getBlob(opCode) +
+                RESP3.getBlob(path)
             );
 
             that.reader(data => {

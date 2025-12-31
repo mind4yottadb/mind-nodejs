@@ -11,7 +11,7 @@
 #################################################################*/
 
 const net = require('net')
-const mind = require('./constants.js')
+const mind = require('./RESP3.js')
 
 const port = 10000;
 const host = '127.0.0.1';

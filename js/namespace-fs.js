@@ -10,7 +10,7 @@
 #                                                               #
 ###############################################################*/
 
-const mindConst = require("./constants");
+const RESP3 = require("./RESP3");
 
 class fs {
     // ************************************
@@ -24,16 +24,16 @@ class fs {
 
             // send command
             const opCode = 'fs.readFile'
-            that.writer("*2" + mindConst.CRLF +
-                mindConst.getBlob(opCode) +
-                mindConst.getBlob(filename)
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.getBlob(opCode) +
+                RESP3.getBlob(filename)
             );
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
                     reject(data.slice(1))
                 }
-                resolve(data.slice(data.indexOf(mindConst.CRLF) + 2, data.length - 2))
+                resolve(data.slice(data.indexOf(RESP3.CRLF) + 2, data.length - 2))
             })
         })
     }
@@ -49,10 +49,10 @@ class fs {
 
             // send command
             const opCode = 'fs.writeFile'
-            that.writer("*3" + mindConst.CRLF +
-                mindConst.getBlob(opCode) +
-                mindConst.getBlob(filename) +
-                mindConst.getBlob(data)
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.getBlob(opCode) +
+                RESP3.getBlob(filename) +
+                RESP3.getBlob(data)
             );
 
             that.reader(data => {
@@ -75,10 +75,10 @@ class fs {
 
             // send command
             const opCode = 'fs.appendFile'
-            that.writer("*3" + mindConst.CRLF +
-                mindConst.getBlob(opCode) +
-                mindConst.getBlob(filename) +
-                mindConst.getBlob(data)
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.getBlob(opCode) +
+                RESP3.getBlob(filename) +
+                RESP3.getBlob(data)
             );
 
             that.reader(data => {
@@ -101,17 +101,17 @@ class fs {
 
             // send command
             const opCode = 'fs.readdir'
-            that.writer("*3" + mindConst.CRLF +
-                mindConst.getBlob(opCode) +
-                mindConst.getBlob(path) +
-                mindConst.getBlob(mask)
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.getBlob(opCode) +
+                RESP3.getBlob(path) +
+                RESP3.getBlob(mask)
             );
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(mindConst.getBlob(data).slice(1))
+                    reject(RESP3.getBlob(data).slice(1))
                 }
-                resolve(mindConst.extractBlob(data).split(','))
+                resolve(RESP3.extractBlob(data).split(','))
             })
         })
     }
@@ -127,18 +127,18 @@ class fs {
 
             // send command
             const opCode = 'fs.readtree'
-            that.writer("*3" + mindConst.CRLF +
-                mindConst.getBlob(opCode) +
-                mindConst.getBlob(path) +
-                mindConst.getBlob(mask)
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.getBlob(opCode) +
+                RESP3.getBlob(path) +
+                RESP3.getBlob(mask)
             );
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(mindConst.getBlob(data).slice(1))
+                    reject(RESP3.getBlob(data).slice(1))
                 }
 
-                resolve(mindConst.extractBlob(data).split(','))
+                resolve(RESP3.extractBlob(data).split(','))
             })
         })
     }
@@ -151,9 +151,9 @@ class fs {
 
             // send command
             const opCode = 'fs.removeFile'
-            that.writer("*2" + mindConst.CRLF +
-                mindConst.getBlob(opCode) +
-                mindConst.getBlob(filename)
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.getBlob(opCode) +
+                RESP3.getBlob(filename)
             );
 
             that.reader(data => {
@@ -174,10 +174,10 @@ class fs {
 
             // send command
             const opCode = 'fs.renameFile'
-            that.writer("*3" + mindConst.CRLF +
-                mindConst.getBlob(opCode) +
-                mindConst.getBlob(filename) +
-                mindConst.getBlob(newFilename)
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.getBlob(opCode) +
+                RESP3.getBlob(filename) +
+                RESP3.getBlob(newFilename)
             );
 
             that.reader(data => {
@@ -198,9 +198,9 @@ class fs {
 
             // send command
             const opCode = 'fs.stat'
-            that.writer("*2" + mindConst.CRLF +
-                mindConst.getBlob(opCode) +
-                mindConst.getBlob(filename)
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.getBlob(opCode) +
+                RESP3.getBlob(filename)
             );
 
             that.reader(data => {

@@ -19,7 +19,11 @@
     "node": ">= 10.18.1",
     "npm": ">= 6.13.4"
   },
-  "author": "Stefano Lalli",
+  "author": {
+    "name": "Stefano Lalli",
+    "email": "stefano@dnasoft.nl",
+    "url": "dnasoft.nl"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/slalli/mind-drivers-nodejs/issues"

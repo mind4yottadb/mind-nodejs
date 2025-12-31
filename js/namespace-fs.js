@@ -111,7 +111,7 @@ class fs {
                 if (data.charAt(0) === '-') {
                     reject(mindConst.getBlob(data).slice(1))
                 }
-                resolve(data.slice(3 + data.indexOf(mindConst.CRLF)).split(','))
+                resolve(mindConst.extractBlob(data).split(','))
             })
         })
     }
@@ -137,33 +137,8 @@ class fs {
                 if (data.charAt(0) === '-') {
                     reject(mindConst.getBlob(data).slice(1))
                 }
-                resolve(data.slice(3 + data.indexOf(mindConst.CRLF)).split(','))
-            })
-        })
-    }
 
-    // ************************************
-    // readtree
-    // ************************************
-    readtree = function (path = '', mask = '*') {
-        const that = this
-
-        return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
-
-            // send command
-            const opCode = 'fs.readtree'
-            that.writer("*3" + mindConst.CRLF +
-                mindConst.getBlob(opCode) +
-                mindConst.getBlob(path) +
-                mindConst.getBlob(mask)
-            );
-
-            that.reader(data => {
-                if (data.charAt(0) === '-') {
-                    reject(mindConst.getBlob(data).slice(1))
-                }
-                resolve(data.slice(1).split(','))
+                resolve(mindConst.extractBlob(data).split(','))
             })
         })
     }
@@ -211,6 +186,29 @@ class fs {
                     reject(data.slice(1))
                 }
                 resolve()
+            })
+        })
+    }
+
+    stat = function (filename = '') {
+        const that = this
+
+        return new Promise(function (resolve, reject) {
+            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'fs.stat'
+            that.writer("*2" + mindConst.CRLF +
+                mindConst.getBlob(opCode) +
+                mindConst.getBlob(filename)
+            );
+
+            that.reader(data => {
+                console.log(data)
+                if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
+                    reject(data.slice(1))
+                }
+                resolve(data)
             })
         })
     }

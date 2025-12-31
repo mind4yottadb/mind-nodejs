@@ -17,6 +17,9 @@ module.exports = {
 
     getBlob: str => '$' + str.length.toString() + '\r\n' + str + '\r\n',
 
-    extractBlob: str => str.slice(3 + str.indexOf(this.CRLF), -2),
+
+    extractBlob: str => {
+        return str.slice(2 + str.indexOf('\r\n'), -2)
+    },
     extractSimpleString: str => str.slice(1)
 }

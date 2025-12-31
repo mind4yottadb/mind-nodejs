@@ -135,7 +135,7 @@ class fs {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(RESP3.getBlob(data).slice(1))
+                    reject(data.slice(1))
                 }
 
                 resolve(RESP3.extractBlob(data).split(','))
@@ -158,7 +158,7 @@ class fs {
 
             that.reader(data => {
                 console.log(data)
-                if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
+                if (data.charAt(0) === '-') {
                     reject(data.slice(1))
                 }
                 resolve()
@@ -181,8 +181,7 @@ class fs {
             );
 
             that.reader(data => {
-                console.log(data)
-                if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
+                if (data.charAt(0) === '-') {
                     reject(data.slice(1))
                 }
                 resolve()
@@ -204,11 +203,16 @@ class fs {
             );
 
             that.reader(data => {
-                console.log(data)
-                if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
+                if (data.charAt(0) === '-') {
                     reject(data.slice(1))
                 }
-                resolve(data)
+
+                data = data.slice(2 + data.indexOf(RESP3.CRLF), -2).split(RESP3.CRLF)
+                const res = {}
+                for (let ix = 0; ix < data.length; ix += 2) {
+                    res[data[ix].slice(1)] = parseInt(data[ix + 1].slice(1))
+                }
+                resolve(res)
             })
         })
     }

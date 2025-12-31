@@ -143,6 +143,9 @@ class fs {
         })
     }
 
+    // ************************************
+    // removeFile
+    // ************************************
     removeFile = function (filename = '') {
         const that = this
 
@@ -166,6 +169,9 @@ class fs {
         })
     }
 
+    // ************************************
+    // renameFile
+    // ************************************
     renameFile = function (filename = '', newFilename = '') {
         const that = this
 
@@ -189,6 +195,9 @@ class fs {
         })
     }
 
+    // ************************************
+    // stat
+    // ************************************
     stat = function (filename = '') {
         const that = this
 
@@ -217,8 +226,33 @@ class fs {
         })
     }
 
-    copyFile = function (args) {
+    // ************************************
+    // copyfile
+    // ************************************
+    copyfile = function (source = '', destination = '') {
+        const that = this
+
+        return new Promise(function (resolve, reject) {
+            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'fs.copyfile'
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.getBlob(opCode) +
+                RESP3.getBlob(source) +
+                RESP3.getBlob(destination)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(data.slice(1))
+                }
+                console.log(data)
+                resolve(data.slice(data.indexOf(RESP3.CRLF) + 2, data.length - 2))
+            })
+        })
     }
+
     cp = function (args) {
     }
     mkdir = function (args) {

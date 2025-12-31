@@ -247,15 +247,32 @@ class fs {
                 if (data.charAt(0) === '-') {
                     reject(data.slice(1))
                 }
-                console.log(data)
-                resolve(data.slice(data.indexOf(RESP3.CRLF) + 2, data.length - 2))
+                resolve()
             })
         })
     }
 
-    cp = function (args) {
-    }
-    mkdir = function (args) {
+    mkdir = function (path = '') {
+        const that = this
+
+        return new Promise(function (resolve, reject) {
+            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'fs.mkdir'
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.getBlob(opCode) +
+                RESP3.getBlob(path)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(data.slice(1))
+                }
+                console.log(data)
+                resolve(data.slice(data.indexOf(RESP3.CRLF) + 2, data.length - 2))
+            })
+        })
     }
     mkdtemp = function (args) {
     }

@@ -1,14 +1,23 @@
 {
   "name": "mind-4-yottadb",
   "version": "0.1.0",
-  "description": "node.js driver for MIND (for YottaDB)",
+  "description": "node.js driver for MIND for YottaDB",
   "main": "js/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./test/bootstrap.js --exit --retries=10 --recursive --timeout=300000"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/slalli/mind-drivers-nodejs.git"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "lodash": "^4.17.21",
+    "mocha": "^11.7.2"
+  },
+  "engines": {
+    "node": ">= 10.18.1",
+    "npm": ">= 6.13.4"
   },
   "author": "Stefano Lalli",
   "license": "ISC",

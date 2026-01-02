@@ -16,10 +16,12 @@ const {expect} = require('chai');
 const _ = require('lodash');
 
 before(async function () {
-    //global.expect = expect;
+    // this will start the mind server
 
 });
 
 after(async function () {
+    // this will stop the mind server
+
 });
 

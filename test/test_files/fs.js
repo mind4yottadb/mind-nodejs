@@ -13,18 +13,12 @@
 */
 
 const {expect} = require("chai");
-const mind = require("../../js");
-const {exit} = require("node:process");
+const {createYdbInstance} = require("../utils.cjs");
 
 describe("namespace: fs: mkdir", async () => {
     it("Test # 30: When gld file is missing", async () => {
-        const ydb = new mind
 
-        await ydb.connect('127.0.0.1', 10000, "admin", "admin").catch(err => {
-                console.log('Error is: ' + err)
-                exit()
-            }
-        )
+        const ydb = await createYdbInstance()
 
         console.log(await ydb.fs.rmdir('/tmp/stef/test'))
 

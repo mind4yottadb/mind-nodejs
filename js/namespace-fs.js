@@ -218,6 +218,7 @@ class fs {
 
                 data = data.slice(2 + data.indexOf(RESP3.CRLF), -2).split(RESP3.CRLF)
                 const res = {}
+
                 for (let ix = 0; ix < data.length; ix += 2) {
                     res[data[ix].slice(1)] = parseInt(data[ix + 1].slice(1))
                 }

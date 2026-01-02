@@ -15,16 +15,359 @@
 const {expect} = require("chai");
 const {createYdbInstance} = require("../utils.cjs");
 
-describe("namespace: fs: mkdir", async () => {
-    it("Test # 30: When gld file is missing", async () => {
+describe("fs.readFile()", async () => {
+    it("when filename is not provided", async () => {
 
         const ydb = await createYdbInstance()
 
-        console.log(await ydb.fs.rmdir('/tmp/stef/test'))
+        try {
+            const res = await ydb.fs.readFile()
+
+        } catch (err) {
+            expect(err.message).to.have.string('the filename has not been provided')
+        }
 
         ydb.disconnect()
+    });
 
+    it("when filename doesn't exists", async () => {
+        const ydb = await createYdbInstance()
+        const filename = '/mind/testing'
 
+        try {
+            const res = await ydb.fs.readFile(filename)
+
+        } catch (err) {
+            expect(err.message).to.have.string('error opening: ' + '/mind/testing')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when filename exists", async () => {
+        const ydb = await createYdbInstance()
+        const filename = '$ydb_dist/plugin/etc/mind/mind.config'
+
+        try {
+            const res = await ydb.fs.readFile(filename)
+
+            expect(res === '').to.be.false
+
+        } catch (err) {
+            expect(false).to.be.true
+        }
+
+        ydb.disconnect()
     });
 });
 
+describe("fs.writeFile()", async () => {
+    it("when filename is not provided", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.writeFile()
+
+        } catch (err) {
+            expect(err.message).to.have.string('the filename has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when filename doesn't exists", async () => {
+        const ydb = await createYdbInstance()
+        const filename = '/mind/testing'
+
+        try {
+            await ydb.fs.writeFile(filename)
+
+        } catch (err) {
+            expect(err.message).to.have.string('error opening: ' + '/mind/testing')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when filename exists, write and read back", async () => {
+        const ydb = await createYdbInstance()
+        const filename = '$ydb_dist/plugin/etc/mind/testfile.test'
+        const dataToWrite = 'Testing the writeFile() method'
+
+        try {
+            await ydb.fs.writeFile(filename, dataToWrite)
+
+            const res = await ydb.fs.readFile(filename)
+
+            expect(res).to.have.string(dataToWrite)
+
+        } catch (err) {
+            expect(false).to.be.true
+        }
+
+        ydb.disconnect()
+    });
+});
+
+describe("fs.appendFile()", async () => {
+    it("when filename is not provided", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.appendFile()
+
+        } catch (err) {
+            expect(err.message).to.have.string('the filename has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when filename doesn't exists", async () => {
+        const ydb = await createYdbInstance()
+        const filename = '/mind/appendFile'
+
+        try {
+            await ydb.fs.appendFile(filename)
+
+        } catch (err) {
+            expect(err.message).to.have.string('error opening: ' + '/mind/appendFile')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when filename exists, write and read back", async () => {
+        const ydb = await createYdbInstance()
+        const filename = '$ydb_dist/plugin/etc/mind/testfile.test'
+        const dataToAppend = 'appending data'
+
+        try {
+            await ydb.fs.appendFile(filename, dataToAppend)
+            await ydb.fs.appendFile(filename, dataToAppend)
+
+            const res = await ydb.fs.readFile(filename)
+
+            expect(res).to.have.string(dataToAppend + '\n' + dataToAppend)
+
+        } catch (err) {
+            console.log(err)
+            expect(false).to.be.true
+        }
+
+        ydb.disconnect()
+    });
+});
+
+describe("fs.readdir()", async () => {
+    it("when path is not provided", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.readdir()
+
+        } catch (err) {
+            expect(err.message).to.have.string('the path has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when path doesn't exists", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/etc/mindrules'
+
+        try {
+            await ydb.fs.readdir(path)
+
+        } catch (err) {
+            expect(err.message).to.have.string('the path does not exists')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when path exists, mask is *", async () => {
+        const ydb = await createYdbInstance()
+        const path = '$ydb_dist/plugin/etc/'
+        const mask = '*'
+
+        try {
+            const res = await ydb.fs.readdir(path, mask)
+
+            expect(res[0]).to.have.string('mind')
+            expect(res[1]).to.have.string('ydbgui')
+            expect(res.length === 2).to.be.true
+
+        } catch (err) {
+            console.log(err)
+            expect(false).to.be.true
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when path exists, mask is *.*", async () => {
+        const ydb = await createYdbInstance()
+        const path = '$ydb_dist/plugin/etc/mind'
+        const mask = '*.*'
+
+        try {
+            const res = await ydb.fs.readdir(path, mask)
+
+            expect(res.length === 4).to.be.true
+
+        } catch (err) {
+            console.log(err)
+            expect(false).to.be.true
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when path exists, mask is *.*", async () => {
+        const ydb = await createYdbInstance()
+        const path = '$ydb_dist/plugin/etc/mind'
+        const mask = '*.json'
+
+        try {
+            const res = await ydb.fs.readdir(path, mask)
+
+            expect(res.length === 2).to.be.true
+
+        } catch (err) {
+            console.log(err)
+            expect(false).to.be.true
+        }
+
+        ydb.disconnect()
+    });
+});
+
+describe("fs.readtree()", async () => {
+    it("when path is not provided", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.readtree()
+
+        } catch (err) {
+            expect(err.message).to.have.string('the path has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when path doesn't exists", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/etc/mindrules'
+
+        try {
+            const res = await ydb.fs.readtree(path)
+
+        } catch (err) {
+            expect(err.message).to.have.string('the path does not exists')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when path is root", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/'
+
+        try {
+            const res = await ydb.fs.readtree(path)
+
+        } catch (err) {
+            expect(err.message).to.have.string('the path can not be root')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when path is not valid", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/opt/mind/notexist'
+
+        try {
+            const res = await ydb.fs.readtree(path)
+
+        } catch (err) {
+            expect(err.message).to.have.string('the path does not exists')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when path is valid and mask is empty", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/opt/mind/'
+
+        try {
+            const res = await ydb.fs.readtree(path)
+            expect(Array.isArray(res)).to.be.true
+            expect(res.length === 14).to.be.true
+
+        } catch (err) {
+            throw err
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when path is valid and mask is *", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/opt/mind/'
+        const mask = "*"
+
+        try {
+            const res = await ydb.fs.readtree(path, mask)
+            expect(Array.isArray(res)).to.be.true
+            expect(res.length === 14).to.be.true
+
+        } catch (err) {
+            throw err
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when path is valid and mask is *.*", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/opt/mind/'
+        const mask = "*.*"
+
+        try {
+            const res = await ydb.fs.readtree(path, mask)
+            expect(Array.isArray(res)).to.be.true
+            expect(res.length > 50).to.be.true
+
+        } catch (err) {
+            throw err
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when path is valid and mask is *.m", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/opt/mind/'
+        const mask = "*.m"
+
+        try {
+            const res = await ydb.fs.readtree(path, mask)
+            expect(Array.isArray(res)).to.be.true
+            expect(res.length > 20).to.be.true
+
+        } catch (err) {
+            throw err
+        }
+
+        ydb.disconnect()
+    })
+})

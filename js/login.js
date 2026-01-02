@@ -34,11 +34,11 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         // check header
         if (dataA[ix].charAt(0) === '-') {
-            reject(dataA[0].slice(1))
+            reject(new Error(dataA[0].slice(1, -2)))
         }
 
         if (dataA[ix] !== '*4') {
-            reject('invalid packet signature at line: ' + ix + ' Expected: *4')
+            reject(new Error('invalid packet signature at line: ' + ix + ' Expected: *4'))
         }
 
         // proceed with the server array

@@ -371,3 +371,128 @@ describe("fs.readtree()", async () => {
         ydb.disconnect()
     })
 })
+
+describe("fs.removeFile()", async () => {
+    it("when path is not provided", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.removeFile()
+
+        } catch (err) {
+            expect(err.message).to.have.string('the filename has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when path doesn't exists", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/etc/mindrules'
+
+        try {
+            const res = await ydb.fs.removeFile(path)
+
+        } catch (err) {
+            expect(err.message).to.have.string('error opening: ' + path)
+        }
+
+        ydb.disconnect()
+    })
+
+    it("create a file, delete it and verify", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/tmp/fileToBeDeleted'
+
+        try {
+            let res = await ydb.fs.writeFile('/tmp/fileToBeDeleted', 'file data')
+
+            res = await ydb.fs.expandPath(path)
+            expect(res === '').to.be.false
+
+            res = await ydb.fs.removeFile(path)
+
+            res = await ydb.fs.expandPath(path)
+            expect(res === '').to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('path could not be resolved')
+        }
+
+        ydb.disconnect()
+    })
+
+})
+
+describe("fs.renameFile()", async () => {
+    it("when destination filename is not provided", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.renameFile('/test')
+
+        } catch (err) {
+            expect(err.message).to.have.string('the destination filename has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when source filename is not provided", async () => {
+        const ydb = await createYdbInstance()
+        const destination = '/etc/mindrules2'
+
+        try {
+            const res = await ydb.fs.renameFile('', destination)
+
+        } catch (err) {
+            expect(err.message).to.have.string('the filename has not been provided')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when source filename does not exists", async () => {
+        const ydb = await createYdbInstance()
+        const source = '/etc/idontexists'
+        const destination = '/etc/mindrules2'
+
+        try {
+            const res = await ydb.fs.renameFile(source, destination)
+
+        } catch (err) {
+            expect(err.message).to.have.string('error opening: ' + source)
+        }
+
+        ydb.disconnect()
+    })
+
+    it("create a file, delete it and verify", async () => {
+        const ydb = await createYdbInstance()
+        const source = '/etc/mindrules'
+        const destination = '/etc/mindrules2'
+
+        try {
+            let res = await ydb.fs.writeFile(source, 'file data')
+
+            res = await ydb.fs.expandPath(source)
+            expect(res === '').to.be.false
+
+            res = await ydb.fs.renameFile(source, destination)
+
+            res = await ydb.fs.expandPath(source)
+            expect(res === '').to.be.true
+
+            res = await ydb.fs.expandPath(destination)
+            expect(res === '').to.be.false
+
+        } catch (err) {
+            expect(err.message).to.have.string('path could not be resolved')
+        }
+
+        ydb.disconnect()
+    })
+
+})

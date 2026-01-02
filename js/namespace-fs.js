@@ -160,7 +160,6 @@ class fs {
             );
 
             that.reader(data => {
-                console.log(data)
                 if (data.charAt(0) === '-') {
                     reject(new Error(data.slice(1, -2)))
                 }

@@ -273,13 +273,47 @@ class fs {
             })
         })
     }
-    mkdtemp = function (args) {
+    expandPath = function (path = '') {
+        const that = this
+
+        return new Promise(function (resolve, reject) {
+            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'fs.expandPath'
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.getBlob(opCode) +
+                RESP3.getBlob(path)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1)))
+                }
+                resolve(data.slice(1))
+            })
+        })
     }
-    realpath = function (args) {
-    }
-    rmdir = function (args) {
-    }
-    unlink = function (args) {
+    rmdir = function (path = '') {
+        const that = this
+
+        return new Promise(function (resolve, reject) {
+            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'fs.rmdir'
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.getBlob(opCode) +
+                RESP3.getBlob(path)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1)))
+                }
+                resolve()
+            })
+        })
     }
 }
 

@@ -26,7 +26,7 @@ describe("namespace: fs: mkdir", async () => {
             }
         )
 
-        console.log(await ydb.fs.mkdir('/tmp/stef/newdir2.j;'))
+        console.log(await ydb.fs.rmdir('/tmp/stef/test'))
 
         ydb.disconnect()
 

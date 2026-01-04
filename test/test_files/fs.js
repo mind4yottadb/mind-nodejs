@@ -422,7 +422,6 @@ describe("fs.removeFile()", async () => {
 
         ydb.disconnect()
     })
-
 })
 
 describe("fs.renameFile()", async () => {
@@ -494,11 +493,7 @@ describe("fs.renameFile()", async () => {
 
         ydb.disconnect()
     })
-
 })
-
-
-
 
 describe("fs.copyfile()", async () => {
     it("when source filename is not provided", async () => {
@@ -511,6 +506,7 @@ describe("fs.copyfile()", async () => {
             expect(err.message).to.have.string('the source filename has not been provided')
 
         }
+
         ydb.disconnect()
     })
 
@@ -525,8 +521,8 @@ describe("fs.copyfile()", async () => {
             expect(err.message).to.have.string('the source filename does not exists or it is not accessible')
 
         }
-        ydb.disconnect()
 
+        ydb.disconnect()
     });
 
     it("when source filename is a directory", async () => {
@@ -538,10 +534,9 @@ describe("fs.copyfile()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the source filename can not be a directory')
-
         }
-        ydb.disconnect()
 
+        ydb.disconnect()
     });
 
     it("when destination filename is not provided", async () => {
@@ -553,8 +548,8 @@ describe("fs.copyfile()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the destination filename has not been provided')
-
         }
+
         ydb.disconnect()
 
     });
@@ -569,8 +564,8 @@ describe("fs.copyfile()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the path of the destination is not valid')
-
         }
+
         ydb.disconnect()
 
     });
@@ -585,8 +580,8 @@ describe("fs.copyfile()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the destination filename can not be a directory')
-
         }
+
         ydb.disconnect()
 
     });
@@ -604,8 +599,8 @@ describe("fs.copyfile()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the destination filename can not be a directory')
-
         }
+
         ydb.disconnect()
 
     });
@@ -620,8 +615,8 @@ describe("fs.stat()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the filename has not been provided')
-
         }
+
         ydb.disconnect()
     })
 
@@ -633,8 +628,8 @@ describe("fs.stat()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the filename does not exists or it is not accessible')
-
         }
+
         ydb.disconnect()
     })
 
@@ -659,8 +654,8 @@ describe("fs.rmdir()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the path can not be empty')
-
         }
+
         ydb.disconnect()
     })
 
@@ -672,8 +667,8 @@ describe("fs.rmdir()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the path does not exists')
-
         }
+
         ydb.disconnect()
     })
 
@@ -685,8 +680,8 @@ describe("fs.rmdir()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the directory is not empty')
-
         }
+
         ydb.disconnect()
     })
 
@@ -699,8 +694,8 @@ describe("fs.rmdir()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('shouldn\'t happen')
-
         }
+
         ydb.disconnect()
     })
 })
@@ -714,8 +709,8 @@ describe("fs.mkdir()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the path has not been provided')
-
         }
+
         ydb.disconnect()
     })
 
@@ -727,8 +722,8 @@ describe("fs.mkdir()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the path is not valid')
-
         }
+
         ydb.disconnect()
     })
 
@@ -740,8 +735,8 @@ describe("fs.mkdir()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the path already exists')
-
         }
+
         ydb.disconnect()
     })
 
@@ -759,12 +754,10 @@ describe("fs.mkdir()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('shouldn\'t exist')
-
         }
+
         ydb.disconnect()
     })
-
-
 })
 
 describe("fs.expandPath()", async () => {
@@ -776,8 +769,8 @@ describe("fs.expandPath()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the path can not be empty')
-
         }
+
         ydb.disconnect()
     })
 
@@ -789,8 +782,8 @@ describe("fs.expandPath()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('path could not be resolved')
-
         }
+
         ydb.disconnect()
     })
 
@@ -803,9 +796,8 @@ describe("fs.expandPath()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('shouldn\'t happen')
-
         }
+
         ydb.disconnect()
     })
-
 })

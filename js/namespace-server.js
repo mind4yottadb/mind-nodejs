@@ -11,6 +11,12 @@
 ###############################################################*/
 
 class server {
+    hostName = ''
+    mindVersion = ''
+    ydbVersion = ''
+    platform = ''
+    architecture = ''
+
     getParams = function (args) {
 
     }

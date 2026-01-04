@@ -15,7 +15,7 @@ module.exports = {
     array: '*',
     blobString: '$',
 
-    getBlob: str => '$' + str.length.toString() + '\r\n' + str + '\r\n',
+    buildBlob: str => '$' + str.length.toString() + '\r\n' + str + '\r\n',
 
 
     extractBlob: str => {

@@ -20,7 +20,7 @@ const nsProcess = require('./namespace-process')
 const nsServer = require('./namespace-server')
 const nsFs = require('./namespace-fs')
 
-const {getBlob} = require("./RESP3");
+const {buildBlob} = require("./RESP3");
 const login = require('./login')
 
 module.exports = class mind extends EventEmitter {
@@ -33,6 +33,7 @@ module.exports = class mind extends EventEmitter {
     #socket = null
 
     requiresMind = '0.1.0'
+
     server = new nsServer
     process = new nsProcess
     fs = new nsFs

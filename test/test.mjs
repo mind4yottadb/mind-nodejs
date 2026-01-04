@@ -26,7 +26,7 @@ ydb.on('disconnected', err => console.log('disconnected'))
 //console.log(await ydb.fs.readFile('/test.txt2').catch(e => console.log(e)))
 
 
-//console.log(await ydb.process.cwd)
+console.log(await ydb.server)
 //await ydb.process.cwdSet('/opt')
 
 

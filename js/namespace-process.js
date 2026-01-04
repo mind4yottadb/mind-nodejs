@@ -22,7 +22,7 @@ class process {
 
     }
 
-    spawn = function (command = '', log = '') {
+    spawn = function (command = '', logFile = '') {
         const that = this
 
         return new Promise(function (resolve, reject) {
@@ -33,7 +33,7 @@ class process {
             that.writer("*3" + RESP3.CRLF +
                 RESP3.buildBlob(opCode) +
                 RESP3.buildBlob(command) +
-                RESP3.buildBlob(log)
+                RESP3.buildBlob(logFile)
             );
 
             that.reader(data => {

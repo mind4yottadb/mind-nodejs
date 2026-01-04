@@ -1,4 +1,5 @@
-/*###############################################################
+<!--
+###############################################################
 #                                                               #
 # Copyright (c) 2025 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
@@ -9,13 +10,22 @@
 #   the license, please stop and do not read further.           #
 #                                                               #
 ###############################################################*/
+-->
 
-module.exports = {
-    CRLF: '\r\n',
-    array: '*',
-    blobString: '$',
+# Namespace: fs
 
-    getBlob: str => '$' + str.length.toString() + '\r\n' + str + '\r\n',
+### Methods:
 
-    extractSimpleString: str => str.slice(1)
-}
+- readFile(filename)
+- writeFile(filename, data)
+- appendFile(filename, data)
+- removeFile(filename)
+- readDir(path)
+- readTree(path)
+- stat(filename)
+- copyfile(source, destination)
+- mkdir(path)
+- rmdir(path)
+- expandPath(path)
+
+### Properties:

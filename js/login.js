@@ -10,10 +10,10 @@
 #                                                               #
 ###############################################################*/
 
-const mindConst = require("./constants");
+const RESP3 = require("./RESP3");
 
 const driverName = 'mind4yottadb'
-const driverVersion = '0.0.1'
+const driverVersion = '0.1.0md'
 const driverDescription = 'MIND for YottaDB node.js driver'
 
 module.exports = async function (that, writer, reader, resolve, reject, username, password) {
@@ -21,24 +21,24 @@ module.exports = async function (that, writer, reader, resolve, reject, username
     const credentials = username + ':' + password
 
     // send command
-    writer("*5" + mindConst.CRLF +
-        mindConst.getBlob(opCode) + mindConst.getBlob(credentials) +
-        mindConst.getBlob(driverName) + mindConst.getBlob(driverVersion) + mindConst.getBlob(driverDescription)
+    writer("*5" + RESP3.CRLF +
+        RESP3.getBlob(opCode) + RESP3.getBlob(credentials) +
+        RESP3.getBlob(driverName) + RESP3.getBlob(driverVersion) + RESP3.getBlob(driverDescription)
     );
 
     // process response
     reader(data => {
-        const dataA = data.split(mindConst.CRLF)
+        const dataA = data.split(RESP3.CRLF)
         let ix = 0
         let iy = 0
 
         // check header
         if (dataA[ix].charAt(0) === '-') {
-            reject(dataA[0].slice(1))
+            reject(new Error(dataA[0].slice(1, -2)))
         }
 
         if (dataA[ix] !== '*4') {
-            reject('invalid packet signature at line: ' + ix + ' Expected: *4')
+            reject(new Error('invalid packet signature at line: ' + ix + ' Expected: *4'))
         }
 
         // proceed with the server array
@@ -48,8 +48,8 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         iy = ix
         for (ix = ix + 1; ix < iy + serverLength * 2; ix += 2) {
             Object.defineProperties(that.server, {
-                [mindConst.extractSimpleString(dataA[ix])]: {
-                    value: mindConst.extractSimpleString(dataA[ix + 1]),
+                [RESP3.extractSimpleString(dataA[ix])]: {
+                    value: RESP3.extractSimpleString(dataA[ix + 1]),
                     enumerable: true,
                     configurable: true
                 }
@@ -58,33 +58,30 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         const mindVersion = that.server.mindVersion
         if (mindVersion < that.requiresMind) {
-            reject('invalid mind server version, expected ' + that.requiresMind + ' or higher, but found ' + mindVersion)
+            reject(new Error('invalid mind server version, expected ' + that.requiresMind + ' or higher, but found ' + mindVersion))
         }
 
         // proceed with the process array
-        if (dataA[ix] !== '%4') reject('invalid packet signature at line: ' + ix + 'Expected: %4')
+        if (dataA[ix] !== '%3') reject(new Error('invalid packet signature at line: ' + ix + ' Expected: %3'))
 
         const processLength = parseInt(dataA[ix].slice(1))
 
         // continue
         iy = ix
         for (ix = ix + 1; ix < iy + processLength * 2; ix += 2) {
-            const name = mindConst.extractSimpleString(dataA[ix])
+            const name = RESP3.extractSimpleString(dataA[ix])
 
-            if (name !== "cwd") {
-                const strValue = mindConst.extractSimpleString(dataA[ix + 1])
-                Object.defineProperties(that.process, {
-                    [mindConst.extractSimpleString(dataA[ix])]: {
-                        value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
-                        enumerable: true,
-                        configurable: true
-                    }
-                })
-            }
+            const strValue = RESP3.extractSimpleString(dataA[ix + 1])
+            Object.defineProperties(that.process, {
+                [RESP3.extractSimpleString(dataA[ix])]: {
+                    value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
+                    enumerable: true,
+                    configurable: true
+                }
+            })
         }
 
         // and terminate with the env vars
-        const envObj = {}
         const envLength = parseInt(dataA[ix].slice(1))
 
         Object.defineProperties(that.process, {
@@ -97,10 +94,10 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         iy = ix
         for (ix = ix + 1; ix < iy + envLength * 2 - 1; ix += 2) {
-            const strValue = mindConst.extractSimpleString(dataA[ix + 1])
+            const strValue = RESP3.extractSimpleString(dataA[ix + 1])
 
             Object.defineProperties(that.process.env, {
-                [mindConst.extractSimpleString(dataA[ix])]: {
+                [RESP3.extractSimpleString(dataA[ix])]: {
                     value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
                     enumerable: true,
                     configurable: true,

@@ -22,8 +22,8 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
     // send command
     writer("*5" + RESP3.CRLF +
-        RESP3.getBlob(opCode) + RESP3.getBlob(credentials) +
-        RESP3.getBlob(driverName) + RESP3.getBlob(driverVersion) + RESP3.getBlob(driverDescription)
+        RESP3.buildBlob(opCode) + RESP3.buildBlob(credentials) +
+        RESP3.buildBlob(driverName) + RESP3.buildBlob(driverVersion) + RESP3.buildBlob(driverDescription)
     );
 
     // process response

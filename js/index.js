@@ -20,7 +20,7 @@ const nsProcess = require('./namespace-process')
 const nsServer = require('./namespace-server')
 const nsFs = require('./namespace-fs')
 
-const {getBlob} = require("./RESP3");
+const {buildBlob} = require("./RESP3");
 const login = require('./login')
 
 module.exports = class mind extends EventEmitter {

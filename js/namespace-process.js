@@ -13,6 +13,11 @@
 const RESP3 = require("./RESP3");
 
 class process {
+    arch = null
+    pid = null
+    platform = null
+    env = {}
+
     exec = function (args) {
 
     }
@@ -30,7 +35,7 @@ class process {
             // send command
             const opCode = 'process.cwdGet'
             that.writer("*1" + RESP3.CRLF +
-                RESP3.getBlob(opCode)
+                RESP3.buildBlob(opCode)
             );
 
             that.reader(data => {
@@ -52,8 +57,8 @@ class process {
             // send command
             const opCode = 'process.cwdSet'
             that.writer("*2" + RESP3.CRLF +
-                RESP3.getBlob(opCode) +
-                RESP3.getBlob(path)
+                RESP3.buildBlob(opCode) +
+                RESP3.buildBlob(path)
             );
 
             that.reader(data => {

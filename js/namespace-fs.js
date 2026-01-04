@@ -100,16 +100,16 @@ class fs {
     }
 
     // ************************************
-    // readdir
+    // readDir
     // ************************************
-    readdir = function (path = '', mask = '*') {
+    readDir = function (path = '', mask = '*') {
         const that = this
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
 
             // send command
-            const opCode = 'fs.readdir'
+            const opCode = 'fs.readDir'
             that.writer("*3" + RESP3.CRLF +
                 RESP3.getBlob(opCode) +
                 RESP3.getBlob(path) +
@@ -129,16 +129,16 @@ class fs {
     }
 
     // ************************************
-    // readtree
+    // readTree
     // ************************************
-    readtree = function (path = '', mask = '*') {
+    readTree = function (path = '', mask = '*') {
         const that = this
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
 
             // send command
-            const opCode = 'fs.readtree'
+            const opCode = 'fs.readTree'
             that.writer("*3" + RESP3.CRLF +
                 RESP3.getBlob(opCode) +
                 RESP3.getBlob(path) +
@@ -301,6 +301,7 @@ class fs {
             })
         })
     }
+
     expandPath = function (path = '') {
         const that = this
 

@@ -161,13 +161,13 @@ describe("fs.appendFile()", async () => {
     });
 });
 
-describe("fs.readdir()", async () => {
+describe("fs.readDir()", async () => {
     it("when path is not provided", async () => {
 
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.fs.readdir()
+            await ydb.fs.readDir()
 
         } catch (err) {
             expect(err.message).to.have.string('the path has not been provided')
@@ -181,7 +181,7 @@ describe("fs.readdir()", async () => {
         const path = '/etc/mindrules'
 
         try {
-            await ydb.fs.readdir(path)
+            await ydb.fs.readDir(path)
 
         } catch (err) {
             expect(err.message).to.have.string('the path does not exists')
@@ -196,7 +196,7 @@ describe("fs.readdir()", async () => {
         const mask = '*'
 
         try {
-            const res = await ydb.fs.readdir(path, mask)
+            const res = await ydb.fs.readDir(path, mask)
 
             expect(res[0]).to.have.string('mind')
             expect(res[1]).to.have.string('ydbgui')
@@ -216,7 +216,7 @@ describe("fs.readdir()", async () => {
         const mask = '*.*'
 
         try {
-            const res = await ydb.fs.readdir(path, mask)
+            const res = await ydb.fs.readDir(path, mask)
 
             expect(res.length === 4).to.be.true
 
@@ -234,7 +234,7 @@ describe("fs.readdir()", async () => {
         const mask = '*.json'
 
         try {
-            const res = await ydb.fs.readdir(path, mask)
+            const res = await ydb.fs.readDir(path, mask)
 
             expect(res.length === 2).to.be.true
 
@@ -247,13 +247,13 @@ describe("fs.readdir()", async () => {
     });
 });
 
-describe("fs.readtree()", async () => {
+describe("fs.readTree()", async () => {
     it("when path is not provided", async () => {
 
         const ydb = await createYdbInstance()
 
         try {
-            const res = await ydb.fs.readtree()
+            const res = await ydb.fs.readTree()
 
         } catch (err) {
             expect(err.message).to.have.string('the path has not been provided')
@@ -267,7 +267,7 @@ describe("fs.readtree()", async () => {
         const path = '/etc/mindrules'
 
         try {
-            const res = await ydb.fs.readtree(path)
+            const res = await ydb.fs.readTree(path)
 
         } catch (err) {
             expect(err.message).to.have.string('the path does not exists')
@@ -281,7 +281,7 @@ describe("fs.readtree()", async () => {
         const path = '/'
 
         try {
-            const res = await ydb.fs.readtree(path)
+            const res = await ydb.fs.readTree(path)
 
         } catch (err) {
             expect(err.message).to.have.string('the path can not be root')
@@ -295,7 +295,7 @@ describe("fs.readtree()", async () => {
         const path = '/opt/mind/notexist'
 
         try {
-            const res = await ydb.fs.readtree(path)
+            const res = await ydb.fs.readTree(path)
 
         } catch (err) {
             expect(err.message).to.have.string('the path does not exists')
@@ -309,7 +309,7 @@ describe("fs.readtree()", async () => {
         const path = '/opt/mind/'
 
         try {
-            const res = await ydb.fs.readtree(path)
+            const res = await ydb.fs.readTree(path)
             expect(Array.isArray(res)).to.be.true
             expect(res.length > 10).to.be.true
 
@@ -326,7 +326,7 @@ describe("fs.readtree()", async () => {
         const mask = "*"
 
         try {
-            const res = await ydb.fs.readtree(path, mask)
+            const res = await ydb.fs.readTree(path, mask)
             expect(Array.isArray(res)).to.be.true
             expect(res.length > 10).to.be.true
 
@@ -343,7 +343,7 @@ describe("fs.readtree()", async () => {
         const mask = "*.*"
 
         try {
-            const res = await ydb.fs.readtree(path, mask)
+            const res = await ydb.fs.readTree(path, mask)
             expect(Array.isArray(res)).to.be.true
             expect(res.length > 50).to.be.true
 
@@ -360,7 +360,7 @@ describe("fs.readtree()", async () => {
         const mask = "*.m"
 
         try {
-            const res = await ydb.fs.readtree(path, mask)
+            const res = await ydb.fs.readTree(path, mask)
             expect(Array.isArray(res)).to.be.true
             expect(res.length > 20).to.be.true
 

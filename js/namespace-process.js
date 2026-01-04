@@ -22,8 +22,30 @@ class process {
 
     }
 
-    execSync = function (args) {
+    spawn = function (command = '', log = '') {
+        const that = this
 
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'process.spawn'
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.buildBlob(opCode) +
+                RESP3.buildBlob(command) +
+                RESP3.buildBlob(log)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve(data.slice(1))
+            })
+        })
     }
 
     cwdGet = function () {
@@ -40,10 +62,10 @@ class process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(data.slice(1))
+                    reject(new Error(data.slice(1, -2)))
                 }
 
-                resolve(data.slice(1))
+                resolve(data.slice(1, -2))
             })
         })
     }
@@ -63,7 +85,7 @@ class process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(data.slice(1))
+                    reject(new Error(data.slice(1, -2)))
                 }
 
                 //that.cwd = path

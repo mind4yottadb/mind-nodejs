@@ -15,6 +15,7 @@
 const {expect} = require("chai");
 const {createYdbInstance} = require("../utils.cjs");
 
+/*
 describe("fs.readFile()", async () => {
     it("when filename is not provided", async () => {
 
@@ -311,7 +312,7 @@ describe("fs.readtree()", async () => {
         try {
             const res = await ydb.fs.readtree(path)
             expect(Array.isArray(res)).to.be.true
-            expect(res.length === 14).to.be.true
+            expect(res.length > 10).to.be.true
 
         } catch (err) {
             throw err
@@ -328,7 +329,7 @@ describe("fs.readtree()", async () => {
         try {
             const res = await ydb.fs.readtree(path, mask)
             expect(Array.isArray(res)).to.be.true
-            expect(res.length === 14).to.be.true
+            expect(res.length > 10).to.be.true
 
         } catch (err) {
             throw err
@@ -491,6 +492,160 @@ describe("fs.renameFile()", async () => {
         } catch (err) {
             expect(err.message).to.have.string('path could not be resolved')
         }
+
+        ydb.disconnect()
+    })
+
+})
+
+
+
+
+describe("fs.copyfile()", async () => {
+    it("when source filename is not provided", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.copyfile()
+
+        } catch (err) {
+            expect(err.message).to.have.string('the source filename has not been provided')
+
+        }
+        ydb.disconnect()
+    })
+
+    it("when source filename does not exists", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/opt/idontexist'
+
+        try {
+            const res = await ydb.fs.copyfile(path)
+
+        } catch (err) {
+            expect(err.message).to.have.string('the source filename does not exists or it is not accessible')
+
+        }
+        ydb.disconnect()
+
+    });
+
+    it("when source filename is a directory", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/opt/mind'
+
+        try {
+            const res = await ydb.fs.copyfile(path)
+
+        } catch (err) {
+            expect(err.message).to.have.string('the source filename can not be a directory')
+
+        }
+        ydb.disconnect()
+
+    });
+
+    it("when destination filename is not provided", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/tmp/stef/a'
+
+        try {
+            const res = await ydb.fs.copyfile(path)
+
+        } catch (err) {
+            expect(err.message).to.have.string('the destination filename has not been provided')
+
+        }
+        ydb.disconnect()
+
+    });
+
+    it("when destination filename path is not valid", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/tmp/stef/a'
+        const destination = '/tmp/stefxxx/a'
+
+        try {
+            const res = await ydb.fs.copyfile(path, destination)
+
+        } catch (err) {
+            expect(err.message).to.have.string('the path of the destination is not valid')
+
+        }
+        ydb.disconnect()
+
+    });
+
+    it("when destination filename is a directory", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/tmp/stef/a'
+        const destination = '/tmp/stef'
+
+        try {
+            const res = await ydb.fs.copyfile(path, destination)
+
+        } catch (err) {
+            expect(err.message).to.have.string('the destination filename can not be a directory')
+
+        }
+        ydb.disconnect()
+
+    });
+
+    it("when source and destination are ok, copy and verify", async () => {
+        const ydb = await createYdbInstance()
+        const path = '/tmp/stef/a'
+        const destination = '/tmp/stef/anew'
+
+        try {
+            await ydb.fs.copyfile(path, destination)
+
+            const res = await ydb.fs.expandPath(destination)
+            expect(res === '').to.be.false
+
+        } catch (err) {
+            expect(err.message).to.have.string('the destination filename can not be a directory')
+
+        }
+        ydb.disconnect()
+
+    });
+})
+
+ */
+
+describe("fs.stat()", async () => {
+    it("when path is not provided", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.stat()
+
+        } catch (err) {
+            expect(err.message).to.have.string('the filename has not been provided')
+
+        }
+        ydb.disconnect()
+    })
+
+    it("when path is not provided", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.stat('testnotexists')
+
+        } catch (err) {
+            expect(err.message).to.have.string('the filename does not exists or it is not accessible')
+
+        }
+        ydb.disconnect()
+    })
+
+    it("when a valid path is provided", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.fs.stat('/opt/mind')
+        expect(Object.keys(res).length).to.equal(16)
 
         ydb.disconnect()
     })

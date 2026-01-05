@@ -76,7 +76,8 @@ module.exports = async function (that, writer, reader, resolve, reject, username
                 [RESP3.extractSimpleString(dataA[ix])]: {
                     value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
                     enumerable: true,
-                    configurable: true
+                    configurable: true,
+                    writable: false
                 }
             })
         }
@@ -88,7 +89,8 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             env: {
                 value: {},
                 enumerable: true,
-                configurable: true
+                configurable: true,
+                writable: false
             }
         })
 

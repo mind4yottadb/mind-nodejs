@@ -1,7 +1,7 @@
 <!--
 ###############################################################
 #                                                               #
-# Copyright (c) 2025 DnaSoft BV and/or its subsidiaries.        #
+# Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
 #                                                               #
 #   This source code contains the intellectual property         #
@@ -11,3 +11,22 @@
 #                                                               #
 ###############################################################*/
 -->
+
+# Namespace: process
+
+### Methods:
+
+- exec(command, shell)
+- spawn(command, logFile)
+- cwdGet()
+- cwdSet(path)
+- unitime()
+- datetime()
+- memUsage()
+
+### Properties:
+
+- arch
+- pid
+- platform
+- env

@@ -12,20 +12,14 @@
 ###############################################################*/
 -->
 
-# Namespace: fs
+# Namespace: server
 
 ### Methods:
 
-- readFile(filename)
-- writeFile(filename, data)
-- appendFile(filename, data)
-- removeFile(filename)
-- readDir(path)
-- readTree(path)
-- stat(filename)
-- copyfile(source, destination)
-- mkdir(path)
-- rmdir(path)
-- expandPath(path)
-
 ### Properties:
+
+- hostName
+- mindVersion
+- ydbVersion
+- platform
+- architecture

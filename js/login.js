@@ -146,6 +146,25 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             }
         })
 
+        // append reader, writer and root to make them available to deeper levels
+        Object.defineProperties(that.server, {
+            rootThat: {
+                value: that,
+                enumerable: false,
+                configurable: false
+            },
+            writer: {
+                value: writer,
+                enumerable: false,
+                configurable: false
+            },
+            reader: {
+                value: reader,
+                enumerable: false,
+                configurable: false
+            }
+        })
+
         // resolve the promise
         resolve()
     })

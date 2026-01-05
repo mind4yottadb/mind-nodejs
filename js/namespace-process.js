@@ -195,6 +195,7 @@ class process {
         })
 
     }
+
 }
 
 module.exports = process

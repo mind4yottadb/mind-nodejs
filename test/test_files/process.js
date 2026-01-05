@@ -15,6 +15,24 @@
 const {expect} = require("chai");
 const {createYdbInstance} = require("../utils.cjs");
 
+describe("process.unixtime()", async () => {
+    it("get unixtime", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.unixtime()
+            console.log(res)
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+})
+
 describe("process.exec()", async () => {
     it("when command is not provided", async () => {
 

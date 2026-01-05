@@ -115,6 +115,30 @@ class process {
             })
         })
     }
+
+    unixtime = function () {
+        const that = this
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'process.unixtime'
+            that.writer("*1" + RESP3.CRLF +
+                RESP3.buildBlob(opCode)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1, -2)))
+                }
+
+                //that.cwd = path
+                resolve(data.slice(1, -2))
+            })
+        })
+
+    }
 }
 
 module.exports = process

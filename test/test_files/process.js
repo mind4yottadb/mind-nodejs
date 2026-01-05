@@ -15,8 +15,27 @@
 const {expect} = require("chai");
 const {createYdbInstance} = require("../utils.cjs");
 
-describe("process.dateTime()", async () => {
-    it("get dateTime", async () => {
+describe("process.memUsage()", async () => {
+    it("get memUsage", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.memUsage()
+
+            expect(parseInt(res.allocatedStorage) > 0).to.be.true
+            expect(parseInt(res.realStorage) > 0).to.be.true
+            expect(parseInt(res.usedStorage) > 0).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+})
+
+describe("process.datetime()", async () => {
+    it("get datetime", async () => {
         const ydb = await createYdbInstance()
 
         try {

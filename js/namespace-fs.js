@@ -243,6 +243,7 @@ class fs {
                 for (let ix = 0; ix < data.length; ix += 2) {
                     res[data[ix].slice(1)] = parseInt(data[ix + 1].slice(1))
                 }
+
                 resolve(res)
             })
         })

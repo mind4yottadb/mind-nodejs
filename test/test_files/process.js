@@ -15,14 +15,22 @@
 const {expect} = require("chai");
 const {createYdbInstance} = require("../utils.cjs");
 
-describe("process.unixtime()", async () => {
-    it("get unixtime", async () => {
-
+describe("process.dateTime()", async () => {
+    it("get dateTime", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            const res = await ydb.process.unixtime()
-            console.log(res)
+            const res = await ydb.process.datetime()
+            expect(res.year !== undefined).to.be.true
+            expect(res.timezone !== undefined).to.be.true
+            expect(res.second !== undefined).to.be.true
+            expect(res.month !== undefined).to.be.true
+            expect(res.minute !== undefined).to.be.true
+            expect(res.hour !== undefined).to.be.true
+            expect(res.daylightSaving !== undefined).to.be.true
+            expect(res.dayOfMonth !== undefined).to.be.true
+            expect(res.dayOfWeek !== undefined).to.be.true
+            expect(res.dayOfYear !== undefined).to.be.true
 
         } catch (err) {
             expect(err.message).to.have.string('the command has not been provided')
@@ -30,7 +38,23 @@ describe("process.unixtime()", async () => {
 
         ydb.disconnect()
     });
+})
 
+describe("process.unixtime()", async () => {
+    it("get unixtime", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.unixtime()
+            expect(parseInt(res) > 0).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command has not been provided')
+        }
+
+        ydb.disconnect()
+    });
 })
 
 describe("process.exec()", async () => {

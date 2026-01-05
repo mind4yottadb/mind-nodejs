@@ -15,6 +15,23 @@
 const {expect} = require("chai");
 const {createYdbInstance} = require("../utils.cjs");
 
+describe("server.kill()", async () => {
+    it("get process info for the current process", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.kill(999999999, ydb.server.SIG_INT)
+            expect(1 > 2).to.be.true
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('returned error:')
+        }
+
+        ydb.disconnect()
+    });
+})
+
 describe("server.pinfo()", async () => {
     it("get process info for the current process", async () => {
         const ydb = await createYdbInstance()

@@ -47,7 +47,41 @@ class server {
                 resolve(res)
             })
         })
+    }
 
+    SIG_INT = 2
+    SIG_KIL = 9
+
+    kill = function (pid = 0, sigNumber = 2) {
+        const that = this
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'server.kill'
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.buildBlob(opCode) +
+                RESP3.buildBlob(pid.toString()) +
+                RESP3.buildBlob(sigNumber.toString())
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1, -2)))
+                }
+
+                that.reader(data => {
+                    if (data.charAt(0) === '-') {
+                        reject(new Error(data.slice(1, -2)))
+
+                        return
+                    }
+
+                    resolve()
+                })
+            })
+        })
     }
 }
 

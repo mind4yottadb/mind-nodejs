@@ -15,13 +15,87 @@
 const {expect} = require("chai");
 const {createYdbInstance} = require("../utils.cjs");
 
+describe("process.exec()", async () => {
+    it("when command is not provided", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.exec('')
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when command is bad", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.exec('lsa -la')
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command returned error:')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when command is ok", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.exec('ls -la')
+            expect(res.length > 50).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command returned error:')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when command is ok, shell is ok", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.exec('ls -la', '/bin/bash')
+            expect(res.length > 50).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command returned error:')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when command is ok, shell is bad", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.exec('ls -la', '/bash')
+            expect(res.length > 50).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command returned error:')
+        }
+
+        ydb.disconnect()
+    });
+})
+
 describe("process.spawn()", async () => {
     it("when command is not provided", async () => {
 
         const ydb = await createYdbInstance()
 
         try {
-            //const res = await ydb.process.spawn('apt-get install redis', '/tmp2/stef/testlog')
             const res = await ydb.process.spawn('')
 
         } catch (err) {
@@ -36,7 +110,6 @@ describe("process.spawn()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            //const res = await ydb.process.spawn('apt-get install redis', '/tmp2/stef/testlog')
             const pid = await ydb.process.spawn('sleep 5')
             expect(pid > 0).to.be.true
 
@@ -51,7 +124,6 @@ describe("process.spawn()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            //const res = await ydb.process.spawn('apt-get install redis', '/tmp2/stef/testlog')
             const pid = await ydb.process.spawn('ls; sleep 5', '/tmp/test.spawn')
             expect(pid > 0).to.be.true
 

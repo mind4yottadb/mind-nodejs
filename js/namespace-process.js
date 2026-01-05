@@ -18,8 +18,30 @@ class process {
     platform = null
     env = {}
 
-    exec = function (args) {
+    exec = function (command = '', shell = '') {
+        const that = this
 
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'process.exec'
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.buildBlob(opCode) +
+                RESP3.buildBlob(command) +
+                RESP3.buildBlob(shell)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve(data.slice(data.indexOf(RESP3.CRLF) + 2, data.length - 2))
+            })
+        })
     }
 
     spawn = function (command = '', logFile = '') {

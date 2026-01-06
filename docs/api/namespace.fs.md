@@ -24,7 +24,7 @@
 
 ### Functions:
 
-- readFile(filename)
+- [readFile(filename)](fs/fs.readFile.md)
 - removeFile(filename)
 - readDir(path)
 - readTree(path)

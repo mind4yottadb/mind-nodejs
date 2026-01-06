@@ -12,16 +12,20 @@
 ###############################################################*/
 -->
 
-# data = fs.appendFile(filename, data)
+# fs.appendFile(filename, data)
 
 Type: method
 
-Async: yes
+Async: yes, returns a Promise
 
 Parameters:
 
 - `filename` as string
 - `data` as string
+
+Returns:
+
+`<Promise>`
 
 ---
 
@@ -31,7 +35,7 @@ If `filename` is not found or another error occurs, it will throw an error.
 
 <br>
 
-#### Examples:
+Example:
 
 ````js
 import mind from 'mind4yottadb'
@@ -40,12 +44,13 @@ const ydb = new mind
 
 const res = await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const data = ydb.fs.readFile('/tmp/testfile.txt')
-console.log(data)
+const data = ydb.fs.appendFile('/tmp/testfile.txt', 'add another line\n')
 
 ````
 
 <br>
+
+Using error handling:
 
 ````js
 import mind from 'mind4yottadb'
@@ -55,7 +60,7 @@ const ydb = new mind
 const res = await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 try {
-    const data = await ydb.fs.readFile('/tmp/IdontExist')
+    const data = await ydb.fs.readFile('/tmp/IdontExist', 'add another line\n')
     console.log(data)
 
 } catch (err) {
@@ -64,8 +69,8 @@ try {
 
 // or
 
-const data = await ydb.fs.readFile('/tmp/IdontExist').catch(err)
-
-console.log(err)
+const data = await ydb.fs.readFile('/tmp/IdontExist', 'add another line\n').catch((err) => console.log(err))
 
 ````
+
+[Back](../namespace.fs.md)

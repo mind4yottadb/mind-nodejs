@@ -16,11 +16,16 @@
 
 Type: function
 
-Async: yes
+Async: yes, returns a Promise
 
 Parameters:
 
 - `filename` as string
+
+Returns:
+
+`<Promise> data<string>`
+
 ---
 
 Reads and returns the entire file pointed by `filename`.
@@ -29,7 +34,7 @@ If `filename` is not found or another error occurs, it will throw an error.
 
 <br>
 
-#### Examples:
+Example:
 
 ````js
 import mind from 'mind4yottadb'
@@ -45,6 +50,7 @@ console.log(data)
 
 <br>
 
+Using error handling:
 ````js
 import mind from 'mind4yottadb'
 
@@ -62,8 +68,10 @@ try {
 
 // or
 
-const data = await ydb.fs.readFile('/tmp/IdontExist').catch(err)
+const data = await ydb.fs.readFile('/tmp/IdontExist').catch((err) => console.log(err))
 
 console.log(err)
 
 ````
+
+[Back](../namespace.fs.md)

@@ -18,8 +18,11 @@
 
 - exec(command, shell)
 - spawn(command, logFile)
-- cwdGet()
 - cwdSet(path)
+
+### Functions:
+
+- cwdGet()
 - unitime()
 - datetime()
 - memUsage()

@@ -12,20 +12,17 @@
 ###############################################################*/
 -->
 
-# data <STRING> = fs.readFile(filename)
+# data = fs.readFile(filename)
 
 Type: function
 
-Async: yes
+Async: YES
 
-Parameters:
-
-- `filename` as string
 ---
 
-Reads and returns the entire file pointed by `filename`.
+Reads the entire file content.
 
-If `filename` is not found or another error occurs, it will throw an error.
+If the file is not found or another error occurs, it will throw an error.
 
 <br>
 

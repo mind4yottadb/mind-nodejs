@@ -12,18 +12,20 @@
 ###############################################################*/
 -->
 
-# data <STRING> = fs.readFile(filename)
+# data = fs.appendFile(filename, data)
 
-Type: function
+Type: method
 
 Async: yes
 
 Parameters:
 
 - `filename` as string
+- `data` as string
+
 ---
 
-Reads and returns the entire file pointed by `filename`.
+Appends the`data` string to the file specified in `filename`.
 
 If `filename` is not found or another error occurs, it will throw an error.
 

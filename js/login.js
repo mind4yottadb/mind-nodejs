@@ -122,7 +122,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         appendToObject = (namespace, that) => {
             Object.defineProperties(namespace, {
-                rootThat: {
+                objRoot: {
                     value: that,
                     enumerable: false,
                     configurable: false

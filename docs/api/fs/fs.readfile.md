@@ -14,7 +14,7 @@
 
 ---
 
-### fs.readFile(filename)
+### fs.readFile(source,destination)
 
 ---
 

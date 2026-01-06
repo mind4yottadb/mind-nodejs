@@ -116,6 +116,8 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             appendToObject(that.process, that)
             appendToObject(that.server, that)
 
+            that.server.init(that.process)
+
             // resolve the promise
             resolve()
         },

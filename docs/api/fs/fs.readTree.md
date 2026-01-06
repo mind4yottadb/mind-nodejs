@@ -35,7 +35,7 @@
 
 ---
 
-Reads the dir content in the directory specified in `path` using the optional `mask` parameter.
+Reads the provided directory specified in `path`and its subdirectories using the optional `mask` parameter.
 
 If `mask` is missing, it will default to `*.*`.
 
@@ -56,7 +56,7 @@ const ydb = new mind
 
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const res = await ydb.fs.readDir('/etc')
+const res = await ydb.fs.readTree('/etc')
 
 console.log(res)
 
@@ -64,16 +64,17 @@ ydb.disconnect()
 
 ````
 
-...it will return all files and directories:
+...it will return all (sub) files and directories:
 
 ````js
 [
-    'adduser.conf',
-    'alternatives',
-    'apt',
-    'bash.bashrc',
-    'bash_completion.d',
-    'bindresvport.blacklist',
+    '/etc/.pwd.lock',
+    '/etc/X11',
+    '/etc/X11/Xsession.d',
+    '/etc/X11/Xsession.d/90gpg-agent',
+    '/etc/adduser.conf',
+    '/etc/alternatives',
+    '/etc/alternatives/README',
     'etc...'
 ]
 
@@ -90,7 +91,7 @@ const ydb = new mind
 
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const res = await ydb.fs.readDir('/etc', '*.conf')
+const res = await ydb.fs.readTree('/etc', '*.conf')
 
 console.log(res)
 
@@ -102,12 +103,10 @@ ydb.disconnect()
 
 ````js
 [
-    'adduser.conf',
-    'debconf.conf',
-    'deluser.conf',
-    'e2scrub.conf',
-    'ld.so.conf',
-    'libaudit.conf',
+    '/etc/adduser.conf',
+    '/etc/sysctl.conf',
+    '/etc/sysctl.d/10-console-messages.conf',
+    '/etc/sysctl.d/10-ipv6-privacy.conf',
     'etc...'
 ]
 
@@ -125,7 +124,7 @@ const ydb = new mind
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 try {
-    const res = await ydb.fs.readDir('/etc', '*.conf')
+    const res = await ydb.fs.readTree('/etc', '*.conf')
 
 } catch (err) {
     console.log(err)

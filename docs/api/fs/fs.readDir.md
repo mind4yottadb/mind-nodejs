@@ -35,7 +35,7 @@
 
 ---
 
-Reads the dir content in the directory specified in `path` using the optional `mask` parameter.
+Reads the dir content specified in `path` using the optional `mask` parameter.
 
 If `mask` is missing, it will default to `*.*`.
 

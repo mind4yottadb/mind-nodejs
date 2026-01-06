@@ -18,7 +18,7 @@
 
 - [writeFile(filename, data)](fs/fs.writeFile.md)
 - [appendFile(filename, data)](fs/fs.appendFile.md)
-- copyfile(source, destination)
+- [copyfile(source, destination)](fs/fs.copyFile.md)
 - mkdir(path)
 - rmdir(path)
 
@@ -27,7 +27,7 @@
 - [readFile(filename)](fs/fs.readFile.md)
 - [removeFile(filename)](fs/fs.removeFile.md)
 - [readDir(path, mask)](fs/fs.readDir.md)
-- readTree(path, mask)
+- [readTree(path, mask)](fs/fs.readTree.md)
 - stat(filename)
 - expandPath(path)
 

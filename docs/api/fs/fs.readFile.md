@@ -12,19 +12,25 @@
 ###############################################################*/
 -->
 
-# data <STRING> = fs.readFile(filename)
+---
 
-Type: function
+### fs.readFile(filename)
 
-Async: yes, returns a Promise
+---
 
-Parameters:
+**Type**: function
 
-- `filename` as string
+**Async**: yes, returns a Promise
 
-Returns:
+**Parameters**:
 
-`<Promise> data<string>`
+| name       | data type | Description                                   |
+|------------|-----------|-----------------------------------------------|
+| `filename` | string    | the absolute or relative path of the filename |
+
+**Returns**:
+
+`Promise <string>`
 
 ---
 
@@ -32,7 +38,7 @@ Reads and returns the entire file pointed by `filename`.
 
 If `filename` is not found or another error occurs, it will throw an error.
 
-<br>
+---
 
 Example:
 
@@ -41,10 +47,12 @@ import mind from 'mind4yottadb'
 
 const ydb = new mind
 
-const res = await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 const data = ydb.fs.readFile('/tmp/testfile.txt')
 console.log(data)
+
+ydb.disconnect()
 
 ````
 
@@ -56,7 +64,7 @@ import mind from 'mind4yottadb'
 
 const ydb = new mind
 
-const res = await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 try {
     const data = await ydb.fs.readFile('/tmp/IdontExist')
@@ -71,6 +79,8 @@ try {
 const data = await ydb.fs.readFile('/tmp/IdontExist').catch((err) => console.log(err))
 
 console.log(err)
+
+ydb.disconnect()
 
 ````
 

@@ -12,20 +12,26 @@
 ###############################################################*/
 -->
 
-# fs.appendFile(filename, data)
+---
 
-Type: method
+### fs.appendFile(filename, data)
 
-Async: yes, returns a Promise
+---
 
-Parameters:
+**Type**: method
 
-- `filename` as string
-- `data` as string
+**Async**: yes, returns a Promise
 
-Returns:
+**Parameters**:
 
-`<Promise>`
+| name       | data type | Description                                   |
+|------------|-----------|-----------------------------------------------|
+| `filename` | string    | the absolute or relative path of the filename |
+| `data`     | string    | the data to be appended.                      |
+
+**Returns**:
+
+`Promise<>`
 
 ---
 
@@ -35,6 +41,8 @@ If `filename` is not found or another error occurs, it will throw an error.
 
 <br>
 
+---
+
 Example:
 
 ````js
@@ -42,9 +50,11 @@ import mind from 'mind4yottadb'
 
 const ydb = new mind
 
-const res = await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const data = ydb.fs.appendFile('/tmp/testfile.txt', 'add another line\n')
+const data = await ydb.fs.appendFile('/tmp/testfile.txt', 'add another line\n')
+
+ydb.disconnect()
 
 ````
 
@@ -57,7 +67,7 @@ import mind from 'mind4yottadb'
 
 const ydb = new mind
 
-const res = await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 try {
     const data = await ydb.fs.readFile('/tmp/IdontExist', 'add another line\n')
@@ -70,6 +80,8 @@ try {
 // or
 
 const data = await ydb.fs.readFile('/tmp/IdontExist', 'add another line\n').catch((err) => console.log(err))
+
+ydb.disconnect()
 
 ````
 

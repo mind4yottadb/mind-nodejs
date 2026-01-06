@@ -40,7 +40,7 @@ If `filename` is not found or another error occurs, it will throw an error.
 
 ---
 
-Example:
+### EXAMPLES
 
 ````js
 import mind from 'mind4yottadb'

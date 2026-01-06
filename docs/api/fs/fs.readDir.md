@@ -45,7 +45,9 @@ If `path` is not found or another error occurs, it will throw an error.
 
 ---
 
-Using no mask
+### EXAMPLES
+
+Using no mask...
 
 ````js
 import mind from 'mind4yottadb'
@@ -62,7 +64,7 @@ ydb.disconnect()
 
 ````
 
-it will return all files and directories:
+...it will return all files and directories:
 
 ````js
 [
@@ -79,7 +81,7 @@ it will return all files and directories:
 
 <br>
 
-Using a mask it will return only files matching the mask
+Using a mask...
 
 ````js
 import mind from 'mind4yottadb'
@@ -96,7 +98,7 @@ ydb.disconnect()
 
 ````
 
-it will return:
+...it will return only files matching the mask:
 
 ````js
 [

@@ -14,11 +14,10 @@ const net = require('net')
 const EventEmitter = require('node:events');
 const eventEmitter = new EventEmitter();
 
-const RESP3 = require('./RESP3')
-
 const nsProcess = require('./namespace-process')
 const nsServer = require('./namespace-server')
 const nsFs = require('./namespace-fs')
+const nsRESP3 = require('./namespace-RESP3')
 
 const {buildBlob} = require("./RESP3");
 const login = require('./login')
@@ -38,6 +37,7 @@ module.exports = class mind extends EventEmitter {
     server = new nsServer
     process = new nsProcess
     fs = new nsFs
+    RESP3 = new nsRESP3
 
     connect = (host, port, username, password) => {
         const that = this

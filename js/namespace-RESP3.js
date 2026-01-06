@@ -11,8 +11,47 @@
 ###############################################################*/
 
 class RESP3 {
+    buildBlob = str => '$' + str.length.toString() + '\r\n' + str + '\r\n'
+    streamedString = () => {
+
+    }
+    blobError = str => '$' + str.length.toString() + '\r\n' + str + '\r\n'
+    simpleString = str => ''
+    simpleError = str => ''
+
+    _null = () => ''
+    _true = () => ''
+    _false = () => ''
+
+    _int = () => ''
+    _double = () => ''
+    bigNumber = () => ''
+
+    array = () => {
+
+    }
+
+    map = () => {
+
+    }
 
 
+    _init = that => {
+        Object.defineProperties(that.RESP3, {
+            CRLF: {
+                value: '\r\n',
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
+            _init: {
+                enumerable: false,
+            }
+        })
+
+    }
 }
+
 
 module.exports = RESP3

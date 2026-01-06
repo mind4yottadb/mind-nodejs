@@ -165,6 +165,8 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             }
         })
 
+        that.RESP3._init(that)
+
         // resolve the promise
         resolve()
     })

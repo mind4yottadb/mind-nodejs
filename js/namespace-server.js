@@ -83,6 +83,35 @@ class Server {
             })
         })
     }
+
+    init = function (obj) {
+        Object.defineProperties(obj, {
+            SIG_INT: {
+                value: 2,
+                enumerable: true,
+                configurable: false,
+                writable: false
+            }
+
+        })
+
+        Object.defineProperties(obj, {
+            SIG_KIL: {
+                value: 9,
+                enumerable: true,
+                configurable: false,
+                writable: false
+            }
+
+        })
+
+        Object.defineProperties(obj, {
+            init: {
+                enumerable: false,
+            }
+
+        })
+    }
 }
 
 module.exports = Server

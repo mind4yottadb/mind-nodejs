@@ -10,14 +10,13 @@
 #                                                               #
 ###############################################################*/
 
-const RESP3 = require("./RESP3");
-
 class Fs {
     // ************************************
     // readFile
     // ************************************
     readFile = function (filename = '') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
@@ -46,6 +45,7 @@ class Fs {
     // ************************************
     writeFile = function (filename = '', data = '') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -75,6 +75,7 @@ class Fs {
     // ************************************
     appendFile = function (filename = '', data = '') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -104,6 +105,7 @@ class Fs {
     // ************************************
     readDir = function (path = '', mask = '*') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -133,6 +135,7 @@ class Fs {
     // ************************************
     readTree = function (path = '', mask = '*') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -162,6 +165,7 @@ class Fs {
     // ************************************
     removeFile = function (filename = '') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
@@ -190,6 +194,7 @@ class Fs {
     // ************************************
     renameFile = function (filename = '', newFilename = '') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
@@ -219,6 +224,7 @@ class Fs {
     // ************************************
     stat = function (filename = '') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
@@ -254,6 +260,7 @@ class Fs {
     // ************************************
     copyfile = function (source = '', destination = '') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
@@ -283,6 +290,7 @@ class Fs {
     // ************************************
     mkdir = function (path = '') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
@@ -308,6 +316,7 @@ class Fs {
 
     expandPath = function (path = '') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
@@ -332,6 +341,7 @@ class Fs {
     }
     rmdir = function (path = '') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))

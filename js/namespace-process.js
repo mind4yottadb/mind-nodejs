@@ -10,8 +10,6 @@
 #                                                               #
 ###############################################################*/
 
-const RESP3 = require("./RESP3");
-
 class Process {
     arch = null
     pid = null
@@ -20,6 +18,7 @@ class Process {
 
     exec = function (command = '', shell = '') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -46,6 +45,7 @@ class Process {
 
     spawn = function (command = '', logFile = '') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -72,6 +72,7 @@ class Process {
 
     cwdGet = function () {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -94,6 +95,7 @@ class Process {
 
     cwdSet = function (path = '') {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -117,6 +119,7 @@ class Process {
 
     unixtime = function () {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -139,6 +142,7 @@ class Process {
 
     datetime = function () {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -168,6 +172,7 @@ class Process {
 
     memUsage = function () {
         const that = this
+        const RESP3 = that.rootThat.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -193,9 +198,7 @@ class Process {
                 resolve(res)
             })
         })
-
     }
-
 }
 
 module.exports = Process

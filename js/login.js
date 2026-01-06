@@ -10,7 +10,7 @@
 #                                                               #
 ###############################################################*/
 
-const RESP3 = require("./RESP3");
+//const RESP3 = require("./RESP3");
 
 const driverName = 'mind4yottadb'
 const driverVersion = '0.1.0md'
@@ -19,6 +19,9 @@ const driverDescription = 'MIND for YottaDB node.js driver'
 module.exports = async function (that, writer, reader, resolve, reject, username, password) {
     const opCode = 'server.login'
     const credentials = username + ':' + password
+
+    that.RESP3._init(that)
+    RESP3 = that.RESP3
 
     // send command
     writer("*5" + RESP3.CRLF +
@@ -164,8 +167,6 @@ module.exports = async function (that, writer, reader, resolve, reject, username
                 configurable: false
             }
         })
-
-        that.RESP3._init(that)
 
         // resolve the promise
         resolve()

@@ -12,12 +12,14 @@
 
 class RESP3 {
     buildBlob = str => '$' + str.length.toString() + '\r\n' + str + '\r\n'
-    streamedString = () => {
+    buildStreamedString = () => ''
+    buildBlobError = str => '$' + str.length.toString() + '\r\n' + str + '\r\n'
+    buildSimpleString = str => ''
+    buildSimpleError = str => ''
 
-    }
-    blobError = str => '$' + str.length.toString() + '\r\n' + str + '\r\n'
-    simpleString = str => ''
-    simpleError = str => ''
+    extractBlob = str => str.slice(2 + str.indexOf('\r\n'), -2)
+    extractSimpleString = str => str.slice(1)
+
 
     _null = () => ''
     _true = () => ''
@@ -35,7 +37,6 @@ class RESP3 {
 
     }
 
-
     _init = that => {
         Object.defineProperties(that.RESP3, {
             CRLF: {
@@ -52,6 +53,5 @@ class RESP3 {
 
     }
 }
-
 
 module.exports = RESP3

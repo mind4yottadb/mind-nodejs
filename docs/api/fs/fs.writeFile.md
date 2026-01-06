@@ -71,7 +71,6 @@ await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 try {
     await ydb.fs.writeFile('/tmp/IdontExist', 'add another line\n')
-    console.log(data)
 
 } catch (err) {
     console.log(err)

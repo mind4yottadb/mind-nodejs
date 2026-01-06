@@ -11,7 +11,44 @@
 ###############################################################*/
 
 class RESP3 {
+    #CRLF = '\r\n'
+    #LF = '\n'
+    build = {
 
+        blob: str => '$' + str.length.toString() + '\r\n' + str + '\r\n',
+        streamedString: () => {
+
+        },
+        blobError: str => '$' + str.length.toString() + '\r\n' + str + '\r\n',
+        simpleString: str => '',
+        simpleError: str => '',
+
+        _null: () => '',
+        _true: () => '',
+        _false: () => '',
+
+        _int: () => '',
+        _double: () => '',
+        bigNumber: () => '',
+
+        array: () => {
+
+        },
+
+        map: () => {
+
+        },
+
+
+    }
+
+    get CRLF() {
+        return this.#CRLF
+    }
+
+    get LF() {
+        return this.#LF
+    }
 
 }
 

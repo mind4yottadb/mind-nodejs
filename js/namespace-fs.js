@@ -12,7 +12,7 @@
 
 const RESP3 = require("./RESP3");
 
-class fs {
+class Fs {
     // ************************************
     // readFile
     // ************************************
@@ -356,4 +356,4 @@ class fs {
     }
 }
 
-module.exports = fs
+module.exports = Fs

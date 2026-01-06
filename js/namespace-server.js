@@ -12,7 +12,7 @@
 
 const RESP3 = require("./RESP3");
 
-class server {
+class Server {
     hostName = ''
     mindVersion = ''
     ydbVersion = ''
@@ -85,5 +85,5 @@ class server {
     }
 }
 
-module.exports = server
+module.exports = Server
 

@@ -10,17 +10,9 @@
 #                                                               #
 ###############################################################*/
 
-module.exports = {
-    CRLF: '\r\n',
-    array: '*\r\n',
-    blobString: '$\r\n',
-
-    buildBlob: str => '$' + str.length.toString() + '\r\n' + str + '\r\n',
+class RESP3 {
 
 
-    extractBlob: str => {
-        return str.slice(2 + str.indexOf('\r\n'), -2)
-    },
-
-    extractSimpleString: str => str.slice(1)
 }
+
+module.exports = RESP3

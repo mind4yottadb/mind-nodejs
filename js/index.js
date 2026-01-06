@@ -34,6 +34,7 @@ module.exports = class mind extends EventEmitter {
 
     requiresMind = '0.4.0'
 
+    // namespaces
     server = new nsServer
     process = new nsProcess
     fs = new nsFs

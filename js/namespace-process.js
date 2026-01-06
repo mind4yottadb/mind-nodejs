@@ -12,7 +12,7 @@
 
 const RESP3 = require("./RESP3");
 
-class process {
+class Process {
     arch = null
     pid = null
     platform = null
@@ -198,6 +198,6 @@ class process {
 
 }
 
-module.exports = process
+module.exports = Process
 
 

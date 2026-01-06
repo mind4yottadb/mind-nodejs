@@ -24,9 +24,9 @@
 
 **Parameters**:
 
-| name       | data type | Description                                   |
-|------------|-----------|-----------------------------------------------|
-| `filename` | string    | the absolute or relative path of the filename |
+| name       | data type | Optional | Description                                   |
+|------------|-----------|----------|-----------------------------------------------|
+| `filename` | string    | No       | the absolute or relative path of the filename |
 
 **Returns**:
 

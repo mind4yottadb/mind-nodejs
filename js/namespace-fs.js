@@ -314,6 +314,9 @@ class Fs {
         })
     }
 
+    // ************************************
+    // expandPath
+    // ************************************
     expandPath = function (path = '') {
         const that = this
         const RESP3 = that.objRoot.RESP3
@@ -339,6 +342,10 @@ class Fs {
             })
         })
     }
+
+    // ************************************
+    // rmdir
+    // ************************************
     rmdir = function (path = '') {
         const that = this
         const RESP3 = that.objRoot.RESP3

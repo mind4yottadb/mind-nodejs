@@ -12,55 +12,132 @@
 ###############################################################*/
 -->
 
-# data = fs.readFile(filename)
+---
 
-Type: function
-
-Async: YES
+### fs.readDir(path, mask)
 
 ---
 
-Reads the entire file content.
+**Type**: function
 
-If the file is not found or another error occurs, it will throw an error.
+**Async**: yes, returns a Promise
+
+**Parameters**:
+
+| name   | data type | Optional | Description            |
+|--------|-----------|----------|------------------------|
+| `path` | string    | No       | the path to search for |
+| `mask` | string    | Yes      | the mask to be used    |
+
+**Returns**:
+
+`Promise<array>`
+
+---
+
+Reads the dir content in the directory specified in `path` using the optional `mask` parameter.
+
+If `mask` is missing, it will default to `*.*`.
+
+If `path` is not found or another error occurs, it will throw an error.
 
 <br>
 
-#### Examples:
+---
+
+Using no mask
 
 ````js
 import mind from 'mind4yottadb'
 
 const ydb = new mind
 
-const res = await ydb.connect('127.0.0.1', 10000, "admin", "admin")
-)
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const data = ydb.fs.readFile('/tmp/testfile.txt')
+const res = await ydb.fs.readDir('/etc')
+
+console.log(res)
+
+ydb.disconnect()
+
+````
+
+it will return all files and directories:
+
+````js
+[
+    'adduser.conf',
+    'alternatives',
+    'apt',
+    'bash.bashrc',
+    'bash_completion.d',
+    'bindresvport.blacklist',
+    'etc...'
+]
 
 ````
 
 <br>
 
+Using a mask it will return only files matching the mask
+
 ````js
 import mind from 'mind4yottadb'
 
 const ydb = new mind
 
-const res = await ydb.connect('127.0.0.1', 10000, "admin", "admin")
-)
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+const res = await ydb.fs.readDir('/etc', '*.conf')
+
+console.log(res)
+
+ydb.disconnect()
+
+````
+
+it will return:
+
+````js
+[
+    'adduser.conf',
+    'debconf.conf',
+    'deluser.conf',
+    'e2scrub.conf',
+    'ld.so.conf',
+    'libaudit.conf',
+    'etc...'
+]
+
+````
+
+<br>
+
+Using error handling:
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 try {
-    const data = ydb.fs.readFile('/tmp/IdontExist')
+    const res = await ydb.fs.readDir('/etc', '*.conf')
+
 } catch (err) {
     console.log(err)
 }
 
 // or
 
-const data = ydb.fs.readFile('/tmp/IdontExist').catch(err)
-=>
-console.log(err)
+const res = await ydb.fs.readDir('/etc', '*.conf').catch((err) => console.log(err))
 
+
+ydb.disconnect()
 
 ````
+
+---
+
+[Back](../namespace.fs.md)

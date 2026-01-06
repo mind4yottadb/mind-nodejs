@@ -16,8 +16,8 @@
 
 ### Methods:
 
-- writeFile(filename, data)
-- appendFile(filename, data)
+- [writeFile(filename, data)](fs/fs.writeFile.md)
+- [appendFile(filename, data)](fs/fs.appendFile.md)
 - copyfile(source, destination)
 - mkdir(path)
 - rmdir(path)
@@ -25,7 +25,7 @@
 ### Functions:
 
 - [readFile(filename)](fs/fs.readFile.md)
-- removeFile(filename)
+- [removeFile(filename)](fs/fs.removeFile.md)
 - readDir(path)
 - readTree(path)
 - stat(filename)

@@ -24,10 +24,10 @@
 
 **Parameters**:
 
-| name       | data type | Description                                   |
-|------------|-----------|-----------------------------------------------|
-| `filename` | string    | the absolute or relative path of the filename |
-| `data`     | string    | the data to be written.                       |
+| name       | data type | Optional | Description                                   |
+|------------|-----------|----------|-----------------------------------------------|
+| `filename` | string    | No       | the absolute or relative path of the filename |
+| `data`     | string    | No       | the data to be written.                       |
 
 **Returns**:
 

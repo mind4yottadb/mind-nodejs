@@ -12,20 +12,17 @@
 ###############################################################*/
 -->
 
-# data <STRING> = fs.readFile(filename)
+# data = fs.readFile(filename)
 
 Type: function
 
-Async: yes
+Async: YES
 
-Parameters:
-
-- `filename` as string
 ---
 
-Reads and returns the entire file pointed by `filename`.
+Reads the entire file content.
 
-If `filename` is not found or another error occurs, it will throw an error.
+If the file is not found or another error occurs, it will throw an error.
 
 <br>
 
@@ -36,10 +33,10 @@ import mind from 'mind4yottadb'
 
 const ydb = new mind
 
-const res = await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+const res = await ydb.connect('127.0.0.1', 10000, "admin", "admin")
+)
 
 const data = ydb.fs.readFile('/tmp/testfile.txt')
-console.log(data)
 
 ````
 
@@ -50,20 +47,20 @@ import mind from 'mind4yottadb'
 
 const ydb = new mind
 
-const res = await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+const res = await ydb.connect('127.0.0.1', 10000, "admin", "admin")
+)
 
 try {
-    const data = await ydb.fs.readFile('/tmp/IdontExist')
-    console.log(data)
-
+    const data = ydb.fs.readFile('/tmp/IdontExist')
 } catch (err) {
     console.log(err)
 }
 
 // or
 
-const data = await ydb.fs.readFile('/tmp/IdontExist').catch(err)
-
+const data = ydb.fs.readFile('/tmp/IdontExist').catch(err)
+=>
 console.log(err)
+
 
 ````

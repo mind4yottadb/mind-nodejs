@@ -16,10 +16,10 @@ class Fs {
     // ************************************
     readFile = function (filename = '') {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
             // send command
             const opCode = 'fs.readFile'
@@ -45,7 +45,7 @@ class Fs {
     // ************************************
     writeFile = function (filename = '', data = '') {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -75,7 +75,7 @@ class Fs {
     // ************************************
     appendFile = function (filename = '', data = '') {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -105,7 +105,7 @@ class Fs {
     // ************************************
     readDir = function (path = '', mask = '*') {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -135,7 +135,7 @@ class Fs {
     // ************************************
     readTree = function (path = '', mask = '*') {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -165,10 +165,10 @@ class Fs {
     // ************************************
     removeFile = function (filename = '') {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
             // send command
             const opCode = 'fs.removeFile'
@@ -194,10 +194,10 @@ class Fs {
     // ************************************
     renameFile = function (filename = '', newFilename = '') {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
             // send command
             const opCode = 'fs.renameFile'
@@ -224,10 +224,10 @@ class Fs {
     // ************************************
     stat = function (filename = '') {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
             // send command
             const opCode = 'fs.stat'
@@ -260,10 +260,10 @@ class Fs {
     // ************************************
     copyfile = function (source = '', destination = '') {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
             // send command
             const opCode = 'fs.copyfile'
@@ -290,10 +290,10 @@ class Fs {
     // ************************************
     mkdir = function (path = '') {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
             // send command
             const opCode = 'fs.mkdir'
@@ -316,10 +316,10 @@ class Fs {
 
     expandPath = function (path = '') {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
             // send command
             const opCode = 'fs.expandPath'
@@ -341,10 +341,10 @@ class Fs {
     }
     rmdir = function (path = '') {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
             // send command
             const opCode = 'fs.rmdir'

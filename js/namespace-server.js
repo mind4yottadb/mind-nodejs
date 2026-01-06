@@ -19,7 +19,7 @@ class Server {
 
     pinfo = function (pid = 0) {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
@@ -53,7 +53,7 @@ class Server {
 
     kill = function (pid = 0, sigNumber = 2) {
         const that = this
-        const RESP3 = that.rootThat.RESP3
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))

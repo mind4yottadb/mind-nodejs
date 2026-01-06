@@ -1,6 +1,6 @@
 /*###############################################################
 #                                                               #
-# Copyright (c) 2025 DnaSoft BV and/or its subsidiaries.        #
+# Copyright (c) 2025-2026 DnaSoft BV and/or its subsidiaries.   #
 # All rights reserved.                                          #
 #                                                               #
 #   This source code contains the intellectual property         #
@@ -19,7 +19,6 @@ const nsServer = require('./namespace-server')
 const nsFs = require('./namespace-fs')
 const nsRESP3 = require('./namespace-RESP3')
 
-const {buildBlob} = require("./RESP3");
 const login = require('./login')
 
 module.exports = class mind extends EventEmitter {
@@ -64,7 +63,6 @@ module.exports = class mind extends EventEmitter {
                     await login(that, that.#writePacket, that.#readPacket, resolve, reject, username, password)
 
                     that.loggedIn = true
-
 
                 } catch (err) {
                     that.connected = false

@@ -1,6 +1,6 @@
 /*###############################################################
 #                                                               #
-# Copyright (c) 2025 DnaSoft BV and/or its subsidiaries.        #
+# Copyright (c) 2025-2026 DnaSoft BV and/or its subsidiaries.   #
 # All rights reserved.                                          #
 #                                                               #
 #   This source code contains the intellectual property         #
@@ -9,8 +9,6 @@
 #   the license, please stop and do not read further.           #
 #                                                               #
 ###############################################################*/
-
-//const RESP3 = require("./RESP3");
 
 class Server {
     hostName = ''

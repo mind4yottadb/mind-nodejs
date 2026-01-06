@@ -12,19 +12,55 @@
 ###############################################################*/
 -->
 
-# Namespace: server
+# data = fs.readFile(filename)
 
-### Methods:
+Type: function
 
-### Properties:
+Async: YES
 
-- hostName
-- mindVersion
-- ydbVersion
-- platform
-- architecture
+---
 
-### Constants
+Reads the entire file content.
 
-- SIG_INT
-- SIG_KIL
+If the file is not found or another error occurs, it will throw an error.
+
+<br>
+
+#### Examples:
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+const res = await ydb.connect('127.0.0.1', 10000, "admin", "admin")
+)
+
+const data = ydb.fs.readFile('/tmp/testfile.txt')
+
+````
+
+<br>
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+const res = await ydb.connect('127.0.0.1', 10000, "admin", "admin")
+)
+
+try {
+    const data = ydb.fs.readFile('/tmp/IdontExist')
+} catch (err) {
+    console.log(err)
+}
+
+// or
+
+const data = ydb.fs.readFile('/tmp/IdontExist').catch(err)
+=>
+console.log(err)
+
+
+````

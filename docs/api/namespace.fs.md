@@ -16,16 +16,19 @@
 
 ### Methods:
 
-- readFile(filename)
 - writeFile(filename, data)
 - appendFile(filename, data)
+- copyfile(source, destination)
+- mkdir(path)
+- rmdir(path)
+
+### Functions:
+
+- readFile(filename)
 - removeFile(filename)
 - readDir(path)
 - readTree(path)
 - stat(filename)
-- copyfile(source, destination)
-- mkdir(path)
-- rmdir(path)
 - expandPath(path)
 
 ### Properties:

@@ -12,55 +12,77 @@
 ###############################################################*/
 -->
 
-# data = fs.readFile(filename)
+---
 
-Type: function
-
-Async: YES
+### fs.removeFile(filename)
 
 ---
 
-Reads the entire file content.
+**Type**: method
 
-If the file is not found or another error occurs, it will throw an error.
+**Async**: yes, returns a Promise
 
-<br>
+**Parameters**:
 
-#### Examples:
+| name       | data type | Description                                   |
+|------------|-----------|-----------------------------------------------|
+| `filename` | string    | the absolute or relative path of the filename |
+
+**Returns**:
+
+`Promise <>`
+
+---
+
+Deletes the file pointed by `filename`.
+
+If `filename` is not found or another error occurs, it will throw an error.
+
+---
+
+Example:
 
 ````js
 import mind from 'mind4yottadb'
 
 const ydb = new mind
 
-const res = await ydb.connect('127.0.0.1', 10000, "admin", "admin")
-)
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const data = ydb.fs.readFile('/tmp/testfile.txt')
+ydb.fs.removeFile('/tmp/testfile.txt')
+
+ydb.disconnect()
 
 ````
 
 <br>
 
+Using error handling:
 ````js
 import mind from 'mind4yottadb'
 
 const ydb = new mind
 
-const res = await ydb.connect('127.0.0.1', 10000, "admin", "admin")
-)
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 try {
-    const data = ydb.fs.readFile('/tmp/IdontExist')
+    await ydb.fs.removeFile('/tmp/IdontExist')
+
 } catch (err) {
     console.log(err)
 }
 
 // or
 
-const data = ydb.fs.readFile('/tmp/IdontExist').catch(err)
-=>
+await ydb.fs.removeFile('/tmp/IdontExist').catch((err) => console.log(err))
+
 console.log(err)
 
+ydb.disconnect()
 
 ````
+
+---
+
+[Back](../namespace.fs.md)
+

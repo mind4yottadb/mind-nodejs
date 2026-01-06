@@ -78,10 +78,12 @@ try {
 
 const data = await ydb.fs.readFile('/tmp/IdontExist').catch((err) => console.log(err))
 
-console.log(err)
+console.log(data)
 
 ydb.disconnect()
 
 ````
+
+---
 
 [Back](../namespace.fs.md)

@@ -12,55 +12,79 @@
 ###############################################################*/
 -->
 
-# data = fs.readFile(filename)
+---
 
-Type: function
-
-Async: YES
+### fs.writeFile(filename, data)
 
 ---
 
-Reads the entire file content.
+**Type**: method
 
-If the file is not found or another error occurs, it will throw an error.
+**Async**: yes, returns a Promise
+
+**Parameters**:
+
+| name       | data type | Description                                   |
+|------------|-----------|-----------------------------------------------|
+| `filename` | string    | the absolute or relative path of the filename |
+| `data`     | string    | the data to be written.                       |
+
+**Returns**:
+
+`Promise<>`
+
+---
+
+Write the string in `data` to replace the file specified in `filename`.
+
+If `filename` is not found or another error occurs, it will throw an error.
 
 <br>
 
-#### Examples:
+---
+
+Example:
 
 ````js
 import mind from 'mind4yottadb'
 
 const ydb = new mind
 
-const res = await ydb.connect('127.0.0.1', 10000, "admin", "admin")
-)
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const data = ydb.fs.readFile('/tmp/testfile.txt')
+await ydb.fs.writeFile('/tmp/testfile.txt', 'add another line\n')
+
+ydb.disconnect()
 
 ````
 
 <br>
 
+Using error handling:
+
 ````js
 import mind from 'mind4yottadb'
 
 const ydb = new mind
 
-const res = await ydb.connect('127.0.0.1', 10000, "admin", "admin")
-)
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 try {
-    const data = ydb.fs.readFile('/tmp/IdontExist')
+    await ydb.fs.writeFile('/tmp/IdontExist', 'add another line\n')
+    console.log(data)
+
 } catch (err) {
     console.log(err)
 }
 
 // or
 
-const data = ydb.fs.readFile('/tmp/IdontExist').catch(err)
-=>
-console.log(err)
+await ydb.fs.readFile('/tmp/IdontExist', 'add another line\n').catch((err) => console.log(err))
 
+ydb.disconnect()
 
 ````
+
+---
+
+[Back](../namespace.fs.md)

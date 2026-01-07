@@ -28,7 +28,7 @@
 - [removeFile(filename)](fs/fs.removeFile.md)
 - [readDir(path, mask)](fs/fs.readDir.md)
 - [readTree(path, mask)](fs/fs.readTree.md)
-- stat(filename)
-- expandPath(path)
+- [stat(filename)](fs/fs.stat.md)
+- [expandPath(path)](fs/fs.expandPath.md)
 
 ### Properties:

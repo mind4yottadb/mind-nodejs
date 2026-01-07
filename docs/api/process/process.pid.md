@@ -12,24 +12,61 @@
 ###############################################################*/
 -->
 
-# Namespace: process
+---
 
-### Methods:
+### process.pid
 
-- exec(command, shell)
-- spawn(command, logFile)
-- cwdSet(path)
+---
 
-### Functions:
+**Type**: property / readonly
 
-- cwdGet()
-- unixtime()
-- datetime()
-- memUsage()
+**Async**: no
 
-### Properties:
+**Parameters**:
 
-- arch
-- [pid](process/process.pid.md)
-- platform
-- [env](process/process.env.md)
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
+
+**Returns**:
+
+`<int>`
+
+---
+
+Returns the pid of your session.
+
+
+<br>
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+const pid = ydb.process.pid
+console.log(pid)
+
+ydb.disconnect()
+
+````
+
+returns:
+
+````js
+
+pid = 20840
+
+````
+
+<br>
+
+
+---
+
+[Back](../namespace.fs.md)

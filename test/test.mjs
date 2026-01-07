@@ -25,16 +25,16 @@ ydb.on('disconnected', err => console.log('disconnected'))
 
 //console.log(await ydb.fs.readFile('/test.txt2').catch(e => console.log(e)))
 
-
-console.log(await ydb.fs.stat('/tmp'))
+console.log(ydb.process.env)
+//console.log(await ydb.fs.stat('/tmp'))
 //await ydb.process.cwdSet('/opt')
 
 
 //console.log(await ydb.process.cwdGet())
 
-console.dir(await ydb.fs.stat('/tmp/stef/a'), {width: 10})
+//console.dir(await ydb.fs.stat('/tmp/stef/a'), {width: 10})
 
-console.log(await ydb.fs.expandPath('$ydb_dist/plugin'))
+//console.log(await ydb.fs.expandPath('$ydb_dist/plugin'))
 //console.log(await ydb.fs.mkdir('/tmp/stef/'))
 //await ydb.fs.renameFile('/tmp/stef/aaa.txt', '/tmp/stef/a')
 //await ydb.fs.removeFile('/tmp/stef/aaa.txt')

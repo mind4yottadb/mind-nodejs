@@ -25,7 +25,9 @@ ydb.on('disconnected', err => console.log('disconnected'))
 
 //console.log(await ydb.fs.readFile('/test.txt2').catch(e => console.log(e)))
 
-console.log(await ydb.process.datetime())
+await ydb.process.cwdSet('/opt/yottadb/current')
+const cwd = await ydb.process.cwdGet()
+console.log(cwd)
 //console.log(await ydb.fs.stat('/tmp'))
 //await ydb.process.cwdSet('/opt')
 

@@ -65,7 +65,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             }
 
             // proceed with the process array
-            if (dataA[ix] !== '%3') reject(new Error('invalid packet signature at line: ' + ix + ' Expected: %3'))
+            if (dataA[ix] !== '%1') reject(new Error('invalid packet signature at line: ' + ix + ' Expected: %1'))
 
             const processLength = parseInt(dataA[ix].slice(1))
 

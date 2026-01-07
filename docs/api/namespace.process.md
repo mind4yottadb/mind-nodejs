@@ -29,7 +29,5 @@
 
 ### Properties:
 
-- arch
 - [pid](process/process.pid.md)
-- platform
 - [env](process/process.env.md)

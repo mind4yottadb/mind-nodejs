@@ -27,10 +27,14 @@
 - loggedIn
 - requiresMind
 
+### Events
+
+- error
+- disconnect
+
 ### Namespaces:
 
-- process
-- server
-- fs
-- RESP3
-- 
+- [process](namespace.process.md)
+- [server](namespace.server.md)
+- [fs](namespace.fs.md)
+- [RESP3](namespace.RESP3.md)

@@ -11,9 +11,7 @@
 ###############################################################*/
 
 class Process {
-    arch = null
     pid = null
-    platform = null
     env = {}
 
     exec = function (command = '', shell = '') {

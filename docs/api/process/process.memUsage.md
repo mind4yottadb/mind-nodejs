@@ -14,13 +14,13 @@
 
 ---
 
-### process.pid
+### process.memUsage
 
 ---
 
-**Type**: property / readonly
+**Type**: function
 
-**Async**: no
+**Async**:  yes, returns a Promise
 
 **Parameters**:
 
@@ -29,12 +29,22 @@
 
 **Returns**:
 
-`<int>`
+`Promise<object>`
 
 ---
 
-Returns the pid of your session.
+Returns the `allocatedStorage`, the `usedStorage` and the `realStorage` used by your session.
 
+> `allocatedStorage`: contains the number of bytes that are (sub) allocated (including overhead) by YottaDB for various
+> activities.
+
+> `realStorage`: contains the total memory (in bytes) allocated by the YottaDB process, which may or may not actually be
+> in use.
+
+> `usedStorage`: is the value in `allocatedStorage` minus storage management overhead and represents the actual memory,
+> in bytes, requested by current activities.
+
+An eventual internal error on the server side will throw an error.
 
 <br>
 
@@ -49,8 +59,8 @@ const ydb = new mind
 
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const pid = ydb.process.pid
-console.log(pid)
+const memUsage = ydb.process.memUsage()
+console.log(memUsage)
 
 ydb.disconnect()
 
@@ -60,7 +70,11 @@ returns:
 
 ````js
 
-pid = 20840
+memUsage = {
+    allocatedStorage: 1647396,
+    realStorage: 1701396,
+    usedStorage: 1647396
+}
 
 ````
 

@@ -12,21 +12,61 @@
 ###############################################################*/
 -->
 
-# Namespace: server
+---
 
-### Methods:
+### server.platform
 
-- [kill(pid,SIG)](server/server.kill.md)
+---
 
-### Properties:
+**Type**: property / readonly
 
-- [hostName](server/server.hostName.md)
-- [mindVersion](server/server.mindVersion.md)
-- [ydbVersion](server/server.ydbVersion.md)
-- [platform](server/server.platform.md)
-- [architecture](server/server.architecture.md)
+**Async**: no
 
-### Constants
+**Parameters**:
 
-- [SIG_INT](server/server.SIG_INT.md)
-- [SIG_KIL](server/server.SIG_KIL.md)
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
+
+**Returns**:
+
+`<string>`
+
+---
+
+Returns the operating system running on the mind server.
+
+
+<br>
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+const platform = ydb.server.platform
+console.log(platform)
+
+ydb.disconnect()
+
+````
+
+returns:
+
+````js
+
+platform = 'Linux'
+
+````
+
+<br>
+
+
+---
+
+[Back](../namespace.process.md)

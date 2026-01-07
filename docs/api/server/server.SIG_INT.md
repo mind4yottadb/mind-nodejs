@@ -12,21 +12,61 @@
 ###############################################################*/
 -->
 
-# Namespace: server
+---
 
-### Methods:
+### server.SIG_INT
 
-- [kill(pid,SIG)](server/server.kill.md)
+---
 
-### Properties:
+**Type**: constant
 
-- [hostName](server/server.hostName.md)
-- [mindVersion](server/server.mindVersion.md)
-- [ydbVersion](server/server.ydbVersion.md)
-- [platform](server/server.platform.md)
-- [architecture](server/server.architecture.md)
+**Async**: no
 
-### Constants
+**Parameters**:
 
-- [SIG_INT](server/server.SIG_INT.md)
-- [SIG_KIL](server/server.SIG_KIL.md)
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
+
+**Returns**:
+
+`<number>`
+
+---
+
+Returns the signal number corresponding to SIG_INT.
+
+
+<br>
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+const SIG_INT = ydb.server.SIG_INT
+console.log(SIG_INT)
+
+ydb.disconnect()
+
+````
+
+returns:
+
+````js
+
+SIG_INT = 2
+
+````
+
+<br>
+
+
+---
+
+[Back](../namespace.process.md)

@@ -30,7 +30,7 @@ ydb.on('disconnected', err => console.log('disconnected'))
 //console.log(cwd)
 
 
-const stdout = await ydb.process.exec('ls -la')
+const stdout = await ydb.server
 console.log(stdout)
 
 

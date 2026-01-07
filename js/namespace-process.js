@@ -133,7 +133,7 @@ class Process {
                     reject(new Error(data.slice(1, -2)))
                 }
 
-                resolve(data.slice(1, -2))
+                resolve(parseInt(data.slice(1, -2)))
             })
         })
     }

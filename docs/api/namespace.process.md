@@ -23,9 +23,9 @@
 ### Functions:
 
 - cwdGet()
-- unixtime()
-- datetime()
-- memUsage()
+- [unixtime()](process/process.unixtime.md)
+- [datetime()](process/process.dateTime.md)
+- [memUsage()](process/process.memUsage.md)
 
 ### Properties:
 

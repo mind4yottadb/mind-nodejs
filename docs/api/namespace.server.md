@@ -16,6 +16,8 @@
 
 ### Methods:
 
+- kill(pid,SIG)
+
 ### Properties:
 
 - hostName

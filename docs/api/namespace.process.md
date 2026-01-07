@@ -16,8 +16,8 @@
 
 ### Methods:
 
-- exec(command, shell)
-- spawn(command, logFile)
+- [exec(command, shell)](process/process.exec.md)
+- [spawn(command, logFile)](process/process.spawn.md)
 - [cwdSet(path)](process/process.cwdSet.md)
 
 ### Functions:

@@ -19,8 +19,8 @@
 - [writeFile(filename, data)](fs/fs.writeFile.md)
 - [appendFile(filename, data)](fs/fs.appendFile.md)
 - [copyfile(source, destination)](fs/fs.copyFile.md)
-- mkdir(path)
-- rmdir(path)
+- [mkdir(path)](fs/fs.mkdir.md)
+- [rmdir(path)](fs/fs.rmdir.md)
 
 ### Functions:
 

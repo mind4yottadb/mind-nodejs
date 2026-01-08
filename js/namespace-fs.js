@@ -1,6 +1,6 @@
 /*###############################################################
 #                                                               #
-# Copyright (c) 2025 DnaSoft BV and/or its subsidiaries.        #
+# Copyright (c) 2025-2026 DnaSoft BV and/or its subsidiaries.   #
 # All rights reserved.                                          #
 #                                                               #
 #   This source code contains the intellectual property         #
@@ -10,23 +10,36 @@
 #                                                               #
 ###############################################################*/
 
-const RESP3 = require("./RESP3");
+const utils = require('./utils');
 
-class fs {
+class Fs {
     // ************************************
     // readFile
     // ************************************
-    readFile = function (filename = '') {
+    readFile = function (filename) {
         const that = this
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.readFile'
             that.writer("*2" + RESP3.CRLF +
-                RESP3.getBlob(opCode) +
-                RESP3.getBlob(filename)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(filename)
             );
 
             that.reader(data => {
@@ -44,18 +57,37 @@ class fs {
     // ************************************
     // writeFile
     // ************************************
-    writeFile = function (filename = '', data = '') {
+    writeFile = function (filename, data = '') {
         const that = this
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
 
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(data, 'string') === false) {
+                reject(new Error('Parameter data must be a string'))
+
+                return
+            }
+
             // send command
             const opCode = 'fs.writeFile'
             that.writer("*3" + RESP3.CRLF +
-                RESP3.getBlob(opCode) +
-                RESP3.getBlob(filename) +
-                RESP3.getBlob(data)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(filename) +
+                RESP3.build.blob(data)
             );
 
             that.reader(data => {
@@ -73,18 +105,37 @@ class fs {
     // ************************************
     // appendFile
     // ************************************
-    appendFile = function (filename = '', data = '') {
+    appendFile = function (filename, data = '') {
         const that = this
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
 
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(data, 'string') === false) {
+                reject(new Error('Parameter data must be a string'))
+
+                return
+            }
+
             // send command
             const opCode = 'fs.appendFile'
             that.writer("*3" + RESP3.CRLF +
-                RESP3.getBlob(opCode) +
-                RESP3.getBlob(filename) +
-                RESP3.getBlob(data)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(filename) +
+                RESP3.build.blob(data)
             );
 
             that.reader(data => {
@@ -102,18 +153,36 @@ class fs {
     // ************************************
     // readDir
     // ************************************
-    readDir = function (path = '', mask = '*') {
+    readDir = function (path, mask = '*') {
         const that = this
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
 
+            if (path === undefined) {
+                reject(new Error('the path has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(mask, 'string') === false) {
+                reject(new Error('Parameter mask must be a string'))
+
+                return
+            }
             // send command
             const opCode = 'fs.readDir'
             that.writer("*3" + RESP3.CRLF +
-                RESP3.getBlob(opCode) +
-                RESP3.getBlob(path) +
-                RESP3.getBlob(mask)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(path) +
+                RESP3.build.blob(mask)
             );
 
             that.reader(data => {
@@ -123,7 +192,7 @@ class fs {
                     return
                 }
 
-                resolve(RESP3.extractBlob(data).split(','))
+                resolve(RESP3.extract.blob(data).split(','))
             })
         })
     }
@@ -131,18 +200,37 @@ class fs {
     // ************************************
     // readTree
     // ************************************
-    readTree = function (path = '', mask = '*') {
+    readTree = function (path, mask = '*') {
         const that = this
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
 
+            if (path === undefined) {
+                reject(new Error('the path has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(mask, 'string') === false) {
+                reject(new Error('Parameter mask must be a string'))
+
+                return
+            }
+
             // send command
             const opCode = 'fs.readTree'
             that.writer("*3" + RESP3.CRLF +
-                RESP3.getBlob(opCode) +
-                RESP3.getBlob(path) +
-                RESP3.getBlob(mask)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(path) +
+                RESP3.build.blob(mask)
             );
 
             that.reader(data => {
@@ -152,7 +240,7 @@ class fs {
                     return
                 }
 
-                resolve(RESP3.extractBlob(data).split(','))
+                resolve(RESP3.extract.blob(data).split(','))
             })
         })
     }
@@ -160,17 +248,30 @@ class fs {
     // ************************************
     // removeFile
     // ************************************
-    removeFile = function (filename = '') {
+    removeFile = function (filename) {
         const that = this
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.removeFile'
             that.writer("*2" + RESP3.CRLF +
-                RESP3.getBlob(opCode) +
-                RESP3.getBlob(filename)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(filename)
             );
 
             that.reader(data => {
@@ -188,18 +289,43 @@ class fs {
     // ************************************
     // renameFile
     // ************************************
-    renameFile = function (filename = '', newFilename = '') {
+    renameFile = function (filename, newFilename) {
         const that = this
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
+
+            if (newFilename === undefined) {
+                reject(new Error('the newFilename has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(newFilename, 'string') === false) {
+                reject(new Error('Parameter newFilename must be a string'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.renameFile'
             that.writer("*3" + RESP3.CRLF +
-                RESP3.getBlob(opCode) +
-                RESP3.getBlob(filename) +
-                RESP3.getBlob(newFilename)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(filename) +
+                RESP3.build.blob(newFilename)
             );
 
             that.reader(data => {
@@ -217,17 +343,30 @@ class fs {
     // ************************************
     // stat
     // ************************************
-    stat = function (filename = '') {
+    stat = function (filename) {
         const that = this
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.stat'
             that.writer("*2" + RESP3.CRLF +
-                RESP3.getBlob(opCode) +
-                RESP3.getBlob(filename)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(filename)
             );
 
             that.reader(data => {
@@ -243,6 +382,7 @@ class fs {
                 for (let ix = 0; ix < data.length; ix += 2) {
                     res[data[ix].slice(1)] = parseInt(data[ix + 1].slice(1))
                 }
+
                 resolve(res)
             })
         })
@@ -251,18 +391,43 @@ class fs {
     // ************************************
     // copyfile
     // ************************************
-    copyfile = function (source = '', destination = '') {
+    copyfile = function (source, destination) {
         const that = this
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (source === undefined) {
+                reject(new Error('the source has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(source, 'string') === false) {
+                reject(new Error('Parameter source must be a string'))
+
+                return
+            }
+
+            if (destination === undefined) {
+                reject(new Error('the destination has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(destination, 'string') === false) {
+                reject(new Error('Parameter destination must be a string'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.copyfile'
             that.writer("*3" + RESP3.CRLF +
-                RESP3.getBlob(opCode) +
-                RESP3.getBlob(source) +
-                RESP3.getBlob(destination)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(source) +
+                RESP3.build.blob(destination)
             );
 
             that.reader(data => {
@@ -280,17 +445,30 @@ class fs {
     // ************************************
     // mkdir
     // ************************************
-    mkdir = function (path = '') {
+    mkdir = function (path) {
         const that = this
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (path === undefined) {
+                reject(new Error('the path has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.mkdir'
             that.writer("*2" + RESP3.CRLF +
-                RESP3.getBlob(opCode) +
-                RESP3.getBlob(path)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(path)
             );
 
             that.reader(data => {
@@ -305,17 +483,33 @@ class fs {
         })
     }
 
+    // ************************************
+    // expandPath
+    // ************************************
     expandPath = function (path = '') {
         const that = this
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (path === undefined) {
+                reject(new Error('the path has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.expandPath'
             that.writer("*2" + RESP3.CRLF +
-                RESP3.getBlob(opCode) +
-                RESP3.getBlob(path)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(path)
             );
 
             that.reader(data => {
@@ -329,17 +523,34 @@ class fs {
             })
         })
     }
+
+    // ************************************
+    // rmdir
+    // ************************************
     rmdir = function (path = '') {
         const that = this
+        const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.rootThat.connected === false || that.rootThat.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (path === undefined) {
+                reject(new Error('the path has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.rmdir'
             that.writer("*2" + RESP3.CRLF +
-                RESP3.getBlob(opCode) +
-                RESP3.getBlob(path)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(path)
             );
 
             that.reader(data => {
@@ -355,4 +566,4 @@ class fs {
     }
 }
 
-module.exports = fs
+module.exports = Fs

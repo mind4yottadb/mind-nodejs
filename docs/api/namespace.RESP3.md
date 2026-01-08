@@ -12,22 +12,10 @@
 ###############################################################*/
 -->
 
-# Namespace: process
+# Namespace: RESP3
 
 ### Methods:
 
-- [exec(command, shell)](process/process.exec.md)
-- [spawn(command, logFile)](process/process.spawn.md)
-- [cwdSet(path)](process/process.cwdSet.md)
-
 ### Functions:
 
-- [cwdGet()](process/process.cwdGet.md)
-- [unixtime()](process/process.unixtime.md)
-- [datetime()](process/process.dateTime.md)
-- [memUsage()](process/process.memUsage.md)
-
 ### Properties:
-
-- [pid](process/process.pid.md)
-- [env](process/process.env.md)

@@ -12,22 +12,61 @@
 ###############################################################*/
 -->
 
-# Namespace: process
+---
 
-### Methods:
+### server.SIG_KIL
 
-- [exec(command, shell)](process/process.exec.md)
-- [spawn(command, logFile)](process/process.spawn.md)
-- [cwdSet(path)](process/process.cwdSet.md)
+---
 
-### Functions:
+**Type**: constant
 
-- [cwdGet()](process/process.cwdGet.md)
-- [unixtime()](process/process.unixtime.md)
-- [datetime()](process/process.dateTime.md)
-- [memUsage()](process/process.memUsage.md)
+**Async**: no
 
-### Properties:
+**Parameters**:
 
-- [pid](process/process.pid.md)
-- [env](process/process.env.md)
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
+
+**Returns**:
+
+`<number>`
+
+---
+
+Returns the signal number corresponding to SIG_KIL.
+
+
+<br>
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+const SIG_INT = ydb.server.SIG_KIL
+console.log(SIG_KIL)
+
+ydb.disconnect()
+
+````
+
+returns:
+
+````js
+
+SIG_KIL = 9
+
+````
+
+<br>
+
+
+---
+
+[Back](../namespace.process.md)

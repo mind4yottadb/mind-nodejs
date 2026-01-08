@@ -12,22 +12,29 @@
 ###############################################################*/
 -->
 
-# Namespace: process
+# MIND
 
 ### Methods:
 
-- [exec(command, shell)](process/process.exec.md)
-- [spawn(command, logFile)](process/process.spawn.md)
-- [cwdSet(path)](process/process.cwdSet.md)
+- connect(host, port, username, password)
+- disconnect()
 
 ### Functions:
 
-- [cwdGet()](process/process.cwdGet.md)
-- [unixtime()](process/process.unixtime.md)
-- [datetime()](process/process.dateTime.md)
-- [memUsage()](process/process.memUsage.md)
-
 ### Properties:
 
-- [pid](process/process.pid.md)
-- [env](process/process.env.md)
+- connected
+- loggedIn
+- requiresMind
+
+### Events
+
+- error
+- disconnect
+
+### Namespaces:
+
+- [process](namespace.process.md)
+- [server](namespace.server.md)
+- [fs](namespace.fs.md)
+- [RESP3](namespace.RESP3.md)

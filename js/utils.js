@@ -1,7 +1,6 @@
-<!--
-###############################################################
+/*###############################################################
 #                                                               #
-# Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
+# Copyright (c) 2025-2026 DnaSoft BV and/or its subsidiaries.   #
 # All rights reserved.                                          #
 #                                                               #
 #   This source code contains the intellectual property         #
@@ -10,24 +9,13 @@
 #   the license, please stop and do not read further.           #
 #                                                               #
 ###############################################################*/
--->
 
-# Namespace: process
+module.exports = {
+    validateTypeOfField: (param, type) => {
+        return (typeof param === type)
+    },
 
-### Methods:
+    validateEmptyField: value => {
 
-- [exec(command, shell)](process/process.exec.md)
-- [spawn(command, logFile)](process/process.spawn.md)
-- [cwdSet(path)](process/process.cwdSet.md)
-
-### Functions:
-
-- [cwdGet()](process/process.cwdGet.md)
-- [unixtime()](process/process.unixtime.md)
-- [datetime()](process/process.dateTime.md)
-- [memUsage()](process/process.memUsage.md)
-
-### Properties:
-
-- [pid](process/process.pid.md)
-- [env](process/process.env.md)
+    }
+}

@@ -12,22 +12,61 @@
 ###############################################################*/
 -->
 
-# Namespace: process
+---
 
-### Methods:
+### server.platform
 
-- [exec(command, shell)](process/process.exec.md)
-- [spawn(command, logFile)](process/process.spawn.md)
-- [cwdSet(path)](process/process.cwdSet.md)
+---
 
-### Functions:
+**Type**: property / readonly
 
-- [cwdGet()](process/process.cwdGet.md)
-- [unixtime()](process/process.unixtime.md)
-- [datetime()](process/process.dateTime.md)
-- [memUsage()](process/process.memUsage.md)
+**Async**: no
 
-### Properties:
+**Parameters**:
 
-- [pid](process/process.pid.md)
-- [env](process/process.env.md)
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
+
+**Returns**:
+
+`<string>`
+
+---
+
+Returns the operating system running on the mind server.
+
+
+<br>
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+const platform = ydb.server.platform
+console.log(platform)
+
+ydb.disconnect()
+
+````
+
+returns:
+
+````js
+
+platform = 'Linux'
+
+````
+
+<br>
+
+
+---
+
+[Back](../namespace.process.md)

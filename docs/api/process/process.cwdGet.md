@@ -12,22 +12,63 @@
 ###############################################################*/
 -->
 
-# Namespace: process
+---
 
-### Methods:
+### process.cwdGet()
 
-- [exec(command, shell)](process/process.exec.md)
-- [spawn(command, logFile)](process/process.spawn.md)
-- [cwdSet(path)](process/process.cwdSet.md)
+---
 
-### Functions:
+**Type**: function
 
-- [cwdGet()](process/process.cwdGet.md)
-- [unixtime()](process/process.unixtime.md)
-- [datetime()](process/process.dateTime.md)
-- [memUsage()](process/process.memUsage.md)
+**Async**: yes, returns a Promise
 
-### Properties:
+**Parameters**:
 
-- [pid](process/process.pid.md)
-- [env](process/process.env.md)
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
+
+**Returns**:
+
+`Promise<string>`
+
+---
+
+Returns the Current Working Directory of your session.
+
+It can be changed using the [process.cwdSet()](process.cwdSet.md) function.
+
+
+<br>
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+const cwd = await ydb.process.cwdGet()
+console.log(cwd)
+
+ydb.disconnect()
+
+````
+
+returns:
+
+````js
+
+cwd = '/opt/mind'
+
+````
+
+<br>
+
+
+---
+
+[Back](../namespace.process.md)

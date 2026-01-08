@@ -1,6 +1,7 @@
-/*###############################################################
+<!--
+###############################################################
 #                                                               #
-# Copyright (c) 2025 DnaSoft BV and/or its subsidiaries.        #
+# Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
 #                                                               #
 #   This source code contains the intellectual property         #
@@ -9,17 +10,23 @@
 #   the license, please stop and do not read further.           #
 #                                                               #
 ###############################################################*/
+-->
 
-module.exports = {
-    CRLF: '\r\n',
-    array: '*',
-    blobString: '$',
+# Namespace: server
 
-    getBlob: str => '$' + str.length.toString() + '\r\n' + str + '\r\n',
+### Methods:
 
+- [kill(pid,SIG)](server/server.kill.md)
 
-    extractBlob: str => {
-        return str.slice(2 + str.indexOf('\r\n'), -2)
-    },
-    extractSimpleString: str => str.slice(1)
-}
+### Properties:
+
+- [hostName](server/server.hostName.md)
+- [mindVersion](server/server.mindVersion.md)
+- [ydbVersion](server/server.ydbVersion.md)
+- [platform](server/server.platform.md)
+- [architecture](server/server.architecture.md)
+
+### Constants
+
+- [SIG_INT](server/server.SIG_INT.md)
+- [SIG_KIL](server/server.SIG_KIL.md)

@@ -1,7 +1,7 @@
 <!--
 ###############################################################
 #                                                               #
-# Copyright (c) 2025 DnaSoft BV and/or its subsidiaries.        #
+# Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
 #                                                               #
 #   This source code contains the intellectual property         #
@@ -16,16 +16,19 @@
 
 ### Methods:
 
-- readFile(filename)
-- writeFile(filename, data)
-- appendFile(filename, data)
-- removeFile(filename)
-- readDir(path)
-- readTree(path)
-- stat(filename)
-- copyfile(source, destination)
-- mkdir(path)
-- rmdir(path)
-- expandPath(path)
+- [writeFile(filename, data)](fs/fs.writeFile.md)
+- [appendFile(filename, data)](fs/fs.appendFile.md)
+- [copyfile(source, destination)](fs/fs.copyFile.md)
+- [mkdir(path)](fs/fs.mkdir.md)
+- [rmdir(path)](fs/fs.rmdir.md)
+
+### Functions:
+
+- [readFile(filename)](fs/fs.readFile.md)
+- [removeFile(filename)](fs/fs.removeFile.md)
+- [readDir(path, mask)](fs/fs.readDir.md)
+- [readTree(path, mask)](fs/fs.readTree.md)
+- [stat(filename)](fs/fs.stat.md)
+- [expandPath(path)](fs/fs.expandPath.md)
 
 ### Properties:

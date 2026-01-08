@@ -23,16 +23,32 @@ ydb.on('disconnected', err => console.log('disconnected'))
 //await ydb.fs.writeFile('/test.txt2', 'this is the data I write')
 //await ydb.fs.appendFile('/test.txt2', 'and then append')
 
-//console.log(await ydb.fs.readFile('/test.txt2').catch(e => console.log(e)))
+ydb.fs.readFile(['test'])
+    .then(data => {
+        console.log(data)
+    })
+    .catch(e => console.log(e))
 
 
-//console.log(await ydb.process.cwd)
+//await ydb.process.cwdSet('/opt/yottadb/current')
+//const cwd = await ydb.process.cwdGet()
+//console.log(cwd)
+
+
+const stdout = await ydb.server
+console.log(stdout)
+
+
+
+//console.log(await ydb.fs.stat('/tmp'))
 //await ydb.process.cwdSet('/opt')
 
 
 //console.log(await ydb.process.cwdGet())
 
-console.dir(await ydb.fs.stat('/tmp/stef/a'), {width: 10})
+//console.dir(await ydb.fs.stat('/tmp/stef/a'), {width: 10})
+
+//console.log(await ydb.fs.expandPath('$ydb_dist/plugin'))
 //console.log(await ydb.fs.mkdir('/tmp/stef/'))
 //await ydb.fs.renameFile('/tmp/stef/aaa.txt', '/tmp/stef/a')
 //await ydb.fs.removeFile('/tmp/stef/aaa.txt')

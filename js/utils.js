@@ -11,24 +11,11 @@
 ###############################################################*/
 
 module.exports = {
-    appendToObject: (namespace, that) => {
+    validateTypeOfField: (value, type) => {
 
-        Object.defineProperties(namespace, {
-            objRoot: {
-                value: that,
-                enumerable: false,
-                configurable: false
-            },
-            writer: {
-                value: writer,
-                enumerable: false,
-                configurable: false
-            },
-            reader: {
-                value: reader,
-                enumerable: false,
-                configurable: false
-            }
-        })
+    },
+
+    validateEmptyField: value => {
+
     }
 }

@@ -16,12 +16,18 @@ class Process {
     pid = null
     env = {}
 
-    exec = function (command = '', shell = '') {
+    exec = function (command, shell = '') {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (command === '') {
+                reject(new Error('the command has not been provided'))
+
+                return
+            }
 
             if (utils.validateTypeOfField(command, 'string') === false) {
                 reject(new Error('Parameter command must be a string'))
@@ -55,12 +61,18 @@ class Process {
         })
     }
 
-    spawn = function (command = '', logFile = '') {
+    spawn = function (command, logFile = '') {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (command === '') {
+                reject(new Error('the command has not been provided'))
+
+                return
+            }
 
             if (utils.validateTypeOfField(command, 'string') === false) {
                 reject(new Error('Parameter command must be a string'))
@@ -117,12 +129,18 @@ class Process {
         })
     }
 
-    cwdSet = function (path = '') {
+    cwdSet = function (path) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (path === '') {
+                reject(new Error('the path has not been provided'))
+
+                return
+            }
 
             if (utils.validateTypeOfField(path, 'string') === false) {
                 reject(new Error('Parameter path must be a string'))

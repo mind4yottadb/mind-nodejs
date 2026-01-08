@@ -59,7 +59,7 @@ class Server {
     SIG_INT = 2
     SIG_KIL = 9
 
-    kill = function (pid = 0, sigNumber = 2) {
+    kill = function (pid, sigNumber = 2) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
@@ -68,6 +68,12 @@ class Server {
 
             if (utils.validateTypeOfField(pid, 'number') === false) {
                 reject(new Error('Parameter pid must be a number'))
+
+                return
+            }
+
+            if (pid === 0) {
+                reject(new Error('the path has not been provided'))
 
                 return
             }

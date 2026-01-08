@@ -591,6 +591,20 @@ describe("fs.renameFile()", async () => {
         ydb.disconnect()
     });
 
+    it("when filename is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.renameFile({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter filename must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
     it("when source filename is not provided", async () => {
         const ydb = await createYdbInstance()
         const destination = '/etc/mindrules2'
@@ -846,7 +860,7 @@ describe("fs.rmdir()", async () => {
             const res = await ydb.fs.rmdir()
 
         } catch (err) {
-            expect(err.message).to.have.string('the path has not been provided')
+            expect(err.message).to.have.string('the path can not be empty')
         }
 
         ydb.disconnect()
@@ -989,7 +1003,7 @@ describe("fs.expandPath()", async () => {
             const res = await ydb.fs.expandPath()
 
         } catch (err) {
-            expect(err.message).to.have.string('the path has not been provided')
+            expect(err.message).to.have.string('the path can not be empty')
         }
 
         ydb.disconnect()

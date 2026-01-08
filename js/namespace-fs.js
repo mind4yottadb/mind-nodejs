@@ -16,21 +16,21 @@ class Fs {
     // ************************************
     // readFile
     // ************************************
-    readFile = function (filename = '') {
+    readFile = function (filename) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
-            if (utils.validateTypeOfField(filename, 'string') === false) {
-                reject(new Error('Parameter filename must be a string'))
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
 
                 return
             }
 
-            if (filename === '') {
-                reject(new Error('the filename has not been provided'))
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
 
                 return
             }
@@ -57,21 +57,21 @@ class Fs {
     // ************************************
     // writeFile
     // ************************************
-    writeFile = function (filename = '', data = '') {
+    writeFile = function (filename, data = '') {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
 
-            if (utils.validateTypeOfField(filename, 'string') === false) {
-                reject(new Error('Parameter filename must be a string'))
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
 
                 return
             }
 
-            if (filename === '') {
-                reject(new Error('the filename has not been provided'))
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
 
                 return
             }
@@ -105,21 +105,21 @@ class Fs {
     // ************************************
     // appendFile
     // ************************************
-    appendFile = function (filename = '', data = '') {
+    appendFile = function (filename, data = '') {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
 
-            if (utils.validateTypeOfField(filename, 'string') === false) {
-                reject(new Error('Parameter filename must be a string'))
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
 
                 return
             }
 
-            if (filename === '') {
-                reject(new Error('the filename has not been provided'))
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
 
                 return
             }
@@ -153,21 +153,21 @@ class Fs {
     // ************************************
     // readDir
     // ************************************
-    readDir = function (path = '', mask = '*') {
+    readDir = function (path, mask = '*') {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
 
-            if (utils.validateTypeOfField(path, 'string') === false) {
-                reject(new Error('Parameter path must be a string'))
+            if (path === undefined) {
+                reject(new Error('the path has not been provided'))
 
                 return
             }
 
-            if (path === '') {
-                reject(new Error('the path has not been provided'))
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
 
                 return
             }
@@ -200,21 +200,21 @@ class Fs {
     // ************************************
     // readTree
     // ************************************
-    readTree = function (path = '', mask = '*') {
+    readTree = function (path, mask = '*') {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
 
-            if (utils.validateTypeOfField(path, 'string') === false) {
-                reject(new Error('Parameter path must be a string'))
+            if (path === undefined) {
+                reject(new Error('the path has not been provided'))
 
                 return
             }
 
-            if (path === '') {
-                reject(new Error('the path has not been provided'))
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
 
                 return
             }
@@ -248,21 +248,21 @@ class Fs {
     // ************************************
     // removeFile
     // ************************************
-    removeFile = function (filename = '') {
+    removeFile = function (filename) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
-            if (utils.validateTypeOfField(filename, 'string') === false) {
-                reject(new Error('Parameter filename must be a string'))
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
 
                 return
             }
 
-            if (filename === '') {
-                reject(new Error('the filename has not been provided'))
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
 
                 return
             }
@@ -289,12 +289,18 @@ class Fs {
     // ************************************
     // renameFile
     // ************************************
-    renameFile = function (filename = '', newFilename = '') {
+    renameFile = function (filename, newFilename) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
 
             if (utils.validateTypeOfField(filename, 'string') === false) {
                 reject(new Error('Parameter filename must be a string'))
@@ -302,20 +308,14 @@ class Fs {
                 return
             }
 
+            if (newFilename === undefined) {
+                reject(new Error('the newFilename has not been provided'))
+
+                return
+            }
+
             if (utils.validateTypeOfField(newFilename, 'string') === false) {
                 reject(new Error('Parameter newFilename must be a string'))
-
-                return
-            }
-
-            if (filename === '') {
-                reject(new Error('the filename has not been provided'))
-
-                return
-            }
-
-            if (newFilename === '') {
-                reject(new Error('the newFilename has not been provided'))
 
                 return
             }
@@ -343,21 +343,21 @@ class Fs {
     // ************************************
     // stat
     // ************************************
-    stat = function (filename = '') {
+    stat = function (filename) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
-            if (utils.validateTypeOfField(filename, 'string') === false) {
-                reject(new Error('Parameter filename must be a string'))
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
 
                 return
             }
 
-            if (filename === '') {
-                reject(new Error('the filename has not been provided'))
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
 
                 return
             }
@@ -391,12 +391,18 @@ class Fs {
     // ************************************
     // copyfile
     // ************************************
-    copyfile = function (source = '', destination = '') {
+    copyfile = function (source, destination) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (source === undefined) {
+                reject(new Error('the source has not been provided'))
+
+                return
+            }
 
             if (utils.validateTypeOfField(source, 'string') === false) {
                 reject(new Error('Parameter source must be a string'))
@@ -404,20 +410,14 @@ class Fs {
                 return
             }
 
+            if (destination === undefined) {
+                reject(new Error('the destination has not been provided'))
+
+                return
+            }
+
             if (utils.validateTypeOfField(destination, 'string') === false) {
                 reject(new Error('Parameter destination must be a string'))
-
-                return
-            }
-
-            if (source === '') {
-                reject(new Error('the source has not been provided'))
-
-                return
-            }
-
-            if (destination === '') {
-                reject(new Error('the destination has not been provided'))
 
                 return
             }
@@ -445,21 +445,21 @@ class Fs {
     // ************************************
     // mkdir
     // ************************************
-    mkdir = function (path = '') {
+    mkdir = function (path) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
-            if (utils.validateTypeOfField(path, 'string') === false) {
-                reject(new Error('Parameter path must be a string'))
+            if (path === undefined) {
+                reject(new Error('the path has not been provided'))
 
                 return
             }
 
-            if (path === '') {
-                reject(new Error('the path has not been provided'))
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
 
                 return
             }
@@ -493,14 +493,14 @@ class Fs {
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
-            if (utils.validateTypeOfField(path, 'string') === false) {
-                reject(new Error('Parameter path must be a string'))
+            if (path === undefined) {
+                reject(new Error('the path has not been provided'))
 
                 return
             }
 
-            if (path === '') {
-                reject(new Error('the path has not been provided'))
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
 
                 return
             }
@@ -534,14 +534,14 @@ class Fs {
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
-            if (utils.validateTypeOfField(path, 'string') === false) {
-                reject(new Error('Parameter path must be a string'))
+            if (path === undefined) {
+                reject(new Error('the path has not been provided'))
 
                 return
             }
 
-            if (path === '') {
-                reject(new Error('the path has not been provided'))
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
 
                 return
             }

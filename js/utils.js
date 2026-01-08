@@ -11,8 +11,8 @@
 ###############################################################*/
 
 module.exports = {
-    validateTypeOfField: (value, type) => {
-
+    validateTypeOfField: (param, type) => {
+        return (typeof param === type)
     },
 
     validateEmptyField: value => {

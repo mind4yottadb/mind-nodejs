@@ -28,6 +28,20 @@ describe("fs.readFile()", async () => {
         ydb.disconnect()
     });
 
+    it("when filename is provided as non string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.readFile({test: 2})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter filename must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
     it("when filename doesn't exists", async () => {
         const ydb = await createYdbInstance()
         const filename = '/mind/testing'
@@ -69,6 +83,34 @@ describe("fs.writeFile()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the filename has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when filename is provided not as a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.writeFile({test: 2})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter filename must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when data is provided not as a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.writeFile('this is a string', {})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter data must be a string')
         }
 
         ydb.disconnect()
@@ -123,6 +165,34 @@ describe("fs.appendFile()", async () => {
         ydb.disconnect()
     });
 
+    it("when filename is provided not as a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.appendFile({test: 2})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter filename must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when data is provided not as a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.appendFile('this is a string', {})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter data must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
     it("when filename doesn't exists", async () => {
         const ydb = await createYdbInstance()
         const filename = '/mind/appendFile'
@@ -169,6 +239,34 @@ describe("fs.readDir()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the path has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when path is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.readDir({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter path must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when path is ok, mask is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.readDir('this is the path', {})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter mask must be a string')
         }
 
         ydb.disconnect()
@@ -255,6 +353,34 @@ describe("fs.readTree()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the path has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when path is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.readTree({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter path must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when path is ok, mask is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.readTree('this is the path', {})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter mask must be a string')
         }
 
         ydb.disconnect()
@@ -385,6 +511,20 @@ describe("fs.removeFile()", async () => {
         ydb.disconnect()
     });
 
+    it("when filename is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.removeFile({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter filename must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
     it("when path doesn't exists", async () => {
         const ydb = await createYdbInstance()
         const path = '/etc/mindrules'
@@ -432,6 +572,20 @@ describe("fs.renameFile()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('the destination filename has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when filename is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.renameFile({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter filename must be a string')
         }
 
         ydb.disconnect()
@@ -507,6 +661,34 @@ describe("fs.copyfile()", async () => {
 
         ydb.disconnect()
     })
+
+    it("when source is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.copyfile({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter source must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when destination is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.copyfile('this is a string', {})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter destination must be a string')
+        }
+
+        ydb.disconnect()
+    });
 
     it("when source filename does not exists", async () => {
         const ydb = await createYdbInstance()
@@ -618,6 +800,20 @@ describe("fs.stat()", async () => {
         ydb.disconnect()
     })
 
+    it("when filename is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.stat({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter filename must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
     it("when path is not provided", async () => {
         const ydb = await createYdbInstance()
 
@@ -642,7 +838,6 @@ describe("fs.stat()", async () => {
 
 })
 
-
 describe("fs.rmdir()", async () => {
     it("when path is not provided", async () => {
         const ydb = await createYdbInstance()
@@ -656,6 +851,20 @@ describe("fs.rmdir()", async () => {
 
         ydb.disconnect()
     })
+
+    it("when path is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.rmdir({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter path must be a string')
+        }
+
+        ydb.disconnect()
+    });
 
     it("when path is not provided", async () => {
         const ydb = await createYdbInstance()
@@ -711,6 +920,20 @@ describe("fs.mkdir()", async () => {
 
         ydb.disconnect()
     })
+
+    it("when path is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.mkdir({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter path must be a string')
+        }
+
+        ydb.disconnect()
+    });
 
     it("when path is not provided", async () => {
         const ydb = await createYdbInstance()
@@ -771,6 +994,20 @@ describe("fs.expandPath()", async () => {
 
         ydb.disconnect()
     })
+
+    it("when path is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.expandPath({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter path must be a string')
+        }
+
+        ydb.disconnect()
+    });
 
     it("when path is not provided", async () => {
         const ydb = await createYdbInstance()

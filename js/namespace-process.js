@@ -10,6 +10,8 @@
 #                                                               #
 ###############################################################*/
 
+const utils = require("./utils");
+
 class Process {
     pid = null
     env = {}
@@ -20,6 +22,18 @@ class Process {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (utils.validateTypeOfField(command, 'string') === false) {
+                reject(new Error('Parameter command must be a string'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(shell, 'string') === false) {
+                reject(new Error('Parameter shell must be a string'))
+
+                return
+            }
 
             // send command
             const opCode = 'process.exec'
@@ -47,6 +61,18 @@ class Process {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (utils.validateTypeOfField(command, 'string') === false) {
+                reject(new Error('Parameter command must be a string'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(logFile, 'string') === false) {
+                reject(new Error('Parameter logFile must be a string'))
+
+                return
+            }
 
             // send command
             const opCode = 'process.spawn'
@@ -97,6 +123,12 @@ class Process {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
+
+                return
+            }
 
             // send command
             const opCode = 'process.cwdSet'

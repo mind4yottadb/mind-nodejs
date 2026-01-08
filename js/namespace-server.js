@@ -10,6 +10,8 @@
 #                                                               #
 ###############################################################*/
 
+const utils = require("./utils");
+
 class Server {
     hostName = ''
     mindVersion = ''
@@ -23,6 +25,12 @@ class Server {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (utils.validateTypeOfField(pid, 'number') === false) {
+                reject(new Error('Parameter pid must be a number'))
+
+                return
+            }
 
             // send command
             const opCode = 'server.pinfo'
@@ -57,6 +65,18 @@ class Server {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (utils.validateTypeOfField(pid, 'number') === false) {
+                reject(new Error('Parameter pid must be a number'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(sigNumber, 'number') === false) {
+                reject(new Error('Parameter sigNumber must be a number'))
+
+                return
+            }
 
             // send command
             const opCode = 'server.kill'

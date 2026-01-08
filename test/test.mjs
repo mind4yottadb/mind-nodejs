@@ -23,7 +23,12 @@ ydb.on('disconnected', err => console.log('disconnected'))
 //await ydb.fs.writeFile('/test.txt2', 'this is the data I write')
 //await ydb.fs.appendFile('/test.txt2', 'and then append')
 
-//console.log(await ydb.fs.readFile('/test.txt2').catch(e => console.log(e)))
+ydb.fs.readFile(['test'])
+    .then(data => {
+        console.log(data)
+    })
+    .catch(e => console.log(e))
+
 
 //await ydb.process.cwdSet('/opt/yottadb/current')
 //const cwd = await ydb.process.cwdGet()

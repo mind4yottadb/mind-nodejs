@@ -591,6 +591,20 @@ describe("fs.renameFile()", async () => {
         ydb.disconnect()
     });
 
+    it("when filename is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.renameFile({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter filename must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
     it("when source filename is not provided", async () => {
         const ydb = await createYdbInstance()
         const destination = '/etc/mindrules2'

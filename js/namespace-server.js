@@ -35,8 +35,8 @@ class Server {
             // send command
             const opCode = 'server.pinfo'
             that.writer("*2" + RESP3.CRLF +
-                RESP3.buildBlob(opCode) +
-                RESP3.buildBlob(pid.toString())
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(pid.toString())
             );
 
             that.reader(data => {
@@ -87,9 +87,9 @@ class Server {
             // send command
             const opCode = 'server.kill'
             that.writer("*3" + RESP3.CRLF +
-                RESP3.buildBlob(opCode) +
-                RESP3.buildBlob(pid.toString()) +
-                RESP3.buildBlob(sigNumber.toString())
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(pid.toString()) +
+                RESP3.build.blob(sigNumber.toString())
             );
 
             that.reader(data => {

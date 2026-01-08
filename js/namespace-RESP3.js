@@ -11,30 +11,38 @@
 ###############################################################*/
 
 class RESP3 {
-    buildBlob = str => '$' + str.length.toString() + '\r\n' + str + '\r\n'
-    buildStreamedString = () => ''
-    buildBlobError = str => '$' + str.length.toString() + '\r\n' + str + '\r\n'
-    buildSimpleString = str => ''
-    buildSimpleError = str => ''
+    build = {
+        blobError: str => '!' + str.length.toString() + '\r\n' + str + '\r\n',
+        simpleError: str => '-' + str + '\r\n',
 
-    extractBlob = str => str.slice(2 + str.indexOf('\r\n'), -2)
-    extractSimpleString = str => str.slice(1)
+        simpleString: str => '+' + str + '\r\n',
+        blob: str => '$' + str.length.toString() + '\r\n' + str + '\r\n',
+        verbatimString: (str, type) => '=' + (str.length + 4).toString() + '\r\n' + type + ':' + str + '\r\n',
+        streamedString: () => '',
 
+        _null: () => '_\r\n',
+        _true: () => '#t\r\n',
+        _false: () => '#f\r\n',
 
-    _null = () => ''
-    _true = () => ''
-    _false = () => ''
+        int: val => '#f' + val.toString() + '\r\n',
+        double: val => ',' + val.toString() + '\r\n',
+        bigNumber: num => '(' + num.toString() + '\r\n'
+    }
 
-    _int = () => ''
-    _double = () => ''
-    bigNumber = () => ''
-
-    array = () => {
+    extract = {
+        blob: str => str.slice(2 + str.indexOf('\r\n'), -2),
+        simpleString: str => str.slice(1)
 
     }
 
-    map = () => {
+    convert = {
+        jsArrayToRESP3: array => {
 
+        },
+
+        jsObjectToRESP3: object => {
+
+        }
     }
 
     _init = that => {
@@ -53,11 +61,54 @@ class RESP3 {
                 writable: false
             },
 
+            null: {
+                value: '_',
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
+            true: {
+                value: '#t',
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
+            false: {
+                value: '#f',
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
+            int: {
+                value: ':',
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
+            double: {
+                value: ',',
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
+            bigNumber: {
+                value: '(',
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
             _init: {
                 enumerable: false,
             }
         })
     }
 }
+
 
 module.exports = RESP3

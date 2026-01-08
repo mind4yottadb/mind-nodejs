@@ -21,12 +21,12 @@ module.exports = async function (that, writer, reader, resolve, reject, username
     const credentials = username + ':' + password
 
     that.RESP3._init(that)
-    RESP3 = that.RESP3
+    const RESP3 = that.RESP3
 
     // send command
     writer("*5" + RESP3.CRLF +
-        RESP3.buildBlob(opCode) + RESP3.buildBlob(credentials) +
-        RESP3.buildBlob(driverName) + RESP3.buildBlob(driverVersion) + RESP3.buildBlob(driverDescription)
+        RESP3.build.blob(opCode) + RESP3.build.blob(credentials) +
+        RESP3.build.blob(driverName) + RESP3.build.blob(driverVersion) + RESP3.build.blob(driverDescription)
     );
 
     // process response
@@ -51,8 +51,8 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             iy = ix
             for (ix = ix + 1; ix < iy + serverLength * 2; ix += 2) {
                 Object.defineProperties(that.server, {
-                    [RESP3.extractSimpleString(dataA[ix])]: {
-                        value: RESP3.extractSimpleString(dataA[ix + 1]),
+                    [RESP3.extract.simpleString(dataA[ix])]: {
+                        value: RESP3.extract.simpleString(dataA[ix + 1]),
                         enumerable: true,
                         configurable: true
                     }
@@ -72,11 +72,11 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             // continue
             iy = ix
             for (ix = ix + 1; ix < iy + processLength * 2; ix += 2) {
-                const name = RESP3.extractSimpleString(dataA[ix])
+                const name = RESP3.extract.simpleString(dataA[ix])
 
-                const strValue = RESP3.extractSimpleString(dataA[ix + 1])
+                const strValue = RESP3.extract.simpleString(dataA[ix + 1])
                 Object.defineProperties(that.process, {
-                    [RESP3.extractSimpleString(dataA[ix])]: {
+                    [RESP3.extract.simpleString(dataA[ix])]: {
                         value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
                         enumerable: true,
                         configurable: true,
@@ -99,10 +99,10 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
             iy = ix
             for (ix = ix + 1; ix < iy + envLength * 2 - 1; ix += 2) {
-                const strValue = RESP3.extractSimpleString(dataA[ix + 1])
+                const strValue = RESP3.extract.simpleString(dataA[ix + 1])
 
                 Object.defineProperties(that.process.env, {
-                    [RESP3.extractSimpleString(dataA[ix])]: {
+                    [RESP3.extract.simpleString(dataA[ix])]: {
                         value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
                         enumerable: true,
                         configurable: true,

@@ -44,9 +44,9 @@ class Process {
             // send command
             const opCode = 'process.exec'
             that.writer("*3" + RESP3.CRLF +
-                RESP3.buildBlob(opCode) +
-                RESP3.buildBlob(command) +
-                RESP3.buildBlob(shell)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(command) +
+                RESP3.build.blob(shell)
             );
 
             that.reader(data => {
@@ -89,9 +89,9 @@ class Process {
             // send command
             const opCode = 'process.spawn'
             that.writer("*3" + RESP3.CRLF +
-                RESP3.buildBlob(opCode) +
-                RESP3.buildBlob(command) +
-                RESP3.buildBlob(logFile)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(command) +
+                RESP3.build.blob(logFile)
             );
 
             that.reader(data => {
@@ -116,7 +116,7 @@ class Process {
             // send command
             const opCode = 'process.cwdGet'
             that.writer("*1" + RESP3.CRLF +
-                RESP3.buildBlob(opCode)
+                RESP3.build.blob(opCode)
             );
 
             that.reader(data => {
@@ -151,8 +151,8 @@ class Process {
             // send command
             const opCode = 'process.cwdSet'
             that.writer("*2" + RESP3.CRLF +
-                RESP3.buildBlob(opCode) +
-                RESP3.buildBlob(path)
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(path)
             );
 
             that.reader(data => {
@@ -175,7 +175,7 @@ class Process {
             // send command
             const opCode = 'process.unixtime'
             that.writer("*1" + RESP3.CRLF +
-                RESP3.buildBlob(opCode)
+                RESP3.build.blob(opCode)
             );
 
             that.reader(data => {
@@ -198,7 +198,7 @@ class Process {
             // send command
             const opCode = 'process.datetime'
             that.writer("*1" + RESP3.CRLF +
-                RESP3.buildBlob(opCode)
+                RESP3.build.blob(opCode)
             );
 
             that.reader(data => {
@@ -228,7 +228,7 @@ class Process {
             // send command
             const opCode = 'process.memUsage'
             that.writer("*1" + RESP3.CRLF +
-                RESP3.buildBlob(opCode)
+                RESP3.build.blob(opCode)
             );
 
             that.reader(data => {

@@ -14,11 +14,41 @@ const {expect} = require("chai");
 const {createYdbInstance} = require("../utils.cjs");
 
 describe("server.kill()", async () => {
-    it("get process info for the current process", async () => {
+    it("when pid is not a number", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            const res = await ydb.server.kill(999999999, ydb.server.SIG_INT)
+            const res = await ydb.server.kill({})
+            expect(1 > 2).to.be.true
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter pid must be a number')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when sigNumber is not a number", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.kill(123, {})
+            expect(1 > 2).to.be.true
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter sigNumber must be a number')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("kills a non existing process", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.kill(9999999, ydb.server.SIG_INT)
             expect(1 > 2).to.be.true
 
 

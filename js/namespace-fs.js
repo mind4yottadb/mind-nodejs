@@ -10,6 +10,8 @@
 #                                                               #
 ###############################################################*/
 
+const utils = require('./utils');
+
 class Fs {
     // ************************************
     // readFile
@@ -20,6 +22,18 @@ class Fs {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
+
+            if (filename === '') {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.readFile'
@@ -49,6 +63,24 @@ class Fs {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
+
+            if (filename === '') {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(data, 'string') === false) {
+                reject(new Error('Parameter data must be a string'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.writeFile'
@@ -80,6 +112,24 @@ class Fs {
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
 
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
+
+            if (filename === '') {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(data, 'string') === false) {
+                reject(new Error('Parameter data must be a string'))
+
+                return
+            }
+
             // send command
             const opCode = 'fs.appendFile'
             that.writer("*3" + RESP3.CRLF +
@@ -110,6 +160,23 @@ class Fs {
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
 
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
+
+                return
+            }
+
+            if (path === '') {
+                reject(new Error('the path has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(mask, 'string') === false) {
+                reject(new Error('Parameter mask must be a string'))
+
+                return
+            }
             // send command
             const opCode = 'fs.readDir'
             that.writer("*3" + RESP3.CRLF +
@@ -139,6 +206,24 @@ class Fs {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
+
+                return
+            }
+
+            if (path === '') {
+                reject(new Error('the path has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(mask, 'string') === false) {
+                reject(new Error('Parameter mask must be a string'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.readTree'
@@ -170,6 +255,18 @@ class Fs {
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
+
+            if (filename === '') {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
+
             // send command
             const opCode = 'fs.removeFile'
             that.writer("*2" + RESP3.CRLF +
@@ -198,6 +295,30 @@ class Fs {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(newFilename, 'string') === false) {
+                reject(new Error('Parameter newFilename must be a string'))
+
+                return
+            }
+
+            if (filename === '') {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
+
+            if (newFilename === '') {
+                reject(new Error('the newFilename has not been provided'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.renameFile'
@@ -228,6 +349,18 @@ class Fs {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
+
+            if (filename === '') {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.stat'
@@ -265,6 +398,30 @@ class Fs {
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
+            if (utils.validateTypeOfField(source, 'string') === false) {
+                reject(new Error('Parameter source must be a string'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(destination, 'string') === false) {
+                reject(new Error('Parameter destination must be a string'))
+
+                return
+            }
+
+            if (source === '') {
+                reject(new Error('the source has not been provided'))
+
+                return
+            }
+
+            if (destination === '') {
+                reject(new Error('the destination has not been provided'))
+
+                return
+            }
+
             // send command
             const opCode = 'fs.copyfile'
             that.writer("*3" + RESP3.CRLF +
@@ -295,6 +452,18 @@ class Fs {
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
+
+                return
+            }
+
+            if (path === '') {
+                reject(new Error('the path has not been provided'))
+
+                return
+            }
+
             // send command
             const opCode = 'fs.mkdir'
             that.writer("*2" + RESP3.CRLF +
@@ -324,6 +493,18 @@ class Fs {
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
+
+                return
+            }
+
+            if (path === '') {
+                reject(new Error('the path has not been provided'))
+
+                return
+            }
+
             // send command
             const opCode = 'fs.expandPath'
             that.writer("*2" + RESP3.CRLF +
@@ -352,6 +533,18 @@ class Fs {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (utils.validateTypeOfField(path, 'string') === false) {
+                reject(new Error('Parameter path must be a string'))
+
+                return
+            }
+
+            if (path === '') {
+                reject(new Error('the path has not been provided'))
+
+                return
+            }
 
             // send command
             const opCode = 'fs.rmdir'

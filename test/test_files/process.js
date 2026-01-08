@@ -89,6 +89,34 @@ describe("process.exec()", async () => {
         ydb.disconnect()
     });
 
+    it("when command is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.exec({test: 2})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter command must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when shell is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.exec('thisisastring', {test: 2})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter shell must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
     it("when command is bad", async () => {
 
         const ydb = await createYdbInstance()
@@ -163,6 +191,35 @@ describe("process.spawn()", async () => {
 
         ydb.disconnect()
     });
+
+    it("when command is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.spawn({test: 2})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter command must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when logFile is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.spawn('thisisastring', {test: 2})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter logFile must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
 
     it("when command is valid", async () => {
 

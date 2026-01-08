@@ -46,11 +46,17 @@ class RESP3 {
                 writable: false
             },
 
+            LF: {
+                value: '\n',
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
             _init: {
                 enumerable: false,
             }
         })
-
     }
 }
 

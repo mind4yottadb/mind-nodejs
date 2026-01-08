@@ -116,7 +116,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             appendToObject(that.process, that)
             appendToObject(that.server, that)
 
-            that.server.init(that.process)
+            that.server._init(that.process)
 
             // resolve the promise
             resolve()
@@ -140,7 +140,6 @@ module.exports = async function (that, writer, reader, resolve, reject, username
                     configurable: false
                 }
             })
-
         }
     )
 }

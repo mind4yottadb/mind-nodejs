@@ -84,7 +84,7 @@ class Server {
         })
     }
 
-    init = function (obj) {
+    _init = function (obj) {
         Object.defineProperties(obj, {
             SIG_INT: {
                 value: 2,
@@ -113,6 +113,7 @@ class Server {
         })
     }
 }
+
 
 module.exports = Server
 

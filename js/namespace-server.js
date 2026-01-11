@@ -132,7 +132,7 @@ class Server {
         })
 
         Object.defineProperties(obj, {
-            init: {
+            _init: {
                 enumerable: false,
             }
 

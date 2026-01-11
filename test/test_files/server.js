@@ -107,7 +107,7 @@ describe("server.pinfo()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            const res = await ydb.server.pinfo(1233)
+            const res = await ydb.server.pinfo(999999999)
 
             expect(parseInt(res.cSystemTime) === -1).to.be.true
             expect(parseInt(res.cUserTime) === -1).to.be.true

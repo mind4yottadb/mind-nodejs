@@ -23,7 +23,7 @@ ydb.on('disconnected', err => console.log('disconnected'))
 //await ydb.fs.writeFile('/test.txt2', 'this is the data I write')
 //await ydb.fs.appendFile('/test.txt2', 'and then append')
 
-ydb.fs.readFile(['test'])
+ydb.fs.readFile('test')
     .then(data => {
         console.log(data)
     })
@@ -54,7 +54,7 @@ console.log(stdout)
 //await ydb.fs.removeFile('/tmp/stef/aaa.txt')
 
 //console.dir(ydb, {width: 5})
-ydb.disconnect()
+//ydb.disconnect()
 /*
 ydb.connect('127.0.0.1', 10000, "admin", "admin").then(() => {
     console.log('Logged in ok')

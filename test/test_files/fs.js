@@ -58,7 +58,7 @@ describe("fs.readFile()", async () => {
 
     it("when filename exists", async () => {
         const ydb = await createYdbInstance()
-        const filename = '$ydb_dist/plugin/etc/mind/mind.config'
+        const filename = '$ydb_dist/plugin/etc/mind/mind.conf'
 
         try {
             const res = await ydb.fs.readFile(filename)
@@ -884,7 +884,7 @@ describe("fs.rmdir()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            const res = await ydb.fs.rmdir('testnotexists')
+            await ydb.fs.rmdir('testnotexists')
 
         } catch (err) {
             expect(err.message).to.have.string('the path does not exists')
@@ -897,7 +897,7 @@ describe("fs.rmdir()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            const res = await ydb.fs.rmdir('/tmp/stef')
+            await ydb.fs.rmdir('/tmp/')
 
         } catch (err) {
             expect(err.message).to.have.string('the directory is not empty')
@@ -906,12 +906,13 @@ describe("fs.rmdir()", async () => {
         ydb.disconnect()
     })
 
-    it("when path is empty", async () => {
+    it("when path has no files, should succeed", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.fs.mkdir('/tmp/stef/testrmdir')
-            const res = await ydb.fs.rmdir('/tmp/stef/testrmdir')
+            await ydb.fs.mkdir('/tmp/stef/testrmdir2').catch(err => {
+            })
+            await ydb.fs.rmdir('/tmp/stef/testrmdir2')
 
         } catch (err) {
             expect(err.message).to.have.string('shouldn\'t happen')
@@ -926,7 +927,7 @@ describe("fs.mkdir()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            const res = await ydb.fs.mkdir()
+            await ydb.fs.mkdir()
 
         } catch (err) {
             expect(err.message).to.have.string('the path has not been provided')

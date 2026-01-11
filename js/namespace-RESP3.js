@@ -29,7 +29,7 @@ class RESP3 {
         bigNumber: num => '(' + num.toString() + '\r\n'
     }
 
-    extract = {
+    extract = {     // to be renamed parse
         blob: str => str.slice(2 + str.indexOf('\r\n'), -2),
         simpleString: str => str.slice(1)
 

@@ -27,6 +27,15 @@ class GlvnManagement {
         // create new entry
         this[name] = new GlvnBasic
 
+        // mark it as "globals"
+        Object.defineProperties(this[name], {
+            _type: {
+                value: this._type,
+                enumerable: false,
+                configurable: false
+            },
+        })
+
         // append reader and writer
         utils.appendToObject(this[name], this)
     }

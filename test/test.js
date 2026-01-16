@@ -43,7 +43,9 @@ const run = async () => {
 
     ydb.globals.addName('t2est')
 
-    console.dir(ydb.globals, {depth: 3})
+    ydb.arrays.addName('thisisanarray')
+
+    console.dir(ydb.arrays, {depth: 10})
 
     ydb.globals.removeName('t2est')
 

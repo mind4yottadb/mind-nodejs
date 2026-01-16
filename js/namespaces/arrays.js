@@ -13,7 +13,23 @@
 const GlvnManagement = require('../extends/glvnManagement')
 
 class Arrays extends GlvnManagement {
+    _type = 'arrays'
 
+    _init = function (obj) {
+        Object.defineProperties(obj, {
+            _type: {
+                enumerable: false,
+                configurable: false,
+                writable: false
+            }
+        })
+
+        Object.defineProperties(obj, {
+            _init: {
+                enumerable: false,
+            }
+        })
+    }
 }
 
 

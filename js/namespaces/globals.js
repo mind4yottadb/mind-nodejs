@@ -13,7 +13,23 @@
 const GlvnManagement = require('../extends/glvnManagement')
 
 class Globals extends GlvnManagement {
+    _type = 'globals'
 
+    _init = function (obj) {
+        Object.defineProperties(obj, {
+            _type: {
+                enumerable: false,
+                configurable: false,
+                writable: false
+            }
+        })
+
+        Object.defineProperties(obj, {
+            _init: {
+                enumerable: false,
+            }
+        })
+    }
 }
 
 module.exports = Globals

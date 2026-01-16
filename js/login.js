@@ -120,6 +120,8 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             appendToObject(that.session, that)
 
             that.server._init(that.server)
+            that.globals._init(that.globals)
+            that.arrays._init(that.arrays)
 
             // resolve the promise
             resolve()

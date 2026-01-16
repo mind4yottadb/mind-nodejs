@@ -43,6 +43,9 @@ const run = async () => {
 
     ydb.globals.addName('t2est')
 
+    //const res = await ydb.globals.t2est.readFile('test')
+    //console.log(res)
+
     ydb.arrays.addName('thisisanarray')
 
     console.dir(ydb.arrays, {depth: 10})
@@ -51,7 +54,6 @@ const run = async () => {
 
     console.dir(ydb.globals, {depth: 3})
 
-    //ydb.globals.t2est.next()
 
 //console.log(await ydb.fs.stat('/tmp'))
 //await ydb.process.cwdSet('/opt')

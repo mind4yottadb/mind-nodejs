@@ -37,6 +37,7 @@ module.exports = {
 
     appendToObject: (namespace, that) => {
         Object.defineProperties(namespace, {
+            objRoot: that.objRoot,
             writer: {
                 value: that.writer,
                 enumerable: false,
@@ -48,5 +49,9 @@ module.exports = {
                 configurable: false
             }
         })
+    },
+
+    validateGlvnPath: path => {
+
     }
 }

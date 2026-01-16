@@ -17,10 +17,10 @@ class GlvnBasic {
 
     _ = function (...path) {
 
-        let result = utils.validateGlvnPath(path)
-        console.log(result)
+        //let result = utils.validateGlvnPath(path)
+        //console.log(result)
 
-        result = utils.convertPathTo$Name(path)
+        const result = utils.convertPathTo$Name(path)
 
 
         this._path = result
@@ -51,7 +51,7 @@ class GlvnBasic {
             const opCode = 'glvn.hasValue'
             that.writer("*2" + RESP3.CRLF +
                 RESP3.build.blob(opCode) +
-                RESP3.build.blob(that._path)
+                RESP3.build.blob('^' + that.name + '(' + that._path + ')')
             );
 
             that.reader(data => {

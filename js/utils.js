@@ -58,6 +58,12 @@ module.exports = {
     },
 
     convertPathTo$Name: path => {
+        let ret = ''
 
+        for (const sub of path) {
+            ret += sub + ','
+        }
+
+        return ret
     }
 }

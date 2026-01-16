@@ -39,12 +39,14 @@ const run = async () => {
 //console.log(cwd)
 
 
-    console.dir(ydb.globals, {depth: 3})
+    console.dir(ydb.arrays, {depth: 3})
 
     ydb.globals.addName('t2est')
 
-    //const res = await ydb.globals.t2est.readFile('test')
-    //console.log(res)
+    const c = 2
+    const a = 3
+    const res = await ydb.globals.t2est._("test", 33, 12, "thisis a string").hasValue([])
+    console.log(res)
 
     ydb.arrays.addName('thisisanarray')
 

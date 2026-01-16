@@ -52,6 +52,8 @@ module.exports = {
     },
 
     validateGlvnPath: path => {
+        console.log(path)
 
+        return true
     }
 }

@@ -115,13 +115,15 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             appendToObject(that.fs, that)
             appendToObject(that.process, that)
             appendToObject(that.server, that)
-            appendToObject(that.arrays, that)
-            appendToObject(that.globals, that)
             appendToObject(that.session, that)
+            appendToObject(that.db, that)
+
+            appendToObject(that.db.vars, that)
+            appendToObject(that.db.globals, that)
 
             that.server._init(that.server)
-            that.globals._init(that.globals)
-            that.arrays._init(that.arrays)
+            that.db.globals._init(that.db.globals)
+            that.db.vars._init(that.db.vars)
 
             // resolve the promise
             resolve()

@@ -10,7 +10,8 @@
 #                                                               #
 ###############################################################*/
 
-const GlvnBasic = require('./glvnBasic')
+const Glvn = require('./glvn')
+const Global = require('./global')
 const utils = require('../utils')
 
 class GlvnManagement {
@@ -25,9 +26,8 @@ class GlvnManagement {
         }
 
         // create new entry
-        this[name] = new GlvnBasic
+        this[name] = this._type === 'vars' ? new Glvn : new Global
 
-        // mark it as "globals"
         Object.defineProperties(this[name], {
             _type: {
                 value: this._type,
@@ -46,6 +46,8 @@ class GlvnManagement {
             },
 
         })
+
+        this[name]._init(this[name])
 
         // append reader and writer
         utils.appendToObject(this[name], this)

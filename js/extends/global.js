@@ -10,26 +10,14 @@
 #                                                               #
 ###############################################################*/
 
-const GlvnManagement = require('../extends/glvnManagement')
+const Glvn = require("./glvn")
+const utils = require("../utils");
 
-class Globals extends GlvnManagement {
-    _type = 'globals'
+class Global extends Glvn {
+    spaceOnDisk = function () {
 
-    _init = function (obj) {
-        Object.defineProperties(obj, {
-            _type: {
-                enumerable: false,
-                configurable: false,
-                writable: false
-            },
-        })
-
-        Object.defineProperties(obj, {
-            _init: {
-                enumerable: false,
-            }
-        })
     }
+
 }
 
-module.exports = Globals
+module.exports = Global

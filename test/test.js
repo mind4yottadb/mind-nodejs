@@ -38,24 +38,26 @@ const run = async () => {
 //const cwd = await ydb.process.cwdGet()
 //console.log(cwd)
 
+    console.dir(ydb.db, {depth: 20})
 
-    console.dir(ydb.arrays, {depth: 3})
 
-    ydb.globals.addName('t2est')
+    ydb.db.globals.addName('t2est')
 
     const c = 2
     const a = 3
-    const users = ydb.globals.t2est
-    const res = await users._("test", 33, 12, "thisis a string").hasValue([])
+    const users = ydb.db.globals.t2est
+    console.log(users)
+    const res = await users._("test", 33, 12, "thisis a string").hasValue()
+    console.log("users")
     console.log(res)
 
-    ydb.arrays.addName('thisisanarray')
+    ydb.db.vars.addName('thisisanarray')
 
-    console.dir(ydb.arrays, {depth: 10})
+    console.dir(ydb.db, {depth: 10})
 
-    ydb.globals.removeName('t2est')
+    ydb.db.globals.removeName('t2est')
 
-    console.dir(ydb.globals, {depth: 3})
+    //console.dir(ydb.db.globals, {depth: 3})
 
 
 //console.log(await ydb.fs.stat('/tmp'))

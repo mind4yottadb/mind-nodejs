@@ -12,8 +12,7 @@
 
 const utils = require("../utils");
 
-class GlvnBasic {
-    _path = ''
+class Glvn {
 
     _ = function (...path) {
 
@@ -32,7 +31,6 @@ class GlvnBasic {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
-        console.log(this)
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
@@ -110,6 +108,22 @@ class GlvnBasic {
     merge = function (path, glvn) {
 
     }
+
+    _init = function (obj) {
+        Object.defineProperties(obj, {
+            _path: {
+                enumerable: false,
+                configurable: false,
+                writable: true
+            },
+        })
+
+        Object.defineProperties(obj, {
+            _init: {
+                enumerable: false,
+            }
+        })
+    }
 }
 
-module.exports = GlvnBasic
+module.exports = Glvn

@@ -18,8 +18,7 @@ const nsProcess = require('./namespaces/process')
 const nsServer = require('./namespaces/server')
 const nsFs = require('./namespaces/fs')
 const nsRESP3 = require('./namespaces/RESP3')
-const nsArrays = require('./namespaces/arrays')
-const nsGlobals = require('./namespaces/globals')
+const nsDb = require('./namespaces/db')
 const nsSession = require('./namespaces/session')
 
 const login = require('./login')
@@ -40,8 +39,7 @@ module.exports = class mind extends EventEmitter {
     process = new nsProcess
     fs = new nsFs
     RESP3 = new nsRESP3
-    arrays = new nsArrays
-    globals = new nsGlobals
+    db = new nsDb
     session = new nsSession
 
     connect = (host, port, username, password) => {

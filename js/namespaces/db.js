@@ -10,27 +10,14 @@
 #                                                               #
 ###############################################################*/
 
-const GlvnManagement = require('../extends/glvnManagement')
+const Vars = require('./vars')
+const Globals = require('./globals')
 
-class Arrays extends GlvnManagement {
-    _type = 'arrays'
+class Db {
+    vars = new Vars
+    globals = new Globals
 
-    _init = function (obj) {
-        Object.defineProperties(obj, {
-            _type: {
-                enumerable: false,
-                configurable: false,
-                writable: false
-            }
-        })
-
-        Object.defineProperties(obj, {
-            _init: {
-                enumerable: false,
-            }
-        })
-    }
 }
 
 
-module.exports = Arrays
+module.exports = Db

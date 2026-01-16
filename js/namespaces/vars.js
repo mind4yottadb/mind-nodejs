@@ -12,8 +12,8 @@
 
 const GlvnManagement = require('../extends/glvnManagement')
 
-class Globals extends GlvnManagement {
-    _type = 'globals'
+class Vars extends GlvnManagement {
+    _type = 'vars'
 
     _init = function (obj) {
         Object.defineProperties(obj, {
@@ -32,4 +32,5 @@ class Globals extends GlvnManagement {
     }
 }
 
-module.exports = Globals
+
+module.exports = Vars

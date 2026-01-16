@@ -10,10 +10,10 @@
 #                                                               #
 ###############################################################*/
 
-//const RESP3 = require("./RESP3");
+const utils = require("./utils");
 
 const driverName = 'mind4yottadb.js'
-const driverVersion = '0.2.0'
+const driverVersion = '0.3.0'
 const driverDescription = 'MIND for YottaDB node.js driver'
 
 module.exports = async function (that, writer, reader, resolve, reject, username, password) {
@@ -115,6 +115,9 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             appendToObject(that.fs, that)
             appendToObject(that.process, that)
             appendToObject(that.server, that)
+            appendToObject(that.arrays, that)
+            appendToObject(that.globals, that)
+            appendToObject(that.session, that)
 
             that.server._init(that.server)
 

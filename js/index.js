@@ -14,10 +14,13 @@ const net = require('net')
 const EventEmitter = require('node:events');
 const eventEmitter = new EventEmitter();
 
-const nsProcess = require('./namespace-process')
-const nsServer = require('./namespace-server')
-const nsFs = require('./namespace-fs')
-const nsRESP3 = require('./namespace-RESP3')
+const nsProcess = require('./namespaces/process')
+const nsServer = require('./namespaces/server')
+const nsFs = require('./namespaces/fs')
+const nsRESP3 = require('./namespaces/RESP3')
+const nsArrays = require('./namespaces/arrays')
+const nsGlobals = require('./namespaces/globals')
+const nsSession = require('./namespaces/session')
 
 const login = require('./login')
 
@@ -37,6 +40,9 @@ module.exports = class mind extends EventEmitter {
     process = new nsProcess
     fs = new nsFs
     RESP3 = new nsRESP3
+    arrays = new nsArrays
+    globals = new nsGlobals
+    session = new nsSession
 
     connect = (host, port, username, password) => {
         const that = this

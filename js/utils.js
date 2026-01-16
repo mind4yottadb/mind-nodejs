@@ -17,5 +17,36 @@ module.exports = {
 
     validateEmptyField: value => {
 
+    },
+
+    validateGlvnName: name => {
+        if (name === undefined || typeof name !== 'string') {
+            throw new Error('Name empty or not string type')
+        }
+
+        let strRegex = new RegExp(/^[a-z0-9]+$/i)
+        let result = strRegex.test(name)
+
+        strRegex = new RegExp(/^[a-z]+$/i)
+        let result2 = strRegex.test(name.charAt(0))
+
+        if (!result || !result2) {
+            throw new Error('Invalid name, must be alphanumeric with first char alphabetic')
+        }
+    },
+
+    appendToObject: (namespace, that) => {
+        Object.defineProperties(namespace, {
+            writer: {
+                value: that.writer,
+                enumerable: false,
+                configurable: false
+            },
+            reader: {
+                value: that.reader,
+                enumerable: false,
+                configurable: false
+            }
+        })
     }
 }

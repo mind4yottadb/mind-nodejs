@@ -34,6 +34,17 @@ class GlvnManagement {
                 enumerable: false,
                 configurable: false
             },
+            objRoot: {
+                value: this.objRoot,
+                enumerable: false,
+                configurable: false
+            },
+            name: {
+                value: name,
+                enumerable: false,
+                configurable: false
+            },
+
         })
 
         // append reader and writer

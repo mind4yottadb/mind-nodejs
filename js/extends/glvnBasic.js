@@ -17,13 +17,13 @@ class GlvnBasic {
 
     _ = function (...path) {
 
-        let str = '('
-        for (let subscript of path) {
-            str += subscript + ","
-        }
-        str += ')'
+        let result = utils.validateGlvnPath(path)
+        console.log(result)
 
-        this._path = str
+        result = utils.convertPathTo$Name(path)
+
+
+        this._path = result
 
         return this
     }
@@ -43,8 +43,6 @@ class GlvnBasic {
 
              */
 
-            //const result = utils.validateGlvnPath(path)
-            //console.log(result)
 
 
             //return

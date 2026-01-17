@@ -85,6 +85,10 @@ module.exports = {
             if (typeof sub !== 'string' && typeof sub !== 'number') {
                 throw new Error('Subpath must be a string or number')
             }
+
+            if (typeof sub === 'string' && sub === '') {
+                throw new Error('String in path is empty')
+            }
         }
     },
 

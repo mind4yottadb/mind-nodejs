@@ -19,6 +19,51 @@ module.exports = {
 
     },
 
+    validateConnectOptions: options => {
+
+        if (typeof options !== 'object') {
+            return 'options must be an object'
+        }
+
+        if (options.app && typeof options.app !== 'object') {
+            return 'options.app must be an object'
+        }
+
+        if (options.app && options.app.globals && !Array.isArray(options.app.globals)) {
+            return 'options.app.globals must be an array'
+        }
+
+        if (options.app && options.app.vars && !Array.isArray(options.app.vars)) {
+            return 'options.app.vars must be an array'
+        }
+
+        if (options.app && options.app.vars) {
+            let err = ''
+
+            options.app.vars.forEach(entry => {
+                if (typeof entry !== 'string') {
+                    err = 'Entries in options.app.vars must be a string'
+                }
+            })
+
+            if (err !== '') return err
+        }
+
+        if (options.app && options.app.globals) {
+            let err = ''
+
+            options.app.globals.forEach(entry => {
+                if (typeof entry !== 'string') {
+                    err = 'Entries in options.app.globals must be a string'
+                }
+            })
+
+            if (err !== '') return err
+        }
+
+        return ''
+    },
+
     validateGlvnName: name => {
         if (name === undefined || typeof name !== 'string') {
             throw new Error('Name empty or not string type')

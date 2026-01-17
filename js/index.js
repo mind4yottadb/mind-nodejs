@@ -23,6 +23,7 @@ const nsDbms = require('./namespaces/dbms')
 const nsSession = require('./namespaces/session')
 
 const login = require('./login')
+const utils = require('./utils')
 
 module.exports = class mind extends EventEmitter {
     // ********************************
@@ -48,20 +49,34 @@ module.exports = class mind extends EventEmitter {
         const that = this
 
         return new Promise(function (resolve, reject) {
+            // perform validation
             if (typeof host !== 'string' || host === '') {
                 reject(new Error('host must be a string'));
+
+                return
             }
 
             if (typeof port !== 'number') {
                 reject(new Error('port must be a number'));
+
+                return
             }
 
             if (typeof username !== 'string' || username === '') {
-                reject(new Error('port must be a string'));
+                reject(new Error('username must be a string'));
+
+                return
             }
 
             if (typeof password !== 'string' || password === '') {
-                reject(new Error('port must be a string'));
+                reject(new Error('password must be a string'));
+
+                return
+            }
+
+            const err = utils.validateConnectOptions(options)
+            if (err !== '') {
+                reject(new Error(err))
             }
 
             that.#socket = net.createConnection(port, host, async () => {
@@ -75,14 +90,14 @@ module.exports = class mind extends EventEmitter {
                 })
 
                 // mount event handler and route it to the event emitter
-                that.#socket.on('error', err => {
-                    that.emit('error', err)
+                that.#socket.on('error2', err => {
+                    that.emit('error2', err)
                     reject(err)
                 })
 
                 // perform the login
                 try {
-                    await login(that, that.#writePacket, that.#readPacket, resolve, reject, username, password)
+                    await login(that, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
 
                     that.loggedIn = true
 

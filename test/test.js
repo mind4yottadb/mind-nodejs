@@ -5,8 +5,17 @@ const ydb = new mind
 
 
 const run = async () => {
-    await ydb.connect('127.0.0.1', 10000, "admin", "admin").catch(err => {
-            console.log('Error is: ' + err)
+    await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
+        app: {
+            vars: [
+                'test1', 'test2qwerty',
+            ],
+            globals: [
+                'myglobal1', 'myglobal2'
+            ]
+        }
+    }).catch(err => {
+        console.log(err.message)
             exit()
         }
     )
@@ -54,11 +63,11 @@ const run = async () => {
 
     ydb.db.vars.addName('thisisanarray')
 
-    console.dir(ydb.db, {depth: 10})
+    //console.dir(ydb.db, {depth: 10})
 
     ydb.db.vars.removeName('t2est')
 
-    //console.dir(ydb.db.globals, {depth: 3})
+    console.dir(ydb.db, {depth: 3})
 
 
 //console.log(await ydb.fs.stat('/tmp'))

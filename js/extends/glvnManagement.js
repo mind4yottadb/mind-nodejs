@@ -15,6 +15,10 @@ const Global = require('./global')
 const utils = require('../utils')
 
 class GlvnManagement {
+    $ = function (glvnName) {
+
+    }
+
     addName = function (name) {
         // validate name
         utils.validateGlvnName(name)
@@ -39,7 +43,7 @@ class GlvnManagement {
                 enumerable: false,
                 configurable: false
             },
-            name: {
+            _glvnName: {
                 value: name,
                 enumerable: false,
                 configurable: false
@@ -67,6 +71,5 @@ class GlvnManagement {
         }
     }
 }
-
 
 module.exports = GlvnManagement

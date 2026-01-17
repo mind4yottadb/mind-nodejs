@@ -17,13 +17,13 @@ class Glvn {
 
     _ = function (...path) {
 
-        //let result = utils.validateGlvnPath(path)
-        //console.log(result)
+        try {
+            utils.validateGlvnPath(path)
+        } catch (err) {
+            throw err
+        }
 
-        const result = utils.convertPathTo$Name(path)
-
-
-        this._path = result
+        this._path = utils.convertPathTo$Name(path)
 
         return this
     }
@@ -35,22 +35,14 @@ class Glvn {
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
-            /*
-            if (!Array.isArray(path)) {
-                reject(new Error('path must be an array'))
-            }
-
-             */
-
-
-
-            //return
 
             // send command
             const opCode = 'glvn.hasValue'
+            const glvn = (that._type === 'globals' ? '^' : '') + that._glvnName + '(' + that._path + ')'
+
             that.writer("*2" + RESP3.CRLF +
                 RESP3.build.blob(opCode) +
-                RESP3.build.blob('^' + that.name + '(' + that._path + ')')
+                RESP3.build.blob(glvn)
             );
 
             that._path = ''

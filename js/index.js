@@ -19,6 +19,7 @@ const nsServer = require('./namespaces/server')
 const nsFs = require('./namespaces/fs')
 const nsRESP3 = require('./namespaces/RESP3')
 const nsDb = require('./namespaces/db')
+const nsDbms = require('./namespaces/dbms')
 const nsSession = require('./namespaces/session')
 
 const login = require('./login')
@@ -40,6 +41,7 @@ module.exports = class mind extends EventEmitter {
     fs = new nsFs
     RESP3 = new nsRESP3
     db = new nsDb
+    dbms = new nsDbms
     session = new nsSession
 
     connect = (host, port, username, password) => {

@@ -110,5 +110,4 @@ class RESP3 {
     }
 }
 
-
 module.exports = RESP3

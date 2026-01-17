@@ -32,5 +32,4 @@ class Vars extends GlvnManagement {
     }
 }
 
-
 module.exports = Vars

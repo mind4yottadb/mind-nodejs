@@ -35,9 +35,36 @@ module.exports = {
         }
     },
 
+    validateGlvnPath: path => {
+        for (const sub of path) {
+            if (typeof sub !== 'string' && typeof sub !== 'number') {
+                throw new Error('Subpath must be a string or number')
+            }
+        }
+    },
+
+    convertPathTo$Name: path => {
+        let ret = ''
+
+        for (const sub of path) {
+            if (typeof sub === 'string') {
+                ret += '"' + sub + '"'
+            } else {
+                ret += sub.toString()
+            }
+            ret += ','
+        }
+
+        return ret.slice(0, -1)
+    },
+
     appendToObject: (namespace, that) => {
         Object.defineProperties(namespace, {
-            objRoot: that.objRoot,
+            objRoot: {
+                value: that.objRoot,
+                enumerable: false,
+                configurable: false
+            },
             writer: {
                 value: that.writer,
                 enumerable: false,
@@ -50,20 +77,4 @@ module.exports = {
             }
         })
     },
-
-    validateGlvnPath: path => {
-        console.log(path)
-
-        return true
-    },
-
-    convertPathTo$Name: path => {
-        let ret = ''
-
-        for (const sub of path) {
-            ret += sub + ','
-        }
-
-        return ret
-    }
 }

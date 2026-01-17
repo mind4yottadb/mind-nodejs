@@ -112,7 +112,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             }
 
             // append reader, writer and root to make them available to deeper levels
-            appendToObject(that.fs, that)
+            utils.appendToObject(that.fs, that)
             appendToObject(that.process, that)
             appendToObject(that.server, that)
             appendToObject(that.session, that)
@@ -121,6 +121,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             appendToObject(that.db.vars, that)
             appendToObject(that.db.globals, that)
 
+            // and initialize some classes
             that.server._init(that.server)
             that.db.globals._init(that.db.globals)
             that.db.vars._init(that.db.vars)

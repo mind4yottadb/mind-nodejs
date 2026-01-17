@@ -10,13 +10,9 @@
 #                                                               #
 ###############################################################*/
 
-const Glvn = require("./glvn")
-const utils = require("../utils");
+class Dbms {
 
-class Global extends Glvn {
-    spaceOnDisk = function () {
-
-    }
 }
 
-module.exports = Global
+
+module.exports = Dbms

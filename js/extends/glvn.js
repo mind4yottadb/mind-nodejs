@@ -13,6 +13,7 @@
 const utils = require("../utils");
 
 class Glvn {
+    _path = ''
 
     _ = function (...path) {
 
@@ -51,6 +52,8 @@ class Glvn {
                 RESP3.build.blob(opCode) +
                 RESP3.build.blob('^' + that.name + '(' + that._path + ')')
             );
+
+            that._path = ''
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {

@@ -47,9 +47,8 @@ const run = async () => {
     const a = 3
     const users = ydb.db.globals.t2est
     console.log(users)
-    const res = await users._("test", 33, 12, "thisis a string").hasValue()
-    console.log("users")
-    console.log(res)
+    let res = await users._("test", 33, 12, "thisis a string").hasValue()
+    res = await users.hasValue()
 
     ydb.db.vars.addName('thisisanarray')
 

@@ -44,10 +44,26 @@ module.exports = class mind extends EventEmitter {
     dbms = new nsDbms
     session = new nsSession
 
-    connect = (host, port, username, password) => {
+    connect = (host, port, username, password, options = {}) => {
         const that = this
 
         return new Promise(function (resolve, reject) {
+            if (typeof host !== 'string' || host === '') {
+                reject(new Error('host must be a string'));
+            }
+
+            if (typeof port !== 'number') {
+                reject(new Error('port must be a number'));
+            }
+
+            if (typeof username !== 'string' || username === '') {
+                reject(new Error('port must be a string'));
+            }
+
+            if (typeof password !== 'string' || password === '') {
+                reject(new Error('port must be a string'));
+            }
+
             that.#socket = net.createConnection(port, host, async () => {
                 that.connected = true
 

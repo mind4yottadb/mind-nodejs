@@ -12,3 +12,45 @@
 ###############################################################*/
 -->
 
+### disconnect
+
+---
+
+**Type**: event
+
+**Async**: no
+
+**Parameters**:
+
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
+
+**Returns**:
+
+`Nothing`
+
+---
+
+Register your function to be triggered by a socket disconnection (i.e. the server session crashes or stops due to MIND
+server shutdown).
+
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+console.dir(ydb, {depth: 5})
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+ydb.on('disconnect', () => {
+    // your code here
+})
+
+console.dir(ydb, {depth: 5})
+````

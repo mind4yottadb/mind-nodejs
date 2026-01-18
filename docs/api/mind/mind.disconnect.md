@@ -12,5 +12,42 @@
 ###############################################################*/
 -->
 
+### disconnect()
 
+---
+
+**Type**: method
+
+**Async**: yes, returns a Promise
+
+**Parameters**:
+
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
+
+**Returns**:
+
+`Promise`
+
+---
+
+Terminates the TCP connection with the server, meaning you can NOT execute any command anymore.
+
+If you were using variables in your session, everything will be lost.
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+console.dir(ydb, {depth: 5})
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+await ydb.disconnect()
+````
 

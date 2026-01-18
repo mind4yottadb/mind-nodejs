@@ -40,6 +40,18 @@ It connects to the MIND server, creates a session and reads server's info to sel
 
 This is the very first method to execute in order to get MIND to work.
 
+Once connection is established, a MUMPS process is created in the MIND server that will execute you code in a protected
+environment.
+
+This process will stay alive, waiting for your commands, until you disconnect from the server using the `disconnect()`
+method.
+
+Once login is successful, this component will receive server and process information from the MIND server and populate
+itself according.
+
+> Note: both connection and login errors will be thrown and can be catched using the `catch{}` structure, regardless if
+> you are using `await` or `then` in your async call.
+
 ### The `option` parameter:
 
 ````js
@@ -76,8 +88,6 @@ console.dir(ydb, {depth: 5})
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 console.dir(ydb, {depth: 5})
-
-
 ````
 
 The code above will return when connection and negotiation are complete so that you can start executing commands.
@@ -106,7 +116,6 @@ ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
     .catch((err) => {
 
     })
-
 ````
 
 Example with option parameters:
@@ -127,5 +136,4 @@ await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', {
         ]
     }
 })
-
 ````

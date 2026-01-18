@@ -28,7 +28,7 @@ const run = async () => {
 //console.dir(ydb)
 
     ydb.on('error', err => console.log('custom error: ' + err))
-    ydb.on('disconnected', err => console.log('disconnected'))
+    ydb.on('disconnect', err => console.log('disconnected'))
 
 //await ydb.fs.writeFile('/test.txt2', 'this is the data I write')
 //await ydb.fs.appendFile('/test.txt2', 'and then append')

@@ -54,3 +54,7 @@ ydb.on('disconnect', () => {
 
 console.dir(ydb, {depth: 5})
 ````
+
+---
+
+[Back](../mind.md)

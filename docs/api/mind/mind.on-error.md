@@ -12,3 +12,49 @@
 ###############################################################*/
 -->
 
+### error
+
+---
+
+**Type**: event
+
+**Async**: no
+
+**Parameters**:
+
+| name  | data type    | Optional | Description                      |
+|-------|--------------|----------|----------------------------------|
+| `err` | Error object | Yes      | The error returned by the socket |
+
+**Returns**:
+
+`Nothing`
+
+---
+
+Register your function to be triggered by an internal socket error.
+
+> This event does NOT get triggered by errors returned by commands calls.
+
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+console.dir(ydb, {depth: 5})
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+ydb.on('error', err => {
+    // your code here
+})
+````
+
+---
+
+[Back](../mind.md)

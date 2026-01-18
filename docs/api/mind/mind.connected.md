@@ -12,5 +12,51 @@
 ###############################################################*/
 -->
 
+### connected
+
+---
+
+**Type**: property / readonly
+
+**Async**: no
+
+**Parameters**:
+
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
+
+**Returns**:
+
+`<bool>`
+
+---
+
+Returns true if you are connected to the MIND server.
 
 
+<br>
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+let isConnected = ydb.connected
+console.log(isConnected)
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+isConnected = ydb.connected
+console.log(isConnected)
+
+ydb.disconnect()
+
+````
+
+---
+
+[Back](../mind.md)

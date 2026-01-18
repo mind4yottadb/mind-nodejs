@@ -86,12 +86,12 @@ module.exports = class mind extends EventEmitter {
                 that.#socket.on('end', () => {
                     that.disconnect()
 
-                    that.emit('disconnected', new Error('Disconnected'))
+                    that.emit('disconnect', new Error('Disconnected'))
                 })
 
                 // mount event handler and route it to the event emitter
-                that.#socket.on('error2', err => {
-                    that.emit('error2', err)
+                that.#socket.on('error', err => {
+                    that.emit('error', err)
                     reject(err)
                 })
 

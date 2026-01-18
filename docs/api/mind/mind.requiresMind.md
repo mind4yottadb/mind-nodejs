@@ -12,3 +12,44 @@
 ###############################################################*/
 -->
 
+### requiresMind
+
+---
+
+**Type**: property / readonly
+
+**Async**: no
+
+**Parameters**:
+
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
+
+**Returns**:
+
+`<string>`
+
+---
+
+Returns the minimum version number of the MIND server needed to run this package.
+
+
+<br>
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+let requiresMind = ydb.requiresMind
+console.log(requiresMind)
+
+````
+
+---
+
+[Back](../mind.md)

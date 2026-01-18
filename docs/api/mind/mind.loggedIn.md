@@ -12,3 +12,50 @@
 ###############################################################*/
 -->
 
+### loggedIn
+
+---
+
+**Type**: property / readonly
+
+**Async**: no
+
+**Parameters**:
+
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
+
+**Returns**:
+
+`<bool>`
+
+---
+
+Returns true if you are logged in the MIND server.
+
+
+<br>
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+let isLoggedIn = ydb.loggedIn
+console.log(isLoggedIn)
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+isLoggedIn = ydb.loggedIn
+console.log(isLoggedIn)
+
+ydb.disconnect()
+````
+
+---
+
+[Back](../mind.md)

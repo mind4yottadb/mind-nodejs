@@ -56,8 +56,8 @@ const run = async () => {
     const a = 3
     const users = ydb.db.globals.stef
     //console.log(users)
-    console.log(await users._("test", 33.23, 12, "a string").hasValue())
-    console.log(await users.hasValue())
+    console.log(await users._("test", 2).hasNodes())
+    console.log(await users.hasNodes())
 
     console.log('executed')
 

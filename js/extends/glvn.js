@@ -35,7 +35,6 @@ class Glvn {
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
-
             // send command
             const opCode = 'glvn.hasValue'
             const glvn = (that._type === 'globals' ? '^' : '') + that._glvnName + '(' + that._path + ')'

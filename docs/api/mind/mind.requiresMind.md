@@ -1,5 +1,5 @@
 <!--
-###############################################################
+#################################################################
 #                                                               #
 # Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
@@ -12,31 +12,44 @@
 ###############################################################*/
 -->
 
-# MIND
+### requiresMind
 
-### Methods:
+---
 
-- connect(host, port, username, password, options)
-- disconnect()
+**Type**: property / readonly
 
-### Properties:
+**Async**: no
 
-- connected
-- loggedIn
-- requiresMind
+**Parameters**:
 
-### Events
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
 
-- error
-- disconnect
+**Returns**:
 
-### Namespaces:
+`<string>`
 
-- [process](namespace.process.md)
-- [server](namespace.server.md)
-- [fs](namespace.fs.md)
-- [RESP3](namespace.RESP3.md)
-- session
-- db
-    - vars
-    - arrays
+---
+
+Returns the minimum version number of the MIND server needed to run this package.
+
+
+<br>
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+let requiresMind = ydb.requiresMind
+console.log(requiresMind)
+
+````
+
+---
+
+[Back](../mind.md)

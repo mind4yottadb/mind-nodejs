@@ -1,5 +1,5 @@
 <!--
-###############################################################
+#################################################################
 #                                                               #
 # Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
@@ -12,31 +12,45 @@
 ###############################################################*/
 -->
 
-# MIND
+### disconnect()
 
-### Methods:
+---
 
-- connect(host, port, username, password, options)
-- disconnect()
+**Type**: method
 
-### Properties:
+**Async**: yes, returns a Promise
 
-- connected
-- loggedIn
-- requiresMind
+**Parameters**:
 
-### Events
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
 
-- error
-- disconnect
+**Returns**:
 
-### Namespaces:
+`Promise`
 
-- [process](namespace.process.md)
-- [server](namespace.server.md)
-- [fs](namespace.fs.md)
-- [RESP3](namespace.RESP3.md)
-- session
-- db
-    - vars
-    - arrays
+---
+
+Terminates the TCP connection with the server, meaning you can NOT execute any command anymore.
+
+If you were using variables in your session, everything will be lost.
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+console.dir(ydb, {depth: 5})
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+await ydb.disconnect()
+````
+
+---
+
+[Back](../mind.md)

@@ -10,7 +10,7 @@
 #                                                               #
 ###############################################################*/
 
-const utils = require("./utils");
+const utils = require("../utils");
 
 class Process {
     pid = null

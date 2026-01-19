@@ -10,7 +10,7 @@
 #                                                               #
 ###############################################################*/
 
-const utils = require("./utils");
+const utils = require("../utils");
 
 class Server {
     hostName = ''
@@ -132,14 +132,13 @@ class Server {
         })
 
         Object.defineProperties(obj, {
-            init: {
+            _init: {
                 enumerable: false,
             }
 
         })
     }
 }
-
 
 module.exports = Server
 

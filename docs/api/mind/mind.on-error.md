@@ -12,31 +12,30 @@
 ###############################################################*/
 -->
 
-### process.unixtime()
+### error
 
 ---
 
-**Type**: function
+**Type**: event
 
-**Async**: yes, returns a Promise
+**Async**: no
 
 **Parameters**:
 
-| name | data type | Optional | Description |
-|------|-----------|----------|-------------|
+| name  | data type    | Optional | Description                      |
+|-------|--------------|----------|----------------------------------|
+| `err` | Error object | Yes      | The error returned by the socket |
 
 **Returns**:
 
-`Promise<int>`
+`Nothing`
 
 ---
 
-`unixtime` (UNIX time or universal time) returns the number of microseconds since January 1, 1970 00:00:00 UTC, which
-provides a time stamp for directly comparing different timezones. `unixtime` accuracy is subject to the precision of the
-system clock
+Register your function to be triggered by an internal socket error.
 
+> This event does NOT get triggered by errors returned by commands calls.
 
-<br>
 
 ---
 
@@ -47,26 +46,15 @@ import mind from 'mind4yottadb'
 
 const ydb = new mind
 
+console.dir(ydb, {depth: 5})
+
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const unixTime = ydb.process.unixtime()
-console.log(unixTime)
-
-ydb.disconnect()
-
+ydb.on('error', err => {
+    // your code here
+})
 ````
-
-returns:
-
-````js
-
-unixTime = 1767806071551168
-
-````
-
-<br>
-
 
 ---
 
-[Back](../namespace.process.md)
+[Back](../mind.md)

@@ -12,31 +12,10 @@
 ###############################################################*/
 -->
 
-# MIND
+# Namespace: db.globals
 
 ### Methods:
 
-- connect(host, port, username, password, options)
-- disconnect()
+### Functions:
 
 ### Properties:
-
-- connected
-- loggedIn
-- requiresMind
-
-### Events
-
-- error
-- disconnect
-
-### Namespaces:
-
-- [process](namespace.process.md)
-- [server](namespace.server.md)
-- [fs](namespace.fs.md)
-- [RESP3](namespace.RESP3.md)
-- session
-- db
-    - vars
-    - arrays

@@ -1,5 +1,5 @@
 <!--
-###############################################################
+#################################################################
 #                                                               #
 # Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
@@ -12,31 +12,51 @@
 ###############################################################*/
 -->
 
-# MIND
+### connected
 
-### Methods:
+---
 
-- connect(host, port, username, password, options)
-- disconnect()
+**Type**: property / readonly
 
-### Properties:
+**Async**: no
 
-- connected
-- loggedIn
-- requiresMind
+**Parameters**:
 
-### Events
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
 
-- error
-- disconnect
+**Returns**:
 
-### Namespaces:
+`<bool>`
 
-- [process](namespace.process.md)
-- [server](namespace.server.md)
-- [fs](namespace.fs.md)
-- [RESP3](namespace.RESP3.md)
-- session
-- db
-    - vars
-    - arrays
+---
+
+Returns true if you are connected to the MIND server.
+
+
+<br>
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+let isConnected = ydb.connected
+console.log(isConnected)
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+isConnected = ydb.connected
+console.log(isConnected)
+
+ydb.disconnect()
+
+````
+
+---
+
+[Back](../mind.md)

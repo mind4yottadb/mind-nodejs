@@ -17,5 +17,113 @@ module.exports = {
 
     validateEmptyField: value => {
 
-    }
+    },
+
+    validateConnectOptions: options => {
+
+        if (typeof options !== 'object') {
+            return 'options must be an object'
+        }
+
+        if (options.app && typeof options.app !== 'object') {
+            return 'options.app must be an object'
+        }
+
+        if (options.app && options.app.globals && !Array.isArray(options.app.globals)) {
+            return 'options.app.globals must be an array'
+        }
+
+        if (options.app && options.app.vars && !Array.isArray(options.app.vars)) {
+            return 'options.app.vars must be an array'
+        }
+
+        if (options.app && options.app.vars) {
+            let err = ''
+
+            options.app.vars.forEach(entry => {
+                if (typeof entry !== 'string') {
+                    err = 'Entries in options.app.vars must be a string'
+                }
+            })
+
+            if (err !== '') return err
+        }
+
+        if (options.app && options.app.globals) {
+            let err = ''
+
+            options.app.globals.forEach(entry => {
+                if (typeof entry !== 'string') {
+                    err = 'Entries in options.app.globals must be a string'
+                }
+            })
+
+            if (err !== '') return err
+        }
+
+        return ''
+    },
+
+    validateGlvnName: name => {
+        if (name === undefined || typeof name !== 'string') {
+            throw new Error('Name empty or not string type')
+        }
+
+        let strRegex = new RegExp(/^[a-z0-9]+$/i)
+        let result = strRegex.test(name)
+
+        strRegex = new RegExp(/^[a-z]+$/i)
+        let result2 = strRegex.test(name.charAt(0))
+
+        if (!result || !result2) {
+            throw new Error('Invalid name, must be alphanumeric with first char alphabetic')
+        }
+    },
+
+    validateGlvnPath: path => {
+        for (const sub of path) {
+            if (typeof sub !== 'string' && typeof sub !== 'number') {
+                throw new Error('Subpath must be a string or number')
+            }
+
+            if (typeof sub === 'string' && sub === '') {
+                throw new Error('String in path is empty')
+            }
+        }
+    },
+
+    convertPathTo$Name: path => {
+        let ret = ''
+
+        for (const sub of path) {
+            if (typeof sub === 'string') {
+                ret += '"' + sub + '"'
+            } else {
+                ret += sub.toString()
+            }
+            ret += ','
+        }
+
+        return ret.slice(0, -1)
+    },
+
+    appendToObject: (namespace, that) => {
+        Object.defineProperties(namespace, {
+            objRoot: {
+                value: that.objRoot,
+                enumerable: false,
+                configurable: false
+            },
+            writer: {
+                value: that.writer,
+                enumerable: false,
+                configurable: false
+            },
+            reader: {
+                value: that.reader,
+                enumerable: false,
+                configurable: false
+            }
+        })
+    },
 }

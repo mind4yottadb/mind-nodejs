@@ -1,5 +1,4 @@
-<!--
-###############################################################
+/*###############################################################
 #                                                               #
 # Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
@@ -10,33 +9,15 @@
 #   the license, please stop and do not read further.           #
 #                                                               #
 ###############################################################*/
--->
 
-# MIND
+const Vars = require('./vars')
+const Globals = require('./globals')
 
-### Methods:
+class Db {
+    vars = new Vars
+    globals = new Globals
 
-- connect(host, port, username, password, options)
-- disconnect()
+}
 
-### Properties:
 
-- connected
-- loggedIn
-- requiresMind
-
-### Events
-
-- error
-- disconnect
-
-### Namespaces:
-
-- [process](namespace.process.md)
-- [server](namespace.server.md)
-- [fs](namespace.fs.md)
-- [RESP3](namespace.RESP3.md)
-- session
-- db
-    - vars
-    - arrays
+module.exports = Db

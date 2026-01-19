@@ -1,5 +1,4 @@
-<!--
-###############################################################
+/*###############################################################
 #                                                               #
 # Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
@@ -10,33 +9,27 @@
 #   the license, please stop and do not read further.           #
 #                                                               #
 ###############################################################*/
--->
 
-# MIND
+const GlvnManagement = require('../extends/glvnManagement')
 
-### Methods:
+class Globals extends GlvnManagement {
+    _type = 'globals'
 
-- connect(host, port, username, password, options)
-- disconnect()
+    _init = function (obj) {
+        Object.defineProperties(obj, {
+            _type: {
+                enumerable: false,
+                configurable: false,
+                writable: false
+            },
+        })
 
-### Properties:
+        Object.defineProperties(obj, {
+            _init: {
+                enumerable: false,
+            }
+        })
+    }
+}
 
-- connected
-- loggedIn
-- requiresMind
-
-### Events
-
-- error
-- disconnect
-
-### Namespaces:
-
-- [process](namespace.process.md)
-- [server](namespace.server.md)
-- [fs](namespace.fs.md)
-- [RESP3](namespace.RESP3.md)
-- session
-- db
-    - vars
-    - arrays
+module.exports = Globals

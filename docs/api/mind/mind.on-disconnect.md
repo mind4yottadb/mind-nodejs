@@ -1,5 +1,5 @@
 <!--
-###############################################################
+#################################################################
 #                                                               #
 # Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
@@ -12,31 +12,49 @@
 ###############################################################*/
 -->
 
-# MIND
+### disconnect
 
-### Methods:
+---
 
-- connect(host, port, username, password, options)
-- disconnect()
+**Type**: event
 
-### Properties:
+**Async**: no
 
-- connected
-- loggedIn
-- requiresMind
+**Parameters**:
 
-### Events
+| name | data type | Optional | Description |
+|------|-----------|----------|-------------|
 
-- error
-- disconnect
+**Returns**:
 
-### Namespaces:
+`Nothing`
 
-- [process](namespace.process.md)
-- [server](namespace.server.md)
-- [fs](namespace.fs.md)
-- [RESP3](namespace.RESP3.md)
-- session
-- db
-    - vars
-    - arrays
+---
+
+Register your function to be triggered by a socket disconnection (i.e. the server session crashes or stops due to MIND
+server shutdown).
+
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+console.dir(ydb, {depth: 5})
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+ydb.on('disconnect', () => {
+    // your code here
+})
+
+console.dir(ydb, {depth: 5})
+````
+
+---
+
+[Back](../mind.md)

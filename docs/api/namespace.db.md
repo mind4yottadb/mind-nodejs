@@ -12,31 +12,12 @@
 ###############################################################*/
 -->
 
-# MIND
-
-### Methods:
-
-- connect(host, port, username, password, options)
-- disconnect()
-
-### Properties:
-
-- connected
-- loggedIn
-- requiresMind
-
-### Events
-
-- error
-- disconnect
+# Namespace: db
 
 ### Namespaces:
 
-- [process](namespace.process.md)
-- [server](namespace.server.md)
-- [fs](namespace.fs.md)
-- [RESP3](namespace.RESP3.md)
-- session
-- db
-    - vars
-    - arrays
+### Methods:
+
+### Functions:
+
+### Properties:

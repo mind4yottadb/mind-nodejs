@@ -14,12 +14,16 @@ const net = require('net')
 const EventEmitter = require('node:events');
 const eventEmitter = new EventEmitter();
 
-const nsProcess = require('./namespace-process')
-const nsServer = require('./namespace-server')
-const nsFs = require('./namespace-fs')
-const nsRESP3 = require('./namespace-RESP3')
+const nsProcess = require('./namespaces/process')
+const nsServer = require('./namespaces/server')
+const nsFs = require('./namespaces/fs')
+const nsRESP3 = require('./namespaces/RESP3')
+const nsDb = require('./namespaces/db')
+const nsDbms = require('./namespaces/dbms')
+const nsSession = require('./namespaces/session')
 
 const login = require('./login')
+const utils = require('./utils')
 
 module.exports = class mind extends EventEmitter {
     // ********************************
@@ -37,11 +41,44 @@ module.exports = class mind extends EventEmitter {
     process = new nsProcess
     fs = new nsFs
     RESP3 = new nsRESP3
+    db = new nsDb
+    dbms = new nsDbms
+    session = new nsSession
 
-    connect = (host, port, username, password) => {
+    connect = (host, port, username, password, options = {}) => {
         const that = this
 
         return new Promise(function (resolve, reject) {
+            // perform validation
+            if (typeof host !== 'string' || host === '') {
+                reject(new Error('host must be a string'));
+
+                return
+            }
+
+            if (typeof port !== 'number') {
+                reject(new Error('port must be a number'));
+
+                return
+            }
+
+            if (typeof username !== 'string' || username === '') {
+                reject(new Error('username must be a string'));
+
+                return
+            }
+
+            if (typeof password !== 'string' || password === '') {
+                reject(new Error('password must be a string'));
+
+                return
+            }
+
+            const err = utils.validateConnectOptions(options)
+            if (err !== '') {
+                reject(new Error(err))
+            }
+
             that.#socket = net.createConnection(port, host, async () => {
                 that.connected = true
 
@@ -49,7 +86,7 @@ module.exports = class mind extends EventEmitter {
                 that.#socket.on('end', () => {
                     that.disconnect()
 
-                    that.emit('disconnected', new Error('Disconnected'))
+                    that.emit('disconnect', new Error('Disconnected'))
                 })
 
                 // mount event handler and route it to the event emitter
@@ -60,7 +97,7 @@ module.exports = class mind extends EventEmitter {
 
                 // perform the login
                 try {
-                    await login(that, that.#writePacket, that.#readPacket, resolve, reject, username, password)
+                    await login(that, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
 
                     that.loggedIn = true
 

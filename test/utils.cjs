@@ -6,7 +6,16 @@ module.exports = {
     createYdbInstance: async () => {
         const ydb = new mind
 
-        await ydb.connect('127.0.0.1', 10000, "admin", "admin").catch(err => {
+        await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
+            app: {
+                vars: [
+                    'testVar', 'testArray',
+                ],
+                globals: [
+                    'testGlobal'
+                ]
+            }
+        }).catch(err => {
                 console.log('Error is: ' + err)
                 exit()
             }

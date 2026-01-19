@@ -20,6 +20,8 @@ class GlvnManagement {
     }
 
     addName = function (name) {
+        if (this.objRoot.connected === false || this.objRoot.loggedIn === false) throw new Error('Not logged in')
+
         // validate name
         utils.validateGlvnName(name)
 
@@ -58,6 +60,8 @@ class GlvnManagement {
     }
 
     removeName = function (name) {
+        if (this.objRoot.connected === false || this.objRoot.loggedIn === false) throw new Error('Not logged in')
+
         // validate name
         utils.validateGlvnName(name)
 

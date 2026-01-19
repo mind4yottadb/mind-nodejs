@@ -37,11 +37,10 @@ class Glvn {
 
             // send command
             const opCode = 'glvn.hasValue'
-            const glvn = (that._type === 'globals' ? '^' : '') + that._glvnName + '(' + that._path + ')'
 
             that.writer("*2" + RESP3.CRLF +
                 RESP3.build.blob(opCode) +
-                RESP3.build.blob(glvn)
+                RESP3.build.blob(utils.generateGlvn(that))
             );
 
             that._path = ''
@@ -53,7 +52,13 @@ class Glvn {
                     return
                 }
 
-                resolve(data.slice(data.indexOf(RESP3.CRLF) + 2, data.length - 2))
+                if (data.charAt(0) !== '#') {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve(data === RESP3.true)
             })
         })
     }

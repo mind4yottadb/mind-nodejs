@@ -107,6 +107,8 @@ module.exports = {
         return ret.slice(0, -1)
     },
 
+    generateGlvn: that => (that._type === 'globals' ? '^' : '') + that._glvnName + (that._path !== '' ? '(' + that._path + ')' : ''),
+
     appendToObject: (namespace, that) => {
         Object.defineProperties(namespace, {
             objRoot: {

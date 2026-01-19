@@ -11,7 +11,7 @@ const run = async () => {
                 'test1', 'test2qwerty',
             ],
             globals: [
-                'myglobal1', 'myglobal2'
+                'stef', 'myglobal2'
             ]
         }
     }).catch(err => {
@@ -54,10 +54,10 @@ const run = async () => {
 
     const c = 2
     const a = 3
-    const users = ydb.db.vars.t2est
+    const users = ydb.db.globals.stef
     //console.log(users)
-    await users._("test", 33.23, 12, "a string").hasValue()
-    const res = await users.hasValue()
+    console.log(await users._("test", 33.23, 12, "a string").hasValue())
+    console.log(await users.hasValue())
 
     console.log('executed')
 
@@ -67,7 +67,7 @@ const run = async () => {
 
     ydb.db.vars.removeName('t2est')
 
-    console.dir(ydb.db, {depth: 3})
+    //console.dir(ydb.db, {depth: 3})
 
 
 //console.log(await ydb.fs.stat('/tmp'))

@@ -54,10 +54,10 @@ const run = async () => {
 
     const c = 2
     const a = 3
-    const users = ydb.db.globals.stef
+    const stef = ydb.db.globals.stef
     //console.log(users)
-    console.log(await users._("test", 2).hasNodes())
-    console.log(await users.hasNodes())
+    console.log(await stef._(1, 2, 3, 4).killTree())
+    //console.log(await stef.killValue())
 
     console.log('executed')
 

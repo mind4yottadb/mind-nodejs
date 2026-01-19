@@ -127,7 +127,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         that.db.vars._init(that.db.vars)
 
         // now we can add vars and globals names, if any, from the options object
-        if (options.app.vars) {
+        if (options && options.app && options.app.vars) {
             options.app.vars.forEach(_var => {
                 try {
                     that.db.vars.addName(_var)
@@ -138,7 +138,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             })
         }
 
-        if (options.app.globals) {
+        if (options && options.app && options.app.globals) {
             options.app.globals.forEach(_var => {
                 try {
                     that.db.globals.addName(_var)

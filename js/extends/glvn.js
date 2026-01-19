@@ -47,7 +47,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(data.slice(1)))
 
                     return
                 }
@@ -82,7 +82,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(data.slice(1)))
 
                     return
                 }
@@ -125,8 +125,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
-
+                    reject(new Error(data.slice(1)))
                 }
 
                 if (data.charAt(0) === '(') {
@@ -134,7 +133,6 @@ class Glvn {
 
                 } else if (data.charAt(0) === '$') {
                     resolve(RESP3.extract.blob(data.slice(1)))
-
 
                 } else {
                     reject(new Error(data.slice(1, -2)))
@@ -144,7 +142,38 @@ class Glvn {
     }
 
     readValue = function (path) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
 
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'glvn.readValue'
+
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that))
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1)))
+                }
+
+                if (data.charAt(0) === '(') {
+                    resolve(parseFloat(data.slice(1)))
+
+                } else if (data.charAt(0) === '$') {
+                    resolve(RESP3.extract.blob(data.slice(1)))
+
+                } else {
+                    reject(new Error(data.slice(1, -2)))
+                }
+            })
+        })
     }
 
     setValue = function (path, data) {

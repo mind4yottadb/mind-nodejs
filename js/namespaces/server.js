@@ -41,7 +41,7 @@ class Server {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(data.slice(1)))
                 }
 
                 data = data.slice(2 + data.indexOf(RESP3.CRLF), -2).split(RESP3.CRLF)
@@ -94,12 +94,12 @@ class Server {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(data.slice(1)))
                 }
 
                 that.reader(data => {
                     if (data.charAt(0) === '-') {
-                        reject(new Error(data.slice(1, -2)))
+                        reject(new Error(data.slice(1)))
 
                         return
                     }

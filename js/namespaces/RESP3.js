@@ -16,7 +16,7 @@ class RESP3 {
         simpleError: str => '-' + str + '\r\n',
 
         simpleString: str => '+' + str + '\r\n',
-        blob: str => '$' + str.length.toString() + '\r\n' + str + '\r\n',
+        blob: str => '$' + str.toString().length.toString() + '\r\n' + str.toString() + '\r\n',
         verbatimString: (str, type) => '=' + (str.length + 4).toString() + '\r\n' + type + ':' + str + '\r\n',
         streamedString: () => '',
 

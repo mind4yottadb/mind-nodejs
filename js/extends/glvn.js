@@ -238,8 +238,74 @@ class Glvn {
         })
     }
 
-    getPiece = function (path) {
+    getPiece = function (pieceChar = '^', start = 1, end) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
 
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (typeof pieceChar !== 'string') {
+                reject(new Error('pieceChar must be a string'))
+
+                return
+            }
+
+            if (typeof start !== 'number') {
+                reject(new Error('start must be a number'))
+
+                return
+            }
+
+            if (start < 1) {
+                reject(new Error('start must be greater than 0'))
+
+                return
+            }
+
+            if (typeof end === 'undefined') {
+                end = start
+
+            } else if (typeof end !== 'number') {
+                reject(new Error('end must be a number'))
+
+                return
+
+            } else if (end < 1) {
+                reject(new Error('start must be greater than 0'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'glvn.getPiece'
+
+            that.writer("*5" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that)) +
+                RESP3.build.blob(pieceChar) +
+                RESP3.build.blob(start) +
+                RESP3.build.blob(end)
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1)))
+                }
+
+                if (data.charAt(0) === '(') {
+                    resolve(parseFloat(data.slice(1)))
+
+                } else if (data.charAt(0) === '$') {
+                    resolve(RESP3.extract.blob(data.slice(1)))
+
+                } else {
+                    reject(new Error(data.slice(1, -2)))
+                }
+            })
+        })
     }
 
     setPiece = function (path, data, separator, start) {

@@ -24,37 +24,40 @@ describe("vars.hasValue()", async () => {
         ydb.disconnect()
     });
 
-    it("test an invalid global root", async () => {
+    it("test an invalid var root", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTestEmptyRoot.hasValue()
+        await ydb.db.vars.uVars._(23).setValue(23)
+        const res = await ydb.db.vars.uVars.hasValue()
         expect(res).to.be.false
 
         ydb.disconnect()
     });
 
-    it("test a valid global root", async () => {
+    it("test a valid var root", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTest._().hasValue()
+        await ydb.db.vars.uVars.setValue(23)
+        const res = await ydb.db.vars.uVars._().hasValue()
         expect(res).to.be.true
 
         ydb.disconnect()
     });
 
-    it("test an invalid global root", async () => {
+    it("test an invalid var root", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTestEmptyRoot._().hasValue()
+        const res = await ydb.db.vars.uVars._('').hasValue()
         expect(res).to.be.false
 
         ydb.disconnect()
     });
 
-    it("test a valid global", async () => {
+    it("test a valid var", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTest._(1, 2, 3, 4, 7).hasValue()
+        await ydb.db.vars.uVars._(1, 2, 3, 4, 7).setValue(23)
+        const res = await ydb.db.vars.uVars._(1, 2, 3, 4, 7).hasValue()
         expect(res).to.be.true
 
         ydb.disconnect()
@@ -63,7 +66,7 @@ describe("vars.hasValue()", async () => {
     it("test an invalid global", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTest._(1, 2, 3, 4, 5).hasValue()
+        const res = await ydb.db.vars.uVars._(1, 2, 3, 4, 5).hasValue()
         expect(res).to.be.false
 
         ydb.disconnect()
@@ -71,19 +74,21 @@ describe("vars.hasValue()", async () => {
 })
 
 describe("vars.hasNodes()", async () => {
-    it("test a valid global root", async () => {
+    it("test a valid var root", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTest.hasNodes()
+        await ydb.db.vars.uVars._(23).setValue(23)
+        const res = await ydb.db.vars.uVars.hasNodes()
         expect(res).to.be.true
 
         ydb.disconnect()
     });
 
-    it("test an invalid global root", async () => {
+    it("test an invalid var root", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTestEmptyRoot.hasNodes()
+        await ydb.db.vars.uVars._(23).setValue(23)
+        const res = await ydb.db.vars.uVars.hasNodes()
         expect(res).to.be.true
 
         ydb.disconnect()
@@ -92,7 +97,7 @@ describe("vars.hasNodes()", async () => {
     it("test an invalid global", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTest._(1, 2, 4).hasNodes()
+        const res = await ydb.db.vars.uVars._(1, 2, 4).hasNodes()
         expect(res).to.be.false
 
         ydb.disconnect()
@@ -101,7 +106,8 @@ describe("vars.hasNodes()", async () => {
     it("test a valid global", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTest._(1, 2, 3, 4).hasNodes()
+        await ydb.db.vars.uVars._(1, 2, 3, 4, 5).setValue(23)
+        const res = await ydb.db.vars.uVars._(1, 2, 3, 4).hasNodes()
         expect(res).to.be.true
 
         ydb.disconnect()
@@ -109,29 +115,31 @@ describe("vars.hasNodes()", async () => {
 })
 
 describe("vars.getValue()", async () => {
-    it("test a valid global root number", async () => {
+    it("test a valid var root number", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTest.getValue()
+        await ydb.db.vars.uVars._().setValue(23)
+        const res = await ydb.db.vars.uVars.getValue()
         expect(typeof res).to.have.string('number')
 
         ydb.disconnect()
     });
 
-    it("test a valid global string", async () => {
+    it("test a valid var string", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTest._(1, 2, 3, 4, 5, 6).getValue()
+        await ydb.db.vars.uVars._(1, 2, 3, 4, 5, 6).setValue('this is a string')
+        const res = await ydb.db.vars.uVars._(1, 2, 3, 4, 5, 6).getValue()
         expect(typeof res).to.have.string('string')
         expect(res).to.have.string('this is a string')
 
         ydb.disconnect()
     });
 
-    it("test an invalid global path", async () => {
+    it("test an invalid var path", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTest._(1, 2, "this is bad", 4, 5, 6).getValue()
+        const res = await ydb.db.vars.uVars._(1, 2, "this is bad", 4, 5, 6).getValue()
         expect(typeof res).to.have.string('string')
         expect(res).to.have.string('')
 
@@ -140,19 +148,21 @@ describe("vars.getValue()", async () => {
 })
 
 describe("vars.readValue()", async () => {
-    it("test a valid global root number", async () => {
+    it("test a valid var root number", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTest.readValue()
+        await ydb.db.vars.uVars._().setValue(23)
+        const res = await ydb.db.vars.uVars.readValue()
         expect(typeof res).to.have.string('number')
 
         ydb.disconnect()
     });
 
-    it("test a valid global string", async () => {
+    it("test a valid var string", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.globalTest._(1, 2, 3, 4, 5, 6).readValue()
+        await ydb.db.vars.uVars._(1, 2, 3, 4, 5, 6).setValue('this is a string')
+        const res = await ydb.db.vars.uVars._(1, 2, 3, 4, 5, 6).readValue()
         expect(typeof res).to.have.string('string')
         expect(res).to.have.string('this is a string')
 
@@ -163,11 +173,11 @@ describe("vars.readValue()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            const res = await ydb.db.vars.globalTest._(1, 2, 67, 4, 5, 6).readValue()
+            const res = await ydb.db.vars.uVars._(1, 2, 67, 4, 5, 6).readValue()
             expect(typeof res).to.have.string('string')
             expect(res).to.have.string('this is a string')
         } catch (err) {
-            expect(err.message).to.contain('^globalTest(1,2,67,4,5,6): path not found')
+            expect(err.message).to.contain('uVars(1,2,67,4,5,6): path not found')
         }
         ydb.disconnect()
     });
@@ -177,13 +187,12 @@ describe("vars.killValue()", async () => {
     it("ensure no nodes are killed on root", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp.setValue(1)
-        await ydb.db.vars.temp._(1, 2, 3).setValue(1)
-        await ydb.db.vars.temp.killValue()
-        let res = await ydb.db.vars.temp.hasValue()
+        await ydb.db.vars.uVars._().setValue(1)
+        await ydb.db.vars.uVars._(1, 2, 3).setValue(1)
+        await ydb.db.vars.uVars._().killValue()
+        let res = await ydb.db.vars.uVars.hasValue()
         expect(res).to.be.false
-        res = await ydb.db.vars.temp.hasNodes()
+        res = await ydb.db.vars.uVars.hasNodes()
         expect(res).to.be.true
 
         ydb.disconnect()
@@ -192,11 +201,11 @@ describe("vars.killValue()", async () => {
     it("kill non existing node", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp._(3).killValue()
-        let res = await ydb.db.vars.temp._(3).hasValue()
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars._(3).killValue()
+        let res = await ydb.db.vars.uVars._(3).hasValue()
         expect(res).to.be.false
-        res = await ydb.db.vars.temp._(93).hasNodes()
+        res = await ydb.db.vars.uVars._(93).hasNodes()
         expect(res).to.be.false
 
         ydb.disconnect()
@@ -205,15 +214,15 @@ describe("vars.killValue()", async () => {
     it("ensure no nodes are killed", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp.setValue(1)
-        await ydb.db.vars.temp._(1, 2, 3).setValue(1)
-        await ydb.db.vars.temp._(1, 2).setValue(12)
-        await ydb.db.vars.temp._(1, 2).killValue()
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setValue(1)
+        await ydb.db.vars.uVars._(1, 2, 3).setValue(1)
+        await ydb.db.vars.uVars._(1, 2).setValue(12)
+        await ydb.db.vars.uVars._(1, 2).killValue()
 
-        let res = await ydb.db.vars.temp._(1, 2).hasValue()
+        let res = await ydb.db.vars.uVars._(1, 2).hasValue()
         expect(res).to.be.false
-        res = await ydb.db.vars.temp._(1, 2).hasNodes()
+        res = await ydb.db.vars.uVars._(1, 2).hasNodes()
         expect(res).to.be.true
 
         ydb.disconnect()
@@ -224,13 +233,13 @@ describe("vars.killTree()", async () => {
     it("ensure all nodes are killed on root", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp.setValue(1)
-        await ydb.db.vars.temp._(1, 2, 3).setValue(1)
-        await ydb.db.vars.temp.killTree()
-        let res = await ydb.db.vars.temp.hasValue()
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setValue(1)
+        await ydb.db.vars.uVars._(1, 2, 3).setValue(1)
+        await ydb.db.vars.uVars.killTree()
+        let res = await ydb.db.vars.uVars.hasValue()
         expect(res).to.be.false
-        res = await ydb.db.vars.temp.hasNodes()
+        res = await ydb.db.vars.uVars.hasNodes()
         expect(res).to.be.false
 
         ydb.disconnect()
@@ -239,16 +248,16 @@ describe("vars.killTree()", async () => {
     it("ensure all nodes are killed ", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp.setValue(1)
-        await ydb.db.vars.temp._(1, 2, 3).setValue(1)
-        await ydb.db.vars.temp._(1, 4, 3).setValue(1)
-        await ydb.db.vars.temp._(1, 2).killTree()
-        let res = await ydb.db.vars.temp._(1, 2).hasValue()
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setValue(1)
+        await ydb.db.vars.uVars._(1, 2, 3).setValue(1)
+        await ydb.db.vars.uVars._(1, 4, 3).setValue(1)
+        await ydb.db.vars.uVars._(1, 2).killTree()
+        let res = await ydb.db.vars.uVars._(1, 2).hasValue()
         expect(res).to.be.false
-        res = await ydb.db.vars.temp._(1, 2).hasNodes()
+        res = await ydb.db.vars.uVars._(1, 2).hasNodes()
         expect(res).to.be.false
-        res = await ydb.db.vars.temp._(1).hasNodes()
+        res = await ydb.db.vars.uVars._(1).hasNodes()
         expect(res).to.be.true
 
         ydb.disconnect()
@@ -259,8 +268,8 @@ describe("vars.getPiece()", async () => {
     it("get piece of non existing node", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        let res = await ydb.db.vars.temp.getPiece()
+        await ydb.db.vars.uVars.killTree()
+        let res = await ydb.db.vars.uVars.getPiece()
         expect(res.length === 0).to.be.true
 
         ydb.disconnect()
@@ -269,9 +278,9 @@ describe("vars.getPiece()", async () => {
     it("get piece of existing node w/default separator", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp.setValue('piece1^piece2^piece3^piece4^piece5^piece6')
-        let res = await ydb.db.vars.temp.getPiece('^', 2)
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setValue('piece1^piece2^piece3^piece4^piece5^piece6')
+        let res = await ydb.db.vars.uVars.getPiece('^', 2)
         expect(res).to.contain('piece2')
 
         ydb.disconnect()
@@ -280,9 +289,9 @@ describe("vars.getPiece()", async () => {
     it("get piece of existing node w/default separator and end", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp.setValue('piece1^piece2^piece3^piece4^piece5^piece6')
-        let res = await ydb.db.vars.temp.getPiece('^', 2, 4)
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setValue('piece1^piece2^piece3^piece4^piece5^piece6')
+        let res = await ydb.db.vars.uVars.getPiece('^', 2, 4)
         expect(res).to.contain('piece2^piece3^piece4')
 
         ydb.disconnect()
@@ -291,9 +300,9 @@ describe("vars.getPiece()", async () => {
     it("get piece of existing node w/different separator", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp.setValue('piece1,piece2,piece3,piece4,piece5,piece6')
-        let res = await ydb.db.vars.temp.getPiece(',', 2)
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setValue('piece1,piece2,piece3,piece4,piece5,piece6')
+        let res = await ydb.db.vars.uVars.getPiece(',', 2)
         expect(res).to.contain('piece2')
 
         ydb.disconnect()
@@ -302,9 +311,9 @@ describe("vars.getPiece()", async () => {
     it("get piece of existing node w/different separator and end", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp.setValue('piece1,piece2,piece3,piece4,piece5,piece6')
-        let res = await ydb.db.vars.temp.getPiece(',', 2, 4)
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setValue('piece1,piece2,piece3,piece4,piece5,piece6')
+        let res = await ydb.db.vars.uVars.getPiece(',', 2, 4)
         expect(res).to.contain('piece2,piece3,piece4')
 
         ydb.disconnect()
@@ -313,9 +322,9 @@ describe("vars.getPiece()", async () => {
     it("get piece of existing node w/bad separator", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp.setValue('piece1,piece2,piece3,piece4,piece5,piece6')
-        let res = await ydb.db.vars.temp.getPiece('^', 2)
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setValue('piece1,piece2,piece3,piece4,piece5,piece6')
+        let res = await ydb.db.vars.uVars.getPiece('^', 2)
         expect(res.length === 0).to.be.true
 
         ydb.disconnect()
@@ -324,9 +333,9 @@ describe("vars.getPiece()", async () => {
     it("get piece of existing node w/bad separator", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp.setValue('piece1,piece2,piece3,piece4,piece5,piece6')
-        let res = await ydb.db.vars.temp.getPiece()
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setValue('piece1,piece2,piece3,piece4,piece5,piece6')
+        let res = await ydb.db.vars.uVars.getPiece()
         expect(res).to.contain('piece1,piece2,piece3,piece4,piece5,piece6')
 
         ydb.disconnect()
@@ -338,8 +347,8 @@ describe("vars.setValue()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.db.vars.temp.killTree()
-            await ydb.db.vars.temp.setValue([1, 4, 5])
+            await ydb.db.vars.uVars.killTree()
+            await ydb.db.vars.uVars.setValue([1, 4, 5])
         } catch (err) {
             expect(err.message).to.contain('data must be either a string or a number')
         }
@@ -350,8 +359,8 @@ describe("vars.setValue()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.db.vars.temp.killTree()
-            await ydb.db.vars.temp.setValue({test: 34})
+            await ydb.db.vars.uVars.killTree()
+            await ydb.db.vars.uVars.setValue({test: 34})
         } catch (err) {
             expect(err.message).to.contain('data must be either a string or a number')
         }
@@ -361,9 +370,9 @@ describe("vars.setValue()", async () => {
     it("set empty string value of root", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp.setValue()
-        let res = await ydb.db.vars.temp.getValue()
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setValue()
+        let res = await ydb.db.vars.uVars.getValue()
         expect(res.length === 0).to.be.true
 
         ydb.disconnect()
@@ -372,9 +381,9 @@ describe("vars.setValue()", async () => {
     it("set string value of root", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp.setValue('This is value for the test global')
-        let res = await ydb.db.vars.temp.getValue()
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setValue('This is value for the test global')
+        let res = await ydb.db.vars.uVars.getValue()
         expect(res).to.contain('This is value for the test global')
 
         ydb.disconnect()
@@ -383,9 +392,9 @@ describe("vars.setValue()", async () => {
     it("set number value of root", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp.setValue(12.34)
-        let res = await ydb.db.vars.temp.getValue()
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setValue(12.34)
+        let res = await ydb.db.vars.uVars.getValue()
         expect(typeof res).to.contain('number')
         expect(res === 12.34).to.be.true
 
@@ -395,9 +404,9 @@ describe("vars.setValue()", async () => {
     it("set string value of node", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp._('p1', 23).setValue('This is value for the test global')
-        let res = await ydb.db.vars.temp._('p1', 23).getValue()
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars._('p1', 23).setValue('This is value for the test global')
+        let res = await ydb.db.vars.uVars._('p1', 23).getValue()
         expect(res).to.contain('This is value for the test global')
 
         ydb.disconnect()
@@ -406,9 +415,9 @@ describe("vars.setValue()", async () => {
     it("set number value of node", async () => {
         const ydb = await createYdbInstance()
 
-        await ydb.db.vars.temp.killTree()
-        await ydb.db.vars.temp._('p1', 23).setValue(12.34)
-        let res = await ydb.db.vars.temp._('p1', 23).getValue()
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars._('p1', 23).setValue(12.34)
+        let res = await ydb.db.vars.uVars._('p1', 23).getValue()
         expect(typeof res).to.contain('number')
         expect(res === 12.34).to.be.true
 

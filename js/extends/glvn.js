@@ -176,10 +176,6 @@ class Glvn {
         })
     }
 
-    setValue = function (path, data) {
-
-    }
-
     killValue = function (path) {
         const that = this
         const RESP3 = that.objRoot.RESP3
@@ -306,6 +302,49 @@ class Glvn {
                 }
             })
         })
+    }
+
+    setValue = function (data) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (typeof data !== 'string' && typeof data !== 'number') {
+                reject(new Error('data must be either a string or a number'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'glvn.setValue'
+            let newData = ''
+
+            if (typeof data === 'string') {
+                newData = RESP3.build.blob(data.toString())
+            } else newData = '(' + data.toString() + RESP3.CRLF
+
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that)) +
+                RESP3.build.blob(newData)
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                console.log(data)
+                if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve()
+            })
+        })
+
     }
 
     setPiece = function (path, data, separator, start) {

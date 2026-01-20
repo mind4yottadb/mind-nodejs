@@ -56,7 +56,8 @@ const run = async () => {
     const a = 3
     const stef = ydb.db.globals.stef
     //console.log(users)
-    console.log('---' + await stef.getPiece('^', 4, 4))
+    //console.log('---' + await stef.getPiece('^', 4, 4))
+    stef.setValue(23.44)
     //console.log(await stef.killValue())
 
     console.log('executed')

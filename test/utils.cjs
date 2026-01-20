@@ -9,10 +9,10 @@ module.exports = {
         await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
             app: {
                 vars: [
-                    'testVar', 'testArray',
+                    'varTest', 'varTestEmpty',
                 ],
                 globals: [
-                    'testGlobal'
+                    'globalTest', 'globalTestEmptyRoot'
                 ]
             }
         }).catch(err => {

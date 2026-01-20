@@ -304,7 +304,7 @@ class Glvn {
         })
     }
 
-    setValue = function (data) {
+    setValue = function (data = '') {
         const that = this
         const RESP3 = that.objRoot.RESP3
 

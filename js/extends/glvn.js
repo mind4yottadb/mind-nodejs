@@ -334,7 +334,6 @@ class Glvn {
             that._path = ''
 
             that.reader(data => {
-                console.log(data)
                 if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
                     reject(new Error(data.slice(1, -2)))
 

@@ -172,3 +172,45 @@ describe("global.readValue()", async () => {
     });
 })
 
+describe("global.killValue()", async () => {
+    it("ensure no nodes are killed on root", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.setValue(1)
+        await ydb.db.globals.temp._(1, 2, 3).setValue(1)
+        await ydb.db.globals.temp.killValue()
+        res = await ydb.db.globals.temp.hasValue()
+        expect(res).to.be.false
+        res = await ydb.db.globals.temp.hasNodes()
+        expect(res).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("kill non existing node", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp._(3).killValue()
+        res = await ydb.db.globals.temp._(3).hasValue()
+        expect(res).to.be.false
+        res = await ydb.db.globals.temp._(93).hasNodes()
+        expect(res).to.be.false
+
+        ydb.disconnect()
+    });
+
+    it("ensure no nodes are killed on root", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.setValue(1)
+        await ydb.db.globals.temp._(1, 2, 3).setValue(1)
+        await ydb.db.globals.temp.killValue()
+        res = await ydb.db.globals.temp.hasValue()
+        expect(res).to.be.false
+        res = await ydb.db.globals.temp.hasNodes()
+        expect(res).to.be.true
+
+        ydb.disconnect()
+    });
+
+})

@@ -12,7 +12,7 @@ module.exports = {
                     'varTest', 'varTestEmpty',
                 ],
                 globals: [
-                    'globalTest', 'globalTestEmptyRoot'
+                    'globalTest', 'globalTestEmptyRoot', 'temp'
                 ]
             }
         }).catch(err => {

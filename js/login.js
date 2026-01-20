@@ -37,7 +37,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         // check header
         if (dataA[ix].charAt(0) === '-') {
-            reject(new Error(dataA[0].slice(1, -2)))
+            reject(new Error(dataA[0].slice(1)))
         }
 
         if (dataA[ix] !== '*4') {

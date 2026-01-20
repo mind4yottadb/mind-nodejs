@@ -53,7 +53,7 @@ class Glvn {
                 }
 
                 if (data.charAt(0) !== '#') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(data.slice(1)))
 
                     return
                 }
@@ -335,7 +335,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(data.slice(1)))
 
                     return
                 }

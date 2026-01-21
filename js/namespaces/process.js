@@ -51,12 +51,12 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
 
-                resolve(RESP3.extract.blob(data))
+                resolve(RESP3.parse.blob(data))
             })
         })
     }
@@ -96,12 +96,12 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
 
-                resolve(RESP3.extract.simpleString(data))
+                resolve(RESP3.parse.simpleString(data))
             })
         })
     }
@@ -121,10 +121,10 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
                 }
 
-                resolve(RESP3.extract.simpleString(data))
+                resolve(RESP3.parse.simpleString(data))
             })
         })
     }
@@ -157,7 +157,7 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
                 }
 
                 resolve()
@@ -180,10 +180,10 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
                 }
 
-                resolve(parseInt(RESP3.extract.simpleString(data)))
+                resolve(parseInt(RESP3.parse.simpleString(data)))
             })
         })
     }
@@ -203,7 +203,7 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
                 }
 
                 data = data.slice(2 + data.indexOf(RESP3.CRLF), -2).split(RESP3.CRLF)
@@ -233,7 +233,7 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
                 }
 
                 data = data.slice(2 + data.indexOf(RESP3.CRLF), -2).split(RESP3.CRLF)

@@ -132,7 +132,7 @@ class Glvn {
                     resolve(parseFloat(data.slice(1, -2)))
 
                 } else if (data.charAt(0) === '$') {
-                    resolve(RESP3.extract.blob(data))
+                    resolve(RESP3.parse.blob(data))
 
                 } else {
                     reject(new Error(data.slice(1, -2)))
@@ -167,7 +167,7 @@ class Glvn {
                     resolve(parseFloat(data.slice(1, -2)))
 
                 } else if (data.charAt(0) === '$') {
-                    resolve(RESP3.extract.blob(data.slice(1)))
+                    resolve(RESP3.parse.blob(data.slice(1)))
 
                 } else {
                     reject(new Error(data.slice(1, -2)))
@@ -295,7 +295,7 @@ class Glvn {
                     resolve(parseFloat(data.slice(1, -2)))
 
                 } else if (data.charAt(0) === '$') {
-                    resolve(RESP3.extract.blob(data.slice(1)))
+                    resolve(RESP3.parse.blob(data.slice(1)))
 
                 } else {
                     reject(new Error(data.slice(1, -2)))

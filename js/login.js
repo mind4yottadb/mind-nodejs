@@ -51,8 +51,8 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         iy = ix
         for (ix = ix + 1; ix < iy + serverLength * 2; ix += 2) {
             Object.defineProperties(that.server, {
-                [RESP3.extract.simpleString(dataA[ix])]: {
-                    value: RESP3.extract.simpleString(dataA[ix + 1]),
+                [RESP3.parse.simpleString(dataA[ix])]: {
+                    value: RESP3.parse.simpleString(dataA[ix + 1]),
                     enumerable: true,
                     configurable: true
                 }
@@ -72,11 +72,11 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         // continue
         iy = ix
         for (ix = ix + 1; ix < iy + processLength * 2; ix += 2) {
-            const name = RESP3.extract.simpleString(dataA[ix])
+            const name = RESP3.parse.simpleString(dataA[ix])
 
-            const strValue = RESP3.extract.simpleString(dataA[ix + 1])
+            const strValue = RESP3.parse.simpleString(dataA[ix + 1])
             Object.defineProperties(that.process, {
-                [RESP3.extract.simpleString(dataA[ix])]: {
+                [RESP3.parse.simpleString(dataA[ix])]: {
                     value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
                     enumerable: true,
                     configurable: true,
@@ -99,10 +99,10 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         iy = ix
         for (ix = ix + 1; ix < iy + envLength * 2 - 1; ix += 2) {
-            const strValue = RESP3.extract.simpleString(dataA[ix + 1])
+            const strValue = RESP3.parse.simpleString(dataA[ix + 1])
 
             Object.defineProperties(that.process.env, {
-                [RESP3.extract.simpleString(dataA[ix])]: {
+                [RESP3.parse.simpleString(dataA[ix])]: {
                     value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
                     enumerable: true,
                     configurable: true,

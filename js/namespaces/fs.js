@@ -49,7 +49,7 @@ class Fs {
                     return
                 }
 
-                resolve(RESP3.extract.blob(data))
+                resolve(RESP3.parse.blob(data))
             })
         })
     }
@@ -187,12 +187,12 @@ class Fs {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
 
-                resolve(RESP3.extract.blob(data).split(','))
+                resolve(RESP3.parse.blob(data).split(','))
             })
         })
     }
@@ -240,7 +240,7 @@ class Fs {
                     return
                 }
 
-                resolve(RESP3.extract.blob(data).split(','))
+                resolve(RESP3.parse.blob(data).split(','))
             })
         })
     }
@@ -276,7 +276,7 @@ class Fs {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -330,7 +330,7 @@ class Fs {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -371,12 +371,12 @@ class Fs {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
 
-                data = RESP3.extract.blob(data).split(RESP3.CRLF)
+                data = RESP3.parse.blob(data).split(RESP3.CRLF)
                 const res = {}
 
                 for (let ix = 0; ix < data.length; ix += 2) {
@@ -432,7 +432,7 @@ class Fs {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -473,7 +473,7 @@ class Fs {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -514,12 +514,12 @@ class Fs {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
 
-                resolve(RESP3.extract.simpleString(data))
+                resolve(RESP3.parse.simpleString(data))
             })
         })
     }
@@ -555,7 +555,7 @@ class Fs {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(RESP3.extract.simpleError(data)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }

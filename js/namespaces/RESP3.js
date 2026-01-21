@@ -31,8 +31,13 @@ class RESP3 {
 
     extract = {     // to be renamed parse
         blob: str => str.slice(2 + str.indexOf('\r\n'), -2),
-        simpleString: str => str.slice(1)
+        simpleString: str => {
+            return str.slice(1, str.slice(-2) === '\r\n' ? -2 : str.length)
+        },
 
+        simpleError: str => {
+            return str.slice(1, str.slice(-2) === '\r\n' ? -2 : str.length)
+        }
     }
 
     convert = {

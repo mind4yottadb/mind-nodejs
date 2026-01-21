@@ -51,7 +51,7 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(data.slice(1)))
 
                     return
                 }
@@ -96,7 +96,7 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(data.slice(1)))
 
                     return
                 }
@@ -121,10 +121,10 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(data.slice(1)))
                 }
 
-                resolve(data.slice(1, -2))
+                resolve(data.slice(1))
             })
         })
     }
@@ -157,7 +157,7 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(data.slice(1)))
                 }
 
                 resolve()
@@ -180,10 +180,10 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(data.slice(1)))
                 }
 
-                resolve(parseInt(data.slice(1, -2)))
+                resolve(parseInt(data.slice(1)))
             })
         })
     }
@@ -203,7 +203,7 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(data.slice(1)))
                 }
 
                 data = data.slice(2 + data.indexOf(RESP3.CRLF), -2).split(RESP3.CRLF)
@@ -233,7 +233,7 @@ class Process {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(data.slice(1)))
                 }
 
                 data = data.slice(2 + data.indexOf(RESP3.CRLF), -2).split(RESP3.CRLF)

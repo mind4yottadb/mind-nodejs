@@ -8,10 +8,10 @@ const run = async () => {
     await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
         app: {
             vars: [
-                'test1', 'test2qwerty',
+                'test1', 'test2qwerty', 'stef'
             ],
             globals: [
-                'myglobal1', 'myglobal2'
+                'globalTest', 'myglobal2', 'stef'
             ]
         }
     }).catch(err => {
@@ -54,10 +54,14 @@ const run = async () => {
 
     const c = 2
     const a = 3
-    const users = ydb.db.vars.t2est
+    const stef = ydb.db.globals.stef
     //console.log(users)
-    await users._("test", 33.23, 12, "a string").hasValue()
-    const res = await users.hasValue()
+    //console.log('---' + await stef.getPiece('^', 4, 4))
+    await stef._(1, 2, 3, 4, 5, 6).setPiece('thepiecestring', ",", 2)
+    //await stef._(1,2,3,4,5,6).setValue('thenewstring')
+    const x = await stef._(1, 2, 3, 4, 5, 6).getValue()
+    console.log(x)
+    //console.log(await stef.killValue())
 
     console.log('executed')
 
@@ -67,7 +71,7 @@ const run = async () => {
 
     ydb.db.vars.removeName('t2est')
 
-    console.dir(ydb.db, {depth: 3})
+    //console.dir(ydb.db, {depth: 3})
 
 
 //console.log(await ydb.fs.stat('/tmp'))
@@ -92,7 +96,7 @@ const run = async () => {
 
      */
 
-//await ydb.disconnect()
+    await ydb.disconnect()
 
 }
 

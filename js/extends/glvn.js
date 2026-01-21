@@ -35,14 +35,12 @@ class Glvn {
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
-
             // send command
             const opCode = 'glvn.hasValue'
-            const glvn = (that._type === 'globals' ? '^' : '') + that._glvnName + '(' + that._path + ')'
 
             that.writer("*2" + RESP3.CRLF +
                 RESP3.build.blob(opCode) +
-                RESP3.build.blob(glvn)
+                RESP3.build.blob(utils.generateGlvn(that))
             );
 
             that._path = ''
@@ -54,13 +52,50 @@ class Glvn {
                     return
                 }
 
-                resolve(data.slice(data.indexOf(RESP3.CRLF) + 2, data.length - 2))
+                if (data.charAt(0) !== '#') {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve(data.slice(0, -2) === RESP3.true)
             })
         })
     }
 
     hasNodes = function (path) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
 
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'glvn.hasNodes'
+
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that))
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                if (data.charAt(0) !== '#') {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve(data.slice(0, -2) === RESP3.true)
+            })
+        })
     }
 
     getTree = function (path) {
@@ -71,33 +106,316 @@ class Glvn {
 
     }
 
-    getValue = function (path) {
+    getValue = function () {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
 
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'glvn.getValue'
+
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that))
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1, -2)))
+                }
+
+                if (data.charAt(0) === '(') {
+                    resolve(parseFloat(data.slice(1, -2)))
+
+                } else if (data.charAt(0) === '$') {
+                    resolve(RESP3.extract.blob(data))
+
+                } else {
+                    reject(new Error(data.slice(1, -2)))
+                }
+            })
+        })
     }
 
     readValue = function (path) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
 
-    }
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
-    setValue = function (path, data) {
+            // send command
+            const opCode = 'glvn.readValue'
 
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that))
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1, -2)))
+                }
+
+                if (data.charAt(0) === '(') {
+                    resolve(parseFloat(data.slice(1, -2)))
+
+                } else if (data.charAt(0) === '$') {
+                    resolve(RESP3.extract.blob(data.slice(1)))
+
+                } else {
+                    reject(new Error(data.slice(1, -2)))
+                }
+            })
+        })
     }
 
     killValue = function (path) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
 
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'glvn.killValue'
+
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that))
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve()
+            })
+        })
     }
 
     killTree = function (path) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
 
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'glvn.killTree'
+
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that))
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve()
+            })
+        })
+    }
+
+    getPiece = function (pieceChar = '^', start = 1, end) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (typeof pieceChar !== 'string') {
+                reject(new Error('pieceChar must be a string'))
+
+                return
+            }
+
+            if (typeof start !== 'number') {
+                reject(new Error('start must be a number'))
+
+                return
+            }
+
+            if (start < 1) {
+                reject(new Error('start must be greater than 0'))
+
+                return
+            }
+
+            if (typeof end === 'undefined') {
+                end = start
+
+            } else if (typeof end !== 'number') {
+                reject(new Error('end must be a number'))
+
+                return
+
+            } else if (end < 1) {
+                reject(new Error('start must be greater than 0'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'glvn.getPiece'
+
+            that.writer("*5" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that)) +
+                RESP3.build.blob(pieceChar) +
+                RESP3.build.blob(start) +
+                RESP3.build.blob(end)
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1, -2)))
+                }
+
+                if (data.charAt(0) === '(') {
+                    resolve(parseFloat(data.slice(1, -2)))
+
+                } else if (data.charAt(0) === '$') {
+                    resolve(RESP3.extract.blob(data.slice(1)))
+
+                } else {
+                    reject(new Error(data.slice(1, -2)))
+                }
+            })
+        })
+    }
+
+    setValue = function (data = '') {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (typeof data !== 'string' && typeof data !== 'number') {
+                reject(new Error('data must be either a string or a number'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'glvn.setValue'
+            let newData = ''
+
+            if (typeof data === 'string') {
+                newData = RESP3.build.blob(data.toString())
+            } else newData = '(' + data.toString() + RESP3.CRLF
+
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that)) +
+                RESP3.build.blob(newData)
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve()
+            })
+        })
 
     }
 
-    getPiece = function (path) {
+    setPiece = function (data, pieceChar = '^', start = 1, end) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
 
-    }
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
-    setPiece = function (path, data, separator, start) {
+            if (typeof data !== 'string' && typeof data !== 'number') {
+                reject(new Error('data must be either a string or a number'))
 
+                return
+
+            }
+
+            if (typeof pieceChar !== 'string') {
+                reject(new Error('pieceChar must be a string'))
+
+                return
+            }
+
+            if (typeof start !== 'number') {
+                reject(new Error('start must be a number'))
+
+                return
+            }
+
+            if (start < 1) {
+                reject(new Error('start must be greater than 0'))
+
+                return
+            }
+
+            if (typeof end === 'undefined') {
+                end = start
+
+            } else if (typeof end !== 'number') {
+                reject(new Error('end must be a number'))
+
+                return
+
+            } else if (end < 1) {
+                reject(new Error('start must be greater than 0'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'glvn.setPiece'
+
+            that.writer("*6" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that)) +
+                RESP3.build.blob(data.toString()) +
+                RESP3.build.blob(pieceChar) +
+                RESP3.build.blob(start) +
+                RESP3.build.blob(end)
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve()
+            })
+        })
     }
 
     merge = function (path, glvn) {
@@ -121,4 +439,5 @@ class Glvn {
     }
 }
 
-module.exports = Glvn
+module
+    .exports = Glvn

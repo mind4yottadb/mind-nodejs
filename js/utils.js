@@ -87,7 +87,7 @@ module.exports = {
             }
 
             if (typeof sub === 'string' && sub === '') {
-                throw new Error('String in path is empty')
+                //throw new Error('String in path is empty')
             }
         }
     },
@@ -106,6 +106,8 @@ module.exports = {
 
         return ret.slice(0, -1)
     },
+
+    generateGlvn: that => (that._type === 'globals' ? '^' : '') + that._glvnName + (that._path !== '' ? '(' + that._path + ')' : ''),
 
     appendToObject: (namespace, that) => {
         Object.defineProperties(namespace, {

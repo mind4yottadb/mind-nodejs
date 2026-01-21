@@ -34,7 +34,7 @@ module.exports = class mind extends EventEmitter {
 
     #socket = null
 
-    requiresMind = '0.4.0'
+    requiresMind = '0.9.0'
 
     // namespaces
     server = new nsServer
@@ -104,6 +104,8 @@ module.exports = class mind extends EventEmitter {
                 } catch (err) {
                     that.connected = false
                     that.loggedIn = false
+
+                    that.disconnect()
                 }
             })
         })
@@ -113,6 +115,14 @@ module.exports = class mind extends EventEmitter {
         this.#socket.destroy()
         this.connected = false
         this.loggedIn = false
+
+        this.server = new nsServer
+        this.process = new nsProcess
+        this.fs = new nsFs
+        this.RESP3 = new nsRESP3
+        this.db = new nsDb
+        this.dbms = new nsDbms
+        this.session = new nsSession
     }
 
     // ********************************

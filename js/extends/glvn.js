@@ -47,23 +47,23 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1)))
+                    reject(new Error(data.slice(1, -2)))
 
                     return
                 }
 
                 if (data.charAt(0) !== '#') {
-                    reject(new Error(data.slice(1)))
+                    reject(new Error(data.slice(1, -2)))
 
                     return
                 }
 
-                resolve(data === RESP3.true)
+                resolve(data.slice(0, -2) === RESP3.true)
             })
         })
     }
 
-    hasNodes = function () {
+    hasNodes = function (path) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
@@ -82,7 +82,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1)))
+                    reject(new Error(data.slice(1, -2)))
 
                     return
                 }
@@ -93,7 +93,7 @@ class Glvn {
                     return
                 }
 
-                resolve(data === RESP3.true)
+                resolve(data.slice(0, -2) === RESP3.true)
             })
         })
     }
@@ -125,11 +125,11 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1)))
+                    reject(new Error(data.slice(1, -2)))
                 }
 
                 if (data.charAt(0) === '(') {
-                    resolve(parseFloat(data.slice(1)))
+                    resolve(parseFloat(data.slice(1, -2)))
 
                 } else if (data.charAt(0) === '$') {
                     resolve(RESP3.extract.blob(data.slice(1)))
@@ -141,7 +141,7 @@ class Glvn {
         })
     }
 
-    readValue = function () {
+    readValue = function (path) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
@@ -160,11 +160,11 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1)))
+                    reject(new Error(data.slice(1, -2)))
                 }
 
                 if (data.charAt(0) === '(') {
-                    resolve(parseFloat(data.slice(1)))
+                    resolve(parseFloat(data.slice(1, -2)))
 
                 } else if (data.charAt(0) === '$') {
                     resolve(RESP3.extract.blob(data.slice(1)))
@@ -176,7 +176,7 @@ class Glvn {
         })
     }
 
-    killValue = function () {
+    killValue = function (path) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
@@ -205,7 +205,7 @@ class Glvn {
         })
     }
 
-    killTree = function () {
+    killTree = function (path) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
@@ -288,11 +288,11 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1)))
+                    reject(new Error(data.slice(1, -2)))
                 }
 
                 if (data.charAt(0) === '(') {
-                    resolve(parseFloat(data.slice(1)))
+                    resolve(parseFloat(data.slice(1, -2)))
 
                 } else if (data.charAt(0) === '$') {
                     resolve(RESP3.extract.blob(data.slice(1)))
@@ -335,7 +335,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
-                    reject(new Error(data.slice(1)))
+                    reject(new Error(data.slice(1, -2)))
 
                     return
                 }

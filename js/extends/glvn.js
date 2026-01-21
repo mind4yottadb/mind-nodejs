@@ -132,7 +132,7 @@ class Glvn {
                     resolve(parseFloat(data.slice(1, -2)))
 
                 } else if (data.charAt(0) === '$') {
-                    resolve(RESP3.extract.blob(data.slice(1)))
+                    resolve(RESP3.extract.blob(data))
 
                 } else {
                     reject(new Error(data.slice(1, -2)))
@@ -346,8 +346,76 @@ class Glvn {
 
     }
 
-    setPiece = function (path, data, separator, start) {
+    setPiece = function (data, pieceChar = '^', start = 1, end) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
 
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (typeof data !== 'string' && typeof data !== 'number') {
+                reject(new Error('data must be either a string or a number'))
+
+                return
+
+            }
+
+            if (typeof pieceChar !== 'string') {
+                reject(new Error('pieceChar must be a string'))
+
+                return
+            }
+
+            if (typeof start !== 'number') {
+                reject(new Error('start must be a number'))
+
+                return
+            }
+
+            if (start < 1) {
+                reject(new Error('start must be greater than 0'))
+
+                return
+            }
+
+            if (typeof end === 'undefined') {
+                end = start
+
+            } else if (typeof end !== 'number') {
+                reject(new Error('end must be a number'))
+
+                return
+
+            } else if (end < 1) {
+                reject(new Error('start must be greater than 0'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'glvn.setPiece'
+
+            that.writer("*6" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that)) +
+                RESP3.build.blob(data.toString()) +
+                RESP3.build.blob(pieceChar) +
+                RESP3.build.blob(start) +
+                RESP3.build.blob(end)
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve()
+            })
+        })
     }
 
     merge = function (path, glvn) {

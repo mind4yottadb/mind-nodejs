@@ -424,3 +424,40 @@ describe("vars.setValue()", async () => {
         ydb.disconnect()
     });
 })
+
+describe("vars.setPiece()", async () => {
+    it("set piece of non existing node with empty string", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setPiece('', ',', 3)
+        const res = await ydb.db.vars.uVars.getValue()
+        expect(res).to.contain(',,')
+
+        ydb.disconnect()
+    });
+
+    it("set piece of non existing node with string", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setPiece('my string', ',', 3)
+        const res = await ydb.db.vars.uVars.getValue()
+        expect(res).to.contain(',,my string')
+
+        ydb.disconnect()
+    });
+
+    it("set piece of existing node with string", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setPiece('aaa', ',', 3)
+        await ydb.db.vars.uVars.setPiece('bbb', ',', 9)
+        const res = await ydb.db.vars.uVars.getValue()
+        expect(res).to.contain(',,aaa,,,,,,bbb')
+
+        ydb.disconnect()
+    });
+})
+

@@ -414,3 +414,40 @@ describe("globals.setValue()", async () => {
         ydb.disconnect()
     });
 })
+
+describe("globals.setPiece()", async () => {
+    it("set piece of non existing node with empty string", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp.setPiece('', ',', 3)
+        const res = await ydb.db.globals.temp.getValue()
+        expect(res).to.contain(',,')
+
+        ydb.disconnect()
+    });
+
+    it("set piece of non existing node with string", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp.setPiece('my string', ',', 3)
+        const res = await ydb.db.globals.temp.getValue()
+        expect(res).to.contain(',,my string')
+
+        ydb.disconnect()
+    });
+
+    it("set piece of existing node with string", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp.setPiece('aaa', ',', 3)
+        await ydb.db.globals.temp.setPiece('bbb', ',', 9)
+        const res = await ydb.db.globals.temp.getValue()
+        expect(res).to.contain(',,aaa,,,,,,bbb')
+
+        ydb.disconnect()
+    });
+})
+

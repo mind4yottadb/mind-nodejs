@@ -461,3 +461,101 @@ describe("vars.setPiece()", async () => {
     });
 })
 
+describe("vars.addName()", async () => {
+    it("adds invalid name", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.addName('12glbname')
+
+        } catch (err) {
+            expect(err.message).to.contain('Invalid name, must be alphanumeric with first char alphabetic or underscore')
+        }
+        ydb.disconnect()
+    });
+
+    it("adds invalid name", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.addName('##glbname')
+        } catch (err) {
+            expect(err.message).to.contain('Invalid name, must be alphanumeric with first char alphabetic or underscore')
+        }
+        ydb.disconnect()
+    });
+
+    it("adds invalid name", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.addName('almostg@@d')
+        } catch (err) {
+            expect(err.message).to.contain('Invalid name, must be alphanumeric with first char alphabetic or underscore')
+        }
+        ydb.disconnect()
+    });
+
+    it("adds valid name", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.addName('thisisok')
+        expect(ydb.db.vars.thisisok !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("adds valid name", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.addName('t2hisisok')
+        expect(ydb.db.vars.t2hisisok !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("adds valid name", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.addName('_t2hisisok')
+        expect(ydb.db.vars._t2hisisok !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("adds valid name", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.addName('_12t2hisisok')
+        expect(ydb.db.vars._12t2hisisok !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+})
+
+describe("vars.removeName()", async () => {
+    it("removes valid name", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.addName('_12t2hisisok')
+        expect(ydb.db.vars._12t2hisisok !== undefined).to.be.true
+
+        await ydb.db.vars.removeName('_12t2hisisok')
+        expect(ydb.db.vars._12t2hisisok === undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("removes invalid name", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.removeName('donotexist')
+            expect(ydb.db.vars._12t2hisisok === undefined).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.contain('Name not found')
+        }
+        ydb.disconnect()
+    });
+})

@@ -63,7 +63,6 @@ class GlvnManagement {
 
         // check existance
         const names = Object.keys(this)
-        console.log(names)
         if (names.find(lName => lName === name)) {
             delete this[name]
 

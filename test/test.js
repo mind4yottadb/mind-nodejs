@@ -51,7 +51,7 @@ const run = async () => {
 
 
     ydb.db.globals.addName('_stef')
-    console.log(ydb.db.globals)
+    //console.log(ydb.db.globals)
 
     const c = 2
     const a = 3

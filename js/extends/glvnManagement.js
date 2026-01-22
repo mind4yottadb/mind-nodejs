@@ -15,10 +15,6 @@ const Global = require('./global')
 const utils = require('../utils')
 
 class GlvnManagement {
-    $ = function (glvnName) {
-
-    }
-
     addName = function (name) {
         if (this.objRoot.connected === false || this.objRoot.loggedIn === false) throw new Error('Not logged in')
 
@@ -67,6 +63,7 @@ class GlvnManagement {
 
         // check existance
         const names = Object.keys(this)
+        console.log(names)
         if (names.find(lName => lName === name)) {
             delete this[name]
 

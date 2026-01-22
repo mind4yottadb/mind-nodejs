@@ -47,7 +47,7 @@ describe("vars.hasValue()", async () => {
     it("test an invalid var root", async () => {
         const ydb = await createYdbInstance()
 
-        const res = await ydb.db.vars.uVars._('').hasValue()
+        const res = await ydb.db.vars.uVars._().hasValue()
         expect(res).to.be.false
 
         ydb.disconnect()

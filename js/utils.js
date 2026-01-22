@@ -89,7 +89,7 @@ module.exports = {
             }
 
             if (typeof sub === 'string' && sub === '') {
-                //throw new Error('String in path is empty')
+                throw new Error('String in path is empty')
             }
         }
     },

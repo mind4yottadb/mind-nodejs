@@ -57,6 +57,10 @@ const run = async () => {
     const a = 3
     const stef = ydb.db.globals._stef
     //console.log(users)
+    await stef._().setValue('testnopath')
+    const res = await stef._().getValue()
+    console.log(res)
+
     //console.log('---' + await stef.getPiece('^', 4, 4))
     await stef._(1, 2, 3, 4, 5, 6).setPiece('thepiecestring', ",", 2)
     //await stef._(1,2,3,4,5,6).setValue('thenewstring')

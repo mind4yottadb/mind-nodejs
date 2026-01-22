@@ -55,32 +55,6 @@ ydb.disconnect()
 
 ````
 
-<br>
-
-Using error handling:
-
-````js
-import mind from 'mind4yottadb'
-
-const ydb = new mind
-
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
-
-try {
-    await ydb.fs.rmdir('/tmp/newDirectory')
-
-} catch (err) {
-    console.log(err)
-}
-
-// or
-
-await ydb.fs.rmdir('/tmp/newDirectory').catch((err) => console.log(err))
-
-ydb.disconnect()
-
-````
-
 ---
 
 [Back](../namespace.fs.md)

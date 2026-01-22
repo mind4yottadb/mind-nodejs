@@ -61,34 +61,6 @@ returns:
 ret = '/opt/yottadb/current/plugin'
 ````
 
-<br>
-
-Using error handling:
-
-````js
-import mind from 'mind4yottadb'
-
-const ydb = new mind
-
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
-
-try {
-    const ret = await ydb.fs.expandPath('$ydb_dist/plugin')
-    console.log(ret)
-
-} catch (err) {
-    console.log(err)
-}
-
-// or
-
-const ret = await ydb.fs.expandPath('$ydb_dist/plugin').catch((err) => console.log(err))
-console.log(ret)
-
-ydb.disconnect()
-
-````
-
 ---
 
 [Back](../namespace.fs.md)

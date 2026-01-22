@@ -54,34 +54,6 @@ ydb.disconnect()
 
 ````
 
-<br>
-
-Using error handling:
-````js
-import mind from 'mind4yottadb'
-
-const ydb = new mind
-
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
-
-try {
-    const data = await ydb.fs.readFile('/tmp/IdontExist')
-    console.log(data)
-
-} catch (err) {
-    console.log(err)
-}
-
-// or
-
-const data = await ydb.fs.readFile('/tmp/IdontExist').catch((err) => console.log(err))
-
-console.log(data)
-
-ydb.disconnect()
-
-````
-
 ---
 
 [Back](../namespace.fs.md)

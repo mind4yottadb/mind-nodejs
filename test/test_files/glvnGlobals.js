@@ -451,3 +451,101 @@ describe("globals.setPiece()", async () => {
     });
 })
 
+describe("globals.addName()", async () => {
+    it("adds invalid name", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.globals.addName('12glbname')
+
+        } catch (err) {
+            expect(err.message).to.contain('Invalid name, must be alphanumeric with first char alphabetic or underscore')
+        }
+        ydb.disconnect()
+    });
+
+    it("adds invalid name", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.globals.addName('##glbname')
+        } catch (err) {
+            expect(err.message).to.contain('Invalid name, must be alphanumeric with first char alphabetic or underscore')
+        }
+        ydb.disconnect()
+    });
+
+    it("adds invalid name", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.globals.addName('almostg@@d')
+        } catch (err) {
+            expect(err.message).to.contain('Invalid name, must be alphanumeric with first char alphabetic or underscore')
+        }
+        ydb.disconnect()
+    });
+
+    it("adds valid name", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.addName('thisisok')
+        expect(ydb.db.globals.thisisok !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("adds valid name", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.addName('t2hisisok')
+        expect(ydb.db.globals.t2hisisok !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("adds valid name", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.addName('_t2hisisok')
+        expect(ydb.db.globals._t2hisisok !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("adds valid name", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.addName('_12t2hisisok')
+        expect(ydb.db.globals._12t2hisisok !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+})
+
+describe("globals.removeName()", async () => {
+    it("removes valid name", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.addName('_12t2hisisok')
+        expect(ydb.db.globals._12t2hisisok !== undefined).to.be.true
+
+        await ydb.db.globals.removeName('_12t2hisisok')
+        expect(ydb.db.globals._12t2hisisok === undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("removes invalid name", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.globals.removeName('donotexist')
+            expect(ydb.db.globals._12t2hisisok === undefined).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.contain('Name not found')
+        }
+        ydb.disconnect()
+    });
+})

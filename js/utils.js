@@ -69,14 +69,16 @@ module.exports = {
             throw new Error('Name empty or not string type')
         }
 
+        const baseIndex = name.charAt(0) === '_' ? 1 : 0
         let strRegex = new RegExp(/^[a-z0-9]+$/i)
-        let result = strRegex.test(name)
+        let result = strRegex.test(name.slice(baseIndex))
+        let result2 = false
 
         strRegex = new RegExp(/^[a-z]+$/i)
-        let result2 = strRegex.test(name.charAt(0))
+        result2 = (name.charAt(0) === '_' || strRegex.test(name.charAt(0)))
 
         if (!result || !result2) {
-            throw new Error('Invalid name, must be alphanumeric with first char alphabetic')
+            throw new Error('Invalid name, must be alphanumeric with first char alphabetic or underscore')
         }
     },
 
@@ -87,7 +89,7 @@ module.exports = {
             }
 
             if (typeof sub === 'string' && sub === '') {
-                //throw new Error('String in path is empty')
+                throw new Error('String in path is empty')
             }
         }
     },
@@ -107,7 +109,7 @@ module.exports = {
         return ret.slice(0, -1)
     },
 
-    generateGlvn: that => (that._type === 'globals' ? '^' : '') + that._glvnName + (that._path !== '' ? '(' + that._path + ')' : ''),
+    generateGlvn: that => (that._type === 'globals' ? '^' : '') + that._glvnName.replace('_', '%') + (that._path !== '' ? '(' + that._path + ')' : ''),
 
     appendToObject: (namespace, that) => {
         Object.defineProperties(namespace, {

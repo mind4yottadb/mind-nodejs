@@ -11,6 +11,7 @@
 ###############################################################*/
 
 class RESP3 {
+
     build = {
         blobError: str => '!' + str.length.toString() + '\r\n' + str + '\r\n',
         simpleError: str => '-' + str + '\r\n',
@@ -29,10 +30,34 @@ class RESP3 {
         bigNumber: num => '(' + num.toString() + '\r\n'
     }
 
-    extract = {     // to be renamed parse
-        blob: str => str.slice(2 + str.indexOf('\r\n'), -2),
-        simpleString: str => str.slice(1)
+    parse = {
+        extractToken: str => str.slice(1, str.slice(-2) === '\r\n' ? -2 : str.length),
 
+        blob: str => str.slice(2 + str.indexOf('\r\n'), -2),
+        simpleString: function (str) {
+            return this.extractToken(str)
+        },
+        simpleError: function (str) {
+            return this.extractToken(str)
+        },
+        true: function (str) {
+            return this.extractToken(str)
+        },
+        false: function (str) {
+            return this.extractToken(str)
+        },
+        null: function (str) {
+            return this.extractToken(str)
+        },
+        int: function (str) {
+            return this.extractToken(str)
+        },
+        double: function (str) {
+            return this.extractToken(str)
+        },
+        bigNumber: function (str) {
+            return this.extractToken(str)
+        },
     }
 
     convert = {
@@ -47,6 +72,12 @@ class RESP3 {
 
     _init = that => {
         Object.defineProperties(that.RESP3, {
+            extractToken: {
+                value: str => str.slice(1, str.slice(-2) === '\r\n' ? -2 : str.length),
+                enumerable: false,
+                configurable: true,
+                writable: false
+            },
             CRLF: {
                 value: '\r\n',
                 enumerable: true,
@@ -106,6 +137,14 @@ class RESP3 {
             _init: {
                 enumerable: false,
             }
+        })
+
+        Object.defineProperties(that.RESP3.parse, {
+            extractToken: {
+                enumerable: false,
+                configurable: true,
+                writable: false
+            },
         })
     }
 }

@@ -50,12 +50,17 @@ const run = async () => {
     //console.dir(ydb.db, {depth: 20})
 
 
-    ydb.db.vars.addName('t2est')
+    ydb.db.globals.addName('_stef')
+    //console.log(ydb.db.globals)
 
     const c = 2
     const a = 3
-    const stef = ydb.db.globals.stef
+    const stef = ydb.db.globals._stef
     //console.log(users)
+    await stef._().setValue('testnopath')
+    const res = await stef._().getValue()
+    console.log(res)
+
     //console.log('---' + await stef.getPiece('^', 4, 4))
     await stef._(1, 2, 3, 4, 5, 6).setPiece('thepiecestring', ",", 2)
     //await stef._(1,2,3,4,5,6).setValue('thenewstring')
@@ -69,7 +74,7 @@ const run = async () => {
 
     //console.dir(ydb.db, {depth: 10})
 
-    ydb.db.vars.removeName('t2est')
+    ydb.db.globals.removeName('_stef')
 
     //console.dir(ydb.db, {depth: 3})
 

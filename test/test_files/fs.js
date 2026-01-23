@@ -1051,3 +1051,134 @@ describe("fs.expandPath()", async () => {
         ydb.disconnect()
     })
 })
+
+describe("fs.isDir()", async () => {
+    it("when path is not provided", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.isDir()
+
+        } catch (err) {
+            expect(err.message).to.have.string('the filename has not been provided')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when filename is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.isDir({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter filename must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when path is not provided", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.isDir('testnotexists')
+
+        } catch (err) {
+            expect(err.message).to.have.string('the filename does not exists or it is not accessible')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when path is ok and it is a dir", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.isDir('/opt')
+            expect(res).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the filename does not exists or it is not accessible')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when path is ok and it is a file", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.isDir('$ydb_dist/plugin/etc/mind/mind.conf')
+            expect(res).to.be.false
+
+        } catch (err) {
+            console.log(err)
+        }
+
+        ydb.disconnect()
+    })
+})
+
+describe("fs.isFile()", async () => {
+    it("when path is not provided", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.isFile()
+
+        } catch (err) {
+            expect(err.message).to.have.string('the filename has not been provided')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when filename is not a string", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.isFile({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter filename must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("when path is not provided", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.isFile('testnotexists')
+
+        } catch (err) {
+            expect(err.message).to.have.string('the filename does not exists or it is not accessible')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when path is ok and it is a dir", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.fs.isFile('/opt')
+        expect(res).to.be.false
+
+        ydb.disconnect()
+    })
+
+    it("when path is ok and it is a file", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.fs.isFile('$ydb_dist/plugin/etc/mind/mind.conf')
+        console.log(res)
+        expect(res).to.be.true
+
+        ydb.disconnect()
+    })
+})

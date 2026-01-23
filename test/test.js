@@ -49,8 +49,7 @@ const run = async () => {
 
     //console.dir(ydb.db, {depth: 20})
 
-    console.log(await ydb.process.now())
-    console.log(await ydb.process.now('sus'))
+    console.log(await ydb.fs.isFile('$ydb_dist/mupip'))
 
     exit()
 

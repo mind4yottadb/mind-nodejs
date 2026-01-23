@@ -40,6 +40,9 @@ class RESP3 {
         simpleError: function (str) {
             return this.extractToken(str)
         },
+        boolean: function (str) {
+            return this.extractToken(str) === 't'
+        },
         true: function (str) {
             return this.extractToken(str)
         },

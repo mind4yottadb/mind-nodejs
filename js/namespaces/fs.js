@@ -564,6 +564,88 @@ class Fs {
             })
         })
     }
+
+    // ************************************
+    // isDir
+    // ************************************
+    isDir = function (filename) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'fs.isDir'
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(filename)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                resolve(RESP3.parse.boolean(data))
+            })
+        })
+    }
+
+    // ************************************
+    // isFile
+    // ************************************
+    isFile = function (filename) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (filename === undefined) {
+                reject(new Error('the filename has not been provided'))
+
+                return
+            }
+
+            if (utils.validateTypeOfField(filename, 'string') === false) {
+                reject(new Error('Parameter filename must be a string'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'fs.isFile'
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(filename)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                resolve(RESP3.parse.boolean(data))
+            })
+        })
+    }
 }
 
 module.exports = Fs

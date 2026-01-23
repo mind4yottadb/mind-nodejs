@@ -74,6 +74,68 @@ describe("process.unixtime()", async () => {
     });
 })
 
+describe("process.now()", async () => {
+    it("get timestamp with no params", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.now()
+            expect(parseInt(res) > 0).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("get timestamp in us", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.now('us')
+            expect(parseInt(res) > 0).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("get timestamp in ms", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.now('ms')
+            expect(parseInt(res) > 0).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("get timestamp with bad param", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.now('usa')
+            expect(parseInt(res) > 0).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('Resolution can be either')
+        }
+
+        ydb.disconnect()
+    });
+})
+
 describe("process.exec()", async () => {
     it("when command is not provided", async () => {
 

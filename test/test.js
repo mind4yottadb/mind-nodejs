@@ -49,6 +49,11 @@ const run = async () => {
 
     //console.dir(ydb.db, {depth: 20})
 
+    console.log(await ydb.process.now())
+    console.log(await ydb.process.now('sus'))
+
+    exit()
+
 
     ydb.db.globals.addName('_stef')
     //console.log(ydb.db.globals)

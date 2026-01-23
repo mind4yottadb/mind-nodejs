@@ -18,6 +18,10 @@
 
 - [kill(pid,SIG)](server/server.kill.md)
 
+### Functions:
+
+- [GUID(dashed, braced)](./server/server.GUID.md)
+
 ### Properties:
 
 - [hostName](server/server.hostName.md)

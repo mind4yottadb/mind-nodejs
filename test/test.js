@@ -49,7 +49,11 @@ const run = async () => {
 
     //console.dir(ydb.db, {depth: 20})
 
-    console.log(await ydb.fs.isFile('$ydb_dist/mupip'))
+    console.log(await ydb.server.GUID())
+    console.log(await ydb.server.GUID(false))
+    console.log(await ydb.server.GUID(false, true))
+    console.log(await ydb.server.GUID(true, false))
+    console.log(await ydb.server.GUID(true, true))
 
     exit()
 

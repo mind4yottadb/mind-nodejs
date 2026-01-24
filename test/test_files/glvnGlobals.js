@@ -626,9 +626,10 @@ describe("globals.setJSON()", async () => {
 
         try {
             await ydb.db.globals.temp.killTree()
-            await ydb.db.globals.temp.setJSON('{:{]')
+            await ydb.db.globals.temp.setJSON('{[[[-23{]')
 
         } catch (err) {
+            console.log(err)
             expect(err.message).to.have.string('Error parsing JSON: Missing property name')
         }
 

@@ -49,11 +49,18 @@ const run = async () => {
 
     //console.dir(ydb.db, {depth: 20})
 
-    console.log(await ydb.server.GUID())
-    console.log(await ydb.server.GUID(false))
-    console.log(await ydb.server.GUID(false, true))
-    console.log(await ydb.server.GUID(true, false))
-    console.log(await ydb.server.GUID(true, true))
+    const json = {
+        test1: 'a string',
+        myData: {
+            testarray: [
+                'aaaa',
+                'bbb',
+                'ccc'
+            ]
+        }
+    }
+
+    await ydb.db.globals.stef.setObject(json)
 
     exit()
 

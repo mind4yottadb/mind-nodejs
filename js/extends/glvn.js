@@ -462,7 +462,7 @@ class Glvn {
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
 
-            if (typeof obj !== 'object') {
+            if (typeof obj !== 'object' || obj === null) {
                 reject(new Error('obj must be an object'))
 
                 return

@@ -343,7 +343,6 @@ class Glvn {
                 resolve()
             })
         })
-
     }
 
     setPiece = function (data, pieceChar = '^', start = 1, end) {
@@ -418,6 +417,87 @@ class Glvn {
         })
     }
 
+    setJSON = function (json = '') {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (typeof json !== 'string') {
+                reject(new Error('JSON must be a string'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'glvn.setJSON'
+            let newData = ''
+
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that)) +
+                RESP3.build.blob(json)
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve()
+            })
+        })
+    }
+
+    setObject = function (obj = {}) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (typeof obj !== 'object') {
+                reject(new Error('obj must be an object'))
+
+                return
+            }
+
+            try {
+                const json = JSON.stringify(obj)
+            } catch (err) {
+                reject(new Error('error parsing object: ' + err.message))
+
+                return
+            }
+
+            // send command
+            const opCode = 'glvn.setJSON'
+            let newData = ''
+
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that)) +
+                RESP3.build.blob(json)
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve()
+            })
+        })
+    }
     merge = function (path, glvn) {
 
     }

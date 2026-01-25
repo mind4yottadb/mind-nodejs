@@ -127,3 +127,163 @@ describe("server.pinfo()", async () => {
         ydb.disconnect()
     });
 })
+
+describe("server.GUID()", async () => {
+    it("with params other than boolean", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.GUID({})
+            expect(1 > 2).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter must be a boolean')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with params other than boolean", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.GUID('')
+            expect(1 > 2).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter must be a boolean')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with params other than boolean", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.GUID(9)
+            expect(1 > 2).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter must be a boolean')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with params other than boolean", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.GUID([])
+            expect(1 > 2).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter must be a boolean')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with params other than boolean", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.GUID(false, {})
+            expect(1 > 2).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter must be a boolean')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with params other than boolean", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.GUID(false, '')
+            expect(1 > 2).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter must be a boolean')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with params other than boolean", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.GUID(false, 9)
+            expect(1 > 2).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter must be a boolean')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with params other than boolean", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.GUID(false, [])
+            expect(1 > 2).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter must be a boolean')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("without params", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.server.GUID()
+        expect(res.indexOf('-') > -1).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("dashed = true", async () => {
+        const ydb = await createYdbInstance(true)
+
+        const res = await ydb.server.GUID()
+        expect(res.indexOf('-') > -1).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("dashed = false", async () => {
+        const ydb = await createYdbInstance(false)
+
+        const res = await ydb.server.GUID(false)
+        expect(res.indexOf('-') === -1).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("dashed = true, braced = false", async () => {
+        const ydb = await createYdbInstance(true, false)
+
+        const res = await ydb.server.GUID()
+        expect(res.indexOf('{') === -1).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("dashed = false, braced = true", async () => {
+        const ydb = await createYdbInstance(false)
+
+        const res = await ydb.server.GUID(false, true)
+        expect(res.charAt(0) === '{').to.be.true
+        expect(res.charAt(res.length - 1) === '}').to.be.true
+
+        ydb.disconnect()
+    });
+})

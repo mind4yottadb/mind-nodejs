@@ -110,6 +110,34 @@ class Server {
         })
     }
 
+    GUID = function (dashed = true, braced = false) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (typeof dashed !== 'boolean' || typeof braced !== 'boolean') {
+                reject(new Error('Parameter must be a boolean'))
+            }
+
+            // send command
+            const opCode = 'server.GUID'
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob((dashed === true ? 'D' : '') + (braced === true ? 'B' : ''))
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+                }
+
+
+                resolve(RESP3.parse.simpleString(data))
+            })
+        })
+    }
     _init = function (obj) {
         Object.defineProperties(obj, {
             SIG_INT: {

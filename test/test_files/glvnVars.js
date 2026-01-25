@@ -559,3 +559,247 @@ describe("vars.removeName()", async () => {
         ydb.disconnect()
     });
 })
+
+describe("vars.setJSON()", async () => {
+    it("bad DATA TYPE", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.uVars.killTree()
+            await ydb.db.vars.uVars.setJSON({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('JSON must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("bad DATA TYPE", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.uVars.killTree()
+            await ydb.db.vars.uVars.setJSON([])
+
+        } catch (err) {
+            expect(err.message).to.have.string('JSON must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("bad DATA TYPE", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.uVars.killTree()
+            await ydb.db.vars.uVars.setJSON(33)
+
+        } catch (err) {
+            expect(err.message).to.have.string('JSON must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("bad DATA TYPE", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.uVars.killTree()
+            await ydb.db.vars.uVars.setJSON(false)
+
+        } catch (err) {
+            expect(err.message).to.have.string('JSON must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("empty string", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.uVars.killTree()
+            await ydb.db.vars.uVars.setJSON('')
+
+        } catch (err) {
+            expect(err.message).to.have.string('No JSON provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("bad json", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.uVars.killTree()
+            await ydb.db.vars.uVars.setJSON('{[[[-23{]')
+
+        } catch (err) {
+            console.log(err)
+            expect(err.message).to.have.string('Error parsing JSON: Missing property name')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("valid json", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.uVars.killTree()
+            const obj = {
+                test1: 'mindjsontest',
+                myArray: [
+                    'entry1', 'entry2', 'entry3'
+                ]
+            }
+            await ydb.db.vars.uVars.setJSON(JSON.stringify(obj))
+
+            let value = await ydb.db.vars.uVars._('test1').getValue()
+            expect(value).to.have.string('mindjsontest')
+
+        } catch (err) {
+            expect(err.message).to.have.string('Error parsing JSON: Missing property name')
+        }
+
+        ydb.disconnect()
+    });
+
+})
+
+describe("globals.setObject()", async () => {
+    it("bad DATA TYPE", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.uVars.killTree()
+            await ydb.db.vars.uVars.setObject('thisisastring')
+
+        } catch (err) {
+            expect(err.message).to.have.string('obj must be an object')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("bad DATA TYPE", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.uVars.killTree()
+            await ydb.db.vars.uVars.setObject(23)
+
+        } catch (err) {
+            expect(err.message).to.have.string('obj must be an object')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("bad DATA TYPE", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.uVars.killTree()
+            await ydb.db.vars.uVars.setObject(null)
+
+        } catch (err) {
+            expect(err.message).to.have.string('obj must be an object')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("valid object", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.vars.uVars.killTree()
+            await ydb.db.vars.uVars.setObject({
+                field1: 12, field2: [
+                    'entry1', 'entry2', 'entry3'
+                ]
+            })
+
+            let value = await ydb.db.vars.uVars._('field2', 1).getValue()
+            expect(value).to.have.string('mindjsontest')
+
+        } catch (err) {
+            expect(err.message).to.have.string('entry')
+        }
+
+        ydb.disconnect()
+    });
+})
+
+describe("globals.getJSON()", async () => {
+    it("get json out of non-existing node", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setObject({
+            field1: 12, field2: [
+                'entry1', 'entry2', 'entry3'
+            ]
+        })
+
+        let json = await ydb.db.vars.uVars._("zzz").getJSON()
+        expect(json).to.have.string('{}')
+
+        ydb.disconnect()
+    });
+
+    it("get valid json", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setObject({
+            field1: 12, field2: [
+                'entry1', 'entry2', 'entry3'
+            ]
+        })
+
+        let json = await ydb.db.vars.uVars.getJSON()
+        expect(json).to.have.string('{"field1":12,"field2":["entry1","entry2","entry3"]}')
+
+        ydb.disconnect()
+    });
+})
+
+describe("globals.getObject()", async () => {
+    it("get json out of non-existing node", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setObject({
+            field1: 12, field2: [
+                'entry1', 'entry2', 'entry3'
+            ]
+        })
+
+        let obj = await ydb.db.vars.uVars._("zzz").getObject()
+        expect(typeof obj === 'object').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("get valid json", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setObject({
+            field1: 12, field2: [
+                'entry1', 'entry2', 'entry3'
+            ]
+        })
+
+        let obj = await ydb.db.vars.uVars.getObject()
+        expect(obj.field2[1]).to.have.string('entry2')
+
+        ydb.disconnect()
+    });
+})

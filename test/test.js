@@ -13,7 +13,7 @@ const run = async () => {
             globals: [
                 'globalTest', 'myglobal2', 'stef'
             ]
-        }
+        },
     }).catch(err => {
         console.log(err.message)
             exit()
@@ -48,6 +48,24 @@ const run = async () => {
 //console.log(cwd)
 
     //console.dir(ydb.db, {depth: 20})
+
+    const json = {
+        test1: 'a string',
+        myData: {
+            testarray: [
+                'aaaa',
+                'bbb',
+                'ccc'
+            ]
+        }
+    }
+
+    await ydb.db.globals.stef.setObject(json)
+
+    console.log(await ydb.db.globals.stef.getJSON())
+    console.log(await ydb.db.globals.stef.getObject())
+
+    //exit()
 
 
     ydb.db.globals.addName('_stef')
@@ -101,7 +119,7 @@ const run = async () => {
 
      */
 
-    await ydb.disconnect()
+    //await ydb.disconnect()
 
 }
 

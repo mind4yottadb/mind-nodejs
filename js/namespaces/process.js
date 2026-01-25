@@ -188,6 +188,36 @@ class Process {
         })
     }
 
+    now = function (resolution = 'ms') {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (resolution !== 'ms' && resolution !== 'us') {
+                reject(new Error('Resolution can be either ms (milliseconds) or us (microseconds)'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'process.now'
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(resolution)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+                }
+
+                resolve(parseInt(RESP3.parse.simpleString(data)))
+            })
+        })
+    }
+
     datetime = function () {
         const that = this
         const RESP3 = that.objRoot.RESP3

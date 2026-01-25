@@ -62,6 +62,9 @@ const run = async () => {
 
     await ydb.db.globals.stef.setObject(json)
 
+    console.log(await ydb.db.globals.stef.getJSON())
+    console.log(await ydb.db.globals.stef.getObject())
+
     exit()
 
 

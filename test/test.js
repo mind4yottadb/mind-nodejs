@@ -13,7 +13,7 @@ const run = async () => {
             globals: [
                 'globalTest', 'myglobal2', 'stef'
             ]
-        }
+        },
     }).catch(err => {
         console.log(err.message)
             exit()
@@ -65,7 +65,7 @@ const run = async () => {
     console.log(await ydb.db.globals.stef.getJSON())
     console.log(await ydb.db.globals.stef.getObject())
 
-    exit()
+    //exit()
 
 
     ydb.db.globals.addName('_stef')
@@ -119,7 +119,7 @@ const run = async () => {
 
      */
 
-    await ydb.disconnect()
+    //await ydb.disconnect()
 
 }
 

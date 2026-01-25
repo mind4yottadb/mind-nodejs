@@ -48,6 +48,11 @@ module.exports = class mind extends EventEmitter {
     connect = (host, port, username, password, options = {}) => {
         const that = this
 
+        const hTmeoutTimer = setTimeout(() => {
+            throw new Error('Timeout while trying to connect...')
+
+        }, 1E9)
+
         return new Promise(function (resolve, reject) {
             // perform validation
             if (typeof host !== 'string' || host === '') {
@@ -78,22 +83,21 @@ module.exports = class mind extends EventEmitter {
             if (err !== '') {
                 reject(new Error(err))
             }
-
             that.#socket = net.createConnection(port, host, async () => {
                 that.connected = true
 
                 // mount event handler and route it to the event emitter
-                that.#socket.on('end', () => {
-                    that.disconnect()
+                that.#socket
+                    .on('end', () => {
+                        that.disconnect()
 
-                    that.emit('disconnect', new Error('Disconnected'))
-                })
-
-                // mount event handler and route it to the event emitter
-                that.#socket.on('error', err => {
-                    that.emit('error', err)
-                    reject(err)
-                })
+                        that.emit('disconnect', new Error('Disconnected'))
+                    })
+                    // mount event handler and route it to the event emitter
+                    .on('error', err => {
+                        that.emit('error', err)
+                        reject(err)
+                    })
 
                 // perform the login
                 try {

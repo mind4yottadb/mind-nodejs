@@ -748,7 +748,6 @@ describe("globals.getJSON()", async () => {
         })
 
         let json = await ydb.db.vars.uVars._("zzz").getJSON()
-        console.log(json)
         expect(json).to.have.string('{}')
 
         ydb.disconnect()

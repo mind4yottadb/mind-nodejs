@@ -500,9 +500,70 @@ class Glvn {
             })
         })
     }
-    merge = function (path, glvn) {
 
+    getJSON = function () {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'glvn.getJSON'
+            let newData = ''
+
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that))
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve(RESP3.parse.blob(data))
+            })
+        })
     }
+
+    getObject = function () {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'glvn.getJSON'
+            let newData = ''
+
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that))
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve(JSON.parse(RESP3.parse.blob(data)))
+            })
+        })
+    }
+
+
+
+
 
     _init = function (obj) {
         Object.defineProperties(obj, {

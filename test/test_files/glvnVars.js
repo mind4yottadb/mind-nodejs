@@ -735,3 +735,72 @@ describe("globals.setObject()", async () => {
         ydb.disconnect()
     });
 })
+
+describe("globals.getJSON()", async () => {
+    it("get json out of non-existing node", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setObject({
+            field1: 12, field2: [
+                'entry1', 'entry2', 'entry3'
+            ]
+        })
+
+        let json = await ydb.db.vars.uVars._("zzz").getJSON()
+        console.log(json)
+        expect(json).to.have.string('{}')
+
+        ydb.disconnect()
+    });
+
+    it("get valid json", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setObject({
+            field1: 12, field2: [
+                'entry1', 'entry2', 'entry3'
+            ]
+        })
+
+        let json = await ydb.db.vars.uVars.getJSON()
+        expect(json).to.have.string('{"field1":12,"field2":["entry1","entry2","entry3"]}')
+
+        ydb.disconnect()
+    });
+})
+
+describe("globals.getObject()", async () => {
+    it("get json out of non-existing node", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setObject({
+            field1: 12, field2: [
+                'entry1', 'entry2', 'entry3'
+            ]
+        })
+
+        let obj = await ydb.db.vars.uVars._("zzz").getObject()
+        expect(typeof obj === 'object').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("get valid json", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.vars.uVars.killTree()
+        await ydb.db.vars.uVars.setObject({
+            field1: 12, field2: [
+                'entry1', 'entry2', 'entry3'
+            ]
+        })
+
+        let obj = await ydb.db.vars.uVars.getObject()
+        expect(obj.field2[1]).to.have.string('entry2')
+
+        ydb.disconnect()
+    });
+})

@@ -10,7 +10,31 @@
 #                                                               #
 ###############################################################*/
 
+const utils = require("../utils");
+
 class Sessions {
+    stats = function () {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'session.stats'
+            that.writer("*1" + RESP3.CRLF +
+                RESP3.build.blob(opCode)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+                }
+
+                resolve(JSON.parse(RESP3.parse.blob(data)))
+            })
+        })
+    }
 
 
 }

@@ -65,6 +65,7 @@ const run = async () => {
     console.log(await ydb.db.globals.stef.getJSON())
     console.log(await ydb.db.globals.stef.getObject())
 
+    console.dir(await ydb.session.stats())
     //exit()
 
 

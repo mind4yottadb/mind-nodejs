@@ -40,10 +40,6 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             reject(new Error(dataA[0].slice(1)))
         }
 
-        if (dataA[ix] !== '*4') {
-            reject(new Error('invalid packet signature at line: ' + ix + ' Expected: *4'))
-        }
-
         // proceed with the server array
         ix += 2
         const serverLength = parseInt(dataA[ix].slice(1))

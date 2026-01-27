@@ -66,10 +66,10 @@ const run = async () => {
     console.log(await ydb.db.globals.stef.getObject())
 
     //exit()
-    console.dir(await ydb.session.resetStats())
-    console.log(await ydb.db.globals.stef.getObject())
+    console.dir(await ydb.server.stats())
+    //console.log(await ydb.db.globals.stef.getObject())
 
-    console.dir(await ydb.session.timeSinceConnect())
+    //console.dir(await ydb.session.timeSinceConnect())
 
     //exit()
 

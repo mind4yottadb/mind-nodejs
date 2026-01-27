@@ -44,19 +44,19 @@ class RESP3 {
             return this.extractToken(str) === 't'
         },
         true: function (str) {
-            return this.extractToken(str)
+            return this.extractToken(str) === 'true'
         },
         false: function (str) {
-            return this.extractToken(str)
+            return this.extractToken(str) === 'true'
         },
         null: function (str) {
             return this.extractToken(str)
         },
         int: function (str) {
-            return this.extractToken(str)
+            return parseInt(this.extractToken(str))
         },
         double: function (str) {
-            return this.extractToken(str)
+            return parseFloat(this.extractToken(str))
         },
         bigNumber: function (str) {
             return this.extractToken(str)

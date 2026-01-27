@@ -67,7 +67,12 @@ const run = async () => {
 
     console.dir(await ydb.session.stats())
     //exit()
+    console.dir(await ydb.session.resetStats())
+    console.log(await ydb.db.globals.stef.getObject())
 
+    console.dir(await ydb.session.stats())
+
+    exit()
 
     ydb.db.globals.addName('_stef')
     //console.log(ydb.db.globals)

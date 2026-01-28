@@ -10,20 +10,415 @@
 #                                                               #
 ###############################################################*/
 
-const {expect} = require("chai");
-const {createYdbInstance} = require("../utils.cjs");
+const mind = require("../../js")
 
-describe("server.kill()", async () => {
-    it("when pid is not a number", async () => {
-        const ydb = await createYdbInstance()
+const {expect} = require("chai");
+
+describe("connect()", async () => {
+    it("without any parameters", async () => {
+
+        let ydb
 
         try {
-            const res = await ydb.server.kill({})
-            expect(1 > 2).to.be.true
+            ydb = new mind
+
+            await ydb.connect()
 
 
         } catch (err) {
-            expect(err.message).to.have.string('Parameter pid must be a number')
+            expect(err.message).to.have.string('host must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add host as number", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect(123)
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('host must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add host as array", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect([])
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('host must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add host as object", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect({})
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('host must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add host as string", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1')
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('port must be a number')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add port as string", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', '234')
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('port must be a number')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add port as array", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', [])
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('port must be a number')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add port as object", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', {})
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('port must be a number')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add port as boolean", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', false)
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('port must be a number')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add port as number", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000)
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('username must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add username as array", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, [])
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('username must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add username as number", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, 12)
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('username must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add username as object", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, {})
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('username must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add username as boolean", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, false)
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('username must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add username as string", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, 'admin')
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('password must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add username as array", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, 'admin', [])
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('password must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add username as number", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, 'admin', 12)
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('password must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add username as object", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, 'admin', {})
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('password must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add username as boolean", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, 'admin', false)
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('password must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+
+    it("add options as string", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', 'option')
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('options must be an object')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add options as array", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', [])
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('options must be an object')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add options as number", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', 12)
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('options must be an object')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add options as object", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', {})
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('options must be an object')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("add options as boolean", async () => {
+
+        let ydb
+
+        try {
+            ydb = new mind
+
+            await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', false)
+
+
+        } catch (err) {
+            expect(err.message).to.have.string('options must be an object')
         }
 
         ydb.disconnect()

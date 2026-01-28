@@ -288,7 +288,7 @@ describe("server.GUID()", async () => {
     });
 })
 
-describe("server.kistSessions()", async () => {
+describe("server.listSessions()", async () => {
     it("list only yourself", async () => {
         const ydb = await createYdbInstance()
 

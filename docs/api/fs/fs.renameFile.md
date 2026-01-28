@@ -12,28 +12,30 @@
 ###############################################################*/
 -->
 
-### fs.isDir(path)
+### fs.renameFile(oldName, newName)
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**: yes, returns a Promise
 
 **Parameters**:
 
-| name   | data type | Optional | Description               |
-|--------|-----------|----------|---------------------------|
-| `path` | string    | No       | the path you wish to test |
+| name      | data type | Optional | Description                 |
+|-----------|-----------|----------|-----------------------------|
+| `oldName` | string    | No       | the file you want to rename |
+| `newName` | string    | No       | the new filename            |
 
 **Returns**:
 
-`Promise<BOOLEAN>`
+`Promise<>`
 
 ---
 
-Returns `true` if the supplied path is a directory, `false` if it is a file.
-If the path doesn't exist it will throw an error.
+It renames a file.
+
+If `oldName` or `newName` files are not found or another error occurs, it will throw an error.
 
 <br>
 
@@ -48,17 +50,10 @@ const ydb = new mind
 
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const res = await ydb.fs.isDir('/tmp')
-console.log(res)
+await ydb.fs.renameFile('/tmp/testfile.txt', '/tmp/newtestfile.txt')
 
 ydb.disconnect()
 
-````
-
-returns:
-
-````js
-ret = true
 ````
 
 ---

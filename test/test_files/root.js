@@ -13,6 +13,7 @@
 const mind = require("../../js")
 
 const {expect} = require("chai");
+const {createYdbInstance} = require("../utils.cjs");
 
 describe("connect()", async () => {
     it("without any parameters", async () => {
@@ -424,3 +425,24 @@ describe("connect()", async () => {
         ydb.disconnect()
     });
 })
+
+describe("structure after connect()", async () => {
+    it("without any parameters", async () => {
+        const ydb = await createYdbInstance()
+
+        expect(ydb.connected).to.be.true
+        expect(ydb.loggedIn).to.be.true
+        expect(ydb.requiresMind !== undefined).to.be.true
+        expect(typeof ydb.server === 'object').to.be.true
+        expect(typeof ydb.process === 'object').to.be.true
+        expect(typeof ydb.fs === 'object').to.be.true
+        expect(typeof ydb.RESP3 === 'object').to.be.true
+        expect(typeof ydb.db === 'object').to.be.true
+        expect(typeof ydb.db.vars === 'object').to.be.true
+        expect(typeof ydb.db.globals === 'object').to.be.true
+        expect(typeof ydb.dbms === 'object').to.be.true
+
+        ydb.disconnect()
+    })
+})
+

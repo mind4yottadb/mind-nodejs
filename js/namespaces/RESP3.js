@@ -33,31 +33,34 @@ class RESP3 {
     parse = {
         extractToken: str => str.slice(1, str.slice(-2) === '\r\n' ? -2 : str.length),
 
+        map: str => str,
+
         blob: str => str.slice(2 + str.indexOf('\r\n'), -2),
+
         simpleString: function (str) {
             return this.extractToken(str)
         },
+
         simpleError: function (str) {
             return this.extractToken(str)
         },
+
         boolean: function (str) {
             return this.extractToken(str) === 't'
         },
-        true: function (str) {
-            return this.extractToken(str)
-        },
-        false: function (str) {
-            return this.extractToken(str)
-        },
+
         null: function (str) {
             return this.extractToken(str)
         },
+
         int: function (str) {
-            return this.extractToken(str)
+            return parseInt(this.extractToken(str))
         },
+
         double: function (str) {
-            return this.extractToken(str)
+            return parseFloat(this.extractToken(str))
         },
+
         bigNumber: function (str) {
             return this.extractToken(str)
         },
@@ -97,6 +100,13 @@ class RESP3 {
 
             null: {
                 value: '_',
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
+            boolean: {
+                value: '#',
                 enumerable: true,
                 configurable: true,
                 writable: false

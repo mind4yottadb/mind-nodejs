@@ -12,7 +12,7 @@
 ###############################################################*/
 -->
 
-### process.memUsage()
+### server.listSessions()
 
 ---
 
@@ -31,18 +31,17 @@
 
 ---
 
-Returns the `allocatedStorage`, the `usedStorage` and the `realStorage` used by your session.
+Returns detailed information of all the sessions currently active in the server.
 
-> `allocatedStorage`: contains the number of bytes that are (sub) allocated (including overhead) by YottaDB for various
-> activities.
+It returns an array of objects, where each object represent a session with the following fields:
 
-> `realStorage`: contains the total memory (in bytes) allocated by the YottaDB process, which may or may not actually be
-> in use.
-
-> `usedStorage`: is the value in `allocatedStorage` minus storage management overhead and represents the actual memory,
-> in bytes, requested by current activities.
-
-An eventual internal error on the server side will throw an error.
+- `description`: the description text provided by the remote driver
+- `driverName`: the name of the remote driver used to connect
+- `driverVersion`: the version of the remote driver used to connect
+- `ipNumber`: the IP number of the remote driver
+- `username`: the username that logged in the server
+- `pid`: the process id of the session
+- `elapsedTime`: since how log is the session active, in the format hours, minutes and seconds
 
 <br>
 
@@ -57,8 +56,8 @@ const ydb = new mind
 
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const memUsage = ydb.process.memUsage()
-console.log(memUsage)
+const sessions = await ydb.process.listSessions()
+console.log(sessions)
 
 ydb.disconnect()
 
@@ -68,12 +67,17 @@ returns:
 
 ````js
 
-memUsage = {
-    allocatedStorage: 1647396,
-    realStorage: 1701396,
-    usedStorage: 1647396
-}
-
+sessions = [
+    {
+        description: 'MIND for YottaDB node.js driver',
+        driverName: 'mind4yottadb.js',
+        driverVersion: '0.5.0',
+        elapsedTime: {hour: 0, min: 0, sec: 0},
+        ipNumber: '172.18.0.1',
+        pid: 13163,
+        username: 'admin'
+    }
+]
 ````
 
 <br>
@@ -81,4 +85,4 @@ memUsage = {
 
 ---
 
-[Back](../namespace.process.md)
+[Back](../namespace.server.md)

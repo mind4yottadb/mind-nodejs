@@ -21,6 +21,9 @@
 ### Functions:
 
 - [GUID(dashed, braced)](./server/server.GUID.md)
+- [listSessions](server/server.listSessions.md)
+- [pinfo](server/server.pinfo.md)
+- [stats](server/server.stats.md)
 
 ### Properties:
 

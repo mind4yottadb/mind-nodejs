@@ -22,5 +22,11 @@ module.exports = {
         )
 
         return ydb
+    },
+
+    sleep: async msDelay => {
+        return new Promise(function (resolve, reject) {
+            setTimeout(resolve, msDelay)
+        })
     }
 }

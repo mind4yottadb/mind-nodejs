@@ -34,7 +34,7 @@ module.exports = class mind extends EventEmitter {
 
     #socket = null
 
-    requiresMind = '0.10.0'
+    requiresMind = '0.11.0'
 
     // namespaces
     server = new nsServer
@@ -116,7 +116,7 @@ module.exports = class mind extends EventEmitter {
     }
 
     disconnect = () => {
-        this.#socket.destroy()
+        if (this.#socket) this.#socket.destroy()
         this.connected = false
         this.loggedIn = false
 

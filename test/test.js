@@ -66,7 +66,12 @@ const run = async () => {
     console.log(await ydb.db.globals.stef.getObject())
 
     //exit()
+    console.dir(await ydb.server.pinfo(5500))
+    //console.log(await ydb.db.globals.stef.getObject())
 
+    //console.dir(await ydb.session.timeSinceConnect())
+
+    //exit()
 
     ydb.db.globals.addName('_stef')
     //console.log(ydb.db.globals)

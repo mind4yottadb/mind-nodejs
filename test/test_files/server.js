@@ -287,3 +287,36 @@ describe("server.GUID()", async () => {
         ydb.disconnect()
     });
 })
+
+describe("server.listSessions()", async () => {
+    it("list only yourself", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.listSessions()
+            expect(res.length === 1).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter must be a boolean')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("list yourself and another session", async () => {
+        const ydb = await createYdbInstance()
+        const ydb2 = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.listSessions()
+            expect(res.length === 2).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('Parameter must be a boolean')
+        }
+
+        ydb.disconnect()
+        ydb2.disconnect()
+    });
+
+})

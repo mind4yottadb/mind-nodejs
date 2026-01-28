@@ -14,7 +14,6 @@ const utils = require("../utils");
 
 class Process {
     pid = null
-    env = {}
 
     exec = function (command, shell = '') {
         const that = this

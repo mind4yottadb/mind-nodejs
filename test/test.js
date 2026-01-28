@@ -66,7 +66,7 @@ const run = async () => {
     console.log(await ydb.db.globals.stef.getObject())
 
     //exit()
-    console.dir(await ydb.process.getEnvVars())
+    console.dir(await ydb.process.now('us'))
     //console.log(await ydb.db.globals.stef.getObject())
 
     //console.dir(await ydb.session.timeSinceConnect())

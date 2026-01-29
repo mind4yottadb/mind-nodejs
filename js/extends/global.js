@@ -61,6 +61,50 @@ class Global extends Glvn {
             })
         })
     }
+
+    decrement = function (decrementBy = 1) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (typeof decrementBy !== 'number') {
+                reject(new Error('decrementBy must be a number'))
+            }
+
+            if (decrementBy === 0 || decrementBy < 0) {
+                reject(new Error('decrementBy must be a positive number'))
+            }
+
+            // send command
+            const opCode = 'glvn.decrement'
+
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that)) +
+                RESP3.build.blob(decrementBy)
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                if (data.charAt(0) !== ',' && data.charAt(0) !== ':') {
+                    reject(new Error(data.slice(1, -2)))
+
+                    return
+                }
+
+                resolve(data.slice(1, -2))
+            })
+        })
+    }
 }
 
 module.exports = Global

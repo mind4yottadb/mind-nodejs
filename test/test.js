@@ -63,7 +63,7 @@ const run = async () => {
     await ydb.db.globals.stef.setObject(json)
 
     await ydb.db.globals.stef.setValue(12)
-    console.log(await ydb.db.globals.stef.increment(1.23))
+    console.log(await ydb.db.globals.stef.decrement(1.23))
     console.log(await ydb.db.globals.stef.getValue())
 
     //exit()

@@ -63,6 +63,8 @@ const run = async () => {
     await ydb.db.globals.stef.setObject(json)
 
     await ydb.db.globals.stef.addLock(5)
+    await ydb.db.globals.stef.removeLock()
+    await ydb.db.globals.stef.removeLock()
 
     console.log(await ydb.process.horolog())
     console.log(await ydb.db.globals.stef.getValue())

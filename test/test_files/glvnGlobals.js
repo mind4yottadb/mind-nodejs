@@ -856,6 +856,7 @@ describe("globals.increment()", async () => {
         try {
             await ydb.db.globals.temp.setValue(1E6)
             const res = await ydb.db.globals.temp.increment(0)
+
         } catch (err) {
             expect(err.message).to.have.string('incrementBy must be a positive number')
         }
@@ -869,6 +870,7 @@ describe("globals.increment()", async () => {
         try {
             await ydb.db.globals.temp.setValue(1E6)
             const res = await ydb.db.globals.temp.increment(0)
+
         } catch (err) {
             expect(err.message).to.have.string('incrementBy must be a positive number')
         }
@@ -939,6 +941,7 @@ describe("globals.decrement()", async () => {
         try {
             await ydb.db.globals.temp.setValue(1E6)
             const res = await ydb.db.globals.temp.decrement(0)
+
         } catch (err) {
             expect(err.message).to.have.string('decrementBy must be a positive number')
         }
@@ -952,6 +955,7 @@ describe("globals.decrement()", async () => {
         try {
             await ydb.db.globals.temp.setValue(1E6)
             const res = await ydb.db.globals.temp.decrement(0)
+
         } catch (err) {
             expect(err.message).to.have.string('decrementBy must be a positive number')
         }

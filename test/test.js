@@ -62,8 +62,9 @@ const run = async () => {
 
     await ydb.db.globals.stef.setObject(json)
 
-    console.log(await ydb.db.globals.stef.getJSON())
-    console.log(await ydb.db.globals.stef.getObject())
+    await ydb.db.globals.stef.setValue(12)
+    console.log(await ydb.db.globals.stef.increment(1.23))
+    console.log(await ydb.db.globals.stef.getValue())
 
     //exit()
     console.dir(await ydb.server.pinfo(5500))

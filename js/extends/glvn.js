@@ -600,7 +600,7 @@ class Glvn {
                     return
                 }
 
-                resolve(data.slice(1, -2))
+                resolve(parseFloat(data.slice(1, -2)))
             })
         })
     }
@@ -644,7 +644,7 @@ class Glvn {
                     return
                 }
 
-                resolve(data.slice(1, -2))
+                resolve(parseFloat(data.slice(1, -2)))
             })
         })
     }

@@ -291,39 +291,35 @@ describe("server.GUID()", async () => {
 describe("server.listSessions()", async () => {
 
     it("list only yourself", async () => {
-        /*
         const ydb = await createYdbInstance()
 
-        try {
-            const res = await ydb.server.listSessions()
-            expect(res.length === 1).to.be.true
+        const sessions = await ydb.server.listSessions()
+        const oldSessionCount = sessions.length
 
-        } catch (err) {
-            expect(err.message).to.have.string('Parameter must be a boolean')
-        }
-
-        ydb.disconnect()
-
-         */
-    });
-
-    it("list yourself and another session", async () => {
-        /*
-        const ydb = await createYdbInstance()
         const ydb2 = await createYdbInstance()
-
-        try {
-            const res = await ydb.server.listSessions()
-            expect(res.length === 2).to.be.true
-
-        } catch (err) {
-            expect(err.message).to.have.string('Parameter must be a boolean')
-        }
+        const res = await ydb.server.listSessions()
+        expect(res.length === oldSessionCount + 1).to.be.true
 
         ydb.disconnect()
         ydb2.disconnect()
 
-         */
+    });
+
+    it("list yourself and another session", async () => {
+        const ydb = await createYdbInstance()
+
+        const sessions = await ydb.server.listSessions()
+        const oldSessionCount = sessions.length
+
+        const ydb2 = await createYdbInstance()
+        const ydb3 = await createYdbInstance()
+
+        const res = await ydb.server.listSessions()
+        expect(res.length === oldSessionCount + 2).to.be.true
+
+        ydb.disconnect()
+        ydb2.disconnect()
+        ydb3.disconnect()
     });
 
 })

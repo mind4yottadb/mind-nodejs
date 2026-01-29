@@ -412,6 +412,87 @@ class Process {
             })
         })
     }
+
+    groupLocks = function () {
+        this._groupLocksFlag = true
+    }
+
+    clearLocksGroup = function () {
+        this._groupLocksFlag = false
+        this._locks = []
+    }
+
+    commitLocks = function (timeout = 0) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (that._groupLocksFlag === false) {
+                reject(new Error('No lock group started, execute groupLocks() first'))
+
+                return
+            }
+
+            if (that._locks.length === 0) {
+                reject(new Error('No locks defined'))
+
+                return
+            }
+
+            if (typeof timeout !== 'number') {
+                reject(new Error('timeout must be a number'))
+            }
+
+            if (timeout < 0) {
+                reject(new Error('timeout must be a positive number'))
+            }
+
+            // send command
+            const opCode = 'process.commitLocks'
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(that._locks.concat(',')) +
+                RESP3.build.blob(timeout)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                resolve(data.slice(1, -2))
+            })
+        })
+    }
+
+    _init = function (obj) {
+        Object.defineProperties(obj, {
+            _locks: {
+                value: [],
+                enumerable: false,
+                configurable: true,
+                writable: true
+            },
+
+            _groupLocksFlag: {
+                value: false,
+                enumerable: false,
+                configurable: true,
+                writable: true
+            }
+        })
+
+        Object.defineProperties(obj, {
+            _init: {
+                enumerable: false,
+            }
+
+        })
+    }
 }
 
 module.exports = Process

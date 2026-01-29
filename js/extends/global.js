@@ -33,6 +33,14 @@ class Global extends Glvn {
                 reject(new Error('timeout must be a positive number'))
             }
 
+            if (that.objRoot.process._groupLocksFlag === true) {
+                that.objRoot.process._locks.push(utils.generateGlvn(that))
+
+                resolve()
+
+                return
+            }
+
             // send command
             const opCode = 'glvn.addLock'
 
@@ -62,6 +70,17 @@ class Global extends Glvn {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (that.objRoot.process._groupLocksFlag === true) {
+                const glvn = utils.generateGlvn(that)
+
+                const ix = that.objRoot.process._locks.findIndex(lGlvn => glvn === lGlvn)
+                if (ix > -1) that.objRoot.process._locks.splice(ix, 1)
+
+                resolve()
+
+                return
+            }
 
             // send command
             const opCode = 'glvn.removeLock'

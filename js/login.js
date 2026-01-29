@@ -119,6 +119,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         // and initialize some classes
         that.server._init(that.server)
+        that.process._init(that.process)
         that.db.globals._init(that.db.globals)
         that.db.vars._init(that.db.vars)
 

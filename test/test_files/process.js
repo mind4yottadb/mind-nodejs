@@ -314,7 +314,6 @@ describe("process.spawn()", async () => {
             }
 
         } catch (err) {
-            console.log(err)
             expect(err.message).to.have.string('the command has not been provided')
         }
 
@@ -504,3 +503,18 @@ describe("globals.commitLocks()", async function () {
         ydb.disconnect()
     });
 })
+
+describe("process.horolog()", async () => {
+    it("get memUsage", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.process.horolog()
+
+        expect(res.horolog !== '').to.be.true
+        expect(res.microseconds > 0).to.be.true
+        expect(res.utcOffset !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+})
+

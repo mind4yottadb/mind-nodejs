@@ -11,7 +11,7 @@
 ###############################################################*/
 
 const {expect} = require("chai");
-const {createYdbInstance} = require("../utils.cjs");
+const {createYdbInstance, sleep} = require("../utils.cjs");
 
 describe("globals.hasValue()", async () => {
     it("test a valid global root", async () => {
@@ -959,6 +959,91 @@ describe("globals.decrement()", async () => {
         } catch (err) {
             expect(err.message).to.have.string('decrementBy must be a positive number')
         }
+
+        ydb.disconnect()
+    });
+})
+
+describe("globals.addLock()", async function () {
+    this.timeout(20000)
+
+    it("lock without timeout regular", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.addLock()
+        const res = await ydb.process.showLocks()
+
+        expect(res['^temp'] === '1').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("lock with timeout, lock set ", async function () {
+        const ydb = await createYdbInstance()
+        const ydb2 = await createYdbInstance()
+
+        await ydb2.db.globals.temp.addLock()
+
+        setTimeout(async () => {
+            ydb2.disconnect()
+
+        }, 2000)
+
+        await ydb.db.globals.temp.addLock(4)
+        const res = await ydb.process.showLocks()
+
+        expect(res['^temp'] === '1').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("lock without timeout, lock set ", async function () {
+        const ydb = await createYdbInstance()
+        const ydb2 = await createYdbInstance()
+
+        await ydb2.db.globals.temp.addLock()
+
+        setTimeout(async () => {
+            ydb2.disconnect()
+
+        }, 2000)
+
+        await ydb.db.globals.temp.addLock()
+        const res = await ydb.process.showLocks()
+
+        expect(res['^temp'] === '1').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("lock with timeout, elapsed ", async () => {
+        const ydb = await createYdbInstance()
+        const ydb2 = await createYdbInstance()
+
+        try {
+            await ydb2.db.globals.temp.addLock()
+            await ydb.db.globals.temp.addLock(3)
+
+        } catch (err) {
+            expect(err.message).to.have.string('timeout elapsed')
+        }
+
+        ydb.disconnect()
+        ydb2.disconnect()
+    });
+})
+
+describe("globals.removeLock()", async function () {
+    this.timeout(20000)
+
+    it("adds and then remove a lock ", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.addLock()
+        await ydb.db.globals.temp.removeLock()
+        const res = await ydb.process.showLocks()
+
+        expect(Object.keys(res).length === 0).to.be.true
 
         ydb.disconnect()
     });

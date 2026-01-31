@@ -60,7 +60,12 @@ const run = async () => {
         }
     }
 
+    console.log(await ydb.server.plist())
+
+    exit()
     await ydb.process.groupLocks()
+
+    await ydb.server.syslogMessage('this is a message')
 
     await ydb.db.globals.stef._("tres").addLock(5)
     await ydb.db.globals.stef._("tres", 23).addLock(5)

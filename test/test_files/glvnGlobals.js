@@ -11,7 +11,7 @@
 ###############################################################*/
 
 const {expect} = require("chai");
-const {createYdbInstance} = require("../utils.cjs");
+const {createYdbInstance, sleep} = require("../utils.cjs");
 
 describe("globals.hasValue()", async () => {
     it("test a valid global root", async () => {
@@ -793,3 +793,259 @@ describe("globals.getObject()", async () => {
         ydb.disconnect()
     });
 })
+
+describe("globals.increment()", async () => {
+    it("increment on killed node", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killValue()
+        const res = await ydb.db.globals.temp.increment()
+
+        expect(res === 1).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("increment on existing string node", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.setValue('string')
+        const res = await ydb.db.globals.temp.increment()
+
+        expect(res === 1).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("increment on existing numeric node", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.setValue(22)
+        const res = await ydb.db.globals.temp.increment()
+
+        expect(res === 23).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("increment on existing numeric node with float", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.setValue(22.01)
+        const res = await ydb.db.globals.temp.increment(0.001)
+
+        expect(res === 22.011).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("increment on existing numeric node with large int", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.setValue(1E6)
+        const res = await ydb.db.globals.temp.increment(2E6)
+
+        expect(res === 3000000).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("increment with zero as increment value", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.globals.temp.setValue(1E6)
+            const res = await ydb.db.globals.temp.increment(0)
+
+        } catch (err) {
+            expect(err.message).to.have.string('incrementBy must be a positive number')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("increment with negative number as increment value", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.globals.temp.setValue(1E6)
+            const res = await ydb.db.globals.temp.increment(0)
+
+        } catch (err) {
+            expect(err.message).to.have.string('incrementBy must be a positive number')
+        }
+
+        ydb.disconnect()
+    });
+})
+
+describe("globals.decrement()", async () => {
+    it("decrement on killed node", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killValue()
+        const res = await ydb.db.globals.temp.decrement()
+
+        expect(res === -1).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("decrement on existing string node", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.setValue('string')
+        const res = await ydb.db.globals.temp.decrement()
+
+        expect(res === -1).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("decrement on existing numeric node", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.setValue(22)
+        const res = await ydb.db.globals.temp.decrement()
+
+        expect(res === 21).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("decrement on existing numeric node with float", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.setValue(22.01)
+        const res = await ydb.db.globals.temp.decrement(0.001)
+
+        expect(res === 22.009).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("decrement on existing numeric node with large int", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.setValue(1E6)
+        const res = await ydb.db.globals.temp.decrement(2E6)
+
+        expect(res === -1000000).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("decrement with zero as decrement value", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.globals.temp.setValue(1E6)
+            const res = await ydb.db.globals.temp.decrement(0)
+
+        } catch (err) {
+            expect(err.message).to.have.string('decrementBy must be a positive number')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("decrement with negative number as decrement value", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.db.globals.temp.setValue(1E6)
+            const res = await ydb.db.globals.temp.decrement(0)
+
+        } catch (err) {
+            expect(err.message).to.have.string('decrementBy must be a positive number')
+        }
+
+        ydb.disconnect()
+    });
+})
+
+describe("globals.addLock()", async function () {
+    this.timeout(20000)
+
+    it("lock without timeout regular", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.addLock()
+        const res = await ydb.process.showLocks()
+
+        expect(res['^temp'] === '1').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("lock with timeout, lock set ", async function () {
+        const ydb = await createYdbInstance()
+        const ydb2 = await createYdbInstance()
+
+        await ydb2.db.globals.temp.addLock()
+
+        setTimeout(async () => {
+            ydb2.disconnect()
+
+        }, 2000)
+
+        await ydb.db.globals.temp.addLock(4)
+        const res = await ydb.process.showLocks()
+
+        expect(res['^temp'] === '1').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("lock without timeout, lock set ", async function () {
+        const ydb = await createYdbInstance()
+        const ydb2 = await createYdbInstance()
+
+        await ydb2.db.globals.temp.addLock()
+
+        setTimeout(async () => {
+            ydb2.disconnect()
+
+        }, 2000)
+
+        await ydb.db.globals.temp.addLock()
+        const res = await ydb.process.showLocks()
+
+        expect(res['^temp'] === '1').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("lock with timeout, elapsed ", async () => {
+        const ydb = await createYdbInstance()
+        const ydb2 = await createYdbInstance()
+
+        try {
+            await ydb2.db.globals.temp.addLock()
+            await ydb.db.globals.temp.addLock(3)
+
+        } catch (err) {
+            expect(err.message).to.have.string('timeout elapsed')
+        }
+
+        ydb.disconnect()
+        ydb2.disconnect()
+    });
+})
+
+describe("globals.removeLock()", async function () {
+    this.timeout(20000)
+
+    it("adds and then remove a lock ", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.addLock()
+        await ydb.db.globals.temp.removeLock()
+        const res = await ydb.process.showLocks()
+
+        expect(Object.keys(res).length === 0).to.be.true
+
+        ydb.disconnect()
+    });
+})
+

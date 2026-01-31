@@ -60,10 +60,25 @@ const run = async () => {
         }
     }
 
-    await ydb.db.globals.stef.setObject(json)
+    console.log(await ydb.process.syslogMessage('testing'))
 
-    console.log(await ydb.db.globals.stef.getJSON())
-    console.log(await ydb.db.globals.stef.getObject())
+    exit()
+    await ydb.process.groupLocks()
+
+    await ydb.server.syslogMessage('this is a message')
+
+    await ydb.db.globals.stef._("tres").addLock(5)
+    await ydb.db.globals.stef._("tres", 23).addLock(5)
+    console.log(await ydb.process.showLocks())
+    //await ydb.db.globals.stef._("tres").removeLock()
+    console.log("commit:" + await ydb.process.commitLocks(3))
+    console.log(await ydb.process.showLocks())
+
+    //await ydb.process.removeAllLocks()
+    console.log(await ydb.process.showLocks())
+
+    console.log(await ydb.process.horolog())
+    console.log(await ydb.db.globals.stef.getValue())
 
     //exit()
     console.dir(await ydb.server.pinfo(5500))

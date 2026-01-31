@@ -321,6 +321,212 @@ class Process {
         })
     }
 
+    horolog = function () {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'process.horolog'
+            that.writer("*1" + RESP3.CRLF +
+                RESP3.build.blob(opCode)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                data = data.slice(2 + data.indexOf(RESP3.CRLF), -2).split(RESP3.CRLF)
+                const res = {}
+
+                for (let ix = 0; ix < data.length; ix += 2) {
+                    res[data[ix].slice(1)] = data[ix + 1].slice(1)
+                }
+
+                resolve(res)
+            })
+        })
+    }
+
+    showLocks = function () {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'process.showLocks'
+            that.writer("*1" + RESP3.CRLF +
+                RESP3.build.blob(opCode)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                data = data.slice(2 + data.indexOf(RESP3.CRLF), -2).split(RESP3.CRLF)
+                const res = {}
+
+                try {
+                    for (let ix = 0; ix < data.length; ix += 2) {
+                        res[data[ix].slice(1)] = data[ix + 1].slice(1)
+                    }
+                } catch (err) {
+                }
+
+                resolve(res)
+            })
+        })
+    }
+
+    removeAllLocks = function () {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            // send command
+            const opCode = 'process.removeAllLocks'
+            that.writer("*1" + RESP3.CRLF +
+                RESP3.build.blob(opCode)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                resolve()
+            })
+        })
+    }
+
+    groupLocks = function () {
+        this._groupLocksFlag = true
+    }
+
+    clearLocksGroup = function () {
+        this._groupLocksFlag = false
+        this._locks = []
+    }
+
+    commitLocks = function (timeout = 0) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (that._groupLocksFlag === false) {
+                reject(new Error('No lock group started, execute groupLocks() first'))
+
+                return
+            }
+
+            if (that._locks.length === 0) {
+                reject(new Error('No locks defined'))
+
+                return
+            }
+
+            if (typeof timeout !== 'number') {
+                reject(new Error('timeout must be a number'))
+            }
+
+            if (timeout < 0) {
+                reject(new Error('timeout must be a positive number'))
+            }
+
+            // send command
+            const opCode = 'process.commitLocks'
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(that._locks.concat(',')) +
+                RESP3.build.blob(timeout)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                resolve(data.slice(1, -2))
+            })
+        })
+    }
+
+    _init = function (obj) {
+        Object.defineProperties(obj, {
+            _locks: {
+                value: [],
+                enumerable: false,
+                configurable: true,
+                writable: true
+            },
+
+            _groupLocksFlag: {
+                value: false,
+                enumerable: false,
+                configurable: true,
+                writable: true
+            }
+        })
+
+        Object.defineProperties(obj, {
+            _init: {
+                enumerable: false,
+            }
+
+        })
+    }
+
+    syslogMessage = function (message = '') {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (typeof message !== 'string') {
+                reject(new Error('message must be a string'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'process.syslogMessage'
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(message)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                resolve()
+            })
+        })
+    }
+
+
 }
 
 module.exports = Process

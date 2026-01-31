@@ -34,7 +34,7 @@ module.exports = class mind extends EventEmitter {
 
     #socket = null
 
-    requiresMind = '0.12.0'
+    requiresMind = '0.13.0'
 
     // namespaces
     server = new nsServer

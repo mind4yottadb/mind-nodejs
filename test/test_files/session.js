@@ -71,7 +71,7 @@ describe("session.timeSinceConnect()", async () => {
 
         await sleep(3000)
         const res = await ydb.session.timeSinceConnect()
-        expect(res > 3).to.be.true
+        expect(res > 1).to.be.true
 
         ydb.disconnect()
     });

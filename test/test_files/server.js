@@ -323,3 +323,19 @@ describe("server.listSessions()", async () => {
     });
 
 })
+
+describe("server.plist()", async () => {
+
+    it("list and validate", async () => {
+        const ydb = await createYdbInstance()
+
+        const plist = await ydb.server.plist()
+
+        expect(plist[0].pid === 1).to.be.true
+        expect(plist[0].ppid === 0).to.be.true
+        expect(plist[0].command).to.have.string('/sbin/docker-init -- sleep infinity')
+        expect(plist[0].uid).to.have.string('root')
+
+        ydb.disconnect()
+    });
+})

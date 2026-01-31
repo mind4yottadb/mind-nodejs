@@ -60,7 +60,7 @@ const run = async () => {
         }
     }
 
-    console.log(await ydb.server.plist())
+    console.log(await ydb.process.syslogMessage('testing'))
 
     exit()
     await ydb.process.groupLocks()

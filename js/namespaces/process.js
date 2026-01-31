@@ -494,6 +494,39 @@ class Process {
         })
     }
 
+    syslogMessage = function (message = '') {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (typeof message !== 'string') {
+                reject(new Error('message must be a string'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'process.syslogMessage'
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(message)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                resolve()
+            })
+        })
+    }
+
+
 }
 
 module.exports = Process

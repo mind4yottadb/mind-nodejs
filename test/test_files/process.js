@@ -505,7 +505,7 @@ describe("globals.commitLocks()", async function () {
 })
 
 describe("process.horolog()", async () => {
-    it("get memUsage", async () => {
+    it("get horolog and check all fields", async () => {
         const ydb = await createYdbInstance()
 
         const res = await ydb.process.horolog()
@@ -516,5 +516,71 @@ describe("process.horolog()", async () => {
 
         ydb.disconnect()
     });
+})
+
+describe("process.syslogMessage()", async () => {
+    it("empty message", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.process.syslogMessage()
+
+        ydb.disconnect()
+    });
+
+    it("message as empty string", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.process.syslogMessage('')
+
+        ydb.disconnect()
+    });
+
+    it("message as object", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.syslogMessage({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('message must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("message as array", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.syslogMessage([])
+
+        } catch (err) {
+            expect(err.message).to.have.string('message must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("message as boolean", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.process.syslogMessage(false)
+
+        } catch (err) {
+            expect(err.message).to.have.string('message must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("message as valid string", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.process.syslogMessage('test')
+
+        ydb.disconnect()
+    });
+
 })
 

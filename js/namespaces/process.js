@@ -469,31 +469,6 @@ class Process {
         })
     }
 
-    _init = function (obj) {
-        Object.defineProperties(obj, {
-            _locks: {
-                value: [],
-                enumerable: false,
-                configurable: true,
-                writable: true
-            },
-
-            _groupLocksFlag: {
-                value: false,
-                enumerable: false,
-                configurable: true,
-                writable: true
-            }
-        })
-
-        Object.defineProperties(obj, {
-            _init: {
-                enumerable: false,
-            }
-
-        })
-    }
-
     syslogMessage = function (message = '') {
         const that = this
         const RESP3 = that.objRoot.RESP3
@@ -526,7 +501,30 @@ class Process {
         })
     }
 
+    _init = function (obj) {
+        Object.defineProperties(obj, {
+            _locks: {
+                value: [],
+                enumerable: false,
+                configurable: true,
+                writable: true
+            },
 
+            _groupLocksFlag: {
+                value: false,
+                enumerable: false,
+                configurable: true,
+                writable: true
+            }
+        })
+
+        Object.defineProperties(obj, {
+            _init: {
+                enumerable: false,
+            }
+
+        })
+    }
 }
 
 module.exports = Process

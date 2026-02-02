@@ -36,6 +36,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         let iy = 0
 
         // check header
+        //console.log(data)
         if (dataA[ix].charAt(0) === '-') {
             reject(new Error(dataA[0].slice(1)))
         }
@@ -81,31 +82,14 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             })
         }
 
-        // and terminate with the env vars
-        const envLength = parseInt(dataA[ix].slice(1))
-
-        Object.defineProperties(that.process, {
-            env: {
-                value: {},
-                enumerable: true,
+        Object.defineProperties(that, {
+            uApi: {
+                value: JSON.parse(RESP3.parse.blob(data.slice(data.indexOf('\r\n$') + 2))),
+                enumerable: false,
                 configurable: true,
                 writable: false
             }
         })
-
-        iy = ix
-        for (ix = ix + 1; ix < iy + envLength * 2 - 1; ix += 2) {
-            const strValue = RESP3.parse.simpleString(dataA[ix + 1])
-
-            Object.defineProperties(that.process.env, {
-                [RESP3.parse.simpleString(dataA[ix])]: {
-                    value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
-                    enumerable: true,
-                    configurable: true,
-                    writable: false
-                }
-            })
-        }
 
         // append reader, writer and root to make them available to deeper levels
         appendToObject(that.fs, that)

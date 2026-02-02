@@ -60,6 +60,7 @@ const run = async () => {
         }
     }
 
+    console.log(ydb)
     console.log(await ydb.process.syslogMessage('testing'))
 
     exit()

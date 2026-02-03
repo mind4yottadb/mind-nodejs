@@ -65,10 +65,13 @@ const run = async () => {
 
     console.log(ydb.banking)
     console.log(await ydb.banking.test("p1", 22).catch((err) => {
+        console.log(err.message)
     }))
     console.log(await ydb.banking.second("/test", 44).catch((err) => {
+        console.log(err.message)
     }))
     console.log(await ydb.banking.interest.intpost("/testlast", 44).catch((err) => {
+        console.log(err.message)
     }))
 
     exit()

@@ -48,7 +48,7 @@ module.exports = {
                     const functionName = fn.entryPoint.split('^')[0]
 
                     that[namespace.name][functionName] = function (...params) {
-                        return uApi.funct(that[namespace.name].objRoot, reader, writer, fn, params)
+                        return uApi.funct(that[namespace.name].objRoot, reader, writer, fn, namespace.name, params)
                     }
                 })
             }
@@ -56,7 +56,6 @@ module.exports = {
             // create children
             if (namespace.children && namespace.children.length > 0) {
                 namespace.children.forEach(child => {
-                    console.log(child)
                     that[namespace.name][child.name] = {}
                     appendToObject(that[namespace.name][child.name], that)
 
@@ -66,16 +65,12 @@ module.exports = {
                             const functionName = fn.entryPoint.split('^')[0]
 
                             that[namespace.name][child.name][functionName] = function (...params) {
-                                return uApi.funct(that[namespace.name][child.name].objRoot, reader, writer, fn, params)
+                                return uApi.funct(that[namespace.name][child.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, params)
                             }
                         })
                     }
-
                 })
-
             }
         })
-
     },
-
 }

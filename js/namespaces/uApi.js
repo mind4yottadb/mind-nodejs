@@ -17,10 +17,10 @@ const funct =
 
 
 module.exports = {
-    funct: function (that, reader, writer, fn, params) {
+    funct: function (that, reader, writer, fn, namespace, params) {
         const RESP3 = that.RESP3
         console.log('------')
-        console.log(params)
+        console.log(namespace)
 
         const filename = params[0]
 
@@ -39,6 +39,7 @@ module.exports = {
                 return
             }
 
+            console.log(fn)
             // send command
             const opCode = 'fs.readFile'
             writer("*2" + RESP3.CRLF +

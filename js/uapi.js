@@ -1,0 +1,41 @@
+/*###############################################################
+#                                                               #
+# Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
+# All rights reserved.                                          #
+#                                                               #
+#   This source code contains the intellectual property         #
+#   of its copyright holder(s), and is made available           #
+#   under a license.  If you do not know the terms of           #
+#   the license, please stop and do not read further.           #
+#                                                               #
+###############################################################*/
+
+const utils = require("./utils");
+const uApi = require('./namespaces/uApi')
+
+module.exports = {
+    parse: function (that) {
+        that.uApi.forEach(namespace => {
+            // create the namespace
+            that[namespace.name] = {}
+
+            // create functions and methods if needed
+            if (namespace.functions && namespace.functions.length > 0) {
+                namespace.functions.forEach(fn => {
+                    const functionName = fn.entryPoint.split('^')[0]
+
+                    that[namespace.name][functionName + 'Obj'] = fn
+                    that[namespace.name][functionName] = uApi.funct
+                })
+            }
+
+
+        })
+
+
+        console.log(that)
+
+    }
+
+
+}

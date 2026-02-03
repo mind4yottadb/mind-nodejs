@@ -134,7 +134,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         // and add, if present, the user API
         if (that.uApi !== null) {
-            uapi.parse(that)
+            uapi.parse(that, writer, reader)
         }
 
         // resolve the promise

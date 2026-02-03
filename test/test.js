@@ -60,8 +60,11 @@ const run = async () => {
         }
     }
 
-    console.log(ydb)
-    console.log(await ydb.process.syslogMessage('testing'))
+    //console.log(ydb)
+    //console.log(await ydb.process.syslogMessage('testing'))
+
+    console.log(ydb.banking.test("p1", 22))
+    console.log(ydb.banking.second("p2", 44))
 
     exit()
     await ydb.process.groupLocks()

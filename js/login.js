@@ -10,7 +10,7 @@
 #                                                               #
 ###############################################################*/
 
-const utils = require("./utils");
+const uapi = require("./uapi")
 
 const driverName = 'mind4yottadb.js'
 const driverVersion = '0.9.0'
@@ -66,7 +66,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         const processLength = parseInt(dataA[ix].slice(1))
 
-        // continue
+        // continue with process
         iy = ix
         for (ix = ix + 1; ix < iy + processLength * 2; ix += 2) {
             const name = RESP3.parse.simpleString(dataA[ix])
@@ -82,9 +82,11 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             })
         }
 
+        // finally the user api
+        const uApi = RESP3.parse.blob(data.slice(data.indexOf('\r\n$') + 2))
         Object.defineProperties(that, {
             uApi: {
-                value: JSON.parse(RESP3.parse.blob(data.slice(data.indexOf('\r\n$') + 2))),
+                value: uApi === '' ? null : JSON.parse(uApi),
                 enumerable: false,
                 configurable: true,
                 writable: false
@@ -128,6 +130,11 @@ module.exports = async function (that, writer, reader, resolve, reject, username
                     reject(new Error('Error occurred adding global name: ' + _var))
                 }
             })
+        }
+
+        // and add, if present, the user API
+        if (that.uApi !== null) {
+            uapi.parse(that)
         }
 
         // resolve the promise

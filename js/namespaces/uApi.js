@@ -17,7 +17,7 @@ const funct =
 
 
 module.exports = {
-    funct: function (that, reader, writer, fn, namespace, params) {
+    method: function (that, reader, writer, fn, namespace, params) {
         const RESP3 = that.RESP3
 
         console.log(fn)

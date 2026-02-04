@@ -46,7 +46,7 @@ module.exports = {
             if (namespace.methods && namespace.methods.length > 0) {
                 namespace.methods.forEach(fn => {
                     that[namespace.name][fn.name] = function (...params) {
-                        return uApi.funct(that[namespace.name].objRoot, reader, writer, fn, namespace.name, params)
+                        return uApi.method(that[namespace.name].objRoot, reader, writer, fn, namespace.name, params)
                     }
                 })
             }
@@ -74,7 +74,7 @@ module.exports = {
                     if (child.methods && child.methods.length > 0) {
                         child.methods.forEach(fn => {
                             that[namespace.name][child.name][fn.name] = function (...params) {
-                                return uApi.funct(that[namespace.name][child.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, params)
+                                return uApi.method(that[namespace.name][child.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, params)
                             }
                         })
                     }
@@ -102,7 +102,7 @@ module.exports = {
                             if (child2.methods && child2.methods.length > 0) {
                                 child2.methods.forEach(fn => {
                                     that[namespace.name][child.name][child2.name][fn.name] = function (...params) {
-                                        return uApi.funct(that[namespace.name][child.name][child2.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, params)
+                                        return uApi.method(that[namespace.name][child.name][child2.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, params)
                                     }
                                 })
                             }

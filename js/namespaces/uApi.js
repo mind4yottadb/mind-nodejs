@@ -19,27 +19,28 @@ const funct =
 module.exports = {
     funct: function (that, reader, writer, fn, namespace, params) {
         const RESP3 = that.RESP3
-        console.log('------')
-        console.log(namespace)
 
-        const filename = params[0]
+        console.log(fn)
+        console.log(params)
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
 
-            if (filename === undefined) {
-                reject(new Error('the filename has not been provided'))
+            // validate parameters
+            try {
+                parseParams(fn, params)
+
+            } catch (err) {
+                reject(err)
 
                 return
             }
 
-            if (utils.validateTypeOfField(filename, 'string') === false) {
-                reject(new Error('Parameter filename must be a string'))
+            // prepare parameters
 
-                return
-            }
 
-            console.log(fn)
+            // prepare command
+
             // send command
             const opCode = 'fs.readFile'
             writer("*2" + RESP3.CRLF +
@@ -60,4 +61,50 @@ module.exports = {
     },
 
 
+}
+
+const parseParams = function (fn, params) {
+
+    if (fn.parameters && fn.parameters.length > 0) {
+        params.forEach(function (param, ix) {
+            const datatype = typeof param
+
+            switch (datatype) {
+                case 'string': {
+
+
+                    break
+                }
+                case 'number': {
+
+
+                    break
+                }
+                case 'boolean': {
+
+
+                    break
+                }
+                case 'object': {
+
+
+                    break
+                }
+
+                case 'array': {
+
+                    break
+                }
+
+                default: {
+
+                }
+
+            }
+
+        })
+
+    } else if ((!fn.parameters || fn.parameters.length === 0) && params.length > 0) {
+        throw (new Error('This method has no parameters'))
+    }
 }

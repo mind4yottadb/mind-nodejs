@@ -42,14 +42,25 @@ module.exports = {
             that[namespace.name] = {}
             appendToObject(that[namespace.name], that)
 
-            // create functions and methods if needed
-            if (namespace.functions && namespace.functions.length > 0) {
-                namespace.functions.forEach(fn => {
-                    const functionName = fn.entryPoint.split('^')[0]
-
-                    that[namespace.name][functionName] = function (...params) {
+            // create methods if needed
+            if (namespace.methods && namespace.methods.length > 0) {
+                namespace.methods.forEach(fn => {
+                    that[namespace.name][fn.name] = function (...params) {
                         return uApi.funct(that[namespace.name].objRoot, reader, writer, fn, namespace.name, params)
                     }
+                })
+            }
+
+            // create properties if needed
+            if (namespace.properties && namespace.properties.length > 0) {
+                namespace.properties.forEach(fn => {
+                    Object.defineProperties(that[namespace.name], {
+                        [fn.name]: {
+                            value: fn.value,
+                            enumerable: true,
+                            writable: false
+                        },
+                    })
                 })
             }
 
@@ -59,16 +70,58 @@ module.exports = {
                     that[namespace.name][child.name] = {}
                     appendToObject(that[namespace.name][child.name], that)
 
-                    // create functions and methods if needed
-                    if (child.functions && child.functions.length > 0) {
-                        child.functions.forEach(fn => {
-                            const functionName = fn.entryPoint.split('^')[0]
-
-                            that[namespace.name][child.name][functionName] = function (...params) {
+                    // create methods if needed
+                    if (child.methods && child.methods.length > 0) {
+                        child.methods.forEach(fn => {
+                            that[namespace.name][child.name][fn.name] = function (...params) {
                                 return uApi.funct(that[namespace.name][child.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, params)
                             }
                         })
                     }
+
+                    // create properties if needed
+                    if (child.properties && child.properties.length > 0) {
+                        child.properties.forEach(fn => {
+                            Object.defineProperties(that[namespace.name][child.name], {
+                                [fn.name]: {
+                                    value: fn.value,
+                                    enumerable: true,
+                                    writable: false
+                                },
+                            })
+                        })
+                    }
+
+                    // create children
+                    if (child.children && child.children.length > 0) {
+                        child.children.forEach(child2 => {
+                            that[namespace.name][child.name][child2.name] = {}
+                            appendToObject(that[namespace.name][child.name][child2.name], that)
+
+                            // create methods if needed
+                            if (child2.methods && child2.methods.length > 0) {
+                                child2.methods.forEach(fn => {
+                                    that[namespace.name][child.name][child2.name][fn.name] = function (...params) {
+                                        return uApi.funct(that[namespace.name][child.name][child2.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, params)
+                                    }
+                                })
+                            }
+
+                            // create properties if needed
+                            if (child2.properties && child2.properties.length > 0) {
+                                child2.properties.forEach(fn => {
+                                    Object.defineProperties(that[namespace.name][child.name][child2.name], {
+                                        [fn.name]: {
+                                            value: fn.value,
+                                            enumerable: true,
+                                            writable: false
+                                        },
+                                    })
+                                })
+                            }
+                        })
+                    }
+
                 })
             }
         })

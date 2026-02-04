@@ -42,14 +42,28 @@ module.exports = {
             that[namespace.name] = {}
             appendToObject(that[namespace.name], that)
 
-            // create functions and methods if needed
-            if (namespace.functions && namespace.functions.length > 0) {
-                namespace.functions.forEach(fn => {
-                    const functionName = fn.entryPoint.split('^')[0]
+            // create methods if needed
+            if (namespace.methods && namespace.methods.length > 0) {
+                namespace.methods.forEach(fn => {
+                    const functionName = fn.name
 
                     that[namespace.name][functionName] = function (...params) {
                         return uApi.funct(that[namespace.name].objRoot, reader, writer, fn, namespace.name, params)
                     }
+                })
+            }
+
+            // create properties if needed
+            if (namespace.properties && namespace.properties.length > 0) {
+                namespace.properties.forEach(fn => {
+                    Object.defineProperties(that[namespace.name], {
+                        [fn.name]: {
+                            value: fn.value,
+                            enumerable: true,
+                            configurable: false,
+                            writable: false
+                        },
+                    })
                 })
             }
 
@@ -59,10 +73,10 @@ module.exports = {
                     that[namespace.name][child.name] = {}
                     appendToObject(that[namespace.name][child.name], that)
 
-                    // create functions and methods if needed
-                    if (child.functions && child.functions.length > 0) {
-                        child.functions.forEach(fn => {
-                            const functionName = fn.entryPoint.split('^')[0]
+                    // create methods if needed
+                    if (child.methods && child.methods.length > 0) {
+                        child.methods.forEach(fn => {
+                            const functionName = fn.name
 
                             that[namespace.name][child.name][functionName] = function (...params) {
                                 return uApi.funct(that[namespace.name][child.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, params)

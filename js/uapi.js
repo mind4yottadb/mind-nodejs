@@ -15,6 +15,27 @@ const uApi = require('./namespaces/uApi')
 
 const vm = require("vm");
 
+const buildParametersText = fn => {
+    let text = ''
+
+    if (fn.returns && fn.returns !== '') {
+        text += fn.returns + ' = '
+    }
+
+    text += fn.name + '('
+
+    if (fn.parameters && fn.parameters.length > 0) {
+        fn.parameters.forEach(param => {
+            text += param.name + ' as ' + param.datatype + ', '
+
+        })
+
+        text = text.slice(0, -2)
+    }
+
+    return text += ')'
+}
+
 module.exports = {
     parse: function (that, writer, reader) {
         const appendToObject = (namespace, that) => {
@@ -48,6 +69,27 @@ module.exports = {
                     that[namespace.name][fn.name] = function (...params) {
                         return uApi.method(that[namespace.name].objRoot, reader, writer, fn, namespace.name, params)
                     }
+
+                    if (fn.showUsage && fn.showUsage === true) {
+                        Object.defineProperties(that[namespace.name], {
+                            [fn.name + '_usage']: {
+                                value: buildParametersText(fn),
+                                enumerable: true,
+                                configurable: false
+                            },
+                        })
+                    }
+
+                    if (fn.description && fn.description.length > 0) {
+                        Object.defineProperties(that[namespace.name], {
+                            [fn.name + '_desc']: {
+                                value: fn.description,
+                                enumerable: true,
+                                configurable: false
+                            },
+                        })
+
+                    }
                 })
             }
 
@@ -76,6 +118,27 @@ module.exports = {
                             that[namespace.name][child.name][fn.name] = function (...params) {
                                 return uApi.method(that[namespace.name][child.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, params)
                             }
+
+                            if (fn.showUsage && fn.showUsage === true) {
+                                Object.defineProperties(that[namespace.name][child.name], {
+                                    [fn.name + '_usage']: {
+                                        value: buildParametersText(fn),
+                                        enumerable: true,
+                                        configurable: false
+                                    },
+                                })
+                            }
+
+                            if (fn.description && fn.description.length > 0) {
+                                Object.defineProperties(that[namespace.name][child.name], {
+                                    [fn.name + '_desc']: {
+                                        value: fn.description,
+                                        enumerable: true,
+                                        configurable: false
+                                    },
+                                })
+
+                            }
                         })
                     }
 
@@ -103,6 +166,27 @@ module.exports = {
                                 child2.methods.forEach(fn => {
                                     that[namespace.name][child.name][child2.name][fn.name] = function (...params) {
                                         return uApi.method(that[namespace.name][child.name][child2.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, params)
+                                    }
+
+                                    if (fn.showUsage && fn.showUsage === true) {
+                                        Object.defineProperties(that[namespace.name][child.name][child2.name], {
+                                            [fn.name + '_usage']: {
+                                                value: buildParametersText(fn),
+                                                enumerable: true,
+                                                configurable: false
+                                            },
+                                        })
+                                    }
+
+                                    if (fn.description && fn.description.length > 0) {
+                                        Object.defineProperties(that[namespace.name][child.name][child2.name], {
+                                            [fn.name + '_desc']: {
+                                                value: fn.description,
+                                                enumerable: true,
+                                                configurable: false
+                                            },
+                                        })
+
                                     }
                                 })
                             }

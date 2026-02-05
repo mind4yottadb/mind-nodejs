@@ -64,13 +64,13 @@ const run = async () => {
     //console.log(await ydb.process.syslogMessage('testing'))
 
     console.log(ydb.banking)
-    console.log(await ydb.banking.test("p1", 22).catch((err) => {
+    console.log(await ydb.banking.test('test', true).catch((err) => {
         console.log(err.message)
     }))
     console.log(await ydb.banking.second("/test", 44).catch((err) => {
         console.log(err.message)
     }))
-    console.log(await ydb.banking.interest.level3.method3("/testlast", 44).catch((err) => {
+    console.log(await ydb.banking.interest.level3.method3().catch((err) => {
         console.log(err.message)
     }))
 

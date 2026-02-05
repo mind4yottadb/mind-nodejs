@@ -43,17 +43,20 @@ module.exports = {
                 objRoot: {
                     value: that,
                     enumerable: false,
-                    configurable: false
+                    configurable: false,
+                    writable: false,
                 },
                 writer: {
                     value: writer,
                     enumerable: false,
-                    configurable: false
+                    configurable: false,
+                    writable: false,
                 },
                 reader: {
                     value: reader,
                     enumerable: false,
-                    configurable: false
+                    configurable: false,
+                    writable: false,
                 }
             })
         }
@@ -66,8 +69,8 @@ module.exports = {
             // create methods if needed
             if (namespace.methods && namespace.methods.length > 0) {
                 namespace.methods.forEach(fn => {
-                    that[namespace.name][fn.name] = function (...params) {
-                        return uApi.method(that[namespace.name].objRoot, reader, writer, fn, namespace.name, params)
+                    that[namespace.name][fn.name] = function (...args) {
+                        return uApi.method(that[namespace.name].objRoot, reader, writer, fn, namespace.name, args)
                     }
 
                     if (fn.showUsage && fn.showUsage === true) {
@@ -75,7 +78,8 @@ module.exports = {
                             [fn.name + '_usage']: {
                                 value: buildParametersText(fn),
                                 enumerable: true,
-                                configurable: false
+                                configurable: false,
+                                writable: false,
                             },
                         })
                     }
@@ -85,10 +89,10 @@ module.exports = {
                             [fn.name + '_desc']: {
                                 value: fn.description,
                                 enumerable: true,
-                                configurable: false
+                                configurable: false,
+                                writable: false,
                             },
                         })
-
                     }
                 })
             }
@@ -115,8 +119,8 @@ module.exports = {
                     // create methods if needed
                     if (child.methods && child.methods.length > 0) {
                         child.methods.forEach(fn => {
-                            that[namespace.name][child.name][fn.name] = function (...params) {
-                                return uApi.method(that[namespace.name][child.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, params)
+                            that[namespace.name][child.name][fn.name] = function (...args) {
+                                return uApi.method(that[namespace.name][child.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, args)
                             }
 
                             if (fn.showUsage && fn.showUsage === true) {
@@ -124,7 +128,8 @@ module.exports = {
                                     [fn.name + '_usage']: {
                                         value: buildParametersText(fn),
                                         enumerable: true,
-                                        configurable: false
+                                        configurable: false,
+                                        writable: false,
                                     },
                                 })
                             }
@@ -134,10 +139,10 @@ module.exports = {
                                     [fn.name + '_desc']: {
                                         value: fn.description,
                                         enumerable: true,
-                                        configurable: false
+                                        configurable: false,
+                                        writable: false,
                                     },
                                 })
-
                             }
                         })
                     }
@@ -164,8 +169,8 @@ module.exports = {
                             // create methods if needed
                             if (child2.methods && child2.methods.length > 0) {
                                 child2.methods.forEach(fn => {
-                                    that[namespace.name][child.name][child2.name][fn.name] = function (...params) {
-                                        return uApi.method(that[namespace.name][child.name][child2.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, params)
+                                    that[namespace.name][child.name][child2.name][fn.name] = function (...args) {
+                                        return uApi.method(that[namespace.name][child.name][child2.name].objRoot, reader, writer, fn, namespace.name + "." + child.name + '.' + child2.name, args)
                                     }
 
                                     if (fn.showUsage && fn.showUsage === true) {
@@ -173,7 +178,8 @@ module.exports = {
                                             [fn.name + '_usage']: {
                                                 value: buildParametersText(fn),
                                                 enumerable: true,
-                                                configurable: false
+                                                configurable: false,
+                                                writable: false,
                                             },
                                         })
                                     }
@@ -183,10 +189,10 @@ module.exports = {
                                             [fn.name + '_desc']: {
                                                 value: fn.description,
                                                 enumerable: true,
-                                                configurable: false
+                                                configurable: false,
+                                                writable: false,
                                             },
                                         })
-
                                     }
                                 })
                             }

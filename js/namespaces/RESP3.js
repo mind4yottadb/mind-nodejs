@@ -64,6 +64,30 @@ class RESP3 {
         bigNumber: function (str) {
             return this.extractToken(str)
         },
+
+        returns: function (str) {
+            const type = str.charAt(0)
+
+            switch (type) {
+                case '+':
+                    return this.simpleString(str)
+
+                case '$':
+                    return this.blob(str)
+
+                case ':':
+                    return this.int(str)
+
+                case ',':
+                    return this.double(str)
+
+                case '#':
+                    return this.boolean(str)
+
+                default:
+                    return JSON.parse(str)
+            }
+        }
     }
 
     convert = {

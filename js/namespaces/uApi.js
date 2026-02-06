@@ -13,70 +13,78 @@
 const utils = require("../utils");
 
 
-const funct =
+const funct = module.exports = {
+    method: function (that, reader, writer, fn, namespace, args) {
+        const RESP3 = that.RESP3
+        const package = []
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+
+            // validate parameters
+            try {
+                parseParams(fn, args)
+
+            } catch (err) {
+                reject(err)
+
+                return
+            }
+
+            // prepare parameters
+            args.forEach((arg, ix) => {
+                switch (typeof arg) {
+                    case 'boolean':
+                        args[ix] = arg === true ? '1' : '0'
+
+                        break
+                    case 'number':
+                        args[ix] = arg.toString()
+
+                        break
+                    case 'object':
+                        args[ix] = JSON.stringify(arg)
+
+                        break
+                    default:
+                }
+            })
+
+            // prepare package
+            package.push(RESP3.build.blob(namespace + '.' + fn.name))
+            args.forEach(arg => {
+                package.push(RESP3.build.blob(arg))
+            })
+
+            // send package
+            writer('*' + (package.length) + RESP3.CRLF + package.join(''))
 
 
-    module.exports = {
-        method: function (that, reader, writer, fn, namespace, args) {
-            const RESP3 = that.RESP3
-            const package = []
+            reader(data => {
+                console.log(data)
+                if (data.charAt(0) === '-') {
+                    // process eventual simple error
+                    reject(new Error(data.slice(1)))
 
-            return new Promise(function (resolve, reject) {
-                if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+                    return
 
-                // validate parameters
-                try {
-                    parseParams(fn, args)
-
-                } catch (err) {
-                    reject(err)
+                } else if (data.charAt(0) === '!') {
+                    // process eventual blob error
+                    reject(new Error(RESP3.build.blobError(data)))
 
                     return
                 }
 
-                // prepare parameters
-                args.forEach((arg, ix) => {
-                    switch (typeof arg) {
-                        case 'boolean':
-                            args[ix] = arg === true ? '1' : '0'
+                // check whether it needs to return a value or just resolve()
+                if (fn.returns && typeof fn.returns === 'string') {
+                    resolve(RESP3.parse.returns(data))
 
-                            break
-                        case 'number':
-                            args[ix] = arg.toString()
-
-                            break
-                        case 'object':
-                            args[ix] = JSON.stringify(arg)
-
-                            break
-                        default:
-                    }
-                })
-
-                // prepare package
-                package.push(RESP3.build.blob(namespace + '.' + fn.name))
-                args.forEach(arg => {
-                    package.push(RESP3.build.blob(arg))
-                })
-
-                // send package
-                writer('*' + (package.length) + RESP3.CRLF + package.join(''))
-
-
-                reader(data => {
-                    if (data.charAt(0) === '-') {
-                        reject(new Error(data.slice(1)))
-
-                        return
-                    }
-
-                    resolve(RESP3.parse.blob(data))
-                })
+                } else resolve()
             })
-        },
-
-
+        })
     }
+}
+
 
 const parseParams = function (fn, args) {
     if (fn.parameters && fn.parameters.length > 0) {

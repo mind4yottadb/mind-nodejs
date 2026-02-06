@@ -63,16 +63,15 @@ const run = async () => {
     //console.log(ydb)
     //console.log(await ydb.process.syslogMessage('testing'))
 
-    console.log(ydb.banking)
-    /*
-    console.log(await ydb.banking.test('test', true).catch((err) => {
+    console.log(ydb.testLevel1)
+    console.log(await ydb.testLevel1.methodParams0RetObject().catch((err) => {
         console.log(err.message)
     }))
+    /*
     console.log(await ydb.banking.second("/test", 44).catch((err) => {
         console.log(err.message)
     }))
 
-     */
     console.log(await ydb.banking.interest.level3.method3({
         field1: 123,
         field2: [
@@ -81,6 +80,7 @@ const run = async () => {
     }).catch((err) => {
         console.log(err.message)
     }))
+     */
 
     exit()
     await ydb.process.groupLocks()

@@ -85,7 +85,7 @@ class RESP3 {
                     return this.boolean(str)
 
                 default:
-                    return JSON.parse(str)
+                    return JSON.parse(str.slice(6 + str.indexOf('\r\n'), -2))
             }
         }
     }

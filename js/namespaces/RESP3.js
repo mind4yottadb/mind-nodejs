@@ -84,8 +84,11 @@ class RESP3 {
                 case '#':
                     return this.boolean(str)
 
-                default:
+                case '=':
                     return JSON.parse(str.slice(6 + str.indexOf('\r\n'), -2))
+
+                default :
+                    return this.simpleError('INVALID RESP3 datatype')
             }
         }
     }

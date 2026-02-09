@@ -24,13 +24,24 @@ module.exports = async function (that, writer, reader, resolve, reject, username
     const RESP3 = that.RESP3
 
     // send command
-    writer("*5" + RESP3.CRLF +
-        RESP3.build.blob(opCode) + RESP3.build.blob(credentials) +
-        RESP3.build.blob(driverName) + RESP3.build.blob(driverVersion) + RESP3.build.blob(driverDescription)
+    writer(
+        "*6" + RESP3.CRLF +
+        RESP3.build.blob(opCode) +
+        RESP3.build.blob(credentials) +
+        RESP3.build.blob(driverName) +
+        RESP3.build.blob(driverVersion) +
+        RESP3.build.blob(driverDescription) +
+        RESP3.build.blob(options.app.name || '')
     );
 
     // process response
     reader(data => {
+        if (data.charAt(0) === '-') {
+            reject(new Error(RESP3.parse.simpleError(data)))
+
+            return
+        }
+
         const dataA = data.split(RESP3.CRLF)
         let ix = 0
         let iy = 0

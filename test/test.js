@@ -7,6 +7,7 @@ const ydb = new mind
 const run = async () => {
     await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
         app: {
+            name: "user-api33",
             vars: [
                 'test1', 'test2qwerty', 'stef'
             ],

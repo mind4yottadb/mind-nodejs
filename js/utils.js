@@ -61,6 +61,12 @@ module.exports = {
             if (err !== '') return err
         }
 
+        if (options.app && options.app.name) {
+            if (typeof options.app.name !== 'string') {
+                return 'options.app.name must be a string'
+            }
+        }
+
         return ''
     },
 

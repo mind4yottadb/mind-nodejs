@@ -19,14 +19,14 @@ const buildParametersText = fn => {
     let text = ''
 
     if (fn.returns && fn.returns !== '') {
-        text += fn.returns + ' = '
+        text += '<' + fn.returns + '> = '
     }
 
     text += fn.name + '('
 
     if (fn.parameters && fn.parameters.length > 0) {
         fn.parameters.forEach(param => {
-            text += param.name + ' as ' + param.datatype + ', '
+            text += param.name + ' <' + param.datatype + '>, '
 
         })
 
@@ -73,9 +73,9 @@ module.exports = {
                         return uApi.method(that[namespace.name].objRoot, reader, writer, fn, namespace.name, args)
                     }
 
-                    if (fn.showUsage && fn.showUsage === true) {
+                    if (fn.showSignature && fn.showSignature === true) {
                         Object.defineProperties(that[namespace.name], {
-                            [fn.name + '_usage']: {
+                            [fn.name + '_signature']: {
                                 value: buildParametersText(fn),
                                 enumerable: true,
                                 configurable: false,
@@ -84,9 +84,9 @@ module.exports = {
                         })
                     }
 
-                    if (fn.description && fn.description.length > 0) {
+                    if (fn.description && fn.description.length > 0 && fn.showDescription && fn.showDescription === true) {
                         Object.defineProperties(that[namespace.name], {
-                            [fn.name + '_desc']: {
+                            [fn.name + '_description']: {
                                 value: fn.description,
                                 enumerable: true,
                                 configurable: false,
@@ -125,7 +125,7 @@ module.exports = {
 
                             if (fn.showUsage && fn.showUsage === true) {
                                 Object.defineProperties(that[namespace.name][child.name], {
-                                    [fn.name + '_usage']: {
+                                    [fn.name + '_signature']: {
                                         value: buildParametersText(fn),
                                         enumerable: true,
                                         configurable: false,
@@ -134,9 +134,9 @@ module.exports = {
                                 })
                             }
 
-                            if (fn.description && fn.description.length > 0) {
+                            if (fn.description && fn.description.length > 0 && fn.showDescription && fn.showDescription === true) {
                                 Object.defineProperties(that[namespace.name][child.name], {
-                                    [fn.name + '_desc']: {
+                                    [fn.name + '_description']: {
                                         value: fn.description,
                                         enumerable: true,
                                         configurable: false,
@@ -175,7 +175,7 @@ module.exports = {
 
                                     if (fn.showUsage && fn.showUsage === true) {
                                         Object.defineProperties(that[namespace.name][child.name][child2.name], {
-                                            [fn.name + '_usage']: {
+                                            [fn.name + '_signature']: {
                                                 value: buildParametersText(fn),
                                                 enumerable: true,
                                                 configurable: false,
@@ -184,9 +184,9 @@ module.exports = {
                                         })
                                     }
 
-                                    if (fn.description && fn.description.length > 0) {
+                                    if (fn.description && fn.description.length > 0 && fn.showDescription && fn.showDescription === true) {
                                         Object.defineProperties(that[namespace.name][child.name][child2.name], {
-                                            [fn.name + '_desc']: {
+                                            [fn.name + '_description']: {
                                                 value: fn.description,
                                                 enumerable: true,
                                                 configurable: false,

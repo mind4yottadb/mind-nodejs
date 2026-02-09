@@ -59,7 +59,6 @@ const funct = module.exports = {
             // send package
             writer('*' + (package.length) + RESP3.CRLF + package.join(''))
 
-
             reader(data => {
                 console.log(data)
                 if (data.charAt(0) === '-') {
@@ -84,7 +83,6 @@ const funct = module.exports = {
         })
     }
 }
-
 
 const parseParams = function (fn, args) {
     if (fn.parameters && fn.parameters.length > 0) {

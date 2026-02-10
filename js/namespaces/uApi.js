@@ -93,13 +93,13 @@ const parseParams = function (fn, args) {
         // validate datatype of each parameter
         fn.parameters.forEach(function (param, ix) {
             switch (param.datatype) {
-                case 'integer':
+                case 'int':
                 case 'float': {
                     if (typeof args[ix] !== 'number') {
                         throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be a number.')
                     }
 
-                    if (args[ix].indexOf('.') > -1 && param.datatype === 'integer') {
+                    if (args[ix].toString().indexOf('.') > -1 && param.datatype === 'int') {
                         throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be an int.')
                     }
 

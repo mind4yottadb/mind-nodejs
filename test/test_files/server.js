@@ -251,16 +251,16 @@ describe("server.GUID()", async () => {
     });
 
     it("dashed = true", async () => {
-        const ydb = await createYdbInstance(true)
+        const ydb = await createYdbInstance()
 
-        const res = await ydb.server.GUID()
+        const res = await ydb.server.GUID(true)
         expect(res.indexOf('-') > -1).to.be.true
 
         ydb.disconnect()
     });
 
     it("dashed = false", async () => {
-        const ydb = await createYdbInstance(false)
+        const ydb = await createYdbInstance()
 
         const res = await ydb.server.GUID(false)
         expect(res.indexOf('-') === -1).to.be.true
@@ -269,16 +269,16 @@ describe("server.GUID()", async () => {
     });
 
     it("dashed = true, braced = false", async () => {
-        const ydb = await createYdbInstance(true, false)
+        const ydb = await createYdbInstance()
 
-        const res = await ydb.server.GUID()
+        const res = await ydb.server.GUID(true, false)
         expect(res.indexOf('{') === -1).to.be.true
 
         ydb.disconnect()
     });
 
     it("dashed = false, braced = true", async () => {
-        const ydb = await createYdbInstance(false)
+        const ydb = await createYdbInstance()
 
         const res = await ydb.server.GUID(false, true)
         expect(res.charAt(0) === '{').to.be.true

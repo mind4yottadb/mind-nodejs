@@ -78,6 +78,9 @@ class RESP3 {
                 case ':':
                     return this.int(str)
 
+                case '_':
+                    return null
+
                 case ',':
                     return this.double(str)
 

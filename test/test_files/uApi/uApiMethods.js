@@ -14,13 +14,67 @@ const {expect} = require("chai");
 const {createYdbInstance} = require("../../utils.cjs");
 
 describe("uApi methods", async () => {
-    it("with no parameters", async () => {
+    it("returns string", async () => {
+        const ydb = await createYdbInstance('test-methods')
 
-        const ydb = await createYdbInstance()
-
-        expect(1 === 1).to.be.true
+        const res = await ydb.level_1.testParams0RetStr()
+        expect(typeof res === 'string').to.be.true
 
         ydb.disconnect()
     });
+
+    it("returns int", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const res = await ydb.level_1.testParams0RetInt()
+        expect(typeof res === 'number').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("returns float", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const res = await ydb.level_1.testParams0RetFloat()
+        expect(typeof res === 'number').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("returns boolean true", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const res = await ydb.level_1.testParams0RetBooleanTrue()
+        expect(typeof res === 'boolean').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("returns boolean false", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const res = await ydb.level_1.testParams0RetBooleanFalse()
+        expect(typeof res === 'boolean').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("returns object", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const res = await ydb.level_1.testParams0RetObject()
+        expect(typeof res === 'object').to.be.true
+
+        ydb.disconnect()
+    });
+    it("returns null", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const res = await ydb.level_1.testParams0RetNull()
+        expect(res === null).to.be.true
+
+        ydb.disconnect()
+    });
+
 
 })

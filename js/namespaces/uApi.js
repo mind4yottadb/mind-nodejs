@@ -60,7 +60,6 @@ const funct = module.exports = {
             writer('*' + (package.length) + RESP3.CRLF + package.join(''))
 
             reader(data => {
-                console.log(data)
                 if (data.charAt(0) === '-') {
                     // process eventual simple error
                     reject(new Error(data.slice(1)))

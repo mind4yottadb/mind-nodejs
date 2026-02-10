@@ -21,7 +21,7 @@ const buildParametersText = fn => {
     if (fn.returns && fn.returns !== '') {
         text += '<' + fn.returns + '> = '
     } else {
-        text += '<void> ='
+        text += '<void> = '
     }
 
     text += fn.name + '('
@@ -125,7 +125,7 @@ module.exports = {
                                 return uApi.method(that[namespace.name][child.name].objRoot, reader, writer, fn, namespace.name + "." + child.name, args)
                             }
 
-                            if (fn.showUsage && fn.showUsage === true) {
+                            if (fn.showSignature && fn.showSignature === true) {
                                 Object.defineProperties(that[namespace.name][child.name], {
                                     [fn.name + '_signature']: {
                                         value: buildParametersText(fn),
@@ -175,7 +175,7 @@ module.exports = {
                                         return uApi.method(that[namespace.name][child.name][child2.name].objRoot, reader, writer, fn, namespace.name + "." + child.name + '.' + child2.name, args)
                                     }
 
-                                    if (fn.showUsage && fn.showUsage === true) {
+                                    if (fn.showSignature && fn.showSignature === true) {
                                         Object.defineProperties(that[namespace.name][child.name][child2.name], {
                                             [fn.name + '_signature']: {
                                                 value: buildParametersText(fn),

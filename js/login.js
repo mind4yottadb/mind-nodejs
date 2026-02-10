@@ -31,7 +31,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         RESP3.build.blob(driverName) +
         RESP3.build.blob(driverVersion) +
         RESP3.build.blob(driverDescription) +
-        RESP3.build.blob(options.app.name || '')
+        RESP3.build.blob((options.app && options.app.name) || '')
     );
 
     // process response

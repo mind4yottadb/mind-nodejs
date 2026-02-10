@@ -25,6 +25,14 @@ module.exports = {
             return 'options must be an object'
         }
 
+        if (Array.isArray(options)) {
+            return 'options cannot be an array'
+        }
+
+        if (Object.keys(options).length === 0) {
+            return ''
+        }
+
         if (options.app && typeof options.app !== 'object') {
             return 'options.app must be an object'
         }

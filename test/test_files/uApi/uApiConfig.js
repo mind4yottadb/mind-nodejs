@@ -328,3 +328,45 @@ describe("uApi object structure: method signature: returns ", async () => {
     });
 
 })
+
+describe("uApi object structure: method signature: parameters ", async () => {
+    it("one param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        expect(ydb.level_1.level_1_1.level_1_1_2.method_1_par_signature).to.have.string('<void> = method_1_par(par1 <string>)')
+
+        ydb.disconnect()
+    });
+
+    it("two params", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        expect(ydb.level_1.level_1_1.level_1_1_2.method_2_par_signature).to.have.string('(par1 <string>, par2 <object>)')
+
+        ydb.disconnect()
+    });
+
+    it("three params", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        expect(ydb.level_1.level_1_1.level_1_1_2.method_3_par_signature).to.have.string('(par1 <string>, par2 <object>, par3 <int>)')
+
+        ydb.disconnect()
+    });
+
+    it("four params", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        expect(ydb.level_1.level_1_1.level_1_1_2.method_4_par_signature).to.have.string('par1 <string>, par2 <object>, par3 <int>, par4 <float>)')
+
+        ydb.disconnect()
+    });
+
+    it("five params", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        expect(ydb.level_1.level_1_1.level_1_1_2.method_5_par_signature).to.have.string('par1 <string>, par2 <object>, par3 <int>, par4 <float>, par5 <boolean>)')
+
+        ydb.disconnect()
+    });
+})

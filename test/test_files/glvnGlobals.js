@@ -971,6 +971,7 @@ describe("globals.addLock()", async function () {
         const ydb = await createYdbInstance()
 
         await ydb.db.globals.temp.addLock()
+
         const res = await ydb.process.showLocks()
 
         expect(res['^temp'] === '1').to.be.true

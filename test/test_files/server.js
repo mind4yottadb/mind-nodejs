@@ -76,6 +76,7 @@ describe("server.pinfo()", async () => {
             expect(parseInt(res.tCpu) === 0).to.be.true
 
         } catch (err) {
+            console.log(err)
             expect(err.message).to.have.string('the command has not been provided')
         }
 
@@ -298,6 +299,7 @@ describe("server.listSessions()", async () => {
 
         const ydb2 = await createYdbInstance()
         const res = await ydb.server.listSessions()
+
         expect(res.length === oldSessionCount + 1).to.be.true
 
         ydb.disconnect()

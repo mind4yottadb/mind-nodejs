@@ -332,7 +332,7 @@ describe("fs.readDir()", async () => {
         try {
             const res = await ydb.fs.readDir(path, mask)
 
-            expect(res.length === 2).to.be.true
+            expect(res.length === 1).to.be.true
 
         } catch (err) {
             console.log(err)

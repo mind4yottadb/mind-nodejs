@@ -13,8 +13,6 @@
 const utils = require("./utils");
 const uApi = require('./namespaces/uApi')
 
-const vm = require("vm");
-
 const buildParametersText = fn => {
     let text = ''
 

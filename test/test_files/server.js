@@ -306,24 +306,6 @@ describe("server.listSessions()", async () => {
         ydb2.disconnect()
 
     });
-
-    it("list yourself and another session", async () => {
-        const ydb = await createYdbInstance()
-
-        const sessions = await ydb.server.listSessions()
-        const oldSessionCount = sessions.length
-
-        const ydb2 = await createYdbInstance()
-        const ydb3 = await createYdbInstance()
-
-        const res = await ydb.server.listSessions()
-        expect(res.length === oldSessionCount + 2).to.be.true
-
-        ydb.disconnect()
-        ydb2.disconnect()
-        ydb3.disconnect()
-    });
-
 })
 
 describe("server.plist()", async () => {

@@ -95,9 +95,10 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         // finally the user api
         const uApi = RESP3.parse.blob(data.slice(data.indexOf('\r\n$') + 2))
+
         Object.defineProperties(that, {
             uApi: {
-                value: uApi === '' ? null : JSON.parse(uApi),
+                value: uApi === '' ? null : JSON.parse(uApi).client,
                 enumerable: false,
                 configurable: true,
                 writable: false

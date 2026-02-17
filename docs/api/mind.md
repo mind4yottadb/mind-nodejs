@@ -23,7 +23,6 @@
 
 - connected
 - loggedIn
-- requiresMind
 
 ### Events
 

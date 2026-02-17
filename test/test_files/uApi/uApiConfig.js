@@ -30,7 +30,7 @@ describe("uApi config", async () => {
             ydb = await createYdbInstance([1, 2, 3])
 
         } catch (err) {
-            expect(err.message).to.have.string('options.app.name must be a string')
+            expect(err.message).to.have.string('options.uApi.appName must be a string')
         }
 
         if (ydb) ydb.disconnect()
@@ -43,7 +43,7 @@ describe("uApi config", async () => {
             ydb = await createYdbInstance(23.45)
 
         } catch (err) {
-            expect(err.message).to.have.string('options.app.name must be a string')
+            expect(err.message).to.have.string('options.uApi.appName must be a string')
         }
 
         if (ydb) ydb.disconnect()
@@ -58,7 +58,7 @@ describe("uApi config", async () => {
             })
 
         } catch (err) {
-            expect(err.message).to.have.string('options.app.name must be a string')
+            expect(err.message).to.have.string('options.uApi.appName must be a string')
         }
 
         if (ydb) ydb.disconnect()
@@ -71,7 +71,7 @@ describe("uApi config", async () => {
             ydb = await createYdbInstance(true)
 
         } catch (err) {
-            expect(err.message).to.have.string('options.app.name must be a string')
+            expect(err.message).to.have.string('options.uApi.appName must be a string')
         }
 
         if (ydb) ydb.disconnect()
@@ -84,7 +84,7 @@ describe("uApi config", async () => {
             ydb = await createYdbInstance(undefined)
 
         } catch (err) {
-            expect(err.message).to.have.string('options.app.name must be a string')
+            expect(err.message).to.have.string('options.uApi.appName must be a string')
         }
 
         if (ydb) ydb.disconnect()
@@ -97,7 +97,8 @@ describe("uApi config", async () => {
             ydb = await createYdbInstance(null)
 
         } catch (err) {
-            expect(err.message).to.have.string('options.app.name must be a string')
+            expect(err.message).to.have.string('options.uApi.appName+' +
+                ' must be a string')
         }
 
         if (ydb) ydb.disconnect()

@@ -31,7 +31,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         RESP3.build.blob(driverName) +
         RESP3.build.blob(driverVersion) +
         RESP3.build.blob(driverDescription) +
-        RESP3.build.blob((options.app && options.app.name) || '')
+        RESP3.build.blob((options.uApi && options.uApi.appName) || '')
     );
 
     // process response
@@ -130,8 +130,8 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         })
 
         // now we can add vars and globals names, if any, from the options object
-        if (options && options.app && options.app.vars) {
-            options.app.vars.forEach(_var => {
+        if (options && options.db && options.db.vars) {
+            options.db.vars.forEach(_var => {
                 try {
                     that.db.vars.addName(_var)
 
@@ -141,8 +141,8 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             })
         }
 
-        if (options && options.app && options.app.globals) {
-            options.app.globals.forEach(_var => {
+        if (options && options.db && options.db.globals) {
+            options.db.globals.forEach(_var => {
                 try {
                     that.db.globals.addName(_var)
 

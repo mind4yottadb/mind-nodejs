@@ -33,22 +33,22 @@ module.exports = {
             return ''
         }
 
-        if (options.app && typeof options.app !== 'object') {
-            return 'options.app must be an object'
+        if (options.db && typeof options.db !== 'object') {
+            return 'options.db must be an object'
         }
 
-        if (options.app && options.app.globals && !Array.isArray(options.app.globals)) {
-            return 'options.app.globals must be an array'
+        if (options.db && options.db.globals && !Array.isArray(options.db.globals)) {
+            return 'options.db.globals must be an array'
         }
 
-        if (options.app && options.app.vars && !Array.isArray(options.app.vars)) {
-            return 'options.app.vars must be an array'
+        if (options.db && options.db.vars && !Array.isArray(options.db.vars)) {
+            return 'options.db.vars must be an array'
         }
 
-        if (options.app && options.app.vars) {
+        if (options.db && options.db.vars) {
             let err = ''
 
-            options.app.vars.forEach(entry => {
+            options.db.vars.forEach(entry => {
                 if (typeof entry !== 'string') {
                     err = 'Entries in options.app.vars must be a string'
                 }
@@ -57,10 +57,10 @@ module.exports = {
             if (err !== '') return err
         }
 
-        if (options.app && options.app.globals) {
+        if (options.db && options.db.globals) {
             let err = ''
 
-            options.app.globals.forEach(entry => {
+            options.db.globals.forEach(entry => {
                 if (typeof entry !== 'string') {
                     err = 'Entries in options.app.globals must be a string'
                 }
@@ -69,9 +69,13 @@ module.exports = {
             if (err !== '') return err
         }
 
-        if (options.app && options.app.name) {
-            if (typeof options.app.name !== 'string') {
-                return 'options.app.name must be a string'
+        if (options.uApi && typeof options.uApi !== 'object') {
+            return 'options.uApi must be an object'
+        }
+
+        if (options.uApi && options.uApi.appName) {
+            if (typeof options.uApi.appName !== 'string') {
+                return 'options.uApi.appName must be a string'
             }
         }
 

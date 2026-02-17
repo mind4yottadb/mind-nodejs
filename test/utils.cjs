@@ -7,8 +7,10 @@ module.exports = {
         const ydb = new mind
 
         await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
-            app: {
-                name: appName,
+            uApi: {
+                appName: appName
+            },
+            db: {
                 vars: [
                     'uVars'
                 ],

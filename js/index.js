@@ -83,6 +83,7 @@ module.exports = class mind extends EventEmitter {
             if (err !== '') {
                 reject(new Error(err))
             }
+
             that.#socket = net.createConnection(port, host, async () => {
                 that.connected = true
 
@@ -98,6 +99,10 @@ module.exports = class mind extends EventEmitter {
                         that.emit('error', err)
                         reject(err)
                     })
+
+                // sends out the app name, if present
+                const appString = '+appName:' + (options.uApi && options.uApi.appName ? options.uApi.appName : '') + '\n'
+                that.#writePacket(appString)
 
                 // perform the login
                 try {

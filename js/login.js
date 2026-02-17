@@ -136,7 +136,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
                     that.db.vars.addName(_var)
 
                 } catch (err) {
-                    reject(new Error('Error occurred adding var name: ' + _var))
+                    reject(new Error('Error occurred adding var name: ' + _var + ': ' + err.message))
                 }
             })
         }
@@ -147,7 +147,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
                     that.db.globals.addName(_var)
 
                 } catch (err) {
-                    reject(new Error('Error occurred adding global name: ' + _var))
+                    reject(new Error('Error occurred adding global name: ' + _var + ': ' + err.message))
                 }
             })
         }

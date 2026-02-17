@@ -282,7 +282,7 @@ describe("uApi object structure: method signature: returns ", async () => {
     it("first level returns <void>", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 
-        expect(ydb.level_1.method_1_signature).to.have.string('<void> = method_1()')
+        expect(ydb.level_1.method_1_signature).to.have.string('undefined = method_1()')
 
         ydb.disconnect()
     });
@@ -290,7 +290,7 @@ describe("uApi object structure: method signature: returns ", async () => {
     it("first level returns <string>", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 
-        expect(ydb.level_1.method_string_signature).to.have.string('<string> = method_string()')
+        expect(ydb.level_1.method_string_signature).to.have.string('string = method_string()')
 
         ydb.disconnect()
     });
@@ -298,7 +298,7 @@ describe("uApi object structure: method signature: returns ", async () => {
     it("first level returns <int>", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 
-        expect(ydb.level_1.method_int_signature).to.have.string('<int> = method_int()')
+        expect(ydb.level_1.method_int_signature).to.have.string('int = method_int()')
 
         ydb.disconnect()
     });
@@ -306,7 +306,7 @@ describe("uApi object structure: method signature: returns ", async () => {
     it("first level returns <float>", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 
-        expect(ydb.level_1.method_float_signature).to.have.string('<float> = method_float()')
+        expect(ydb.level_1.method_float_signature).to.have.string('float = method_float()')
 
         ydb.disconnect()
     });
@@ -314,7 +314,7 @@ describe("uApi object structure: method signature: returns ", async () => {
     it("first level returns <boolean>", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 
-        expect(ydb.level_1.method_boolean_signature).to.have.string('<boolean> = method_boolean()')
+        expect(ydb.level_1.method_boolean_signature).to.have.string('boolean = method_boolean()')
 
         ydb.disconnect()
     });
@@ -322,7 +322,7 @@ describe("uApi object structure: method signature: returns ", async () => {
     it("first level returns <object>", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 
-        expect(ydb.level_1.method_object_signature).to.have.string('<object> = method_object()')
+        expect(ydb.level_1.method_object_signature).to.have.string('object = method_object()')
 
         ydb.disconnect()
     });
@@ -333,7 +333,7 @@ describe("uApi object structure: method signature: parameters ", async () => {
     it("one param", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 
-        expect(ydb.level_1.level_1_1.level_1_1_2.method_1_par_signature).to.have.string('<void> = method_1_par(par1 <string>)')
+        expect(ydb.level_1.level_1_1.level_1_1_2.method_1_par_signature).to.have.string('undefined = method_1_par(par1 as string)')
 
         ydb.disconnect()
     });
@@ -341,7 +341,7 @@ describe("uApi object structure: method signature: parameters ", async () => {
     it("two params", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 
-        expect(ydb.level_1.level_1_1.level_1_1_2.method_2_par_signature).to.have.string('(par1 <string>, par2 <object>)')
+        expect(ydb.level_1.level_1_1.level_1_1_2.method_2_par_signature).to.have.string('(par1 as string, par2 as object)')
 
         ydb.disconnect()
     });
@@ -349,7 +349,7 @@ describe("uApi object structure: method signature: parameters ", async () => {
     it("three params", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 
-        expect(ydb.level_1.level_1_1.level_1_1_2.method_3_par_signature).to.have.string('(par1 <string>, par2 <object>, par3 <int>)')
+        expect(ydb.level_1.level_1_1.level_1_1_2.method_3_par_signature).to.have.string('(par1 as string, par2 as object, par3 as int)')
 
         ydb.disconnect()
     });
@@ -357,7 +357,7 @@ describe("uApi object structure: method signature: parameters ", async () => {
     it("four params", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 
-        expect(ydb.level_1.level_1_1.level_1_1_2.method_4_par_signature).to.have.string('par1 <string>, par2 <object>, par3 <int>, par4 <float>)')
+        expect(ydb.level_1.level_1_1.level_1_1_2.method_4_par_signature).to.have.string('par1 as string, par2 as object, par3 as int, par4 as float)')
 
         ydb.disconnect()
     });
@@ -365,7 +365,7 @@ describe("uApi object structure: method signature: parameters ", async () => {
     it("five params", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 
-        expect(ydb.level_1.level_1_1.level_1_1_2.method_5_par_signature).to.have.string('par1 <string>, par2 <object>, par3 <int>, par4 <float>, par5 <boolean>)')
+        expect(ydb.level_1.level_1_1.level_1_1_2.method_5_par_signature).to.have.string('par1 as string, par2 as object, par3 as int, par4 as float, par5 as boolean)')
 
         ydb.disconnect()
     });

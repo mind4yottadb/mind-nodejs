@@ -17,16 +17,16 @@ const buildParametersText = fn => {
     let text = ''
 
     if (fn.returns && fn.returns !== '') {
-        text += '<' + fn.returns + '> = '
+        text += fn.returns + ' = '
     } else {
-        text += '<void> = '
+        text += 'undefined = '
     }
 
     text += fn.name + '('
 
     if (fn.parameters && fn.parameters.length > 0) {
         fn.parameters.forEach(param => {
-            text += param.name + ' <' + param.datatype + '>, '
+            text += param.name + ' as ' + param.datatype + ', '
 
         })
 

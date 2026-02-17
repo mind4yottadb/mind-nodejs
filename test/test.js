@@ -7,7 +7,7 @@ const ydb = new mind
 const run = async () => {
     await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
         app: {
-            name: "test-methods",
+            name: "test-obj-structure-13-23-3x-desc",
             vars: [
                 'test1', 'test2qwerty', 'stef'
             ],
@@ -65,7 +65,7 @@ const run = async () => {
     //console.log(await ydb.process.syslogMessage('testing'))
 
     console.dir(ydb, {depth: 2})
-    console.log(await ydb.testLevel1.methodParams0RetObject().catch((err) => {
+    console.log(await ydb.level_1.testParams0RetObject().catch((err) => {
         console.log(err.message)
     }))
     /*

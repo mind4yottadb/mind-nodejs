@@ -15,7 +15,7 @@ const {createYdbInstance} = require("../../utils.cjs");
 
 describe("uApi methods: returns", async () => {
     it("returns string", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         const res = await ydb.level_1.testParams0RetStr()
 
@@ -25,7 +25,7 @@ describe("uApi methods: returns", async () => {
     });
 
     it("returns int", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         const res = await ydb.level_1.testParams0RetInt()
 
@@ -35,7 +35,7 @@ describe("uApi methods: returns", async () => {
     });
 
     it("returns float", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         const res = await ydb.level_1.testParams0RetFloat()
 
@@ -45,7 +45,7 @@ describe("uApi methods: returns", async () => {
     });
 
     it("returns boolean true", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         const res = await ydb.level_1.testParams0RetBooleanTrue()
 
@@ -55,7 +55,7 @@ describe("uApi methods: returns", async () => {
     });
 
     it("returns boolean false", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         const res = await ydb.level_1.testParams0RetBooleanFalse()
 
@@ -65,7 +65,7 @@ describe("uApi methods: returns", async () => {
     });
 
     it("returns object", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         const res = await ydb.level_1.testParams0RetObject()
 
@@ -74,7 +74,7 @@ describe("uApi methods: returns", async () => {
         ydb.disconnect()
     });
     it("returns null", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         const res = await ydb.level_1.testParams0RetNull()
 
@@ -84,7 +84,7 @@ describe("uApi methods: returns", async () => {
     });
 
     it("returns simple error", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.testParams0ErrSimple()
@@ -97,7 +97,7 @@ describe("uApi methods: returns", async () => {
     });
 
     it("returns null", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.testParams0ErrBlob()
@@ -112,7 +112,7 @@ describe("uApi methods: returns", async () => {
 
 describe("uApi methods: parameters execution", async () => {
     it("1 param: string", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         const res = await ydb.level_1.level_1_1.method_1_par('this is the string')
 
@@ -123,7 +123,7 @@ describe("uApi methods: parameters execution", async () => {
     });
 
     it("2 params: string/int", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         const res = await ydb.level_1.level_1_1.method_2_par('this is the string', 12)
 
@@ -135,7 +135,7 @@ describe("uApi methods: parameters execution", async () => {
     });
 
     it("3 params: string/int/float", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         const res = await ydb.level_1.level_1_1.method_3_par('this is the string', 12, 45.3456)
 
@@ -148,7 +148,7 @@ describe("uApi methods: parameters execution", async () => {
     });
 
     it("4 params: string/int/float/boolean", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         const res = await ydb.level_1.level_1_1.method_4_par('this is the string', 12, 45.3456, true)
 
@@ -162,7 +162,7 @@ describe("uApi methods: parameters execution", async () => {
     });
 
     it("5 params: string/int/float/boolean/boolean", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         const res = await ydb.level_1.level_1_1.method_5_par('this is the string', 12, 45.3456, true, false)
 
@@ -177,7 +177,7 @@ describe("uApi methods: parameters execution", async () => {
     });
 
     it("6 params: string/int/float/boolean/boolean/object", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         const res = await ydb.level_1.level_1_1.method_6_par('this is the string', 12, 45.3456, true, false, {
             fieldObj1: 'test',
@@ -201,7 +201,7 @@ describe("uApi methods: parameters execution", async () => {
 
 describe("uApi methods: parameters checking: datatype", async () => {
     it("1 param: string", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_1_par(12)
@@ -214,7 +214,7 @@ describe("uApi methods: parameters checking: datatype", async () => {
     });
 
     it("1 param: string", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_1_par(12.23)
@@ -227,7 +227,7 @@ describe("uApi methods: parameters checking: datatype", async () => {
     });
 
     it("1 param: string", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_1_par(true)
@@ -240,7 +240,7 @@ describe("uApi methods: parameters checking: datatype", async () => {
     });
 
     it("1 param: string", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_1_par({test: 23})
@@ -253,7 +253,7 @@ describe("uApi methods: parameters checking: datatype", async () => {
     });
 
     it("1 param: string", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_1_par(['12', 45, 66])
@@ -266,7 +266,7 @@ describe("uApi methods: parameters checking: datatype", async () => {
     });
 
     it("6 params: string/int/float/boolean/boolean/object", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_6_par('test', 12, 12, false, false, false)
@@ -279,7 +279,7 @@ describe("uApi methods: parameters checking: datatype", async () => {
     });
 
     it("6 params: string/int/float/boolean/boolean/object", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_6_par('test', 12, 12, false, {}, {})
@@ -292,7 +292,7 @@ describe("uApi methods: parameters checking: datatype", async () => {
     });
 
     it("6 params: string/int/float/boolean/boolean/object", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_6_par('test', 12, true, false, false, false)
@@ -305,7 +305,7 @@ describe("uApi methods: parameters checking: datatype", async () => {
     });
 
     it("6 params: string/int/float/boolean/boolean/object", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_6_par('test', true, 12, false, false, false)
@@ -318,7 +318,7 @@ describe("uApi methods: parameters checking: datatype", async () => {
     });
 
     it("1 param, two params passed", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_1_par('23test', 33)
@@ -331,7 +331,7 @@ describe("uApi methods: parameters checking: datatype", async () => {
     });
 
     it("2 params, 3 params passed", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_2_par('23test', 23, 77)
@@ -343,8 +343,9 @@ describe("uApi methods: parameters checking: datatype", async () => {
         ydb.disconnect()
     });
 
+
     it("2 params, 1 param passed", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_2_par('23test')
@@ -357,7 +358,7 @@ describe("uApi methods: parameters checking: datatype", async () => {
     });
 
     it("3 params, 1 param passed", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_3_par('23test')
@@ -370,7 +371,7 @@ describe("uApi methods: parameters checking: datatype", async () => {
     });
 
     it("3 params, 2 param passed", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_2_par('23test', 12)
@@ -383,7 +384,7 @@ describe("uApi methods: parameters checking: datatype", async () => {
     });
 
     it("6 params, 4 param passed", async () => {
-        const ydb = await createYdbInstance('test-methods')
+        const ydb = await createYdbInstance('test-methods-new')
 
         try {
             const res = await ydb.level_1.level_1_1.method_6_par('23test', 34, 56, false)

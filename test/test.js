@@ -8,9 +8,6 @@ const run = async () => {
     await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
         uApi: {appName: 'test-obj-structure-13-23-3x-desc'},
         db: {
-            vars: [
-                'test1', 'test2qwerty', 'stef', '_val1', 'aaa'
-            ],
             globals: [
                 'globalTest', 'myglobal2', 'stef'
             ]

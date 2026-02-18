@@ -11,9 +11,6 @@ module.exports = {
                 appName: appName
             },
             db: {
-                vars: [
-                    'uVars'
-                ],
                 globals: [
                     'globalTest', 'globalTestEmptyRoot', 'temp'
                 ]

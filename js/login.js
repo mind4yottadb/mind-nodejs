@@ -94,11 +94,12 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         }
 
         // finally the user api
-        const uApi = RESP3.parse.blob(data.slice(data.indexOf('\r\n$') + 2))
+        const uApiJson = RESP3.parse.blob(data.slice(data.indexOf('\r\n$') + 2))
+        const uApi = JSON.parse(uApiJson === '' ? '{}' : uApiJson)
 
         Object.defineProperties(that, {
             uApi: {
-                value: uApi === '' ? null : JSON.parse(uApi).client,
+                value: uApi.client === undefined ? null : uApi.client,
                 enumerable: false,
                 configurable: true,
                 writable: false
@@ -130,8 +131,8 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         })
 
         // now we can add vars and globals names, if any, from the options object
-        if (options && options.db && options.db.vars) {
-            options.db.vars.forEach(_var => {
+        if (uApi && uApi.server && uApi.server.vars && uApi.server.vars.length > 0) {
+            uApi.server.vars.forEach(_var => {
                 try {
                     that.db.vars.addName(_var)
 

@@ -19,7 +19,7 @@ const buildParametersText = fn => {
     if (fn.returns && fn.returns !== '') {
         text += fn.returns + ' = '
     } else {
-        text += 'undefined = '
+        text += ''
     }
 
     text += fn.name + '('

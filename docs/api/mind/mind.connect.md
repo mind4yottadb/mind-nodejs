@@ -49,14 +49,15 @@ method.
 Once login is successful, this component will receive server and process information from the MIND server and populate
 itself according.
 
-> Note: both connection and login errors will be thrown and can be catched using the `catch{}` structure, regardless if
+> Note: both connection and login errors will be thrown and can be caught using the `catch{}` structure, regardless if
 > you are using `await` or `then` in your async call.
 
 ### The `option` parameter:
 
 ````js
 const options = {
-    app: {
+    uApi: {appName: 'myApp'},
+    db: {
         vars: [],
         globals: []
     },
@@ -65,9 +66,9 @@ const options = {
 
 ````
 
-The `app.vars` is an array of strings, where each string represent a variable name to use in your code.
+The `db.vars` is an array of strings, where each string represent a variable name to use in your code.
 
-The `app.globals` is an array of strings, where each string represents a global you want to use in your code.
+The `db.globals` is an array of strings, where each string represents a global you want to use in your code.
 
 > Global name do NOT need to be prefixed by the `^` character. So, a global named `^customers` must be entered as
 `customers`.

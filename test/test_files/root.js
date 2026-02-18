@@ -368,7 +368,7 @@ describe("connect()", async () => {
 
 
         } catch (err) {
-            expect(err.message).to.have.string('options must be an object')
+            expect(err.message).to.have.string('options cannot be an array')
         }
 
         ydb.disconnect()
@@ -399,9 +399,10 @@ describe("connect()", async () => {
             ydb = new mind
 
             await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', {})
-
+            expect(1 === 1).to.be.true
 
         } catch (err) {
+            console.log(err)
             expect(err.message).to.have.string('options must be an object')
         }
 

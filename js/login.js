@@ -10,10 +10,10 @@
 #                                                               #
 ###############################################################*/
 
-const utils = require("./utils");
+const uapi = require("./uapi")
 
 const driverName = 'mind4yottadb.js'
-const driverVersion = '0.8.0'
+const driverVersion = '0.9.0'
 const driverDescription = 'MIND for YottaDB node.js driver'
 
 module.exports = async function (that, writer, reader, resolve, reject, username, password, options) {
@@ -24,18 +24,30 @@ module.exports = async function (that, writer, reader, resolve, reject, username
     const RESP3 = that.RESP3
 
     // send command
-    writer("*5" + RESP3.CRLF +
-        RESP3.build.blob(opCode) + RESP3.build.blob(credentials) +
-        RESP3.build.blob(driverName) + RESP3.build.blob(driverVersion) + RESP3.build.blob(driverDescription)
+    writer(
+        "*6" + RESP3.CRLF +
+        RESP3.build.blob(opCode) +
+        RESP3.build.blob(credentials) +
+        RESP3.build.blob(driverName) +
+        RESP3.build.blob(driverVersion) +
+        RESP3.build.blob(driverDescription) +
+        RESP3.build.blob((options.uApi && options.uApi.appName) || '')
     );
 
     // process response
     reader(data => {
+        if (data.charAt(0) === '-') {
+            reject(new Error(RESP3.parse.simpleError(data)))
+
+            return
+        }
+
         const dataA = data.split(RESP3.CRLF)
         let ix = 0
         let iy = 0
 
         // check header
+        //console.log(data)
         if (dataA[ix].charAt(0) === '-') {
             reject(new Error(dataA[0].slice(1)))
         }
@@ -65,7 +77,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         const processLength = parseInt(dataA[ix].slice(1))
 
-        // continue
+        // continue with process
         iy = ix
         for (ix = ix + 1; ix < iy + processLength * 2; ix += 2) {
             const name = RESP3.parse.simpleString(dataA[ix])
@@ -81,31 +93,18 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             })
         }
 
-        // and terminate with the env vars
-        const envLength = parseInt(dataA[ix].slice(1))
+        // finally the user api
+        const uApiJson = RESP3.parse.blob(data.slice(data.indexOf('\r\n$') + 2))
+        const uApi = JSON.parse(uApiJson === '' ? '{}' : uApiJson)
 
-        Object.defineProperties(that.process, {
-            env: {
-                value: {},
-                enumerable: true,
+        Object.defineProperties(that, {
+            uApi: {
+                value: uApi.client === undefined ? null : uApi.client,
+                enumerable: false,
                 configurable: true,
                 writable: false
             }
         })
-
-        iy = ix
-        for (ix = ix + 1; ix < iy + envLength * 2 - 1; ix += 2) {
-            const strValue = RESP3.parse.simpleString(dataA[ix + 1])
-
-            Object.defineProperties(that.process.env, {
-                [RESP3.parse.simpleString(dataA[ix])]: {
-                    value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
-                    enumerable: true,
-                    configurable: true,
-                    writable: false
-                }
-            })
-        }
 
         // append reader, writer and root to make them available to deeper levels
         appendToObject(that.fs, that)
@@ -123,27 +122,40 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         that.db.globals._init(that.db.globals)
         that.db.vars._init(that.db.vars)
 
+        // make RESP3 not enumerable
+        Object.defineProperties(that, {
+            RESP3: {
+                enumerable: false,
+                configurable: false
+            },
+        })
+
         // now we can add vars and globals names, if any, from the options object
-        if (options && options.app && options.app.vars) {
-            options.app.vars.forEach(_var => {
+        if (uApi && uApi.server && uApi.server.vars && uApi.server.vars.length > 0) {
+            uApi.server.vars.forEach(_var => {
                 try {
                     that.db.vars.addName(_var)
 
                 } catch (err) {
-                    reject(new Error('Error occurred adding var name: ' + _var))
+                    reject(new Error('Error occurred adding var name: ' + _var + ': ' + err.message))
                 }
             })
         }
 
-        if (options && options.app && options.app.globals) {
-            options.app.globals.forEach(_var => {
+        if (options && options.db && options.db.globals) {
+            options.db.globals.forEach(_var => {
                 try {
                     that.db.globals.addName(_var)
 
                 } catch (err) {
-                    reject(new Error('Error occurred adding global name: ' + _var))
+                    reject(new Error('Error occurred adding global name: ' + _var + ': ' + err.message))
                 }
             })
+        }
+
+        // and add, if present, the user API
+        if (that.uApi !== null) {
+            uapi.parse(that, writer, reader)
         }
 
         // resolve the promise

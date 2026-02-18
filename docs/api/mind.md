@@ -16,14 +16,13 @@
 
 ### Methods:
 
-- connect(host, port, username, password, options)
+- connect()
 - disconnect()
 
 ### Properties:
 
 - connected
 - loggedIn
-- requiresMind
 
 ### Events
 
@@ -36,7 +35,9 @@
 - [server](namespace.server.md)
 - [fs](namespace.fs.md)
 - [RESP3](namespace.RESP3.md)
-- session
+- [session](namespace.session.md)
 - db
+    - globals
     - vars
-    - arrays
+- dbms
+- ... {user-defined} 

@@ -93,7 +93,6 @@ class Sessions {
             })
         })
     }
-
 }
 
 module.exports = Sessions

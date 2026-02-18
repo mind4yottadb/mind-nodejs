@@ -12,13 +12,20 @@
 ###############################################################*/
 -->
 
-### requiresMind
+### .hasValue()
+
+### _(...vars).hasValue()
 
 ---
 
-**Type**: property / readonly
+Applies to:
 
-**Async**: no
+- globals
+- vars
+
+**Type**: method
+
+**Async**: yes, returns a Promise
 
 **Parameters**:
 
@@ -27,12 +34,13 @@
 
 **Returns**:
 
-`<string>`
+`Promise<boolean>`
 
 ---
 
-Returns the minimum version number of the MIND server needed to run this package.
+Appends the string in `data` to the file specified in `filename`.
 
+If `filename` is not found or another error occurs, it will throw an error.
 
 <br>
 
@@ -45,11 +53,40 @@ import mind from 'mind4yottadb'
 
 const ydb = new mind
 
-let requiresMind = ydb.requiresMind
-console.log(requiresMind)
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+await ydb.fs.appendFile('/tmp/testfile.txt', 'add another line\n')
+
+ydb.disconnect()
+
+````
+
+<br>
+
+Using error handling:
+
+````js
+import mind from 'mind4yottadb'
+
+const ydb = new mind
+
+await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+try {
+    await ydb.fs.readFile('/tmp/IdontExist', 'add another line\n')
+
+} catch (err) {
+    console.log(err)
+}
+
+// or
+
+await ydb.fs.readFile('/tmp/IdontExist', 'add another line\n').catch((err) => console.log(err))
+
+ydb.disconnect()
 
 ````
 
 ---
 
-[Back](../mind.md)
+[Back](../../namespace.fs.md)

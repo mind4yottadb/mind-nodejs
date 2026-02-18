@@ -64,6 +64,36 @@ class RESP3 {
         bigNumber: function (str) {
             return this.extractToken(str)
         },
+
+        returns: function (str) {
+            const type = str.charAt(0)
+
+            switch (type) {
+                case '+':
+                    return this.simpleString(str)
+
+                case '$':
+                    return this.blob(str)
+
+                case ':':
+                    return this.int(str)
+
+                case '_':
+                    return null
+
+                case ',':
+                    return this.double(str)
+
+                case '#':
+                    return this.boolean(str)
+
+                case '=':
+                    return JSON.parse(str.slice(6 + str.indexOf('\r\n'), -2))
+
+                default :
+                    return this.simpleError('INVALID RESP3 datatype')
+            }
+        }
     }
 
     convert = {

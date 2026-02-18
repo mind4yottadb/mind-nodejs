@@ -3,21 +3,25 @@ const mind = require("../js")
 
 
 module.exports = {
-    createYdbInstance: async () => {
+    createYdbInstance: async (appName = '') => {
         const ydb = new mind
 
         await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
-            app: {
-                vars: [
-                    'uVars'
-                ],
+            uApi: {
+                appName: appName
+            },
+            db: {
                 globals: [
                     'globalTest', 'globalTestEmptyRoot', 'temp'
                 ]
             }
         }).catch(err => {
+            if (appName) {
+                throw new Error(err)
+            } else {
                 console.log('Error is: ' + err)
                 exit()
+            }
             }
         )
 

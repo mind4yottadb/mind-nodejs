@@ -6,10 +6,8 @@ const ydb = new mind
 
 const run = async () => {
     await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
-        app: {
-            vars: [
-                'test1', 'test2qwerty', 'stef'
-            ],
+        uApi: {appName: 'test-obj-structure-13-23-3x-desc'},
+        db: {
             globals: [
                 'globalTest', 'myglobal2', 'stef'
             ]
@@ -60,7 +58,35 @@ const run = async () => {
         }
     }
 
-    console.log(await ydb.process.syslogMessage('testing'))
+    //console.log(ydb)
+    //console.log(await ydb.process.syslogMessage('testing'))
+
+    console.dir(ydb, {depth: 2})
+
+    await ydb.db.vars.aaa.setValue(123)
+    console.log(await ydb.db.vars.aaa.getValue())
+
+
+    exit()
+
+
+    console.log(await ydb.level_1.method_1().catch((err) => {
+        console.log(err.message)
+    }))
+    /*
+    console.log(await ydb.banking.second("/test", 44).catch((err) => {
+        console.log(err.message)
+    }))
+
+    console.log(await ydb.banking.interest.level3.method3({
+        field1: 123,
+        field2: [
+            'test1', 'test2'
+        ]
+    }).catch((err) => {
+        console.log(err.message)
+    }))
+     */
 
     exit()
     await ydb.process.groupLocks()

@@ -11,8 +11,8 @@
 ###############################################################*/
 
 const net = require('net')
+const tls = require('tls')
 const EventEmitter = require('node:events');
-const eventEmitter = new EventEmitter();
 
 const nsProcess = require('./namespaces/process')
 const nsServer = require('./namespaces/server')
@@ -31,7 +31,7 @@ module.exports = class mind extends EventEmitter {
     // ********************************
     connected = false
     loggedIn = false
-
+    useTls = false
     #socket = null
 
     requiresMind = '0.15.0'
@@ -84,11 +84,23 @@ module.exports = class mind extends EventEmitter {
                 reject(new Error(err))
             }
 
-            that.#socket = net.createConnection(port, host, async () => {
+            // TLS or plain
+            if (options && options.useTls && options && options.useTls === true) {
+                that.#socket = tls.connect(port, host, {rejectUnauthorized: options.tlsRejectSelfSigned || false}, async () => {
+                    socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
+                })
+
+            } else {
+                that.#socket = net.createConnection(port, host, async () => {
+                    socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
+                })
+            }
+
+            const socketInit = async function (that, lSocket, lWriter, lReader, resolve, reject, username, password, options) {
                 that.connected = true
 
                 // mount event handler and route it to the event emitter
-                that.#socket
+                lSocket
                     .on('end', () => {
                         that.disconnect()
 
@@ -102,11 +114,11 @@ module.exports = class mind extends EventEmitter {
 
                 // sends out the app name, if present
                 const appString = '+appName:' + (options.uApi && options.uApi.appName ? options.uApi.appName : '') + '\n'
-                that.#writePacket(appString)
+                lWriter(appString)
 
                 // perform the login
                 try {
-                    await login(that, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
+                    await login(that, lWriter, lReader, resolve, reject, username, password, options)
 
                     that.loggedIn = true
 
@@ -116,7 +128,7 @@ module.exports = class mind extends EventEmitter {
 
                     that.disconnect()
                 }
-            })
+            }
         })
     }
 
@@ -167,4 +179,5 @@ module.exports = class mind extends EventEmitter {
         })
     }
 }
+
 

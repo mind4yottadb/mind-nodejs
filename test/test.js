@@ -6,6 +6,8 @@ const ydb = new mind
 
 const run = async () => {
     await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
+        useTls: true,
+        tlsRejectSelfSigned: false,
         uApi: {appName: 'test-obj-structure-13-23-3x-desc'},
         db: {
             globals: [

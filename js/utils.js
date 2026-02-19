@@ -33,6 +33,14 @@ module.exports = {
             return ''
         }
 
+        if (options.useTls && typeof options.useTls !== 'boolean') {
+            return 'options.useTls must be a boolean'
+        }
+
+        if (options.tlsRejectSelfSigned && typeof options.tlsRejectSelfSigned !== 'boolean') {
+            return 'options.tlsRejectSelfSigned must be a boolean'
+        }
+
         if (options.db && typeof options.db !== 'object') {
             return 'options.db must be an object'
         }

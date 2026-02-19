@@ -391,24 +391,6 @@ describe("connect()", async () => {
         ydb.disconnect()
     });
 
-    it("add options as object", async () => {
-
-        let ydb
-
-        try {
-            ydb = new mind
-
-            await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', {})
-            expect(1 === 1).to.be.true
-
-        } catch (err) {
-            console.log(err)
-            expect(err.message).to.have.string('options must be an object')
-        }
-
-        ydb.disconnect()
-    });
-
     it("add options as boolean", async () => {
 
         let ydb

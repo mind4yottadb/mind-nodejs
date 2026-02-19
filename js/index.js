@@ -86,15 +86,26 @@ module.exports = class mind extends EventEmitter {
 
             // TLS or plain
             if (options && options.useTls && options && options.useTls === true) {
-                that.#socket = tls.connect(port, host, {rejectUnauthorized: (options && options.tlsRejectSelfSigned === false) ? false : true}, async () => {
-                    socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
-                })
+                try {
+                    that.#socket = tls.connect(port, host, {rejectUnauthorized: (options && options.tlsRejectSelfSigned === false) ? false : true});
+                    that.#socket.once('secureConnect', function () {
+                        // on connected
+                        socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
+                    });
+                    that.#socket.on('error', function (err) {
+                        // on error
+                        reject(err)
+                    });
+                } catch (err) {
+                    throw err
+                }
 
             } else {
                 that.#socket = net.createConnection(port, host, async () => {
                     socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
                 })
             }
+
 
             const socketInit = async function (that, lSocket, lWriter, lReader, resolve, reject, username, password, options) {
                 that.connected = true

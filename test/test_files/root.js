@@ -14,6 +14,7 @@ const mind = require("../../js")
 
 const {expect} = require("chai");
 const {createYdbInstance} = require("../utils.cjs");
+const {exit} = require("node:process");
 
 describe("connect()", async () => {
     it("without any parameters", async () => {
@@ -429,3 +430,17 @@ describe("structure after connect()", async () => {
     })
 })
 
+describe("TLS", async () => {
+    it("error out when self-signed is used", async () => {
+        const ydb = new mind
+        try {
+            await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
+                    useTls: true,
+                    tlsRejectSelfSigned: true
+                }
+            )
+        } catch (err) {
+            expect(err.message).to.have.string('self-signed certificate in certificate chain')
+        }
+    })
+})

@@ -15,10 +15,6 @@ module.exports = {
         return (typeof param === type)
     },
 
-    validateEmptyField: value => {
-
-    },
-
     validateConnectOptions: options => {
 
         if (typeof options !== 'object') {

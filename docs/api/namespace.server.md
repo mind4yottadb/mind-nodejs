@@ -24,6 +24,10 @@
 - [listSessions](server/server.listSessions.md)
 - [pinfo](server/server.pinfo.md)
 - [stats](server/server.stats.md)
+- [unixtime()](server/server.unixtime.md)
+- [now()](server/server.now.md)
+- [datetime()](server/server.dateTime.md)
+- [horolog()](server/server.dateTime.md)
 
 ### Properties:
 

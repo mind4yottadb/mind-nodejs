@@ -106,7 +106,6 @@ module.exports = class mind extends EventEmitter {
                 })
             }
 
-
             const socketInit = async function (that, lSocket, lWriter, lReader, resolve, reject, username, password, options) {
                 that.connected = true
 

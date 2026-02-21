@@ -12,7 +12,7 @@
 ###############################################################*/
 -->
 
-### process.unixtime()
+### server.unixtime()
 
 ---
 
@@ -49,7 +49,7 @@ const ydb = new mind
 
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const unixTime = ydb.process.unixtime()
+const unixTime = ydb.server.unixtime()
 console.log(unixTime)
 
 ydb.disconnect()
@@ -69,4 +69,4 @@ unixTime = 1767806071551168
 
 ---
 
-[Back](../namespace.process.md)
+[Back](../namespace.server.md)

@@ -23,9 +23,6 @@
 ### Functions:
 
 - [cwdGet()](process/process.cwdGet.md)
-- [unixtime()](process/process.unixtime.md)
-- [now()](process/process.now.md)
-- [datetime()](process/process.dateTime.md)
 - [memUsage()](process/process.memUsage.md)
 - [getEnvVars](process/process.getEnvVars.md)
 

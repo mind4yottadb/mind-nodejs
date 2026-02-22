@@ -371,3 +371,199 @@ describe("uApi object structure: method signature: parameters ", async () => {
         ydb.disconnect()
     });
 })
+
+describe("uApi shared vars", async () => {
+    it("existence testVar1", async () => {
+        const ydb = await createYdbInstance('test-vars')
+
+        expect(ydb.db.vars.testVar1 !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("existence testVar2", async () => {
+        const ydb = await createYdbInstance('test-vars')
+
+        expect(ydb.db.vars.testVar2 !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("existence testVar3", async () => {
+        const ydb = await createYdbInstance('test-vars')
+
+        expect(ydb.db.vars.testVar3 !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("existence testVar4", async () => {
+        const ydb = await createYdbInstance('test-vars')
+
+        expect(ydb.db.vars.testVar4 !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("existence testVar5", async () => {
+        const ydb = await createYdbInstance('test-vars')
+
+        expect(ydb.db.vars.testVar5 !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("existence testVar6", async () => {
+        const ydb = await createYdbInstance('test-vars')
+
+        expect(ydb.db.vars.testVar6 !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("existence testVar7", async () => {
+        const ydb = await createYdbInstance('test-vars')
+
+        expect(ydb.db.vars.testVar7 !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("existence testVar8", async () => {
+        const ydb = await createYdbInstance('test-vars')
+
+        expect(ydb.db.vars.testVar8 !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("existence testVar9", async () => {
+        const ydb = await createYdbInstance('test-vars')
+
+        expect(ydb.db.vars.testVar9 !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("existence testVar10", async () => {
+        const ydb = await createYdbInstance('test-vars')
+
+        expect(ydb.db.vars.testVar10 !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("test testVar1", async () => {
+        const ydb = await createYdbInstance('test-vars')
+        const var1 = ydb.db.vars.testVar1
+
+        await var1.setValue('testVar1');
+        const res = await var1.getValue()
+
+        expect(res).to.have.string('testVar1');
+
+        ydb.disconnect()
+    });
+
+    it("test testVar2", async () => {
+        const ydb = await createYdbInstance('test-vars')
+        const node = ydb.db.vars.testVar2
+
+        await node.setValue('testVar2');
+        const res = await node.getValue()
+
+        expect(res).to.have.string('testVar2');
+
+        ydb.disconnect()
+    });
+    it("test testVar3", async () => {
+        const ydb = await createYdbInstance('test-vars')
+        const node = ydb.db.vars.testVar3
+
+        await node.setValue('testVar3');
+        const res = await node.getValue()
+
+        expect(res).to.have.string('testVar3');
+
+        ydb.disconnect()
+    });
+    it("test testVar4", async () => {
+        const ydb = await createYdbInstance('test-vars')
+        const node = ydb.db.vars.testVar4
+
+        await node.setValue('testVar4');
+        const res = await node.getValue()
+
+        expect(res).to.have.string('testVar4');
+
+        ydb.disconnect()
+    });
+    it("test testVar5", async () => {
+        const ydb = await createYdbInstance('test-vars')
+        const node = ydb.db.vars.testVar5
+
+        await node.setValue('testVar5');
+        const res = await node.getValue()
+
+        expect(res).to.have.string('testVar5');
+
+        ydb.disconnect()
+    });
+    it("test testVar6", async () => {
+        const ydb = await createYdbInstance('test-vars')
+        const node = ydb.db.vars.testVar6
+
+        await node.setValue('testVar6');
+        const res = await node.getValue()
+
+        expect(res).to.have.string('testVar6');
+
+        ydb.disconnect()
+    });
+    it("test testVar7", async () => {
+        const ydb = await createYdbInstance('test-vars')
+        const node = ydb.db.vars.testVar7
+
+        await node.setValue('testVar7');
+        const res = await node.getValue()
+
+        expect(res).to.have.string('testVar7');
+
+        ydb.disconnect()
+    });
+    it("test testVar8", async () => {
+        const ydb = await createYdbInstance('test-vars')
+        const node = ydb.db.vars.testVar8
+
+        await node.setValue('testVar8');
+        const res = await node.getValue()
+
+        expect(res).to.have.string('testVar8');
+
+        ydb.disconnect()
+    });
+    it("test testVar9", async () => {
+        const ydb = await createYdbInstance('test-vars')
+        const node = ydb.db.vars.testVar9
+
+        await node.setValue('testVar9');
+        const res = await node.getValue()
+
+        expect(res).to.have.string('testVar9');
+
+        ydb.disconnect()
+    });
+    it("test testVar10", async () => {
+        const ydb = await createYdbInstance('test-vars')
+        const node = ydb.db.vars.testVar10
+
+        await node.setValue('testVar10');
+        const res = await node.getValue()
+
+        expect(res).to.have.string('testVar10');
+
+        ydb.disconnect()
+    });
+
+
+})

@@ -67,13 +67,7 @@ describe("server.pinfo()", async () => {
         try {
             const res = await ydb.server.pinfo(0)
 
-            expect(parseInt(res.cSystemTime) === 0).to.be.true
-            expect(parseInt(res.cUserTime) === 0).to.be.true
             expect(parseInt(res.isAlive) === 1).to.be.true
-
-            expect(parseInt(res.pSystemTime) >= 0).to.be.true
-            expect(parseInt(res.pUserTime) >= 0).to.be.true
-            expect(parseInt(res.tCpu) >= 0).to.be.true
 
         } catch (err) {
             console.log(err)

@@ -788,7 +788,7 @@ describe("fs.copyfile()", async () => {
         try {
             await ydb.fs.copyfile(path, destination)
 
-            const res = await ydb.fs.expandPath(destination)
+            const res = await ydb.fs.readFile(destination)
             expect(res === '').to.be.false
 
         } catch (err) {

@@ -34,7 +34,7 @@ module.exports = class mind extends EventEmitter {
     useTls = false
     #socket = null
 
-    requiresMind = '0.15.0'
+    requiresMind = '0.17.0'
 
     // namespaces
     server = new nsServer
@@ -121,6 +121,10 @@ module.exports = class mind extends EventEmitter {
                         that.emit('error', err)
                         reject(err)
                     })
+
+
+                // force utf-8 encoding
+                lSocket.setEncoding('utf8')
 
                 // sends out the app name, if present
                 const appString = '+appName:' + (options.uApi && options.uApi.appName ? options.uApi.appName : '') + '\n'

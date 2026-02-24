@@ -193,5 +193,3 @@ module.exports = class mind extends EventEmitter {
         })
     }
 }
-
-

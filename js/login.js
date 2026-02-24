@@ -11,9 +11,10 @@
 ###############################################################*/
 
 const uapi = require("./uapi")
+const fs = require("fs");
 
 const driverName = 'mind4yottadb.js'
-const driverVersion = '0.9.0'
+const driverVersion = JSON.parse(fs.readFileSync('./package.json', 'utf8')).version
 const driverDescription = 'MIND for YottaDB node.js driver'
 
 module.exports = async function (that, writer, reader, resolve, reject, username, password, options) {

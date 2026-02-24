@@ -26,7 +26,7 @@
 
 ### Events
 
-- error
+- socketError
 - disconnect
 
 ### Namespaces:

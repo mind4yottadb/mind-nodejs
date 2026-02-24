@@ -118,7 +118,7 @@ module.exports = class mind extends EventEmitter {
                     })
                     // mount event handler and route it to the event emitter
                     .on('error', err => {
-                        that.emit('error', err)
+                        that.emit('socketError', err)
                         reject(err)
                     })
 

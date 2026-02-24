@@ -12,7 +12,7 @@
 ###############################################################*/
 -->
 
-### error
+### socketError
 
 ---
 
@@ -50,7 +50,7 @@ console.dir(ydb, {depth: 5})
 
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-ydb.on('error', err => {
+ydb.on('socketError', err => {
     // your code here
 })
 ````

@@ -13,7 +13,41 @@
 const {expect} = require("chai");
 const {createYdbInstance} = require("../../utils.cjs");
 
+describe("uApi methods: no return, 0 pars", async () => {
+    it("no pars, returns nothing", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const res = await ydb.level_1.testMethod0Pars()
+
+        expect(typeof res === 'undefined').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("1 par, returns nothing", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const res = await ydb.level_1.testMethod1Pars("test")
+
+        expect(typeof res === 'undefined').to.be.true
+
+        ydb.disconnect()
+    });
+
+})
+
 describe("uApi methods: returns", async () => {
+    it("returns nothing", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const res = await ydb.level_1.testParams0Ret0()
+
+        expect(typeof res === 'undefined').to.be.true
+
+        ydb.disconnect()
+    });
+
+
     it("returns string", async () => {
         const ydb = await createYdbInstance('test-methods')
 
@@ -73,16 +107,6 @@ describe("uApi methods: returns", async () => {
 
         ydb.disconnect()
     });
-    it("returns null", async () => {
-        const ydb = await createYdbInstance('test-methods')
-
-        const res = await ydb.level_1.testParams0RetNull()
-
-        expect(res === null).to.be.true
-
-        ydb.disconnect()
-    });
-
     it("returns simple error", async () => {
         const ydb = await createYdbInstance('test-methods')
 

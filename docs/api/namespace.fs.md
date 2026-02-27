@@ -35,3 +35,7 @@
 - [isDir(path)](fs/fs.isDir.md)
 
 ### Properties:
+
+---
+
+[Back](./mind.md)

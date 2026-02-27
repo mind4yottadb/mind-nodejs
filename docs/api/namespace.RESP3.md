@@ -19,3 +19,7 @@
 ### Functions:
 
 ### Properties:
+
+---
+
+[Back](./mind.md)

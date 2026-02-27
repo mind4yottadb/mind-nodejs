@@ -30,3 +30,7 @@
 
 - [pid](process/process.pid.md)
 - [env](process/process.env.md)
+
+---
+
+[Back](./mind.md)

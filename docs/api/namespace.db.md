@@ -14,10 +14,18 @@
 
 # Namespace: db
 
+
 ### Namespaces:
+
+- [vars](./namespace.db.vars.md)
+- [globals](./namespace.db.globals.md)
 
 ### Methods:
 
 ### Functions:
 
 ### Properties:
+
+---
+
+[Back](./mind.md)

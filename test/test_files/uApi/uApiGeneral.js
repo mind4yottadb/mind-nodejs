@@ -133,4 +133,16 @@ describe("uApi methods: test existing function", async () => {
         ydb.disconnect()
     });
 
+    it("badEntryPoint", async () => {
+        const ydb = await createYdbInstance('test-existing')
+
+        try {
+            const res = await ydb.level_1.badEntryPoint('/opt/yottadb')
+
+        } catch (err) {
+            expect(err.message).to.have.string("M code not found")
+        }
+
+        ydb.disconnect()
+    });
 })

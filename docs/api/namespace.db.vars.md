@@ -16,6 +16,15 @@
 
 ### Methods:
 
+- [_](./db/db.vars/_.md)
+- [addName](./db/db.vars/addName.md)
+- [removeName](./db/db.vars/removeName.md)
+- [glvn](./db/db.vars/glvn.md)
+
 ### Functions:
 
 ### Properties:
+
+---
+
+[Back](./namespace.db.md)

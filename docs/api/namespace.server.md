@@ -41,3 +41,7 @@
 
 - [SIG_INT](server/server.SIG_INT.md)
 - [SIG_KIL](server/server.SIG_KIL.md)
+
+---
+
+[Back](./mind.md)

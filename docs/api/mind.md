@@ -37,7 +37,7 @@
 - [RESP3](namespace.RESP3.md)
 - [session](namespace.session.md)
 - db
-    - [globals](db/db.globals)
-    - [vars](db/db.vars)
+    - [globals](./namespace.db.globals.md)
+    - [vars](./namespace.db.vars.md)
 - dbms
 - ... {user-defined} 

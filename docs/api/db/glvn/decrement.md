@@ -27,9 +27,9 @@ Applies to:
 
 **Parameters**:
 
-| name          | data type | Optional | Description                                               |
-|---------------|-----------|----------|-----------------------------------------------------------|
-| `decrementBy` | number    | Yes      | The amount to  decreas the specified node. Defaults to 1. |
+| name          | data type | Optional | Description                                                |
+|---------------|-----------|----------|------------------------------------------------------------|
+| `decrementBy` | number    | Yes      | The amount to  decrease the specified node. Defaults to 1. |
 
 **Returns**:
 
@@ -43,11 +43,18 @@ It decrements the selected node. The node can be the root or a subscripted node.
 
 If the global or node don't exist or contain a string, whether empty or not, it will consider it a 0.
 
+If the parameter `decrementBy` is omitted, it will decrease by one.
+
+If the parameter `decrementBy` is a floating point number, then the subtraction will be executing using floating point
+notation.
+
 <br>
 
----
+
 
 ### EXAMPLES
+
+---
 
 Decrement a non existing node
 
@@ -67,7 +74,7 @@ ydb.disconnect()
 ````
 
 ````js
-res = 2
+res = -1
 ````
 
 <br>
@@ -92,7 +99,7 @@ ydb.disconnect()
 ````
 
 ````js
-res = 6
+res = -5
 ````
 
 <br>
@@ -109,8 +116,6 @@ const mind = new mind4yottadb
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await mind.db.globals.addName('testGlobal')
-
 await mind.db.globals.testGlobal._("sub1", "sub2").setValue(4)
 const res = await mind.db.globals.testGlobal._("sub1", "sub2").decrement(8)
 
@@ -122,6 +127,30 @@ ydb.disconnect()
 
 ````js
 res = -4
+````
+
+---
+
+Here we use subscripts to decrement an existing value using a floating point
+
+````js
+import mind4yottadb from 'mind4yottadb'
+
+const mind = new mind4yottadb
+
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+await mind.db.globals.testGlobal._("sub1", "sub2").setValue(-4)
+const res = await mind.db.globals.testGlobal._("sub1", "sub2").decrement(0.25)
+
+console.log(res)
+
+ydb.disconnect()
+
+````
+
+````js
+res = -4.25
 ````
 
 ---

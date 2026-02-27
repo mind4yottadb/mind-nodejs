@@ -44,7 +44,7 @@ class Fs {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -92,7 +92,7 @@ class Fs {
 
             that.reader(data => {
                 if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
-                    reject(new Error(data.slice(1)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -140,7 +140,7 @@ class Fs {
 
             that.reader(data => {
                 if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
-                    reject(new Error(data.slice(1)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -235,7 +235,7 @@ class Fs {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }

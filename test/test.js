@@ -6,7 +6,9 @@ const ydb = new mind
 
 const run = async () => {
     await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
-        uApi: {appName: 'test-obj-structure-13-23-3x-desc'},
+        useTls: true,
+        tlsRejectSelfSigned: false,
+        uApi: {appName: 'demo-banking'},
         db: {
             globals: [
                 'globalTest', 'myglobal2', 'stef'
@@ -61,7 +63,7 @@ const run = async () => {
     //console.log(ydb)
     //console.log(await ydb.process.syslogMessage('testing'))
 
-    console.dir(ydb, {depth: 2})
+    console.dir(ydb, {depth: 3})
 
     await ydb.db.vars.aaa.setValue(123)
     console.log(await ydb.db.vars.aaa.getValue())

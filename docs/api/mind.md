@@ -16,18 +16,18 @@
 
 ### Methods:
 
-- connect()
-- disconnect()
+- [connect()](mind/mind.connect.md)
+- [disconnect()](mind/mind.disconnect.md)
 
 ### Properties:
 
-- connected
-- loggedIn
+- [connected](mind/mind.connected.md)
+- [loggedIn](mind/mind.loggedIn.md)
 
 ### Events
 
-- error
-- disconnect
+- [socketError](mind/mind.on-error.md)
+- [disconnect](mind/mind.on-disconnect.md)
 
 ### Namespaces:
 
@@ -37,7 +37,7 @@
 - [RESP3](namespace.RESP3.md)
 - [session](namespace.session.md)
 - db
-    - globals
-    - vars
+    - [globals](db/db.globals)
+    - [vars](db/db.vars)
 - dbms
 - ... {user-defined} 

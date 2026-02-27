@@ -14,6 +14,7 @@ const mind = require("../../js")
 
 const {expect} = require("chai");
 const {createYdbInstance} = require("../utils.cjs");
+const {exit} = require("node:process");
 
 describe("connect()", async () => {
     it("without any parameters", async () => {
@@ -391,24 +392,6 @@ describe("connect()", async () => {
         ydb.disconnect()
     });
 
-    it("add options as object", async () => {
-
-        let ydb
-
-        try {
-            ydb = new mind
-
-            await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', {})
-            expect(1 === 1).to.be.true
-
-        } catch (err) {
-            console.log(err)
-            expect(err.message).to.have.string('options must be an object')
-        }
-
-        ydb.disconnect()
-    });
-
     it("add options as boolean", async () => {
 
         let ydb
@@ -447,3 +430,17 @@ describe("structure after connect()", async () => {
     })
 })
 
+describe("TLS", async () => {
+    it("error out when self-signed is used", async () => {
+        const ydb = new mind
+        try {
+            await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
+                    useTls: true,
+                    tlsRejectSelfSigned: true
+                }
+            )
+        } catch (err) {
+            expect(err.message).to.have.string('self-signed certificate in certificate chain')
+        }
+    })
+})

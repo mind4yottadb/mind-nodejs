@@ -47,13 +47,13 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
 
                 if (data.charAt(0) !== '#') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -82,13 +82,13 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
 
                 if (data.charAt(0) !== '#') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -125,7 +125,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
                 }
 
                 if (data.charAt(0) === '(') {
@@ -160,7 +160,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
                 }
 
                 if (data.charAt(0) === '(') {
@@ -195,7 +195,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -224,7 +224,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -288,7 +288,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
                 }
 
                 if (data.charAt(0) === '(') {
@@ -335,7 +335,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -407,7 +407,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -444,7 +444,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -491,7 +491,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-' || data.indexOf('+ok') === -1) {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -521,7 +521,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -551,7 +551,7 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -589,13 +589,13 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
 
                 if (data.charAt(0) !== ',' && data.charAt(0) !== ':') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -633,13 +633,13 @@ class Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
 
                 if (data.charAt(0) !== ',' && data.charAt(0) !== ':') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -648,9 +648,6 @@ class Glvn {
             })
         })
     }
-
-
-
 
     _init = function (obj) {
         Object.defineProperties(obj, {
@@ -669,5 +666,4 @@ class Glvn {
     }
 }
 
-module
-    .exports = Glvn
+module.exports = Glvn

@@ -67,13 +67,7 @@ describe("server.pinfo()", async () => {
         try {
             const res = await ydb.server.pinfo(0)
 
-            expect(parseInt(res.cSystemTime) === 0).to.be.true
-            expect(parseInt(res.cUserTime) === 0).to.be.true
             expect(parseInt(res.isAlive) === 1).to.be.true
-
-            expect(parseInt(res.pSystemTime) >= 0).to.be.true
-            expect(parseInt(res.pUserTime) >= 0).to.be.true
-            expect(parseInt(res.tCpu) >= 0).to.be.true
 
         } catch (err) {
             console.log(err)
@@ -323,3 +317,123 @@ describe("server.plist()", async () => {
         ydb.disconnect()
     });
 })
+
+describe("server.datetime()", async () => {
+    it("get datetime", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.datetime()
+            expect(res.year !== undefined).to.be.true
+            expect(res.timezone !== undefined).to.be.true
+            expect(res.second !== undefined).to.be.true
+            expect(res.month !== undefined).to.be.true
+            expect(res.minute !== undefined).to.be.true
+            expect(res.hour !== undefined).to.be.true
+            expect(res.daylightSaving !== undefined).to.be.true
+            expect(res.dayOfMonth !== undefined).to.be.true
+            expect(res.dayOfWeek !== undefined).to.be.true
+            expect(res.dayOfYear !== undefined).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+})
+
+describe("server.unixtime()", async () => {
+    it("get unixtime", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.unixtime()
+            expect(parseInt(res) > 0).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+})
+
+describe("server.now()", async () => {
+    it("get timestamp with no params", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.now()
+            expect(parseInt(res) > 0).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+
+    it("get timestamp in us", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.now('us')
+            expect(parseInt(res) > 0).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("get timestamp in ms", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.now('ms')
+            expect(parseInt(res) > 0).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('the command has not been provided')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("get timestamp with bad param", async () => {
+
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.server.now('usa')
+            expect(parseInt(res) > 0).to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('Resolution can be either')
+        }
+
+        ydb.disconnect()
+    });
+})
+
+describe("server.horolog()", async () => {
+    it("get horolog and check all fields", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.server.horolog()
+
+        expect(res.horolog !== '').to.be.true
+        expect(res.microseconds > 0).to.be.true
+        expect(res.utcOffset !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
+})
+

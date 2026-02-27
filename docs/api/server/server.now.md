@@ -12,7 +12,7 @@
 ###############################################################*/
 -->
 
-### process.now(resolution)
+### server.now(resolution)
 
 ---
 
@@ -51,7 +51,7 @@ const ydb = new mind
 
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const now = ydb.process.now()
+const now = ydb.server.now()
 console.log(now)
 
 ydb.disconnect()
@@ -94,4 +94,4 @@ now = 1769615790021047
 
 ---
 
-[Back](../namespace.process.md)
+[Back](../namespace.server.md)

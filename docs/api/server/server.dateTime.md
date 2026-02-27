@@ -12,7 +12,7 @@
 ###############################################################*/
 -->
 
-### process.dateTime()
+### server.dateTime()
 
 ---
 
@@ -63,7 +63,7 @@ const ydb = new mind
 
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const datetime = ydb.process.datetime()
+const datetime = ydb.server.datetime()
 console.log(datetime)
 
 ydb.disconnect()
@@ -94,4 +94,4 @@ memUsage = {
 
 ---
 
-[Back](../namespace.process.md)
+[Back](../namespace.server.md)

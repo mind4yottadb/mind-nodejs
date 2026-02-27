@@ -15,10 +15,6 @@ module.exports = {
         return (typeof param === type)
     },
 
-    validateEmptyField: value => {
-
-    },
-
     validateConnectOptions: options => {
 
         if (typeof options !== 'object') {
@@ -31,6 +27,14 @@ module.exports = {
 
         if (Object.keys(options).length === 0) {
             return ''
+        }
+
+        if (options.useTls && typeof options.useTls !== 'boolean') {
+            return 'options.useTls must be a boolean'
+        }
+
+        if (options.tlsRejectSelfSigned && typeof options.tlsRejectSelfSigned !== 'boolean') {
+            return 'options.tlsRejectSelfSigned must be a boolean'
         }
 
         if (options.db && typeof options.db !== 'object') {

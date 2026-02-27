@@ -91,7 +91,7 @@ class RESP3 {
                     return JSON.parse(str.slice(6 + str.indexOf('\r\n'), -2))
 
                 default :
-                    return this.simpleError('INVALID RESP3 datatype')
+                    return this.simpleError('+INVALID RESP3 datatype')
             }
         }
     }

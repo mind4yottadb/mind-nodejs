@@ -56,9 +56,10 @@ itself according.
 
 ````js
 const options = {
+    useTls: true,
+    tlsRejectSelfSigned: false,
     uApi: {appName: 'myApp'},
     db: {
-        vars: [],
         globals: []
     },
     connectTimeout: 0
@@ -66,7 +67,10 @@ const options = {
 
 ````
 
-The `db.vars` is an array of strings, where each string represent a variable name to use in your code.
+When `useTls` is true, TLS will be used. If missing or false, TLS will NOT be used.
+
+When `tlsRejectSelfSigned` is false, self-signed certificates will be accepted. If missing or set to true, self-signed
+certificates will be rejected.
 
 The `db.globals` is an array of strings, where each string represents a global you want to use in your code.
 
@@ -127,7 +131,8 @@ import mind from 'mind4yottadb'
 const ydb = new mind
 
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', {
-    connectTimeout: 12000,
+    useTls: true,
+    tlsRejectSelfSigned: false,
     app: {
         globals: [
             'customers',

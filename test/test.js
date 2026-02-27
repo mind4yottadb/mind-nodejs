@@ -60,7 +60,14 @@ const run = async () => {
         }
     }
 
-    //console.log(ydb)
+    await ydb.db.globals.addName('testGlobal')
+
+    await ydb.db.globals.testGlobal._("sub1", "sub2")
+        .setValue(4)
+    const res2 = await ydb.db.globals.testGlobal._("sub1", "sub2")
+        .decrement(8)
+
+    console.log(res2)
     //console.log(await ydb.process.syslogMessage('testing'))
 
     console.dir(ydb, {depth: 3})

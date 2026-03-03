@@ -12,16 +12,14 @@
 ###############################################################*/
 -->
 
-### .hasValue()
-
-### _(...vars).hasValue()
-
----
+### hasValue()
 
 Applies to:
 
-- globals
-- vars
+- [Globals](../../namespace.db.globals.md)
+- [Vars](../../namespace.db.vars.md)
+
+---
 
 **Type**: method
 
@@ -34,59 +32,69 @@ Applies to:
 
 **Returns**:
 
-`Promise<boolean>`
+`Promise<BOOLEAN>`
 
 ---
 
-Appends the string in `data` to the file specified in `filename`.
-
-If `filename` is not found or another error occurs, it will throw an error.
+Returns the boolean `true` is the selected node has a value.
 
 <br>
-
----
 
 ### EXAMPLES
 
+---
+
+Inspect a node with value
+
 ````js
-import mind from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mind4yottadb
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await ydb.fs.appendFile('/tmp/testfile.txt', 'add another line\n')
+await mind.db.globals.addName('testGbl')
+mind.db.globals.testGbl._("subnode").setValue("dummy")
+const res = await mind.db.globals._("subnode").testGbl.hasValue()
+
+console.log(res)
 
 ydb.disconnect()
 
+````
+
+````js
+res = true
 ````
 
 <br>
 
-Using error handling:
+---
+
+Inspect a node without value
 
 ````js
-import mind from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mind4yottadb
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-try {
-    await ydb.fs.readFile('/tmp/IdontExist', 'add another line\n')
+await mind.db.globals.addName('testGbl')
+const res = await mind.db.globals.testGbl._("new-subnode").hasValue()
 
-} catch (err) {
-    console.log(err)
-}
-
-// or
-
-await ydb.fs.readFile('/tmp/IdontExist', 'add another line\n').catch((err) => console.log(err))
+console.log(res)
 
 ydb.disconnect()
 
 ````
 
+````js
+res = false
+````
+
+<br>
+
 ---
 
-[Back](../../namespace.fs.md)
+[Back](../glvn)

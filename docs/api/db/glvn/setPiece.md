@@ -57,7 +57,7 @@ needed.
 
 ---
 
-get the first piece
+set the first piece
 
 ````js
 import mind4yottadb from 'mind4yottadb'
@@ -67,8 +67,8 @@ const mind = new mind4yottadb
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 await mind.db.globals.addName('testGlobal')
-await mind.db.globals.testGlobal.setValue('aaa^bbb^ccc')
-const res = await mind.db.globals.testGlobal.getPiece()
+await mind.db.globals.testGlobal.setPiece('myString')
+const res = await mind.db.globals.testGlobal.getValue()
 console.log(res)
 
 ydb.disconnect()
@@ -76,14 +76,14 @@ ydb.disconnect()
 ````
 
 ````js
-res = 'aaa'
+res = 'myString'
 ````
 
 <br>
 
 ---
 
-get the second piece
+set the 5th piece
 
 ````js
 import mind4yottadb from 'mind4yottadb'
@@ -93,8 +93,8 @@ const mind = new mind4yottadb
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 await mind.db.globals.addName('testGlobal')
-await mind.db.globals.testGlobal.setValue('aaa^bbb^ccc')
-const res = await mind.db.globals.testGlobal.getPiece('^', 2)
+await mind.db.globals.testGlobal.setPiece('myString', '^', 5)
+const res = await mind.db.globals.testGlobal.getValue()
 console.log(res)
 
 ydb.disconnect()
@@ -102,14 +102,14 @@ ydb.disconnect()
 ````
 
 ````js
-res = 'bbb'
+res = '^^^^myString'
 ````
 
 <br>
 
 ---
 
-get the second, third and fourth pieces
+set multiple pieces in one go
 
 ````js
 import mind4yottadb from 'mind4yottadb'
@@ -119,8 +119,8 @@ const mind = new mind4yottadb
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 await mind.db.globals.addName('testGlobal')
-await mind.db.globals.testGlobal.setValue('aaa^bbb^ccc^ddd^eee^fff')
-const res = await mind.db.globals.testGlobal.getPiece('^', 2, 4)
+await mind.db.globals.testGlobal.setPiece('myString^myString2^myString3', '^', 8, 10)
+const res = await mind.db.globals.testGlobal.getValue()
 console.log(res)
 
 ydb.disconnect()
@@ -128,38 +128,11 @@ ydb.disconnect()
 ````
 
 ````js
-res = 'bbb^ccc^ddd'
+res = '^^^^^^^myString^myString2^myString3'
 ````
 
 <br>
 
 ---
-
-get a single number
-
-````js
-import mind4yottadb from 'mind4yottadb'
-
-const mind = new mind4yottadb
-
-await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
-
-await mind.db.globals.addName('testGlobal')
-await mind.db.globals.testGlobal.setValue('1^2^3^4^5')
-const res = await mind.db.globals.testGlobal.getPiece('^', 3)
-console.log(res)
-
-ydb.disconnect()
-
-````
-
-````js
-res = 3
-````
-
-<br>
-
----
-
 
 [Back](../glvn)

@@ -54,7 +54,7 @@ const mind = new mind4yottadb
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 await mind.db.globals.addName('testGbl')
-mind.db.globals.testGbl._("subnode").setValue("dummy")
+await mind.db.globals.testGbl._("subnode").setValue("dummy")
 const res = await mind.db.globals.testGbl.hasNodes()
 
 console.log(res)
@@ -81,7 +81,7 @@ const mind = new mind4yottadb
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 await mind.db.globals.addName('testGbl')
-mind.db.globals.testGbl._("subnode").setValue("dummy")
+await mind.db.globals.testGbl._("subnode").setValue("dummy")
 const res = await mind.db.globals.testGbl._("subnode").hasNodes()
 
 console.log(res)

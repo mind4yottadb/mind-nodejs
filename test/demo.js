@@ -28,10 +28,25 @@ const run = async () => {
         }
     }
 
-    await mind.db.globals.addName('testGlobal')
-    await mind.db.globals.testGlobal.setValue('1^2^3^4^5')
-    const res = await mind.db.globals.testGlobal.getPiece('^', 3)
-    console.log(res)
+    await mind.db.globals.addName('testGbl')
+    await mind.db.globals.testGbl._("subnode1").setValue("dummy")
+    await mind.db.globals.testGbl._("subnode1", "subnode2").setValue("dummy")
+    await mind.db.globals.testGbl._("subnode2").setValue("dummy")
+    await mind.db.globals.testGbl._('subnode1').killValue()
+
+    try {
+        const res1 = await mind.db.globals.testGbl._("subnode1", "subnode2").readValue()
+        console.log(res1)
+
+        const res2 = await mind.db.globals.testGbl._("subnode1").readValue()
+        console.log(res2)
+
+    } catch (err) {
+        console.error(err.message)
+    }
+
+
+
 
     try {
         //const res = await mind.bhas.bhasTest(myObj, 'the')

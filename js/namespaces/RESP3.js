@@ -88,7 +88,7 @@ class RESP3 {
                     return this.boolean(str)
 
                 case '=':
-                    if (returnDatatype === 'obj') {
+                    if (returnDatatype === 'object') {
                         return JSON.parse(str.slice(6 + str.indexOf('\r\n'), -2))
 
                     } else {

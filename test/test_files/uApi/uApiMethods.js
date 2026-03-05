@@ -132,6 +132,19 @@ describe("uApi methods: returns", async () => {
 
         ydb.disconnect()
     });
+
+    it("returns json", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const ret = await ydb.level_1.level_1_1.method_returns_json({
+            test: 23,
+            test2: 'hey'
+        })
+
+        expect(ret).to.have.string('{"test":23,"test2":"hey"}')
+
+        ydb.disconnect()
+    });
 })
 
 describe("uApi methods: parameters execution", async () => {
@@ -142,6 +155,16 @@ describe("uApi methods: parameters execution", async () => {
 
         expect(typeof res === 'object').to.be.true
         expect(res.param1).to.have.string('this is the string')
+
+        ydb.disconnect()
+    });
+
+    it("1 param json", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const ret = await ydb.level_1.level_1_1.method_par_json_returns_json('{"test":23,"test2":"hey"}')
+
+        expect(ret).to.have.string('{"test":23,"test2":"hey"}')
 
         ydb.disconnect()
     });
@@ -463,3 +486,7 @@ describe("uApi methods: parameters with varByRef", async () => {
         ydb.disconnect()
     });
 })
+
+describe("uApi methods: returns json", async () => {
+})
+

@@ -128,7 +128,6 @@ describe("uApi methods: test existing function", async () => {
 
         const res = await ydb.level_1.getFileProps('/opt/yottadb')
 
-        console.log(res)
         expect(res.accessRightsOctal === 16877).to.be.true
 
         ydb.disconnect()

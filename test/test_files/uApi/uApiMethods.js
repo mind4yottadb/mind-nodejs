@@ -419,3 +419,47 @@ describe("uApi methods: parameters checking: datatype", async () => {
         ydb.disconnect()
     });
 })
+
+describe("uApi methods: parameters with varByRef", async () => {
+    it("2 param: varByRef and string: different datatype", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        try {
+            await ydb.level_1.level_1_1.method_var_by_ref(12, 'bySubscript')
+
+        } catch (err) {
+            expect(err.message).have.string('Parameter 1: "outVar" must be a string populated with the var name.')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("2 param: varByRef and string: not existing var", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        try {
+            await ydb.level_1.level_1_1.method_var_by_ref('myVar', 'bySubscript')
+
+        } catch (err) {
+            expect(err.message).have.string('Parameter 1: "outVar" var: "myVar" was not declared')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("2 param: varByRef and string: ok", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        try {
+            await ydb.level_1.level_1_1.method_var_by_ref('var1', 'bySubscript')
+            const res = await ydb.db.vars.var1._('bySubscript').getValue()
+
+            expect(res).to.have.string('ok')
+
+        } catch (err) {
+            expect(err.message).have.string('Parameter 1: "outVar" var: "myVar" was not declared')
+        }
+
+        ydb.disconnect()
+    });
+})

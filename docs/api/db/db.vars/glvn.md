@@ -26,7 +26,7 @@
 ### Functions:
 
 - [increment](../glvn/increment.md)
-- [increment](../glvn/increment.md)
+- [decrement](../glvn/decrement.md)
 - [getJSON](../glvn/getJSON.md)
 - [getObject](../glvn/getObject.md)
 - [getValue](../glvn/getValue.md)

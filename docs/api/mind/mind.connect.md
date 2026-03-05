@@ -137,8 +137,8 @@ await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', {
         globals: [
             'customers',
             'orders',
-            'orderLines', +
-                'suppliers'
+            'orderLines', 
+            'suppliers'
         ]
     }
 })

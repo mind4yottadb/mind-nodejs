@@ -26,7 +26,7 @@
 
 ### Events
 
-- [socketError](mind/mind.on-error.md)
+- [socketError](mind/mind.on-socket-error.md)
 - [disconnect](mind/mind.on-disconnect.md)
 
 ### Namespaces:

@@ -196,6 +196,30 @@ describe("uApi object structure: tree", async () => {
 
         ydb.disconnect()
     });
+
+    it("4 multi-levels", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-4x-desc')
+
+        expect(ydb.level_1 !== undefined).to.be.true
+        expect(ydb.level_1.method_1 !== undefined).to.be.true
+        expect(ydb.level_1.prop1 !== undefined).to.be.true
+
+        expect(ydb.level_1.level_1_1 !== undefined).to.be.true
+        expect(ydb.level_1.level_1_2 !== undefined).to.be.true
+        expect(ydb.level_1.level_1_3 !== undefined).to.be.true
+
+        expect(ydb.level_1.level_1_1.level_1_1_1 !== undefined).to.be.true
+        expect(ydb.level_1.level_1_1.level_1_1_2 !== undefined).to.be.true
+        expect(ydb.level_1.level_1_1.level_1_1_3 !== undefined).to.be.true
+
+        expect(ydb.level_1.level_1_2.level_1_2_1 !== undefined).to.be.true
+        expect(ydb.level_1.level_1_2.level_1_2_2 !== undefined).to.be.true
+        expect(ydb.level_1.level_1_2.level_1_2_3 !== undefined).to.be.true
+
+        expect(ydb.level_1.level_1_1.level_1_1_1.level_1_1_1_1 !== undefined).to.be.true
+
+        ydb.disconnect()
+    });
 })
 
 describe("uApi object structure: methods", async () => {
@@ -274,6 +298,14 @@ describe("uApi object structure: method description ", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 
         expect(ydb.level_1.level_1_1.level_1_1_1.method_1_description).to.have.string('method_1 description')
+
+        ydb.disconnect()
+    });
+
+    it("4th level", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-4x-desc')
+
+        expect(ydb.level_1.level_1_1.level_1_1_1.level_1_1_1_1.method_1111_description).to.have.string('method_1111 description')
 
         ydb.disconnect()
     });

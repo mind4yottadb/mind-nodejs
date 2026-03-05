@@ -209,6 +209,58 @@ module.exports = {
                                     })
                                 })
                             }
+
+                            // create children
+                            if (child2.children && child2.children.length > 0) {
+                                child2.children.forEach(child3 => {
+                                    that[namespace.name][child.name][child2.name][child3.name] = {}
+                                    appendToObject(that[namespace.name][child.name][child2.name][child3.name], that)
+
+                                    // create methods if needed
+                                    if (child3.methods && child3.methods.length > 0) {
+                                        child3.methods.forEach(fn => {
+                                            that[namespace.name][child.name][child2.name][child3.name][fn.name] = function (...args) {
+                                                return uApi.method(that[namespace.name][child.name][child2.name][child3.name].objRoot, reader, writer, fn, namespace.name + "." + child.name + '.' + child2.name + '.' + child3.name, args)
+                                            }
+
+                                            if (fn.showSignature && fn.showSignature === true) {
+                                                Object.defineProperties(that[namespace.name][child.name][child2.name][child3.name], {
+                                                    [fn.name + '_signature']: {
+                                                        value: buildParametersText(fn),
+                                                        enumerable: true,
+                                                        configurable: false,
+                                                        writable: false,
+                                                    },
+                                                })
+                                            }
+
+                                            if (fn.description && fn.description.length > 0 && fn.showDescription && fn.showDescription === true) {
+                                                Object.defineProperties(that[namespace.name][child.name][child2.name][child3.name], {
+                                                    [fn.name + '_description']: {
+                                                        value: fn.description,
+                                                        enumerable: true,
+                                                        configurable: false,
+                                                        writable: false,
+                                                    },
+                                                })
+                                            }
+                                        })
+                                    }
+
+                                    // create properties if needed
+                                    if (child3.properties && child3.properties.length > 0) {
+                                        child3.properties.forEach(fn => {
+                                            Object.defineProperties(that[namespace.name][child.name][child2.name][child3.name], {
+                                                [fn.name]: {
+                                                    value: fn.value,
+                                                    enumerable: true,
+                                                    writable: false
+                                                },
+                                            })
+                                        })
+                                    }
+                                })
+                            }
                         })
                     }
                 })

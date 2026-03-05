@@ -75,7 +75,7 @@ const funct = module.exports = {
 
                 // check whether it needs to return a value or just resolve()
                 if (fn.returns && typeof fn.returns === 'string') {
-                    resolve(RESP3.parse.returns(data))
+                    resolve(RESP3.parse.returns(data, fn.returns))
 
                 } else resolve()
             })
@@ -119,6 +119,14 @@ const parseParams = function (fn, args, that) {
 
                     if (found === false) {
                         throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" var: "' + args[ix] + '" was not declared.')
+                    }
+
+                    break
+                }
+
+                case 'json': {
+                    if (typeof args[ix] !== 'string') {
+                        throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be a string.')
                     }
 
                     break

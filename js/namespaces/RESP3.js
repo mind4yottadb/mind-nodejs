@@ -65,7 +65,7 @@ class RESP3 {
             return this.extractToken(str)
         },
 
-        returns: function (str) {
+        returns: function (str, returnDatatype) {
             const type = str.charAt(0)
 
             switch (type) {
@@ -88,7 +88,12 @@ class RESP3 {
                     return this.boolean(str)
 
                 case '=':
-                    return JSON.parse(str.slice(6 + str.indexOf('\r\n'), -2))
+                    if (returnDatatype === 'obj') {
+                        return JSON.parse(str.slice(6 + str.indexOf('\r\n'), -2))
+
+                    } else {
+                        return str.slice(6 + str.indexOf('\r\n'), -2)
+                    }
 
                 default :
                     return this.simpleError('+INVALID RESP3 datatype')

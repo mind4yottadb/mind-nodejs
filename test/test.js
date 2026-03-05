@@ -8,7 +8,7 @@ const run = async () => {
     await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
         useTls: true,
         tlsRejectSelfSigned: false,
-        uApi: {appName: 'demo-banking'},
+        uApi: {appName: 'bhaskar'},
         db: {
             globals: [
                 'globalTest', 'myglobal2', 'stef'
@@ -60,42 +60,13 @@ const run = async () => {
         }
     }
 
-    await ydb.db.globals.addName('testGlobal')
 
-    await ydb.db.globals.testGlobal._("sub1", "sub2")
-        .setValue(4)
-    const res2 = await ydb.db.globals.testGlobal._("sub1", "sub2")
-        .decrement(8)
-
-    console.log(res2)
-    //console.log(await ydb.process.syslogMessage('testing'))
-
-    console.dir(ydb, {depth: 3})
-
-    await ydb.db.vars.aaa.setValue(123)
-    console.log(await ydb.db.vars.aaa.getValue())
+    const ret = await ydb.bhas.bhasTest(JSON.stringify(json), 'this is a string')
+    console.log(ret)
 
 
     exit()
 
-
-    console.log(await ydb.level_1.method_1().catch((err) => {
-        console.log(err.message)
-    }))
-    /*
-    console.log(await ydb.banking.second("/test", 44).catch((err) => {
-        console.log(err.message)
-    }))
-
-    console.log(await ydb.banking.interest.level3.method3({
-        field1: 123,
-        field2: [
-            'test1', 'test2'
-        ]
-    }).catch((err) => {
-        console.log(err.message)
-    }))
-     */
 
     exit()
     await ydb.process.groupLocks()

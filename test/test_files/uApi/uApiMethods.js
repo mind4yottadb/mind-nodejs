@@ -463,3 +463,24 @@ describe("uApi methods: parameters with varByRef", async () => {
         ydb.disconnect()
     });
 })
+
+describe("uApi methods: returns json", async () => {
+    it("1 param: obj", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        try {
+            const ret = await ydb.level_1.level_1_1.method_returns_json({
+                test: 23,
+                test2: 'hey'
+            })
+
+            expect(ret).to.have.string('{"test":23,"test2":"hey"}')
+
+        } catch (err) {
+            expect(err.message).have.string('Parameter 1: "outVar" must be a string populated with the var name.')
+        }
+
+        ydb.disconnect()
+    });
+
+})

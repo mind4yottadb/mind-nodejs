@@ -430,7 +430,7 @@ describe("fs.readTree()", async () => {
 
     it("when path is valid and mask is empty", async () => {
         const ydb = await createYdbInstance()
-        const path = '/opt/mind/'
+        const path = '/opt/yottadb/current/'
 
         try {
             const res = await ydb.fs.readTree(path)
@@ -446,7 +446,7 @@ describe("fs.readTree()", async () => {
 
     it("when path is valid and mask is *", async () => {
         const ydb = await createYdbInstance()
-        const path = '/opt/mind/'
+        const path = '/opt/yottadb/current/'
         const mask = "*"
 
         try {
@@ -463,7 +463,7 @@ describe("fs.readTree()", async () => {
 
     it("when path is valid and mask is *.*", async () => {
         const ydb = await createYdbInstance()
-        const path = '/opt/mind/'
+        const path = '/opt/yottadb/current/'
         const mask = "*.*"
 
         try {
@@ -480,7 +480,7 @@ describe("fs.readTree()", async () => {
 
     it("when path is valid and mask is *.m", async () => {
         const ydb = await createYdbInstance()
-        const path = '/opt/mind/'
+        const path = '/opt/yottadb/current/'
         const mask = "*.m"
 
         try {

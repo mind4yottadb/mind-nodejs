@@ -210,6 +210,7 @@ describe("process.spawn()", async () => {
             }
 
         } catch (err) {
+            console.log(err.message)
             expect(err.message).to.have.string('the command has not been provided')
         }
 

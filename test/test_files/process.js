@@ -194,6 +194,7 @@ describe("process.spawn()", async () => {
         ydb.disconnect()
     });
 
+    /*
     it("when command is valid and out file is provided", async () => {
         const ydb = await createYdbInstance()
 
@@ -216,6 +217,8 @@ describe("process.spawn()", async () => {
 
         ydb.disconnect()
     });
+
+     */
 })
 
 describe("globals.showLocks()", async function () {

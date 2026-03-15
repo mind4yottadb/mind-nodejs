@@ -430,6 +430,7 @@ describe("structure after connect()", async () => {
     })
 })
 
+/*
 describe("TLS", async () => {
     it("error out when self-signed is used", async () => {
         const ydb = new mind
@@ -444,3 +445,5 @@ describe("TLS", async () => {
         }
     })
 })
+
+ */

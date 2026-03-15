@@ -1,7 +1,7 @@
 {
-  "name": "mind-4-yottadb",
+  "name": "mind4yottadb",
     "version": "0.10.0",
-  "description": "node.js driver for MIND for YottaDB",
+  "description": "MIND4YOTTADB node.js driver ",
   "main": "js/index.js",
   "type": "commonjs",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/slalli/mind-drivers-nodejs.git"
+    "url": "git+https://github.com/mind4yottadb/mind-nodejs.git"
   },
   "devDependencies": {
     "chai": "^4.3.4",
@@ -23,11 +23,11 @@
   "author": {
     "name": "Stefano Lalli",
     "email": "stefano@dnasoft.nl",
-    "url": "dnasoft.nl"
+    "url": "www.dnasoft.nl"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/slalli/mind-drivers-nodejs/issues"
+    "url": "https://github.com/mind4yottadb/mind-nodejs/issues"
   },
-  "homepage": "https://github.com/slalli/mind-drivers-nodejs#readme"
+  "homepage": "https://github.com/mind4yottadb/mind-nodejs#readme"
 }

@@ -1,0 +1,66 @@
+[
+    {
+        "type": "folder",
+        "caption": "API reference",
+        "mdFile": "",
+        "icon": "",
+        "children": [
+            {
+                "type": "folder",
+                "caption": "session",
+                "mdFile": "",
+                "icon": "",
+                "children": [
+                ]
+            },
+            {
+                "type": "folder",
+                "caption": "fs",
+                "mdFile": "",
+                "icon": "",
+                "children": [
+                ]
+            },
+            {
+                "type": "folder",
+                "caption": "process",
+                "mdFile": "",
+                "icon": "",
+                "children": [
+                ]
+            },
+            {
+                "type": "folder",
+                "caption": "session",
+                "mdFile": "",
+                "icon": "",
+                "children": [
+                ]
+            },
+            {
+                "type": "folder",
+                "caption": "server",
+                "mdFile": "",
+                "icon": "",
+                "children": [
+                ]
+            },
+            {
+                "type": "folder",
+                "caption": "db",
+                "mdFile": "",
+                "icon": "",
+                "children": [
+                ]
+            },
+            {
+                "type": "folder",
+                "caption": "dbms",
+                "mdFile": "",
+                "icon": "",
+                "children": [
+                ]
+            }
+        ]
+    }
+]

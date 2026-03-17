@@ -16,7 +16,7 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**: yes, returns a Promise
 

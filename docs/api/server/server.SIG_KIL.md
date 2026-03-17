@@ -16,7 +16,7 @@
 
 ---
 
-**Type**: constant
+**Type**: property
 
 **Async**: no
 

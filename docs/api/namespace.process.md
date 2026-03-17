@@ -29,7 +29,6 @@
 ### Properties:
 
 - [pid](process/process.pid.md)
-- [env](process/process.env.md)
 
 ---
 

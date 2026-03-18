@@ -2,101 +2,85 @@
     "baseDir": "",
     "data": [
         {
-            "type": "folder",
-            "caption": "API reference",
-            "mdFile": "",
+            "text": "API reference",
+            "data": "",
             "icon": "",
             "children": [
                 {
-                    "type": "folder",
-                    "caption": "session",
-                    "mdFile": "api/namespace.session.md",
+                    "text": "session",
+                    "data": "api/namespace.session.md",
                     "icon": "",
                     "children": [
                     ]
                 },
                 {
-                    "type": "folder",
-                    "caption": "fs",
-                    "mdFile": "api/namespace.fs.md",
+                    "text": "fs",
+                    "data": "api/namespace.fs.md",
                     "icon": "",
                     "children": [
                         {
-                            "type": "folder",
-                            "caption": "Methods",
-                            "mdFile": "",
+                            "text": "Methods",
+                            "data": "",
                             "icon": "",
                             "children": [
                                 {
-                                    "type": "leaf",
-                                    "caption": "appendFile()",
-                                    "mdFile": "api/fs/fs.appendFile.md",
+                                    "text": "appendFile()",
+                                    "data": "api/fs/fs.appendFile.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "copyFile()",
-                                    "mdFile": "api/fs/fs.copyFile.md",
+                                    "text": "copyFile()",
+                                    "data": "api/fs/fs.copyFile.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "expandPath()",
-                                    "mdFile": "api/fs/fs.expandPath.md",
+                                    "text": "expandPath()",
+                                    "data": "api/fs/fs.expandPath.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "isDir()",
-                                    "mdFile": "api/fs/fs.isDir.md",
+                                    "text": "isDir()",
+                                    "data": "api/fs/fs.isDir.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "isFile()",
-                                    "mdFile": "api/fs/fs.isFile.md",
+                                    "text": "isFile()",
+                                    "data": "api/fs/fs.isFile.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "readFile()",
-                                    "mdFile": "api/fs/fs.readFile.md",
+                                    "text": "readFile()",
+                                    "data": "api/fs/fs.readFile.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "readTree()",
-                                    "mdFile": "api/fs/fs.readTree.md",
+                                    "text": "readTree()",
+                                    "data": "api/fs/fs.readTree.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "removeFile()",
-                                    "mdFile": "api/fs/fs.removeFile.md",
+                                    "text": "removeFile()",
+                                    "data": "api/fs/fs.removeFile.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "renameFile()",
-                                    "mdFile": "api/fs/fs.renameFile.md",
+                                    "text": "renameFile()",
+                                    "data": "api/fs/fs.renameFile.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "rmdir()",
-                                    "mdFile": "api/fs/fs.rmdir.md",
+                                    "text": "rmdir()",
+                                    "data": "api/fs/fs.rmdir.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "stat()",
-                                    "mdFile": "api/fs/fs.stat.md",
+                                    "text": "stat()",
+                                    "data": "api/fs/fs.stat.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "writeFile()",
-                                    "mdFile": "api/fs/fs.writeFile.md",
+                                    "text": "writeFile()",
+                                    "data": "api/fs/fs.writeFile.md",
                                     "icon": ""
                                 }
                             ]
@@ -104,101 +88,85 @@
                     ]
                 },
                 {
-                    "type": "folder",
-                    "caption": "process",
-                    "mdFile": "api/namespace.process.md",
+                    "text": "process",
+                    "data": "api/namespace.process.md",
                     "icon": "",
                     "children": [
                         {
-                            "type": "folder",
-                            "caption": "Methods",
-                            "mdFile": "",
+                            "text": "Methods",
+                            "data": "",
                             "icon": "",
                             "children": [
                                 {
-                                    "type": "leaf",
-                                    "caption": "clearLocksGroup()",
-                                    "mdFile": "api/process/process.clearLocksGroup.md",
+                                    "text": "clearLocksGroup()",
+                                    "data": "api/process/process.clearLocksGroup.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "commitLocks()",
-                                    "mdFile": "api/process/process.commitLocks.md",
+                                    "text": "commitLocks()",
+                                    "data": "api/process/process.commitLocks.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "cwdGet()",
-                                    "mdFile": "api/process/process.cwdGet.md",
+                                    "text": "cwdGet()",
+                                    "data": "api/process/process.cwdGet.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "cwdSet()",
-                                    "mdFile": "api/process/process.cwdSet.md",
+                                    "text": "cwdSet()",
+                                    "data": "api/process/process.cwdSet.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "exec()",
-                                    "mdFile": "api/process/process.exec.md",
+                                    "text": "exec()",
+                                    "data": "api/process/process.exec.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "getEnvVars()",
-                                    "mdFile": "api/process/process.getEnvVars.md",
+                                    "text": "getEnvVars()",
+                                    "data": "api/process/process.getEnvVars.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "groupLocks()",
-                                    "mdFile": "api/process/process.groupLocks.md",
+                                    "text": "groupLocks()",
+                                    "data": "api/process/process.groupLocks.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "memUsage()",
-                                    "mdFile": "api/process/process.memUsage.md",
+                                    "text": "memUsage()",
+                                    "data": "api/process/process.memUsage.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "removeAllLocks()",
-                                    "mdFile": "api/process/process.removeAllLocks.md",
+                                    "text": "removeAllLocks()",
+                                    "data": "api/process/process.removeAllLocks.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "showLocks()",
-                                    "mdFile": "api/process/process.showLocks.md",
+                                    "text": "showLocks()",
+                                    "data": "api/process/process.showLocks.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "spawn()",
-                                    "mdFile": "api/process/process.spawn.md",
+                                    "text": "spawn()",
+                                    "data": "api/process/process.spawn.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "syslogMessage()",
-                                    "mdFile": "api/process/process.syslogMessage.md",
+                                    "text": "syslogMessage()",
+                                    "data": "api/process/process.syslogMessage.md",
                                     "icon": ""
                                 }
                             ]
                         },
                         {
-                            "type": "folder",
-                            "caption": "Properties",
-                            "mdFile": "",
+                            "text": "Properties",
+                            "data": "",
                             "icon": "",
                             "children": [
                                 {
-                                    "type": "leaf",
-                                    "caption": "pid",
-                                    "mdFile": "api/fs/process.pid.md",
+                                    "text": "pid",
+                                    "data": "api/fs/process.pid.md",
                                     "icon": ""
                                 }
                             ]
@@ -206,141 +174,119 @@
                     ]
                 },
                 {
-                    "type": "folder",
-                    "caption": "session",
-                    "mdFile": "",
+                    "text": "session",
+                    "data": "",
                     "icon": "",
                     "children": [
                     ]
                 },
                 {
-                    "type": "folder",
-                    "caption": "server",
-                    "mdFile": "api/namespace.server.md",
+                    "text": "server",
+                    "data": "api/namespace.server.md",
                     "icon": "",
                     "children": [
                         {
-                            "type": "folder",
-                            "caption": "Methods",
-                            "mdFile": "",
+                            "text": "Methods",
+                            "data": "",
                             "icon": "",
                             "children": [
                                 {
-                                    "type": "leaf",
-                                    "caption": "dateTime()",
-                                    "mdFile": "api/server/server.dateTime.md",
+                                    "text": "dateTime()",
+                                    "data": "api/server/server.dateTime.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "GUID()",
-                                    "mdFile": "api/server/server.GUID.md",
+                                    "text": "GUID()",
+                                    "data": "api/server/server.GUID.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "horolog()",
-                                    "mdFile": "api/server/server.horolog.md",
+                                    "text": "horolog()",
+                                    "data": "api/server/server.horolog.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "kill()",
-                                    "mdFile": "api/server/server.kill.md",
+                                    "text": "kill()",
+                                    "data": "api/server/server.kill.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "listSessions()",
-                                    "mdFile": "api/server/server.listSessions.md",
+                                    "text": "listSessions()",
+                                    "data": "api/server/server.listSessions.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "now()",
-                                    "mdFile": "api/server/server.now.md",
+                                    "text": "now()",
+                                    "data": "api/server/server.now.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "pinfo()",
-                                    "mdFile": "api/server/server.pinfo.md",
+                                    "text": "pinfo()",
+                                    "data": "api/server/server.pinfo.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "plist()",
-                                    "mdFile": "api/server/server.plist.md",
+                                    "text": "plist()",
+                                    "data": "api/server/server.plist.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "stats()",
-                                    "mdFile": "api/server/server.stats.md",
+                                    "text": "stats()",
+                                    "data": "api/server/server.stats.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "unixtime()",
-                                    "mdFile": "api/server/server.unixtime.md",
+                                    "text": "unixtime()",
+                                    "data": "api/server/server.unixtime.md",
                                     "icon": ""
                                 }
                             ]
                         },
                         {
-                            "type": "folder",
-                            "caption": "Properties",
-                            "mdFile": "",
+                            "text": "Properties",
+                            "data": "",
                             "icon": "",
                             "children": [
                                 {
-                                    "type": "leaf",
-                                    "caption": "architecture",
-                                    "mdFile": "api/server/server.architecture.md",
+                                    "text": "architecture",
+                                    "data": "api/server/server.architecture.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "hostName",
-                                    "mdFile": "api/server/server.hostName.md",
+                                    "text": "hostName",
+                                    "data": "api/server/server.hostName.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "mindVersion",
-                                    "mdFile": "api/server/server.mindVersion.md",
+                                    "text": "mindVersion",
+                                    "data": "api/server/server.mindVersion.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "platform",
-                                    "mdFile": "api/server/server.platform.md",
+                                    "text": "platform",
+                                    "data": "api/server/server.platform.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "ydbVersion",
-                                    "mdFile": "api/server/server.ydbVersion.md",
+                                    "text": "ydbVersion",
+                                    "data": "api/server/server.ydbVersion.md",
                                     "icon": ""
                                 }
                             ]
                         },
                         {
-                            "type": "folder",
-                            "caption": "Constants",
-                            "mdFile": "",
+                            "text": "Constants",
+                            "data": "",
                             "icon": "",
                             "children": [
                                 {
-                                    "type": "leaf",
-                                    "caption": "SIG_INT",
-                                    "mdFile": "api/server/server.SIG_INT.md",
+                                    "text": "SIG_INT",
+                                    "data": "api/server/server.SIG_INT.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "SIG_KIL",
-                                    "mdFile": "api/server/server.SIG_KIL.md",
+                                    "text": "SIG_KIL",
+                                    "data": "api/server/server.SIG_KIL.md",
                                     "icon": ""
                                 }
                             ]
@@ -348,25 +294,22 @@
                     ]
                 },
                 {
-                    "type": "folder",
-                    "caption": "db",
-                    "mdFile": "",
+                    "text": "db",
+                    "data": "",
                     "icon": "",
                     "children": [
                     ]
                 },
                 {
-                    "type": "folder",
-                    "caption": "dbms",
-                    "mdFile": "",
+                    "text": "dbms",
+                    "data": "",
                     "icon": "",
                     "children": [
                     ]
                 },
                 {
-                    "type": "leaf",
-                    "caption": "Error handling",
-                    "mdFile": "api/errorHandling.md",
+                    "text": "Error handling",
+                    "data": "api/errorHandling.md",
                     "icon": ""
                 }
             ]

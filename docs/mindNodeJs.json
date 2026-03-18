@@ -2,41 +2,85 @@
     "baseDir": "",
     "data": [
         {
-            "type": "folder",
-            "caption": "API reference",
-            "mdFile": "",
+            "text": "API reference",
+            "data": "",
             "icon": "",
             "children": [
                 {
-                    "type": "folder",
-                    "caption": "session",
-                    "mdFile": "api/namespace.session.md",
+                    "text": "session",
+                    "data": "api/namespace.session.md",
                     "icon": "",
                     "children": [
                     ]
                 },
                 {
-                    "type": "folder",
-                    "caption": "fs",
-                    "mdFile": "api/namespace.fs.md",
+                    "text": "fs",
+                    "data": "api/namespace.fs.md",
                     "icon": "",
                     "children": [
                         {
-                            "type": "folder",
-                            "caption": "Methods",
-                            "mdFile": "",
+                            "text": "Methods",
+                            "data": "",
                             "icon": "",
                             "children": [
                                 {
-                                    "type": "leaf",
-                                    "caption": "appendFile()",
-                                    "mdFile": "api/fs/fs.appendFile.md",
+                                    "text": "appendFile()",
+                                    "data": "api/fs/fs.appendFile.md",
                                     "icon": ""
                                 },
                                 {
-                                    "type": "leaf",
-                                    "caption": "copyFile()",
-                                    "mdFile": "",
+                                    "text": "copyFile()",
+                                    "data": "api/fs/fs.copyFile.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "expandPath()",
+                                    "data": "api/fs/fs.expandPath.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "isDir()",
+                                    "data": "api/fs/fs.isDir.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "isFile()",
+                                    "data": "api/fs/fs.isFile.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "readFile()",
+                                    "data": "api/fs/fs.readFile.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "readTree()",
+                                    "data": "api/fs/fs.readTree.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "removeFile()",
+                                    "data": "api/fs/fs.removeFile.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "renameFile()",
+                                    "data": "api/fs/fs.renameFile.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "rmdir()",
+                                    "data": "api/fs/fs.rmdir.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "stat()",
+                                    "data": "api/fs/fs.stat.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "writeFile()",
+                                    "data": "api/fs/fs.writeFile.md",
                                     "icon": ""
                                 }
                             ]
@@ -44,49 +88,228 @@
                     ]
                 },
                 {
-                    "type": "folder",
-                    "caption": "process",
-                    "mdFile": "",
+                    "text": "process",
+                    "data": "api/namespace.process.md",
+                    "icon": "",
+                    "children": [
+                        {
+                            "text": "Methods",
+                            "data": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "clearLocksGroup()",
+                                    "data": "api/process/process.clearLocksGroup.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "commitLocks()",
+                                    "data": "api/process/process.commitLocks.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "cwdGet()",
+                                    "data": "api/process/process.cwdGet.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "cwdSet()",
+                                    "data": "api/process/process.cwdSet.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "exec()",
+                                    "data": "api/process/process.exec.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "getEnvVars()",
+                                    "data": "api/process/process.getEnvVars.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "groupLocks()",
+                                    "data": "api/process/process.groupLocks.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "memUsage()",
+                                    "data": "api/process/process.memUsage.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "removeAllLocks()",
+                                    "data": "api/process/process.removeAllLocks.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "showLocks()",
+                                    "data": "api/process/process.showLocks.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "spawn()",
+                                    "data": "api/process/process.spawn.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "syslogMessage()",
+                                    "data": "api/process/process.syslogMessage.md",
+                                    "icon": ""
+                                }
+                            ]
+                        },
+                        {
+                            "text": "Properties",
+                            "data": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "pid",
+                                    "data": "api/fs/process.pid.md",
+                                    "icon": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "session",
+                    "data": "",
                     "icon": "",
                     "children": [
                     ]
                 },
                 {
-                    "type": "folder",
-                    "caption": "session",
-                    "mdFile": "",
+                    "text": "server",
+                    "data": "api/namespace.server.md",
+                    "icon": "",
+                    "children": [
+                        {
+                            "text": "Methods",
+                            "data": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "dateTime()",
+                                    "data": "api/server/server.dateTime.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "GUID()",
+                                    "data": "api/server/server.GUID.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "horolog()",
+                                    "data": "api/server/server.horolog.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "kill()",
+                                    "data": "api/server/server.kill.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "listSessions()",
+                                    "data": "api/server/server.listSessions.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "now()",
+                                    "data": "api/server/server.now.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "pinfo()",
+                                    "data": "api/server/server.pinfo.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "plist()",
+                                    "data": "api/server/server.plist.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "stats()",
+                                    "data": "api/server/server.stats.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "unixtime()",
+                                    "data": "api/server/server.unixtime.md",
+                                    "icon": ""
+                                }
+                            ]
+                        },
+                        {
+                            "text": "Properties",
+                            "data": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "architecture",
+                                    "data": "api/server/server.architecture.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "hostName",
+                                    "data": "api/server/server.hostName.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "mindVersion",
+                                    "data": "api/server/server.mindVersion.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "platform",
+                                    "data": "api/server/server.platform.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "ydbVersion",
+                                    "data": "api/server/server.ydbVersion.md",
+                                    "icon": ""
+                                }
+                            ]
+                        },
+                        {
+                            "text": "Constants",
+                            "data": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "SIG_INT",
+                                    "data": "api/server/server.SIG_INT.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "SIG_KIL",
+                                    "data": "api/server/server.SIG_KIL.md",
+                                    "icon": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "db",
+                    "data": "",
                     "icon": "",
                     "children": [
                     ]
                 },
                 {
-                    "type": "folder",
-                    "caption": "server",
-                    "mdFile": "",
+                    "text": "dbms",
+                    "data": "",
                     "icon": "",
                     "children": [
                     ]
                 },
                 {
-                    "type": "folder",
-                    "caption": "db",
-                    "mdFile": "",
-                    "icon": "",
-                    "children": [
-                    ]
-                },
-                {
-                    "type": "folder",
-                    "caption": "dbms",
-                    "mdFile": "",
-                    "icon": "",
-                    "children": [
-                    ]
-                },
-                {
-                    "type": "leaf",
-                    "caption": "Error handling",
-                    "mdFile": "api/errorHandling.md",
+                    "text": "Error handling",
+                    "data": "api/errorHandling.md",
                     "icon": ""
                 }
             ]

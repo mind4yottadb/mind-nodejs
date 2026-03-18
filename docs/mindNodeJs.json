@@ -4,19 +4,19 @@
         {
             "text": "API reference",
             "data": "",
-            "icon": "",
+            "icon": "bi-table",
             "children": [
                 {
                     "text": "session",
                     "data": "api/namespace.session.md",
-                    "icon": "",
+                    "icon": "bi-table",
                     "children": [
                     ]
                 },
                 {
                     "text": "fs",
                     "data": "api/namespace.fs.md",
-                    "icon": "",
+                    "icon": "bi-table",
                     "children": [
                         {
                             "text": "Methods",

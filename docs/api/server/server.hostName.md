@@ -23,9 +23,7 @@
 
 **Parameters**:
 <br><br>
-**Returns**:
-
-<string>`
+**Returns**: '<string>`
 
 ---
 

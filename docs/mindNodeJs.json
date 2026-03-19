@@ -54,6 +54,11 @@
                                     "icon": ""
                                 },
                                 {
+                                    "text": "readDir()",
+                                    "id": "api/fs/fs.readDir.md",
+                                    "icon": ""
+                                },
+                                {
                                     "text": "readTree()",
                                     "id": "api/fs/fs.readTree.md",
                                     "icon": ""

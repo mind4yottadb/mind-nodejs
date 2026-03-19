@@ -21,10 +21,6 @@
 **Async**:  yes, returns a Promise
 
 **Parameters**:
-
-| Name | Datatype | Optional | Description |
-|------|----------|----------|-------------|
-
 **Returns**: `Promise <object>`
 
 ---

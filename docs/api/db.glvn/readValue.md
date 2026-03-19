@@ -26,10 +26,6 @@ Applies to:
 **Async**: yes, returns a Promise
 
 **Parameters**:
-
-| Name | Datatype | Optional | Description |
-|------|----------|----------|-------------|
-
 <br>
 **Returns**: `Promise<STRING || NUMBER>`
 

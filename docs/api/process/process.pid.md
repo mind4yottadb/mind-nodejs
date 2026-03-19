@@ -21,10 +21,6 @@
 **Async**: no
 
 **Parameters**:
-
-| Name | Datatype | Optional | Description |
-|------|----------|----------|-------------|
-
 <br>
 **Returns**:
 

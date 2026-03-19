@@ -27,9 +27,9 @@ Applies to:
 
 **Parameters**:
 
-| name   | data type | Optional | Description                                      |
-|--------|-----------|----------|--------------------------------------------------|
-| `json` | string    | No       | The string containing the JSON you want to store |
+| Name   | Datatype | Optional | Description                                      |
+|--------|----------|----------|--------------------------------------------------|
+| `json` | string   | No       | The string containing the JSON you want to store |
 
 **Returns**:
 

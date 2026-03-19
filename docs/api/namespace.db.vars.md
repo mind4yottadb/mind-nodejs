@@ -16,10 +16,10 @@
 
 ### Methods:
 
-- [_](./db/db.vars/_.md)
-- [addName](./db/db.vars/addName.md)
-- [removeName](./db/db.vars/removeName.md)
-- [glvn](./db/db.vars/glvn.md)
+- [_](api/db//db.vars/_.md)
+- [addName](api/db//db.vars/addName.md)
+- [removeName](api/db//db.vars/removeName.md)
+- [glvn](api/db//db.vars/glvn.md)
 
 ### Functions:
 

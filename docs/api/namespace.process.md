@@ -16,19 +16,19 @@
 
 ### Methods:
 
-- [exec(command, shell)](process/process.exec.md)
-- [spawn(command, logFile)](process/process.spawn.md)
-- [cwdSet(path)](process/process.cwdSet.md)
+- [exec(command, shell)](api/server/process.exec.md)
+- [spawn(command, logFile)](api/server/process.spawn.md)
+- [cwdSet(path)](api/server/process.cwdSet.md)
 
 ### Functions:
 
-- [cwdGet()](process/process.cwdGet.md)
-- [memUsage()](process/process.memUsage.md)
-- [getEnvVars](process/process.getEnvVars.md)
+- [cwdGet()](api/server/process.cwdGet.md)
+- [memUsage()](api/server/process.memUsage.md)
+- [getEnvVars](api/server/process.getEnvVars.md)
 
 ### Properties:
 
-- [pid](process/process.pid.md)
+- [pid](api/server/process.pid.md)
 
 ---
 

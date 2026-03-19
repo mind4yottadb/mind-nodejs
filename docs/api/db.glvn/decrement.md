@@ -27,9 +27,9 @@ Applies to:
 
 **Parameters**:
 
-| name          | data type | Optional | Description                                                |
-|---------------|-----------|----------|------------------------------------------------------------|
-| `decrementBy` | number    | Yes      | The amount to  decrease the specified node. Defaults to 1. |
+| Name          | Datatype | Optional | Description                                                |
+|---------------|----------|----------|------------------------------------------------------------|
+| `decrementBy` | number   | Yes      | The amount to  decrease the specified node. Defaults to 1. |
 
 **Returns**:
 

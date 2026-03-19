@@ -22,10 +22,10 @@
 
 **Parameters**:
 
-| name      | data type | Optional | Description                                                     |
-|-----------|-----------|----------|-----------------------------------------------------------------|
-| `command` | string    | No       | the command to be executed, including its (optional) parameters |
-| `logFile` | string    | Yes      | the (optional) path to a log file to redirest the STDOUT        |
+| Name      | Datatype | Optional | Description                                                     |
+|-----------|----------|----------|-----------------------------------------------------------------|
+| `command` | string   | No       | the command to be executed, including its (optional) parameters |
+| `logFile` | string   | Yes      | the (optional) path to a log file to redirest the STDOUT        |
 
 **Returns**:
 

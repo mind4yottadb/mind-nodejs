@@ -22,7 +22,7 @@
 
 **Parameters**:
 
-| name  | data type    | Optional | Description                      |
+| Name  | Datatype     | Optional | Description                      |
 |-------|--------------|----------|----------------------------------|
 | `err` | Error object | Yes      | The error returned by the socket |
 

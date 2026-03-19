@@ -27,9 +27,9 @@ Applies to:
 
 **Parameters**:
 
-| name          | data type | Optional | Description                                                |
-|---------------|-----------|----------|------------------------------------------------------------|
-| `incrementBy` | number    | Yes      | The amount to  increase the specified node. Defaults to 1. |
+| Name          | Datatype | Optional | Description                                                |
+|---------------|----------|----------|------------------------------------------------------------|
+| `incrementBy` | number   | Yes      | The amount to  increase the specified node. Defaults to 1. |
 
 **Returns**:
 

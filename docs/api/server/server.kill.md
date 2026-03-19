@@ -22,10 +22,10 @@
 
 **Parameters**:
 
-| name        | data type | Optional | Description                                                          |
-|-------------|-----------|----------|----------------------------------------------------------------------|
-| `pid`       | number    | No       | the process id of the program you wish to terminate                  |
-| `sigNumber` | number    | Yes      | the (optional) signal number. If omitter, it will default to SIG_INT |
+| Name        | Datatype | Optional | Description                                                          |
+|-------------|----------|----------|----------------------------------------------------------------------|
+| `pid`       | number   | No       | the process id of the program you wish to terminate                  |
+| `sigNumber` | number   | Yes      | the (optional) signal number. If omitter, it will default to SIG_INT |
 
 **Returns**:
 

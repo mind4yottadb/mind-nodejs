@@ -20,9 +20,9 @@
 
 **Parameters**:
 
-| name   | data type | Optional | Description             |
-|--------|-----------|----------|-------------------------|
-| `path` | string    | No       | the path of the new dir |
+| Name   | Datatype | Optional | Description             |
+|--------|----------|----------|-------------------------|
+| `path` | string   | No       | the path of the new dir |
 
 **Returns**:
 

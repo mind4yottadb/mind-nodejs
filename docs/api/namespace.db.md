@@ -17,8 +17,8 @@
 
 ### Namespaces:
 
-- [vars](./namespace.db.vars.md)
-- [globals](./namespace.db.globals.md)
+- [vars](api/namespace.db.vars.md)
+- [globals](api/namespace.db.globals.md)
 
 ### Methods:
 

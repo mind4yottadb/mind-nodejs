@@ -14,6 +14,7 @@
                     ]
                 },
                 {
+                    "id": "api/namespace.fs.md",
                     "text": "fs",
                     "data": "api/namespace.fs.md",
                     "icon": "",
@@ -24,6 +25,7 @@
                             "icon": "",
                             "children": [
                                 {
+                                    "id": "api/fs/fs.appendFile.md",
                                     "text": "appendFile()",
                                     "data": "api/fs/fs.appendFile.md",
                                     "icon": ""

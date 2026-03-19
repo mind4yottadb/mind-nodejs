@@ -3,87 +3,84 @@
     "data": [
         {
             "text": "API reference",
-            "data": "",
+            "id": "",
             "icon": "",
             "children": [
                 {
                     "text": "session",
-                    "data": "api/namespace.session.md",
+                    "id": "api/namespace.session.md",
                     "icon": "",
                     "children": [
                     ]
                 },
                 {
-                    "id": "api/namespace.fs.md",
                     "text": "fs",
-                    "data": "api/namespace.fs.md",
+                    "id": "api/namespace.fs.md",
                     "icon": "",
                     "children": [
                         {
                             "text": "Methods",
-                            "data": "",
+                            "id": "",
                             "icon": "",
                             "children": [
                                 {
-                                    "id": "api/fs/fs.appendFile.md",
                                     "text": "appendFile()",
-                                    "data": "api/fs/fs.appendFile.md",
+                                    "id": "api/fs/fs.appendFile.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "copyFile()",
-                                    "data": "api/fs/fs.copyFile.md",
+                                    "id": "api/fs/fs.copyFile.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "expandPath()",
-                                    "data": "api/fs/fs.expandPath.md",
+                                    "id": "api/fs/fs.expandPath.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "isDir()",
-                                    "data": "api/fs/fs.isDir.md",
+                                    "id": "api/fs/fs.isDir.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "isFile()",
-                                    "data": "api/fs/fs.isFile.md",
+                                    "id": "api/fs/fs.isFile.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "readFile()",
-                                    "data": "api/fs/fs.readFile.md",
+                                    "id": "api/fs/fs.readFile.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "readTree()",
-                                    "data": "api/fs/fs.readTree.md",
+                                    "id": "api/fs/fs.readTree.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "removeFile()",
-                                    "data": "api/fs/fs.removeFile.md",
+                                    "id": "api/fs/fs.removeFile.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "renameFile()",
-                                    "data": "api/fs/fs.renameFile.md",
+                                    "id": "api/fs/fs.renameFile.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "rmdir()",
-                                    "data": "api/fs/fs.rmdir.md",
+                                    "id": "api/fs/fs.rmdir.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "stat()",
-                                    "data": "api/fs/fs.stat.md",
+                                    "id": "api/fs/fs.stat.md",
                                     "icon": ""
                                 },
                                 {
-                                    "id": "api/fs/fs.writeFile.md",
                                     "text": "writeFile()",
-                                    "data": "api/fs/fs.writeFile.md",
+                                    "id": "api/fs/fs.writeFile.md",
                                     "icon": ""
                                 }
                             ]
@@ -92,84 +89,84 @@
                 },
                 {
                     "text": "process",
-                    "data": "api/namespace.process.md",
+                    "id": "api/namespace.process.md",
                     "icon": "",
                     "children": [
                         {
                             "text": "Methods",
-                            "data": "",
+                            "id": "",
                             "icon": "",
                             "children": [
                                 {
                                     "text": "clearLocksGroup()",
-                                    "data": "api/process/process.clearLocksGroup.md",
+                                    "id": "api/process/process.clearLocksGroup.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "commitLocks()",
-                                    "data": "api/process/process.commitLocks.md",
+                                    "id": "api/process/process.commitLocks.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "cwdGet()",
-                                    "data": "api/process/process.cwdGet.md",
+                                    "id": "api/process/process.cwdGet.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "cwdSet()",
-                                    "data": "api/process/process.cwdSet.md",
+                                    "id": "api/process/process.cwdSet.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "exec()",
-                                    "data": "api/process/process.exec.md",
+                                    "id": "api/process/process.exec.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "getEnvVars()",
-                                    "data": "api/process/process.getEnvVars.md",
+                                    "id": "api/process/process.getEnvVars.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "groupLocks()",
-                                    "data": "api/process/process.groupLocks.md",
+                                    "id": "api/process/process.groupLocks.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "memUsage()",
-                                    "data": "api/process/process.memUsage.md",
+                                    "id": "api/process/process.memUsage.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "removeAllLocks()",
-                                    "data": "api/process/process.removeAllLocks.md",
+                                    "id": "api/process/process.removeAllLocks.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "showLocks()",
-                                    "data": "api/process/process.showLocks.md",
+                                    "id": "api/process/process.showLocks.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "spawn()",
-                                    "data": "api/process/process.spawn.md",
+                                    "id": "api/process/process.spawn.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "syslogMessage()",
-                                    "data": "api/process/process.syslogMessage.md",
+                                    "id": "api/process/process.syslogMessage.md",
                                     "icon": ""
                                 }
                             ]
                         },
                         {
                             "text": "Properties",
-                            "data": "",
+                            "id": "",
                             "icon": "",
                             "children": [
                                 {
                                     "text": "pid",
-                                    "data": "api/fs/process.pid.md",
+                                    "id": "api/fs/process.pid.md",
                                     "icon": ""
                                 }
                             ]
@@ -178,118 +175,118 @@
                 },
                 {
                     "text": "session",
-                    "data": "",
+                    "id": "",
                     "icon": "",
                     "children": [
                     ]
                 },
                 {
                     "text": "server",
-                    "data": "api/namespace.server.md",
+                    "id": "api/namespace.server.md",
                     "icon": "",
                     "children": [
                         {
                             "text": "Methods",
-                            "data": "",
+                            "id": "",
                             "icon": "",
                             "children": [
                                 {
                                     "text": "dateTime()",
-                                    "data": "api/server/server.dateTime.md",
+                                    "id": "api/server/server.dateTime.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "GUID()",
-                                    "data": "api/server/server.GUID.md",
+                                    "id": "api/server/server.GUID.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "horolog()",
-                                    "data": "api/server/server.horolog.md",
+                                    "id": "api/server/server.horolog.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "kill()",
-                                    "data": "api/server/server.kill.md",
+                                    "id": "api/server/server.kill.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "listSessions()",
-                                    "data": "api/server/server.listSessions.md",
+                                    "id": "api/server/server.listSessions.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "now()",
-                                    "data": "api/server/server.now.md",
+                                    "id": "api/server/server.now.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "pinfo()",
-                                    "data": "api/server/server.pinfo.md",
+                                    "id": "api/server/server.pinfo.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "plist()",
-                                    "data": "api/server/server.plist.md",
+                                    "id": "api/server/server.plist.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "stats()",
-                                    "data": "api/server/server.stats.md",
+                                    "id": "api/server/server.stats.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "unixtime()",
-                                    "data": "api/server/server.unixtime.md",
+                                    "id": "api/server/server.unixtime.md",
                                     "icon": ""
                                 }
                             ]
                         },
                         {
                             "text": "Properties",
-                            "data": "",
+                            "id": "",
                             "icon": "",
                             "children": [
                                 {
                                     "text": "architecture",
-                                    "data": "api/server/server.architecture.md",
+                                    "id": "api/server/server.architecture.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "hostName",
-                                    "data": "api/server/server.hostName.md",
+                                    "id": "api/server/server.hostName.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "mindVersion",
-                                    "data": "api/server/server.mindVersion.md",
+                                    "id": "api/server/server.mindVersion.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "platform",
-                                    "data": "api/server/server.platform.md",
+                                    "id": "api/server/server.platform.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "ydbVersion",
-                                    "data": "api/server/server.ydbVersion.md",
+                                    "id": "api/server/server.ydbVersion.md",
                                     "icon": ""
                                 }
                             ]
                         },
                         {
                             "text": "Constants",
-                            "data": "",
+                            "id": "",
                             "icon": "",
                             "children": [
                                 {
                                     "text": "SIG_INT",
-                                    "data": "api/server/server.SIG_INT.md",
+                                    "id": "api/server/server.SIG_INT.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "SIG_KIL",
-                                    "data": "api/server/server.SIG_KIL.md",
+                                    "id": "api/server/server.SIG_KIL.md",
                                     "icon": ""
                                 }
                             ]
@@ -298,21 +295,21 @@
                 },
                 {
                     "text": "db",
-                    "data": "",
+                    "id": "",
                     "icon": "",
                     "children": [
                     ]
                 },
                 {
                     "text": "dbms",
-                    "data": "",
+                    "id": "",
                     "icon": "",
                     "children": [
                     ]
                 },
                 {
                     "text": "Error handling",
-                    "data": "api/errorHandling.md",
+                    "id": "api/errorHandling.md",
                     "icon": ""
                 }
             ]

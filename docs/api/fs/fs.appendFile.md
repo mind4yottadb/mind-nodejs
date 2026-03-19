@@ -27,6 +27,7 @@
 | `filename` | string   | No       | the absolute or relative path of the filename |
 | `data`     | string   | No       | the data to be appended.                      |
 
+<br>
 **Returns**:
 
 `Promise`
@@ -36,8 +37,6 @@
 Appends the string in `data` to the file specified in `filename`.
 
 If `filename` is not found or another error occurs, it will throw an error.
-
-<br>
 
 ---
 

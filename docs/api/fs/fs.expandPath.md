@@ -27,7 +27,6 @@
 | `path` |  string  |    No    | the path you wish to expand |
 
 <br>
-<br>
 **Returns**: `Promise<string>`
 
 ---

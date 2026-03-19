@@ -63,4 +63,4 @@ ret = '/opt/yottadb/current/plugin'
 
 ---
 
-[Back](../namespace.fs.md)
+[Back](api/namespace.fs.md)

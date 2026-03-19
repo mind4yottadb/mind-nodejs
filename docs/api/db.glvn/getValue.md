@@ -30,7 +30,7 @@ Applies to:
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<STRING/NUMBER>`
@@ -44,9 +44,6 @@ If you want to get an error if the path to the node is invalid or the node doesn
 readValue() instead.
 
 If the value is a number, then a number datatype is used, otherwise it will return a string.
-
-<br>
-
 ### EXAMPLES
 
 ---
@@ -72,9 +69,6 @@ ydb.disconnect()
 ````js
 res = ''
 ````
-
-<br>
-
 ---
 
 Try to get a value from a non-existing node.
@@ -98,9 +92,6 @@ ydb.disconnect()
 ````js
 res = ''
 ````
-
-<br>
-
 ---
 
 Get a string value from an existing node.
@@ -125,9 +116,6 @@ ydb.disconnect()
 ````js
 res = 12
 ````
-
-<br>
-
 ---
 
 Get a string value from an existing node.
@@ -152,9 +140,6 @@ ydb.disconnect()
 ````js
 res = 'testString'
 ````
-
-<br>
-
 ---
 
 [Back](../glvn)

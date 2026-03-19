@@ -33,7 +33,7 @@ Applies to:
 | `start`     | number   | Yes      | The starting piece number to be returned. The default is 1.      |
 | `end`       | number   | Yes      | The ending piece number to be returned. The default is 1.        |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<STRING/NUMBER>`
@@ -47,9 +47,6 @@ If the range supplied by `start` and `end` falls outside the string, an empty st
 The `pieceChar` can be any ascii character (including non-printable chars). The default value is `^`.
 
 If you return a single piece and it is a number, a number datatype will be used, otherwise it will be a string datatype.
-
-<br>
-
 ### EXAMPLES
 
 ---
@@ -75,9 +72,6 @@ ydb.disconnect()
 ````js
 res = 'aaa'
 ````
-
-<br>
-
 ---
 
 get the second piece
@@ -101,9 +95,6 @@ ydb.disconnect()
 ````js
 res = 'bbb'
 ````
-
-<br>
-
 ---
 
 get the second, third and fourth pieces
@@ -127,9 +118,6 @@ ydb.disconnect()
 ````js
 res = 'bbb^ccc^ddd'
 ````
-
-<br>
-
 ---
 
 get a single number
@@ -153,9 +141,6 @@ ydb.disconnect()
 ````js
 res = 3
 ````
-
-<br>
-
 ---
 
 

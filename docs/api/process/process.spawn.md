@@ -27,7 +27,7 @@
 | `command` | string   | No       | the command to be executed, including its (optional) parameters |
 | `logFile` | string   | Yes      | the (optional) path to a log file to redirest the STDOUT        |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<number>`
@@ -39,9 +39,6 @@ Runs the passed command and return its `pid`.
 > The function will return immediately, while the program will run in the background.
 
 Any error returned by the running of the command will be thrown as Error.
-
-
-<br>
 
 ---
 
@@ -68,9 +65,6 @@ returns:
 pid = 10234
 
 ````
-
-<br>
-
 
 ---
 

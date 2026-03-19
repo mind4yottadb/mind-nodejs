@@ -30,7 +30,7 @@ Applies to:
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<BOOLEAN>`
@@ -38,9 +38,6 @@ Applies to:
 ---
 
 Returns the boolean `true` is the selected node has sub-nodes.
-
-<br>
-
 ### EXAMPLES
 
 ---
@@ -67,9 +64,6 @@ ydb.disconnect()
 ````js
 res = true
 ````
-
-<br>
-
 ---
 
 Inspect a node without sub-nodes
@@ -94,9 +88,6 @@ ydb.disconnect()
 ````js
 res = false
 ````
-
-<br>
-
 ---
 
 [Back](../glvn)

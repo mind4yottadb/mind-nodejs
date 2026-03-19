@@ -26,7 +26,7 @@
 |--------|----------|----------|-----------------------------------------|
 | `path` | string   | No       | the path of the directory to be deleted |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<>`
@@ -36,9 +36,6 @@
 Creates the directory specified in `path`.
 
 If `path` is not found, it is not empty, it is not a directory or another error occurs, it will throw an error.
-
-<br>
-
 ---
 
 ### EXAMPLES

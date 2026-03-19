@@ -25,7 +25,7 @@
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `<bool>`
@@ -33,9 +33,6 @@
 ---
 
 Returns true if you are connected to the MIND server.
-
-
-<br>
 
 ---
 

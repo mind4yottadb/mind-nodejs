@@ -27,7 +27,7 @@
 | `command` | string   | No       | the command to be executed, including its (optional) parameters |
 | `shell`   | string   | Yes      | the (optional) shell to be used instead of /bin/sh              |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<string>`
@@ -37,9 +37,6 @@
 Runs the passed command and return its STDOUT as a string.
 
 The function will return when the program has terminated.
-
-
-<br>
 
 ---
 
@@ -75,9 +72,6 @@ stdout = 'total 40' +
     'drwxr-xr-x 3 root root 4096 Dec 11 12:41 test'
 
 ````
-
-<br>
-
 
 ---
 

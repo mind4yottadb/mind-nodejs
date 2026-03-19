@@ -26,7 +26,7 @@
 |--------|----------|----------|-------------------------|
 | `path` | string   | No       | the new path of the cwd |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise`
@@ -36,9 +36,6 @@
 Sets the Current Working Directory of your session.
 
 It can be read using the [process.cwdGet()](process.cwdGet.md) function.
-
-
-<br>
 
 ---
 
@@ -66,9 +63,6 @@ returns:
 cwd = '/opt/yottadb/current'
 
 ````
-
-<br>
-
 
 ---
 

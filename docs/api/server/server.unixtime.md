@@ -25,7 +25,7 @@
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<int>`
@@ -35,9 +35,6 @@
 `unixtime` (UNIX time or universal time) returns the number of microseconds since January 1, 1970 00:00:00 UTC, which
 provides a time stamp for directly comparing different timezones. `unixtime` accuracy is subject to the precision of the
 system clock
-
-
-<br>
 
 ---
 
@@ -64,9 +61,6 @@ returns:
 unixTime = 1767806071551168
 
 ````
-
-<br>
-
 
 ---
 

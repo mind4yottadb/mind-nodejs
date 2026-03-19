@@ -26,7 +26,7 @@
 |-------|--------------|----------|----------------------------------|
 | `err` | Error object | Yes      | The error returned by the socket |
 
-\n<br>
+<br>
 **Returns**:
 
 `Nothing`

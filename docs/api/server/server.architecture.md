@@ -25,7 +25,7 @@
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `<string>`
@@ -33,9 +33,6 @@
 ---
 
 Returns the architecture of the server.
-
-
-<br>
 
 ---
 
@@ -62,9 +59,6 @@ returns:
 architecture = 'x86_64'
 
 ````
-
-<br>
-
 
 ---
 

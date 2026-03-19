@@ -31,17 +31,14 @@ Applies to:
 |-------|----------|----------|------------------------------|
 | `obj` | string   | No       | The object you want to store |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise`
 
 ---
 
-It will store the supplied object at the current location
-<br>
-
-### EXAMPLES
+It will store the supplied object at the current location### EXAMPLES
 
 ---
 
@@ -70,9 +67,6 @@ ydb.disconnect()
 ````js
 res = 22
 ````
-
-<br>
-
 ---
 
 

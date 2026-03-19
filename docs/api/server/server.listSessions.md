@@ -24,8 +24,6 @@
 
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
-
-\n<br>
 **Returns**:
 
 `Promise<object>`
@@ -43,9 +41,6 @@ It returns an array of objects, where each object represent a session with the f
 - `username`: the username that logged in the server
 - `pid`: the process id of the session
 - `elapsedTime`: since how log is the session active, in the format hours, minutes and seconds
-
-<br>
-
 ---
 
 ### EXAMPLES
@@ -80,9 +75,6 @@ sessions = [
     }
 ]
 ````
-
-<br>
-
 
 ---
 

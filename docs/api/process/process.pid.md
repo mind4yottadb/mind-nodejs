@@ -25,7 +25,7 @@
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `<int>`
@@ -33,9 +33,6 @@
 ---
 
 Returns the pid of your session.
-
-
-<br>
 
 ---
 
@@ -62,9 +59,6 @@ returns:
 pid = 20840
 
 ````
-
-<br>
-
 
 ---
 

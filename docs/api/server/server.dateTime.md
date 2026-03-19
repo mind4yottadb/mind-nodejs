@@ -25,7 +25,7 @@
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<object>`
@@ -50,9 +50,6 @@ The function returns an object with the following properties populated:
 | `year`           | the current year                           |
 
 An eventual internal error on the server side will throw an error.
-
-<br>
-
 ---
 
 ### EXAMPLES
@@ -89,9 +86,6 @@ memUsage = {
 }
 
 ````
-
-<br>
-
 
 ---
 

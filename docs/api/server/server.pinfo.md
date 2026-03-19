@@ -26,7 +26,7 @@
 |-------|----------|----------|--------------------------------------------|
 | `pid` | number   | No       | the pid of the process you want to examine |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<object>`
@@ -43,9 +43,6 @@ It returns an object, with the following fields:
 - `cSystemTime`: the system time used by the process's children , -1 if the process doesn't exist
 - `cUserTime`: the user time used by the process's children, -1 if the process doesn't exist
 - `tCpu`: Total process and child CPU time used in hundredths of a second, -1 if the process doesn't exist
-
-<br>
-
 ---
 
 ### EXAMPLES
@@ -77,9 +74,6 @@ ret = {
     tCpu: 721
 }
 ````
-
-<br>
-
 
 ---
 

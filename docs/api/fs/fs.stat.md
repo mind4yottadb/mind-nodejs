@@ -26,7 +26,7 @@
 |------------|----------|----------|----------------------------------|
 | `filename` | string   | No       | the filename you want to enquire |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<object>`
@@ -60,9 +60,6 @@ The function returns an object with the following properties populated:
 | `uid`     | user ID of owner                |
 
 If the `filename` is not found or another error occurs, it will throw an error.
-
-<br>
-
 ---
 
 ### EXAMPLES

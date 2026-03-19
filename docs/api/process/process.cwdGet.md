@@ -25,7 +25,7 @@
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<string>`
@@ -35,9 +35,6 @@
 Returns the Current Working Directory of your session.
 
 It can be changed using the [process.cwdSet()](process.cwdSet.md) function.
-
-
-<br>
 
 ---
 
@@ -64,9 +61,6 @@ returns:
 cwd = '/opt/mind'
 
 ````
-
-<br>
-
 
 ---
 

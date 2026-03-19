@@ -25,7 +25,7 @@
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<object>`
@@ -34,9 +34,6 @@
 
 Returns an object describing all the env vars found for the current process.
 The env var name is the property name and its value is the value of the env var.
-
-<br>
-
 ---
 
 ### EXAMPLES
@@ -77,9 +74,6 @@ envVars = {
 }
 
 ````
-
-<br>
-
 
 ---
 

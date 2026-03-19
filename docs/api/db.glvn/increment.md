@@ -31,7 +31,7 @@ Applies to:
 |---------------|----------|----------|------------------------------------------------------------|
 | `incrementBy` | number   | Yes      | The amount to  increase the specified node. Defaults to 1. |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<NUMBER>`
@@ -48,9 +48,6 @@ If the parameter `incrementBy` is omitted, it will increase by one.
 
 If the parameter `incrementBy` is a floating point number, then the addition will be executing using floating point
 notation.
-
-<br>
-
 ### EXAMPLES
 
 ---
@@ -75,9 +72,6 @@ ydb.disconnect()
 ````js
 res = 1
 ````
-
-<br>
-
 ---
 
 Here we increment the previous value by 4
@@ -100,9 +94,6 @@ ydb.disconnect()
 ````js
 res = 5
 ````
-
-<br>
-
 ---
 
 

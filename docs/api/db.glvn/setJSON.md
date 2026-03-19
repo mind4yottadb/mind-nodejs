@@ -31,17 +31,14 @@ Applies to:
 |--------|----------|----------|--------------------------------------------------|
 | `json` | string   | No       | The string containing the JSON you want to store |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise`
 
 ---
 
-It will convert the supplied json string into JDOM and store it at the current location
-<br>
-
-### EXAMPLES
+It will convert the supplied json string into JDOM and store it at the current location### EXAMPLES
 
 ---
 
@@ -68,9 +65,6 @@ ydb.disconnect()
 ````js
 res = 22
 ````
-
-<br>
-
 ---
 
 

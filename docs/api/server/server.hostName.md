@@ -26,7 +26,7 @@
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `<string>`
@@ -34,9 +34,6 @@
 ---
 
 Returns the server host name.
-
-
-<br>
 
 ---
 
@@ -63,9 +60,6 @@ returns:
 hostName = '26678cd11bd7'
 
 ````
-
-<br>
-
 
 ---
 

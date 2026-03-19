@@ -27,7 +27,7 @@
 | `dashed` | boolean  | Yes      | if `true`, it will insert separation dashes in the returned value  . Default is `true`                |
 | `braced` | boolean  | Yes      | if `true`, it will surround the returned value (dashed or not dashed) with braces. Default is `false` |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<string>` guid
@@ -37,9 +37,6 @@
 Returns the 128-bit MurmurHash3 of the current unixtime of the server, as lower-case 32 hexadecimal digits.
 
 It defaults to group it into five sections separated by hyphens: 8-4-4-4-12.
-
-
-<br>
 
 ---
 
@@ -66,9 +63,6 @@ GUID = '5b4b97b1-0daa-2d31-bb0e-984998917f05'
 
 ````
 
-<br>
-
-
 ---
 
 ````js
@@ -91,9 +85,6 @@ Returns:
 GUID = '5b4b97b10daa2d31bb0e984998917f05'
 
 ````
-
-<br>
-
 ---
 
 ````js

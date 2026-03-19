@@ -26,7 +26,7 @@
 |--------------|----------|----------|-----------------------------------------------------------------|
 | `resolution` | string   | Yes      | the resolution of the number returned, defaults to milliseconds |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<int>`
@@ -37,9 +37,6 @@ Returns the `unixtime` with the default resolution of milliseconds.
 
 The `resolution` parameter can be either `ms` (for milliseconds) or `us` (for microseconds).
 To get the unix time in seconds, use the `unixtime()` function.
-
-
-<br>
 
 ---
 
@@ -66,9 +63,6 @@ returns:
 now = 1769615736015
 
 ````
-
-<br>
-
 ````js
 import mind from 'mind4yottadb'
 
@@ -90,9 +84,6 @@ returns:
 now = 1769615790021047
 
 ````
-
-<br>
-
 ---
 
 [Back](../namespace.server.md)

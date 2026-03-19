@@ -27,7 +27,7 @@
 | `path` | string   | No       | the path to search for |
 | `mask` | string   | Yes      | the mask to be used    |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<array>`
@@ -39,9 +39,6 @@ Reads the dir content specified in `path` using the optional `mask` parameter.
 If `mask` is missing, it will default to `*.*`.
 
 If `path` is not found or another error occurs, it will throw an error.
-
-<br>
-
 ---
 
 ### EXAMPLES
@@ -77,9 +74,6 @@ ydb.disconnect()
 ]
 
 ````
-
-<br>
-
 Using a mask...
 
 ````js

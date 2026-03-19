@@ -30,7 +30,7 @@ Applies to:
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise`
@@ -40,9 +40,6 @@ Applies to:
 Un-reference the selected value, leaving the subnodes intact.
 
 > This command is NOT setting a value to an empty string, but un-reference the value.
-
-<br>
-
 ### EXAMPLES
 
 ---
@@ -82,9 +79,6 @@ ydb.disconnect()
 res1 = 'dummy'
 console.error.output = '^testGbl("subnode1"): path not found'
 ````
-
-<br>
-
 ---
 
 

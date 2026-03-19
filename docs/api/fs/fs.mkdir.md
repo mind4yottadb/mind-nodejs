@@ -24,7 +24,7 @@
 |--------|----------|----------|-------------------------|
 | `path` | string   | No       | the path of the new dir |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<>`
@@ -34,9 +34,6 @@
 Creates the directory specified in `path`.
 
 If the `path` of the parent directory is not found or another error occurs, it will throw an error.
-
-<br>
-
 ---
 
 ### EXAMPLES

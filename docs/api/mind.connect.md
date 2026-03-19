@@ -30,7 +30,7 @@
 | `password` | string   | No       | the password of a known account in the MIND server |
 | `options`  | object   | Yes      | an object containing several optional options      |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise`
@@ -77,9 +77,6 @@ The `db.globals` is an array of strings, where each string represents a global y
 
 > Global name do NOT need to be prefixed by the `^` character. So, a global named `^customers` must be entered as
 `customers`.
-
-<br>
-
 ---
 
 ### EXAMPLES

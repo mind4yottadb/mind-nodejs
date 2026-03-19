@@ -27,7 +27,7 @@
 | `oldName` | string   | No       | the file you want to rename |
 | `newName` | string   | No       | the new filename            |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<>`
@@ -37,9 +37,6 @@
 It renames a file.
 
 If `oldName` or `newName` files are not found or another error occurs, it will throw an error.
-
-<br>
-
 ---
 
 ### EXAMPLES

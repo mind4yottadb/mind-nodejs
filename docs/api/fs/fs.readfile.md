@@ -26,7 +26,7 @@
 |------------|----------|----------|-----------------------------------------------|
 | `filename` | string   | No       | the absolute or relative path of the filename |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise <string>`

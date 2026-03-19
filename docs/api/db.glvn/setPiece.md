@@ -34,7 +34,7 @@ Applies to:
 | `start`     | number   | Yes      | The starting piece number to be returned. The default is 1.      |
 | `end`       | number   | Yes      | The ending piece number to be returned. The default is 1.        |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<STRING/NUMBER>`
@@ -51,9 +51,6 @@ If you supply a range (using both `start` and `end` characters), the supplied st
 
 If you supply a `start` number greater than an existing piece, the gap will be filled with as many `pieceChar`s as
 needed.
-
-<br>
-
 ### EXAMPLES
 
 ---
@@ -79,9 +76,6 @@ ydb.disconnect()
 ````js
 res = 'myString'
 ````
-
-<br>
-
 ---
 
 set the 5th piece
@@ -105,9 +99,6 @@ ydb.disconnect()
 ````js
 res = '^^^^myString'
 ````
-
-<br>
-
 ---
 
 set multiple pieces in one go
@@ -131,9 +122,6 @@ ydb.disconnect()
 ````js
 res = '^^^^^^^myString^myString2^myString3'
 ````
-
-<br>
-
 ---
 
 [Back](../glvn)

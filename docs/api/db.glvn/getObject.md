@@ -30,7 +30,7 @@ Applies to:
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<OBJECT>`
@@ -40,9 +40,6 @@ Applies to:
 Returns an object representing the JDOM found in the selected node.
 
 If you want to return a JSON string, use the method getJSON() instead.
-
-<br>
-
 ### EXAMPLES
 
 ---
@@ -72,9 +69,6 @@ res = {
     test: 23
 }
 ````
-
-<br>
-
 ---
 
 Create a more complex JDOM node and retrieve the object.
@@ -109,9 +103,6 @@ res = {
     test: 23
 }
 ````
-
-<br>
-
 ---
 
 

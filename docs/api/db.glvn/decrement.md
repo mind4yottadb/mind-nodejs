@@ -31,7 +31,7 @@ Applies to:
 |---------------|----------|----------|------------------------------------------------------------|
 | `decrementBy` | number   | Yes      | The amount to  decrease the specified node. Defaults to 1. |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<NUMBER>`
@@ -48,9 +48,6 @@ If the parameter `decrementBy` is omitted, it will decrease by one.
 
 If the parameter `decrementBy` is a floating point number, then the subtraction will be executing using floating point
 notation.
-
-<br>
-
 ### EXAMPLES
 
 ---
@@ -75,9 +72,6 @@ ydb.disconnect()
 ````js
 res = -1
 ````
-
-<br>
-
 ---
 
 Here we decrement the previous value by 4
@@ -100,9 +94,6 @@ ydb.disconnect()
 ````js
 res = -5
 ````
-
-<br>
-
 ---
 
 

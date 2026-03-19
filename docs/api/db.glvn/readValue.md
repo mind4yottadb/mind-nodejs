@@ -30,7 +30,7 @@ Applies to:
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<STRING/NUMBER>`
@@ -45,9 +45,6 @@ have a value, use the method
 getValue() instead.
 
 If the value is a number, then a number datatype is used, otherwise it will return a string.
-
-<br>
-
 ### EXAMPLES
 
 ---
@@ -82,9 +79,6 @@ ydb.disconnect()
 ````js
 console.error.output = '^testGbl("subnode33"): path not found'
 ````
-
-<br>
-
 ---
 
 Try to read a value from an existing node.
@@ -109,9 +103,6 @@ ydb.disconnect()
 ````js
 res = 'dummy'
 ````
-
-<br>
-
 ---
 
 [Back](../glvn)

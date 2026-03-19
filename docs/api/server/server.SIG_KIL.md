@@ -25,7 +25,7 @@
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `<number>`
@@ -33,9 +33,6 @@
 ---
 
 Returns the signal number corresponding to SIG_KIL.
-
-
-<br>
 
 ---
 
@@ -62,9 +59,6 @@ returns:
 SIG_KIL = 9
 
 ````
-
-<br>
-
 
 ---
 

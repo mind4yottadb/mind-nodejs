@@ -30,7 +30,7 @@ Applies to:
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<STRING>`
@@ -43,9 +43,6 @@ The node is expected to be populate with a JDOM.
 If you want to return an object, use the method getObject() instead.
 
 This method is meant to be used when JSON has to be transferred directly, without being converted to JSON.
-
-<br>
-
 ### EXAMPLES
 
 ---
@@ -73,9 +70,6 @@ ydb.disconnect()
 ````js
 res = '{"test":23}'
 ````
-
-<br>
-
 ---
 
 Create a more complex JDOM node and retrieve the JSON.
@@ -103,9 +97,6 @@ ydb.disconnect()
 ````js
 res = '{"prop1":"this is a string","prop2":45.23,"prop3":{"usbprop2":45.23},"test":23}'
 ````
-
-<br>
-
 ---
 
 

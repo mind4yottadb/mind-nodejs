@@ -27,7 +27,7 @@
 | `pid`       | number   | No       | the process id of the program you wish to terminate                  |
 | `sigNumber` | number   | Yes      | the (optional) signal number. If omitter, it will default to SIG_INT |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise`
@@ -39,9 +39,6 @@ Sends the `sigNumber` to the process pointed by `pid`
 > You can use the constants included in the process object as `sigNumber`
 
 Any error returned by the call will be thrown as Error.
-
-
-<br>
 
 ---
 
@@ -59,9 +56,6 @@ await ydb.server.kill(12023, ydb.process.SIG_KIL)
 ydb.disconnect()
 
 ````
-
-<br>
-
 
 ---
 

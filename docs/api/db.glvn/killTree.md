@@ -30,7 +30,7 @@ Applies to:
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise`
@@ -40,9 +40,6 @@ Applies to:
 Un-reference the selected node and its usb-nodes.
 
 > This command is NOT setting a value to an empty string, but un-reference the nodes.
-
-<br>
-
 ### EXAMPLES
 
 ---
@@ -76,9 +73,6 @@ ydb.disconnect()
 ````js
 console.error.output = '^testGbl("subnode1"): path not found'
 ````
-
-<br>
-
 ---
 
 

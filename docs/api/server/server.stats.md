@@ -25,7 +25,7 @@
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise<object>`
@@ -50,9 +50,6 @@ If the server statistics are set to `grand`, it will return only the grand total
 
 If the server statistics are set to `details`, it will return only the grand totals:
 The same fields returned by the `grand` option, but grouped by commands and grand_totals
-
-<br>
-
 ---
 
 ### EXAMPLES
@@ -83,9 +80,6 @@ returns:
 
 err = 'No stats enabled on server'
 ````
-
-<br>
-
 ---
 
 When stats are set to `grand`
@@ -117,9 +111,6 @@ stats = {
     }
 }
 ````
-
-<br>
-
 ---
 
 When stats are set to `details`
@@ -181,9 +172,6 @@ stats = {
     }
 }
 ````
-
-<br>
-
 ---
 
 

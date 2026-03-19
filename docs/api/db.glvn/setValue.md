@@ -31,7 +31,7 @@ Applies to:
 |--------|-----------------|----------|-----------------------------------------------------------------------|
 | `data` | string / number | Yes      | The data you want to store. If missing, an empty string will be used. |
 
-\n<br>
+<br>
 **Returns**:
 
 `Promise`
@@ -41,9 +41,6 @@ Applies to:
 Sets a node to a value.
 
 The value can be either a string or a number.
-
-<br>
-
 ### EXAMPLES
 
 ---
@@ -70,9 +67,6 @@ ydb.disconnect()
 ````js
 res = 'this is a string'
 ````
-
-<br>
-
 ---
 
 Sets a node to a number
@@ -97,9 +91,6 @@ ydb.disconnect()
 ````js
 res = 23.5647
 ````
-
-<br>
-
 ---
 
 Sets a node to an empty string
@@ -124,9 +115,6 @@ ydb.disconnect()
 ````js
 res = ''
 ````
-
-<br>
-
 ---
 
 

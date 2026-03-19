@@ -22,9 +22,7 @@
 
 **Parameters**:
 <br><br>
-**Returns**:
-
-`<int>`
+**Returns**: `<int>`
 
 ---
 

@@ -22,7 +22,7 @@
 
 **Parameters**:
 <br><br>
-**Returns**: ` Promise<>`<int>`
+**Returns**: ` Promise<><int>`
 
 ---
 

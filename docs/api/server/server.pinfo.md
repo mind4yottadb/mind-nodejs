@@ -23,8 +23,8 @@
 **Parameters**:
 
 | Name  | Datatype | Optional | Description                                |
-|-------|----------|----------|--------------------------------------------|
-| `pid` | number   | No       | the pid of the process you want to examine |
+|-------|:--------:|:--------:|--------------------------------------------|
+| `pid` |  number  |    No    | the pid of the process you want to examine |
 
 <br>
 **Returns**: `Promise <object>`

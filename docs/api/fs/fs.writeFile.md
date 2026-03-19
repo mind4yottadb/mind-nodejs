@@ -33,7 +33,9 @@
 ---
 
 Write the string in `data` to replace the file specified in `filename`.
-<br>If `filename` is not found or another error occurs, it will throw an error.
+
+If `filename` is not found or another error occurs, it will throw an error.
+
 ---
 
 ### EXAMPLES

@@ -23,8 +23,8 @@
 **Parameters**:
 
 | Name   | Datatype | Optional | Description               |
-|--------|----------|----------|---------------------------|
-| `path` | string   | No       | the path you wish to test |
+|--------|:--------:|:--------:|---------------------------|
+| `path` |  string  |    No    | the path you wish to test |
 
 <br>
 **Returns**: `Promise<BOOLEAN>`

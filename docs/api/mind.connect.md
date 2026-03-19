@@ -23,12 +23,12 @@
 **Parameters**:
 
 | Name       | Datatype | Optional | Description                                        |
-|------------|----------|----------|----------------------------------------------------|
-| `host`     | string   | No       | the host of the MIND server                        |
-| `port`     | number   | No       | the TCP port of the MIND server                    |
-| `username` | string   | No       | the user nameof a known account in the MIND server |
-| `password` | string   | No       | the password of a known account in the MIND server |
-| `options`  | object   | Yes      | an object containing several optional options      |
+|------------|:--------:|:--------:|----------------------------------------------------|
+| `host`     |  string  |    No    | the host of the MIND server                        |
+| `port`     |  number  |    No    | the TCP port of the MIND server                    |
+| `username` |  string  |    No    | the user nameof a known account in the MIND server |
+| `password` |  string  |    No    | the password of a known account in the MIND server |
+| `options`  |  object  |   Yes    | an object containing several optional options      |
 
 <br>
 **Returns**: ` Promise<>`

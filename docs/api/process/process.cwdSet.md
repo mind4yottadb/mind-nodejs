@@ -23,8 +23,8 @@
 **Parameters**:
 
 | Name   | Datatype | Optional | Description             |
-|--------|----------|----------|-------------------------|
-| `path` | string   | No       | the new path of the cwd |
+|--------|:--------:|:--------:|-------------------------|
+| `path` |  string  |    No    | the new path of the cwd |
 
 <br>
 **Returns**: `Promise<>`

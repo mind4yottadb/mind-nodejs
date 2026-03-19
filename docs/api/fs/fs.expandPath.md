@@ -23,8 +23,8 @@
 **Parameters**:
 
 | Name   | Datatype | Optional | Description                 |
-|--------|----------|----------|-----------------------------|
-| `path` | string   | No       | the path you wish to expand |
+|--------|:--------:|:--------:|-----------------------------|
+| `path` |  string  |    No    | the path you wish to expand |
 
 <br>
 <br>

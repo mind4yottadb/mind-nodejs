@@ -23,9 +23,9 @@
 **Parameters**:
 
 | Name       | Datatype | Optional | Description                                   |
-|------------|----------|----------|-----------------------------------------------|
-| `filename` | string   | No       | the absolute or relative path of the filename |
-| `data`     | string   | No       | the data to be written.                       |
+|------------|:--------:|:--------:|-----------------------------------------------|
+| `filename` |  string  |    No    | the absolute or relative path of the filename |
+| `data`     |  string  |    No    | the data to be written.                       |
 
 <br>
 **Returns**: `Promise<>`

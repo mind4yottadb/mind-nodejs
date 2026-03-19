@@ -28,8 +28,8 @@ Applies to:
 **Parameters**:
 
 | Name          | Datatype | Optional | Description                                                |
-|---------------|----------|----------|------------------------------------------------------------|
-| `incrementBy` | number   | Yes      | The amount to  increase the specified node. Defaults to 1. |
+|---------------|:--------:|:--------:|------------------------------------------------------------|
+| `incrementBy` |  number  |   Yes    | The amount to  increase the specified node. Defaults to 1. |
 
 <br>
 **Returns**: `Promise<NUMBER>`

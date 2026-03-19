@@ -27,9 +27,9 @@ Applies to:
 
 **Parameters**:
 
-| Name   | Datatype        | Optional | Description                                                           |
-|--------|-----------------|----------|-----------------------------------------------------------------------|
-| `data` | string / number | Yes      | The data you want to store. If missing, an empty string will be used. |
+| Name   |    Datatype     | Optional | Description                                                           |
+|--------|:---------------:|:--------:|-----------------------------------------------------------------------|
+| `data` | string / number |   Yes    | The data you want to store. If missing, an empty string will be used. |
 
 <br>
 **Returns**: `Promise<>`

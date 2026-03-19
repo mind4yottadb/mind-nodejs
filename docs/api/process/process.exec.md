@@ -23,9 +23,9 @@
 **Parameters**:
 
 | Name      | Datatype | Optional | Description                                                     |
-|-----------|----------|----------|-----------------------------------------------------------------|
-| `command` | string   | No       | the command to be executed, including its (optional) parameters |
-| `shell`   | string   | Yes      | the (optional) shell to be used instead of /bin/sh              |
+|-----------|:--------:|:--------:|-----------------------------------------------------------------|
+| `command` |  string  |    No    | the command to be executed, including its (optional) parameters |
+| `shell`   |  string  |   Yes    | the (optional) shell to be used instead of /bin/sh              |
 
 <br>
 **Returns**: `Promise<string>`

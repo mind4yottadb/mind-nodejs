@@ -28,8 +28,8 @@ Applies to:
 **Parameters**:
 
 | Name   | Datatype | Optional | Description                                      |
-|--------|----------|----------|--------------------------------------------------|
-| `json` | string   | No       | The string containing the JSON you want to store |
+|--------|:--------:|:--------:|--------------------------------------------------|
+| `json` |  string  |    No    | The string containing the JSON you want to store |
 
 <br>
 **Returns**: `Promise<>`

@@ -23,9 +23,9 @@
 **Parameters**:
 
 | Name      | Datatype | Optional | Description                                                     |
-|-----------|----------|----------|-----------------------------------------------------------------|
-| `command` | string   | No       | the command to be executed, including its (optional) parameters |
-| `logFile` | string   | Yes      | the (optional) path to a log file to redirest the STDOUT        |
+|-----------|:--------:|:--------:|-----------------------------------------------------------------|
+| `command` |  string  |    No    | the command to be executed, including its (optional) parameters |
+| `logFile` |  string  |   Yes    | the (optional) path to a log file to redirest the STDOUT        |
 
 <br>
 **Returns**: `Promise<number>`

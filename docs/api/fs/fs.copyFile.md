@@ -23,9 +23,9 @@
 **Parameters**:
 
 | Name          | Datatype | Optional | Description              |
-|---------------|----------|----------|--------------------------|
-| `source`      | string   | No       | the source filename      |
-| `destination` | string   | No       | the destination filename |
+|---------------|:--------:|:--------:|--------------------------|
+| `source`      |  string  |    No    | the source filename      |
+| `destination` |  string  |    No    | the destination filename |
 
 <br>
 **Returns**: `Promise<>`

@@ -23,9 +23,9 @@
 **Parameters**:
 
 | Name     | Datatype | Optional | Description                                                                                           |
-|----------|----------|----------|-------------------------------------------------------------------------------------------------------|
-| `dashed` | boolean  | Yes      | if `true`, it will insert separation dashes in the returned value  . Default is `true`                |
-| `braced` | boolean  | Yes      | if `true`, it will surround the returned value (dashed or not dashed) with braces. Default is `false` |
+|----------|:--------:|:--------:|-------------------------------------------------------------------------------------------------------|
+| `dashed` | boolean  |   Yes    | if `true`, it will insert separation dashes in the returned value  . Default is `true`                |
+| `braced` | boolean  |   Yes    | if `true`, it will surround the returned value (dashed or not dashed) with braces. Default is `false` |
 
 <br>
 **Returns**: `Promise <string>` 

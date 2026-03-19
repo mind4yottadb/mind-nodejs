@@ -28,8 +28,8 @@ Applies to:
 **Parameters**:
 
 | Name          | Datatype | Optional | Description                                                |
-|---------------|----------|----------|------------------------------------------------------------|
-| `decrementBy` | number   | Yes      | The amount to  decrease the specified node. Defaults to 1. |
+|---------------|:--------:|:--------:|------------------------------------------------------------|
+| `decrementBy` |  number  |   Yes    | The amount to  decrease the specified node. Defaults to 1. |
 
 <br>
 **Returns**: `Promise<NUMBER>`

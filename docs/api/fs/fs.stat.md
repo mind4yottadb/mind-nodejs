@@ -23,8 +23,8 @@
 **Parameters**:
 
 | Name       | Datatype | Optional | Description                      |
-|------------|----------|----------|----------------------------------|
-| `filename` | string   | No       | the filename you want to enquire |
+|------------|:--------:|:--------:|----------------------------------|
+| `filename` |  string  |    No    | the filename you want to enquire |
 
 <br>
 **Returns**: `Promise<object>`

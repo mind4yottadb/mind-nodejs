@@ -23,9 +23,9 @@
 **Parameters**:
 
 | Name      | Datatype | Optional | Description                 |
-|-----------|----------|----------|-----------------------------|
-| `oldName` | string   | No       | the file you want to rename |
-| `newName` | string   | No       | the new filename            |
+|-----------|:--------:|:--------:|-----------------------------|
+| `oldName` |  string  |    No    | the file you want to rename |
+| `newName` |  string  |    No    | the new filename            |
 
 <br>
 **Returns**: `Promise<>`

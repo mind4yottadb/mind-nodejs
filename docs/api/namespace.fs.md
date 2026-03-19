@@ -16,9 +16,9 @@
 
 ### Methods:
 
-- [writeFile(filename, data)](fs/fs.writeFile.md)
-- [appendFile(filename, data)](fs/fs.appendFile.md)
-- [copyfile(source, destination)](fs/fs.copyFile.md)
+- [writeFile(filename, data)](api/fs/fs.writeFile.md)
+- [appendFile(filename, data)](api/fs/fs.appendFile.md)
+- [copyfile(source, destination)](api/fs/fs.copyFile.md)
 - [renameFile](fs/fs.renameFile.md)
 - [mkdir(path)](fs/fs.mkdir.md)
 - [rmdir(path)](fs/fs.rmdir.md)

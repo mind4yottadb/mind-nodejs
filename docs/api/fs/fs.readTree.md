@@ -28,7 +28,7 @@
 | `mask` | string   | Yes      | the mask to be used    |
 
 <br>
-**Returns**: `Promise`<array>`
+**Returns**: `Promise<array>`
 
 ---
 

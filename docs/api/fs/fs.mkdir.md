@@ -25,7 +25,7 @@
 | `path` | string   | No       | the path of the new dir |
 
 <br>
-**Returns**: `Promise`<>`
+**Returns**: `Promise<>`
 
 ---
 

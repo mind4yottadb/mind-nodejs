@@ -28,7 +28,7 @@
 | `data`     | string   | No       | the data to be appended.                      |
 
 <br>
-**Returns**: `Promise`
+**Returns**: `Promise<>`
 
 ---
 

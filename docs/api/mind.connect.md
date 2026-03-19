@@ -30,6 +30,7 @@
 | `password` | string   | No       | the password of a known account in the MIND server |
 | `options`  | object   | Yes      | an object containing several optional options      |
 
+\n<br>
 **Returns**:
 
 `Promise`

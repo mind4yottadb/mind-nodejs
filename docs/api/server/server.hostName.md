@@ -26,6 +26,7 @@
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
+\n<br>
 **Returns**:
 
 `<string>`

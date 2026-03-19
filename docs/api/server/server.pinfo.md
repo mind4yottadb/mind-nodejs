@@ -26,6 +26,7 @@
 |-------|----------|----------|--------------------------------------------|
 | `pid` | number   | No       | the pid of the process you want to examine |
 
+\n<br>
 **Returns**:
 
 `Promise<object>`

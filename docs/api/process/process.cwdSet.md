@@ -26,6 +26,7 @@
 |--------|----------|----------|-------------------------|
 | `path` | string   | No       | the new path of the cwd |
 
+\n<br>
 **Returns**:
 
 `Promise`

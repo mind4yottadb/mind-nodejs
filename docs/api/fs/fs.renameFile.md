@@ -27,6 +27,7 @@
 | `oldName` | string   | No       | the file you want to rename |
 | `newName` | string   | No       | the new filename            |
 
+\n<br>
 **Returns**:
 
 `Promise<>`

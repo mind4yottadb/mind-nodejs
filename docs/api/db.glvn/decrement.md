@@ -31,6 +31,7 @@ Applies to:
 |---------------|----------|----------|------------------------------------------------------------|
 | `decrementBy` | number   | Yes      | The amount to  decrease the specified node. Defaults to 1. |
 
+\n<br>
 **Returns**:
 
 `Promise<NUMBER>`

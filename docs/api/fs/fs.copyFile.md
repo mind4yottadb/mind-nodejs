@@ -27,17 +27,14 @@
 | `source`      | string   | No       | the source filename      |
 | `destination` | string   | No       | the destination filename |
 
+<br>
 **Returns**:
 
 `Promise<>`
 
 ---
 
-
-
 If `source` or `destination` files are not found or another error occurs, it will throw an error.
-
-<br>
 
 ---
 

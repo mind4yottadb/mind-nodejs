@@ -27,6 +27,7 @@
 | `pid`       | number   | No       | the process id of the program you wish to terminate                  |
 | `sigNumber` | number   | Yes      | the (optional) signal number. If omitter, it will default to SIG_INT |
 
+\n<br>
 **Returns**:
 
 `Promise`

@@ -27,6 +27,7 @@
 | `filename` | string   | No       | the absolute or relative path of the filename |
 | `data`     | string   | No       | the data to be written.                       |
 
+\n<br>
 **Returns**:
 
 `Promise<>`

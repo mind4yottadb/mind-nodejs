@@ -31,6 +31,7 @@ Applies to:
 |--------|----------|----------|--------------------------------------------------|
 | `json` | string   | No       | The string containing the JSON you want to store |
 
+\n<br>
 **Returns**:
 
 `Promise`

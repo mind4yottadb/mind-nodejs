@@ -34,6 +34,7 @@ Applies to:
 | `start`     | number   | Yes      | The starting piece number to be returned. The default is 1.      |
 | `end`       | number   | Yes      | The ending piece number to be returned. The default is 1.        |
 
+\n<br>
 **Returns**:
 
 `Promise<STRING/NUMBER>`

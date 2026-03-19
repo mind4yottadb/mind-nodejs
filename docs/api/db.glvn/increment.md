@@ -31,6 +31,7 @@ Applies to:
 |---------------|----------|----------|------------------------------------------------------------|
 | `incrementBy` | number   | Yes      | The amount to  increase the specified node. Defaults to 1. |
 
+\n<br>
 **Returns**:
 
 `Promise<NUMBER>`

@@ -26,6 +26,7 @@
 |------------|----------|----------|----------------------------------|
 | `filename` | string   | No       | the filename you want to enquire |
 
+\n<br>
 **Returns**:
 
 `Promise<object>`

@@ -26,6 +26,8 @@
 |--------|----------|----------|-----------------------------|
 | `path` | string   | No       | the path you wish to expand |
 
+<br>
+\n<br>
 **Returns**:
 
 `Promise<string>`
@@ -36,7 +38,6 @@ Returns the extended path of the passed `path` by expanding the included environ
 
 If the `path` is not found or another error occurs, it will throw an error.
 
-<br>
 
 ---
 

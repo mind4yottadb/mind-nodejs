@@ -26,6 +26,7 @@
 |--------|----------|----------|-----------------------------------------|
 | `path` | string   | No       | the path of the directory to be deleted |
 
+\n<br>
 **Returns**:
 
 `Promise<>`

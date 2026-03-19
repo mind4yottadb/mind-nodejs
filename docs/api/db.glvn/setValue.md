@@ -31,6 +31,7 @@ Applies to:
 |--------|-----------------|----------|-----------------------------------------------------------------------|
 | `data` | string / number | Yes      | The data you want to store. If missing, an empty string will be used. |
 
+\n<br>
 **Returns**:
 
 `Promise`

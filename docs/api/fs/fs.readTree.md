@@ -27,6 +27,7 @@
 | `path` | string   | No       | the path to search for |
 | `mask` | string   | Yes      | the mask to be used    |
 
+<br>
 **Returns**:
 
 `Promise<array>`

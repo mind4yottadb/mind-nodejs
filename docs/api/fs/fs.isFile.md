@@ -26,6 +26,7 @@
 |--------|----------|----------|---------------------------|
 | `path` | string   | No       | the path you wish to test |
 
+<br>
 **Returns**:
 
 `Promise<BOOLEAN>`
@@ -34,8 +35,6 @@
 
 Returns `true` if the supplied path is a file, `false` if it is a directory.
 If the path doesn't exist it will throw an error.
-
-<br>
 
 ---
 

@@ -27,6 +27,7 @@
 | `dashed` | boolean  | Yes      | if `true`, it will insert separation dashes in the returned value  . Default is `true`                |
 | `braced` | boolean  | Yes      | if `true`, it will surround the returned value (dashed or not dashed) with braces. Default is `false` |
 
+\n<br>
 **Returns**:
 
 `Promise<string>` guid

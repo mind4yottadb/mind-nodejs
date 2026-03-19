@@ -14,22 +14,24 @@
 
 # MIND
 
-### Methods:
+---
+
+#### Methods:
 
 - [connect()](mind.connect.md)
 - [disconnect()](mind.disconnect.md)
 
-### Properties:
+#### Properties:
 
 - [connected](mind.connected.md)
 - [loggedIn](mind.loggedIn.md)
 
-### Events
+#### Events
 
 - [socketError](mind.on-socket-error.md)
 - [disconnect](mind.on-disconnect.md)
 
-### Namespaces:
+#### Namespaces:
 
 - [process](namespace.process.md)
 - [server](namespace.server.md)

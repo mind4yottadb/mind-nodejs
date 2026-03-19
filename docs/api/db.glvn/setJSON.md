@@ -32,9 +32,7 @@ Applies to:
 | `json` | string   | No       | The string containing the JSON you want to store |
 
 <br>
-**Returns**:
-
-`Promise`
+**Returns**: `Promise`
 
 ---
 

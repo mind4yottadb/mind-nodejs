@@ -27,9 +27,7 @@
 | `path` | string   | No       | the path you wish to test |
 
 <br>
-**Returns**:
-
-`Promise<BOOLEAN>`
+**Returns**: `Promise`<BOOLEAN>`
 
 ---
 

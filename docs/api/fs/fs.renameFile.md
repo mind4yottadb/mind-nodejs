@@ -28,9 +28,7 @@
 | `newName` | string   | No       | the new filename            |
 
 <br>
-**Returns**:
-
-`Promise<>`
+**Returns**: `Promise`<>`
 
 ---
 

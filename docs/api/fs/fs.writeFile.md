@@ -28,9 +28,7 @@
 | `data`     | string   | No       | the data to be written.                       |
 
 <br>
-**Returns**:
-
-`Promise<>`
+**Returns**: `Promise`<>`
 
 ---
 

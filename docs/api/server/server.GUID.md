@@ -28,9 +28,7 @@
 | `braced` | boolean  | Yes      | if `true`, it will surround the returned value (dashed or not dashed) with braces. Default is `false` |
 
 <br>
-**Returns**:
-
-`Promise<string>` guid
+**Returns**: `Promise`<string>` guid
 
 ---
 

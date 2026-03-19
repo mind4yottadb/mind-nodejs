@@ -31,9 +31,7 @@
 | `options`  | object   | Yes      | an object containing several optional options      |
 
 <br>
-**Returns**:
-
-`Promise`
+**Returns**: `Promise`
 
 ---
 

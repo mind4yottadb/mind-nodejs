@@ -31,9 +31,7 @@ Applies to:
 |------|----------|----------|-------------|
 
 <br>
-**Returns**:
-
-`Promise<BOOLEAN>`
+**Returns**: `Promise`<BOOLEAN>`
 
 ---
 

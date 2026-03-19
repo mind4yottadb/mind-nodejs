@@ -31,9 +31,7 @@ Applies to:
 |------|----------|----------|-------------|
 
 <br>
-**Returns**:
-
-`Promise<STRING/NUMBER>`
+**Returns**: `Promise`<STRING/NUMBER>`
 
 ---
 

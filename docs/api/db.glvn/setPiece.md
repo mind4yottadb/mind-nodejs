@@ -35,9 +35,7 @@ Applies to:
 | `end`       | number   | Yes      | The ending piece number to be returned. The default is 1.        |
 
 <br>
-**Returns**:
-
-`Promise<STRING/NUMBER>`
+**Returns**: `Promise`<STRING/NUMBER>`
 
 ---
 

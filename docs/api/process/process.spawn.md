@@ -28,9 +28,7 @@
 | `logFile` | string   | Yes      | the (optional) path to a log file to redirest the STDOUT        |
 
 <br>
-**Returns**:
-
-`Promise<number>`
+**Returns**: `Promise`<number>`
 
 ---
 

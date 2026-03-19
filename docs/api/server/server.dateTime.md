@@ -26,9 +26,7 @@
 |------|----------|----------|-------------|
 
 <br>
-**Returns**:
-
-`Promise<object>`
+**Returns**: `Promise`<object>`
 
 ---
 

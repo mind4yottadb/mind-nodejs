@@ -28,9 +28,7 @@
 | `shell`   | string   | Yes      | the (optional) shell to be used instead of /bin/sh              |
 
 <br>
-**Returns**:
-
-`Promise<string>`
+**Returns**: `Promise`<string>`
 
 ---
 

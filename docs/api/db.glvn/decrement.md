@@ -32,9 +32,7 @@ Applies to:
 | `decrementBy` | number   | Yes      | The amount to  decrease the specified node. Defaults to 1. |
 
 <br>
-**Returns**:
-
-`Promise<NUMBER>`
+**Returns**: `Promise`<NUMBER>`
 
 ---
 

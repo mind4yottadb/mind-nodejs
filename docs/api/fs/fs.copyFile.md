@@ -28,9 +28,7 @@
 | `destination` | string   | No       | the destination filename |
 
 <br>
-**Returns**:
-
-`Promise<>`
+**Returns**: `Promise`<>`
 
 ---
 

@@ -7,13 +7,6 @@
             "icon": "",
             "children": [
                 {
-                    "text": "session",
-                    "id": "api/namespace.session.md",
-                    "icon": "",
-                    "children": [
-                    ]
-                },
-                {
                     "text": "fs",
                     "id": "api/namespace.fs.md",
                     "icon": "",

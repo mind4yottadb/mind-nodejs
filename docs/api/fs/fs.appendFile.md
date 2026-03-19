@@ -18,7 +18,7 @@
 
 **Type**: method
 
-**Async**: yes, returns a ==Promise==
+**Async**: yes, returns a Promise
 
 **Parameters**:
 
@@ -35,6 +35,8 @@
 Appends the string in `data` to the file specified in `filename`.
 
 If `filename` is not found or another error occurs, it will throw an error.
+
+> blockquote
 
 ---
 

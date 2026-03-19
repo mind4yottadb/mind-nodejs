@@ -7,6 +7,13 @@
             "icon": "",
             "children": [
                 {
+                    "text": "mind",
+                    "id": "api/mind.md",
+                    "icon": "",
+                    "children": [
+                    ]
+                },
+                {
                     "text": "fs",
                     "id": "api/namespace.fs.md",
                     "icon": "",

@@ -81,6 +81,7 @@
                                     "icon": ""
                                 },
                                 {
+                                    "id": "api/fs/fs.writeFile.md",
                                     "text": "writeFile()",
                                     "data": "api/fs/fs.writeFile.md",
                                     "icon": ""

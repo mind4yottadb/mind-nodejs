@@ -171,7 +171,7 @@
                             "children": [
                                 {
                                     "text": "pid",
-                                    "id": "api/fs/process.pid.md",
+                                    "id": "api/process/process.pid.md",
                                     "icon": ""
                                 }
                             ]

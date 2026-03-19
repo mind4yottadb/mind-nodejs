@@ -22,8 +22,8 @@
 
 **Parameters**:
 
-| name | data type | Optional | Description |
-|------|-----------|----------|-------------|
+| Name | Datatype | Optional | Description |
+|------|----------|----------|-------------|
 
 **Returns**:
 

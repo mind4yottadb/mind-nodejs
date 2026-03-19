@@ -16,12 +16,12 @@
 
 ### Methods:
 
-- [_](./db/db.globals/_.md)
-- [addName](./db/db.globals/addName.md)
-- [removeName](./db/db.globals/removeName.md)
-- [removeLock](./db/db.globals/removeLock.md)
-- [addLock](./db/db.globals/addLock.md)
-- [glvn](./db/db.globals/glvn.md)
+- [_](api/db/db.globals/_.md)
+- [addName](api/db/db.globals/addName.md)
+- [removeName](api/db/db.globals/removeName.md)
+- [removeLock](api/db/db.globals/removeLock.md)
+- [addLock](api/db/db.globals/addLock.md)
+- [glvn](api/db/db.globals/glvn.md)
 
 ### Functions:
 

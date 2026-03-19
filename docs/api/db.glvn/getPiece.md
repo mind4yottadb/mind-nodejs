@@ -27,11 +27,11 @@ Applies to:
 
 **Parameters**:
 
-| name        | data type | Optional | Description                                                      |
-|-------------|-----------|----------|------------------------------------------------------------------|
-| `pieceChar` | number    | Yes      | The character to be used to split the string. The default is `^` |
-| `start`     | number    | Yes      | The starting piece number to be returned. The default is 1.      |
-| `end`       | number    | Yes      | The ending piece number to be returned. The default is 1.        |
+| Name        | Datatype | Optional | Description                                                      |
+|-------------|----------|----------|------------------------------------------------------------------|
+| `pieceChar` | number   | Yes      | The character to be used to split the string. The default is `^` |
+| `start`     | number   | Yes      | The starting piece number to be returned. The default is 1.      |
+| `end`       | number   | Yes      | The ending piece number to be returned. The default is 1.        |
 
 **Returns**:
 

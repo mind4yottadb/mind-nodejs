@@ -22,10 +22,10 @@
 
 **Parameters**:
 
-| name   | data type | Optional | Description            |
-|--------|-----------|----------|------------------------|
-| `path` | string    | No       | the path to search for |
-| `mask` | string    | Yes      | the mask to be used    |
+| Name   | Datatype | Optional | Description            |
+|--------|----------|----------|------------------------|
+| `path` | string   | No       | the path to search for |
+| `mask` | string   | Yes      | the mask to be used    |
 
 **Returns**:
 

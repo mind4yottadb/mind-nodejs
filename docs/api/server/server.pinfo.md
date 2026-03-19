@@ -22,9 +22,9 @@
 
 **Parameters**:
 
-| name  | data type | Optional | Description                                |
-|-------|-----------|----------|--------------------------------------------|
-| `pid` | number    | No       | the pid of the process you want to examine |
+| Name  | Datatype | Optional | Description                                |
+|-------|----------|----------|--------------------------------------------|
+| `pid` | number   | No       | the pid of the process you want to examine |
 
 **Returns**:
 

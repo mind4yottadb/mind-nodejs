@@ -22,10 +22,10 @@
 
 **Parameters**:
 
-| name       | data type | Optional | Description                                   |
-|------------|-----------|----------|-----------------------------------------------|
-| `filename` | string    | No       | the absolute or relative path of the filename |
-| `data`     | string    | No       | the data to be appended.                      |
+| Name       | Datatype | Optional | Description                                   |
+|------------|----------|----------|-----------------------------------------------|
+| `filename` | string   | No       | the absolute or relative path of the filename |
+| `data`     | string   | No       | the data to be appended.                      |
 
 **Returns**:
 

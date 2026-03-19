@@ -22,9 +22,9 @@
 
 **Parameters**:
 
-| name         | data type | Optional | Description                                                     |
-|--------------|-----------|----------|-----------------------------------------------------------------|
-| `resolution` | string    | Yes      | the resolution of the number returned, defaults to milliseconds |
+| Name         | Datatype | Optional | Description                                                     |
+|--------------|----------|----------|-----------------------------------------------------------------|
+| `resolution` | string   | Yes      | the resolution of the number returned, defaults to milliseconds |
 
 **Returns**:
 

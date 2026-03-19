@@ -22,10 +22,10 @@
 
 **Parameters**:
 
-| name      | data type | Optional | Description                                                     |
-|-----------|-----------|----------|-----------------------------------------------------------------|
-| `command` | string    | No       | the command to be executed, including its (optional) parameters |
-| `shell`   | string    | Yes      | the (optional) shell to be used instead of /bin/sh              |
+| Name      | Datatype | Optional | Description                                                     |
+|-----------|----------|----------|-----------------------------------------------------------------|
+| `command` | string   | No       | the command to be executed, including its (optional) parameters |
+| `shell`   | string   | Yes      | the (optional) shell to be used instead of /bin/sh              |
 
 **Returns**:
 

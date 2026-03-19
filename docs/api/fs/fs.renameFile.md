@@ -22,10 +22,10 @@
 
 **Parameters**:
 
-| name      | data type | Optional | Description                 |
-|-----------|-----------|----------|-----------------------------|
-| `oldName` | string    | No       | the file you want to rename |
-| `newName` | string    | No       | the new filename            |
+| Name      | Datatype | Optional | Description                 |
+|-----------|----------|----------|-----------------------------|
+| `oldName` | string   | No       | the file you want to rename |
+| `newName` | string   | No       | the new filename            |
 
 **Returns**:
 

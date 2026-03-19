@@ -27,9 +27,9 @@ Applies to:
 
 **Parameters**:
 
-| name  | data type | Optional | Description                  |
-|-------|-----------|----------|------------------------------|
-| `obj` | string    | No       | The object you want to store |
+| Name  | Datatype | Optional | Description                  |
+|-------|----------|----------|------------------------------|
+| `obj` | string   | No       | The object you want to store |
 
 **Returns**:
 

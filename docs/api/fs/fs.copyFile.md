@@ -22,10 +22,10 @@
 
 **Parameters**:
 
-| name          | data type | Optional | Description              |
-|---------------|-----------|----------|--------------------------|
-| `source`      | string    | No       | the source filename      |
-| `destination` | string    | No       | the destination filename |
+| Name          | Datatype | Optional | Description              |
+|---------------|----------|----------|--------------------------|
+| `source`      | string   | No       | the source filename      |
+| `destination` | string   | No       | the destination filename |
 
 **Returns**:
 

@@ -22,9 +22,9 @@
 
 **Parameters**:
 
-| name   | data type | Optional | Description                             |
-|--------|-----------|----------|-----------------------------------------|
-| `path` | string    | No       | the path of the directory to be deleted |
+| Name   | Datatype | Optional | Description                             |
+|--------|----------|----------|-----------------------------------------|
+| `path` | string   | No       | the path of the directory to be deleted |
 
 **Returns**:
 

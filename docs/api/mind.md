@@ -16,18 +16,18 @@
 
 ### Methods:
 
-- [connect()](mind/mind.connect.md)
-- [disconnect()](mind/mind.disconnect.md)
+- [connect()](mind.connect.md)
+- [disconnect()](mind.disconnect.md)
 
 ### Properties:
 
-- [connected](mind/mind.connected.md)
-- [loggedIn](mind/mind.loggedIn.md)
+- [connected](mind.connected.md)
+- [loggedIn](mind.loggedIn.md)
 
 ### Events
 
-- [socketError](mind/mind.on-socket-error.md)
-- [disconnect](mind/mind.on-disconnect.md)
+- [socketError](mind.on-socket-error.md)
+- [disconnect](mind.on-disconnect.md)
 
 ### Namespaces:
 

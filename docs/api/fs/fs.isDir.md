@@ -22,9 +22,9 @@
 
 **Parameters**:
 
-| name   | data type | Optional | Description               |
-|--------|-----------|----------|---------------------------|
-| `path` | string    | No       | the path you wish to test |
+| Name   | Datatype | Optional | Description               |
+|--------|----------|----------|---------------------------|
+| `path` | string   | No       | the path you wish to test |
 
 **Returns**:
 

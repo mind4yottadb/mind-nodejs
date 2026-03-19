@@ -26,7 +26,7 @@ Applies to:
 **Async**: yes, returns a Promise
 
 **Parameters**:
-<br>
+<br><br>
 **Returns**: `Promise<BOOLEAN>`
 
 ---

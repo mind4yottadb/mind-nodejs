@@ -22,7 +22,7 @@
 **Async**: no
 
 **Parameters**:
-<br>
+<br><br>
 **Returns**:
 
 <string>`

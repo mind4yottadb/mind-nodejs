@@ -21,7 +21,7 @@
 **Async**: no
 
 **Parameters**:
-<br>
+<br><br>
 **Returns**:
 
 `<int>`

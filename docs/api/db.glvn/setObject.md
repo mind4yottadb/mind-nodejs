@@ -32,7 +32,7 @@ Applies to:
 | `obj` | string   | No       | The object you want to store |
 
 <br>
-**Returns**: `Promise`
+**Returns**: `Promise<>`
 
 ---
 

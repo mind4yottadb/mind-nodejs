@@ -28,7 +28,7 @@
 <br>
 **Returns**:
 
-`<string>`
+<string>`
 
 ---
 

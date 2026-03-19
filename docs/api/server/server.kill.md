@@ -28,7 +28,7 @@
 | `sigNumber` | number   | Yes      | the (optional) signal number. If omitter, it will default to SIG_INT |
 
 <br>
-**Returns**: `Promise`
+**Returns**: ` Promise<>`
 
 ---
 

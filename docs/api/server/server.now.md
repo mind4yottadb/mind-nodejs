@@ -27,7 +27,7 @@
 | `resolution` | string   | Yes      | the resolution of the number returned, defaults to milliseconds |
 
 <br>
-**Returns**: `Promise`<int>`
+**Returns**: ` Promise<>`<int>`
 
 ---
 

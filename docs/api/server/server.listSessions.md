@@ -25,7 +25,7 @@
 | Name | Datatype | Optional | Description |
 |------|----------|----------|-------------|
 
-**Returns**: `Promise`<object>`
+**Returns**: `Promise <object>`
 
 ---
 

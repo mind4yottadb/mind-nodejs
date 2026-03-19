@@ -37,8 +37,6 @@ Appends the string in `data` to the file specified in `filename`.
 
 If `filename` is not found or another error occurs, it will throw an error.
 
-<br>
-
 ---
 
 #### Examples

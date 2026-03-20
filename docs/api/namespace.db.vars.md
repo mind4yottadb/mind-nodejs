@@ -38,4 +38,3 @@
 
 ---
 
-[Back](./namespace.db.md)

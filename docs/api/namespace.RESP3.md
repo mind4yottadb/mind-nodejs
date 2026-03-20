@@ -16,10 +16,40 @@
 
 ### Methods:
 
-### Functions:
+- build
+    - [blobError(str)](api/RESP3/RESP3.build.blobError.md)
+    - [simpleError(str)](api/RESP3/RESP3.build.simpleError.md)
+    - [simpleString(str)](api/RESP3/RESP3.build.simpleString.md)
+    - [blob(str)](api/RESP3/RESP3.build.blob.md)
+    - [verbatimString(str)](api/RESP3/RESP3.build.verbatimString.md)
+    - [_null()](api/RESP3/RESP3.build._null.md)
+    - [_true()](api/RESP3/RESP3.build._true.md)
+    - [_false()](api/RESP3/RESP3.build._false.md)
+    - [int(val)](api/RESP3/RESP3.build.int.md)
+    - [double(val)](api/RESP3/RESP3.build.double.md)
+    - [bigNumber(val)](api/RESP3/RESP3.build.bigNumber.md)
+- parse
+    - [extractToken(str)](api/RESP3/RESP3.parse.extractToken.md)
+    - [blob(str)](api/RESP3/RESP3.parse.blob.md)
+    - [simpleString(str)](api/RESP3/RESP3.parse.simpleString.md)
+    - [simpleError(str)](api/RESP3/RESP3.parse.simpleError.md)
+    - [boolean(str)](api/RESP3/RESP3.parse.boolean.md)
+    - [null(str)](api/RESP3/RESP3.parse.null.md)
+    - [int(str)](api/RESP3/RESP3.parse.int.md)
+    - [double(str)](api/RESP3/RESP3.parse.double.md)
+    - [bigNumber(str)](api/RESP3/RESP3.parse.bigNumber.md)
 
-### Properties:
+### Constants:
+
+- [CRLF](api/RESP3/RESP3.constants.CRLF.md)
+- [LF](api/RESP3/RESP3.constants.LF.md)
+- [null](api/RESP3/RESP3.constants.null.md)
+- [boolean](api/RESP3/RESP3.constants.boolean.md)
+- [true](api/RESP3/RESP3.constants.true.md)
+- [false](api/RESP3/RESP3.constants.false.md)
+- [int](api/RESP3/RESP3.constants.int.md)
+- [double](api/RESP3/RESP3.constants.double.md)
+- [bigNumber](api/RESP3/RESP3.constants.bigNumber.md)
 
 ---
 
-[Back](./mind.md)

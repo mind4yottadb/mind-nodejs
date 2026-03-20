@@ -14,6 +14,8 @@
 
 # Namespace: fs
 
+---
+
 ### Methods:
 
 - [writeFile(filename, data)](api/fs/fs.writeFile.md)

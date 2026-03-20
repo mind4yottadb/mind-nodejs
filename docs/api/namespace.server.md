@@ -14,6 +14,8 @@
 
 # Namespace: server
 
+---
+
 ### Methods:
 
 - [kill(pid,SIG)](api/server/server.kill.md)

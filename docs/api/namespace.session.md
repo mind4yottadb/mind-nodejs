@@ -14,6 +14,8 @@
 
 # Namespace: session
 
+---
+
 ### Methods:
 
 - [stats()](api/session/session.stats.md)

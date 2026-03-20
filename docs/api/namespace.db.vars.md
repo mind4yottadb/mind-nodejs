@@ -14,6 +14,8 @@
 
 # Namespace: db.vars
 
+---
+
 ### Methods:
 
 - [_](api/db.vars/_.md)

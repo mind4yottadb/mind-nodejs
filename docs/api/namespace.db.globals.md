@@ -14,6 +14,8 @@
 
 # Namespace: db.globals
 
+---
+
 ### Methods:
 
 - [_](api/db/db.globals/_.md)
@@ -37,9 +39,6 @@
 - [increment(incrementBy)](api/db.glvn/increment.md)
 - [decrement(decrementBy)](api/db.glvn/decrement.md)
 
-### Functions:
-
-### Properties:
 
 ---
 

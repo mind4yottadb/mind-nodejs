@@ -14,6 +14,8 @@
 
 # Namespace: process
 
+---
+
 ### Methods:
 
 - [exec(command, shell)](api/process/process.exec.md)

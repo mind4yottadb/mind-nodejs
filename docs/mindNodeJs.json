@@ -3,22 +3,22 @@
     "data": [
         {
             "text": "Getting started",
-            "id": "api/mind.md",
+            "id": "",
             "icon": ""
         },
         {
             "text": "Installing MIND",
-            "id": "api/mind.md",
+            "id": "",
             "icon": ""
         },
         {
             "text": "Basic principles",
-            "id": "api/mind.md",
+            "id": "",
             "icon": ""
         },
         {
             "text": "Error handling",
-            "id": "api/mind.md",
+            "id": "",
             "icon": ""
         },
         {
@@ -341,7 +341,7 @@
         },
         {
             "text": "Examples",
-            "id": "api/mind.md",
+            "id": "",
             "icon": "",
             "children": [
             ]

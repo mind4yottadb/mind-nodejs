@@ -31,7 +31,6 @@
     - [double(val)](api/RESP3/RESP3.build.double.md)
     - [bigNumber(val)](api/RESP3/RESP3.build.bigNumber.md)
 - parse
-    - [extractToken(str)](api/RESP3/RESP3.parse.extractToken.md)
     - [blob(str)](api/RESP3/RESP3.parse.blob.md)
     - [simpleString(str)](api/RESP3/RESP3.parse.simpleString.md)
     - [simpleError(str)](api/RESP3/RESP3.parse.simpleError.md)

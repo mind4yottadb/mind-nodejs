@@ -19,12 +19,14 @@
 - [exec(command, shell)](api/process/process.exec.md)
 - [spawn(command, logFile)](api/process/process.spawn.md)
 - [cwdSet(path)](api/process/process.cwdSet.md)
-
-### Functions:
-
 - [cwdGet()](api/process/process.cwdGet.md)
 - [memUsage()](api/process/process.memUsage.md)
 - [getEnvVars](api/process/process.getEnvVars.md)
+- [showLocks()](api/process/process.showLocks.md)
+- [groupLocks()](api/process/process.groupLocks.md)
+- [clearLocksGroup()](api/process/process.clearLocksGroup.md)
+- [commitLocks(timeout)](api/process/process.commitLocks.md)
+- [syslogMessage()](api/process/process.syslogMessage.md)
 
 ### Properties:
 

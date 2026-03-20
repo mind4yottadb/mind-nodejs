@@ -19,22 +19,19 @@
 - [writeFile(filename, data)](api/fs/fs.writeFile.md)
 - [appendFile(filename, data)](api/fs/fs.appendFile.md)
 - [copyfile(source, destination)](api/fs/fs.copyFile.md)
-- [renameFile](api/fs/fs.renameFile.md)
+- [renameFile(source, destination)](api/fs/fs.renameFile.md)
+- [removeFile(filename)](api/fs/fs.removeFile.md)
 - [mkdir(path)](api/fs/fs.mkdir.md)
 - [rmdir(path)](api/fs/fs.rmdir.md)
-
-### Functions:
-
 - [readFile(filename)](api/fs/fs.readFile.md)
 - [removeFile(filename)](api/fs/fs.removeFile.md)
 - [readDir(path, mask)](api/fs/fs.readDir.md)
 - [readTree(path, mask)](api/fs/fs.readTree.md)
 - [stat(filename)](api/fs/fs.stat.md)
 - [expandPath(path)](api/fs/fs.expandPath.md)
+- [copyFile(source, destination)](api/fs/fs.copyFile.md)
 - [isFile(path)](api/fs/fs.isFile.md)
 - [isDir(path)](api/fs/fs.isDir.md)
-
-### Properties:
 
 ---
 

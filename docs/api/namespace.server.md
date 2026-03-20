@@ -17,12 +17,10 @@
 ### Methods:
 
 - [kill(pid,SIG)](api/server/server.kill.md)
-
-### Functions:
-
 - [GUID(dashed, braced)](api/server/server.GUID.md)
-- [listSessions](api/server/server.listSessions.md)
+- [listSessions()](api/server/server.listSessions.md)
 - [pinfo](api/server/server.pinfo.md)
+- [plist](api/server/server.plist.md)
 - [stats](api/server/server.stats.md)
 - [unixtime()](api/server/server.unixtime.md)
 - [now()](api/server/server.now.md)

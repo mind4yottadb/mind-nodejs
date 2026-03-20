@@ -16,9 +16,10 @@
 
 ### Methods:
 
-### Functions:
+- [stats()](api/session/session.stats.md)
+- [resetStats()](api/session/session.resetStats.md)
+- [timeSinceConnect()](api/session/session.timeSinceConnect.md)
 
-### Properties:
 
 ---
 

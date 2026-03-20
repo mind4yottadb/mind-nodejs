@@ -2,6 +2,26 @@
     "baseDir": "",
     "data": [
         {
+            "text": "Getting started",
+            "id": "api/mind.md",
+            "icon": ""
+        },
+        {
+            "text": "Installing MIND",
+            "id": "api/mind.md",
+            "icon": ""
+        },
+        {
+            "text": "Basic principles",
+            "id": "api/mind.md",
+            "icon": ""
+        },
+        {
+            "text": "Error handling",
+            "id": "api/mind.md",
+            "icon": ""
+        },
+        {
             "text": "API reference",
             "id": "",
             "icon": "",
@@ -317,6 +337,13 @@
                     "id": "api/errorHandling.md",
                     "icon": ""
                 }
+            ]
+        },
+        {
+            "text": "Examples",
+            "id": "api/mind.md",
+            "icon": "",
+            "children": [
             ]
         }
     ]

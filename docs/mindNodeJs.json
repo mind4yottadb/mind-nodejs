@@ -333,9 +333,174 @@
                     ]
                 },
                 {
-                    "text": "Error handling",
-                    "id": "api/errorHandling.md",
-                    "icon": ""
+                    "text": "RESP3",
+                    "id": "api/namespace.RESP3.md",
+                    "icon": "",
+                    "children": [
+                        {
+                            "text": "Methods",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "build",
+                                    "id": "",
+                                    "icon": "",
+                                    "children": [
+                                        {
+                                            "text": "blobError(str)",
+                                            "id": "api/RESP3/RESP3.build.blobError.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "simpleError(str)",
+                                            "id": "api/RESP3/RESP3.build.simpleError.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "simpleString(str)",
+                                            "id": "api/RESP3/RESP3.build.simpleString.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "blob(str)",
+                                            "id": "api/RESP3/RESP3.build.blob.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "verbatimString(str)",
+                                            "id": "api/RESP3/RESP3.build.verbatimString.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "_null()",
+                                            "id": "api/RESP3/RESP3.build._null.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "_true()",
+                                            "id": "api/RESP3/RESP3.build._true.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "_false()",
+                                            "id": "api/RESP3/RESP3.build._false.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "int(val)",
+                                            "id": "api/RESP3/RESP3.build.int.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "double(val)",
+                                            "id": "api/RESP3/RESP3.build.double.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "bigNumber(val)",
+                                            "id": "api/RESP3/RESP3.build.bigNumber.md",
+                                            "icon": ""
+                                        }
+                                    ]
+                                },
+                                {
+                                    "text": "parse",
+                                    "id": "",
+                                    "icon": "",
+                                    "children": [
+                                        {
+                                            "text": "simpleString(str)",
+                                            "id": "api/RESP3/RESP3.parse.simpleString.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "simpleError(str)",
+                                            "id": "api/RESP3/RESP3.parse.simpleError.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "boolean(str)",
+                                            "id": "api/RESP3/RESP3.parse.boolean.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "null(str)",
+                                            "id": "api/RESP3/RESP3.parse.null.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "int(str)",
+                                            "id": "api/RESP3/RESP3.parse.int.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "double(str)",
+                                            "id": "api/RESP3/RESP3.parse.double.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "bigNumber(str)",
+                                            "id": "api/RESP3/RESP3.parse.bigNumber.md",
+                                            "icon": ""
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "text": "Constants",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "CRLF",
+                                    "id": "api/RESP3/RESP3.constants.CRLF.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "LF",
+                                    "id": "api/RESP3/RESP3.constants.LF.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "null",
+                                    "id": "api/RESP3/RESP3.constants.null.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "boolean",
+                                    "id": "api/RESP3/RESP3.constants.boolean.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "true",
+                                    "id": "api/RESP3/RESP3.constants.true.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "false",
+                                    "id": "api/RESP3/RESP3.constants.false.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "int",
+                                    "id": "api/RESP3/RESP3.constants.int.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "double",
+                                    "id": "api/RESP3/RESP3.constants.double.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "bigNumber",
+                                    "id": "api/RESP3/RESP3.constants.bigNumber.md",
+                                    "icon": ""
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         },

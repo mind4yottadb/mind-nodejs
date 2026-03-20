@@ -142,4 +142,4 @@ await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', {
 
 ---
 
-[Back](../mind.md)
+[Back](api/mind.md)

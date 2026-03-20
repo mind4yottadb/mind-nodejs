@@ -54,4 +54,4 @@ console.dir(ydb, {depth: 5})
 
 ---
 
-[Back](../mind.md)
+[Back](api/mind.md)

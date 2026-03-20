@@ -84,4 +84,4 @@ res = false
 ````
 ---
 
-[Back](../glvn)
+[Back](api/namespace.db.globals.md)

@@ -68,4 +68,4 @@ res = 22
 ---
 
 
-[Back](../glvn)
+[Back](api/namespace.db.globals.md)

@@ -64,4 +64,4 @@ cwd = '/opt/yottadb/current'
 
 ---
 
-[Back](../namespace.process.md)
+[Back](api/namespace.process.md)

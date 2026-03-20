@@ -99,4 +99,4 @@ res = 'dummy'
 ````
 ---
 
-[Back](../glvn)
+[Back](api/namespace.db.globals.md)

@@ -70,4 +70,4 @@ console.error.output = '^testGbl("subnode1"): path not found'
 ---
 
 
-[Back](../glvn)
+[Back](api/namespace.db.globals.md)

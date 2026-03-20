@@ -53,4 +53,4 @@ ydb.disconnect()
 
 ---
 
-[Back](../mind.md)
+[Back](api/mind.md)

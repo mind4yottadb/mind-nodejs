@@ -122,4 +122,4 @@ res = '^^^^^^^myString^myString2^myString3'
 ````
 ---
 
-[Back](../glvn)
+[Back](api/namespace.db.globals.md)

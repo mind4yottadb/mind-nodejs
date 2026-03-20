@@ -142,4 +142,4 @@ res = 3
 ---
 
 
-[Back](../glvn)
+[Back](api/namespace.db.globals.md)

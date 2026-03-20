@@ -58,4 +58,4 @@ ydb.on('socketError', err => {
 
 ---
 
-[Back](../mind.md)
+[Back](api/mind.md)

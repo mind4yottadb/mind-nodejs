@@ -401,6 +401,20 @@
                     "id": "",
                     "icon": "",
                     "children": [
+                        {
+                            "text": "Globals",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                            ]
+                        },
+                        {
+                            "text": "Vars",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                            ]
+                        }
                     ]
                 },
                 {

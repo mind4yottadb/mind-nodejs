@@ -26,10 +26,11 @@
 
 ---
 
-Enable the group locks feature, meaning all the [global.addLock()](api/db.globals/addLock.md) methods will not be
+Enable the group locks feature, meaning all the [global.addLock()](addLock.md) methods will not be
 executed, but accumulated in a local buffer.
 
-By executing the process.commitLocks() all the locks present in the local buffer will be executed AT THE SAME TIME.
+By executing the [process.commitLocks()](api/process/process.commitLocks.md) all the locks present in the local buffer
+will be executed AT THE SAME TIME.
 
 ---
 

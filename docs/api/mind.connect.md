@@ -75,6 +75,12 @@ The `db.globals` is an array of strings, where each string represents a global y
 
 > Global name do NOT need to be prefixed by the `^` character. So, a global named `^customers` must be entered as
 `customers`.
+
+The `uApi.appName` is the (optional) app name. For this to work, the app name must be loaded in the server. If it is not
+found, an error will be thrown.
+If an appName is specified, and it is found, eventual shared variables will be automatically loaded.
+
+
 ---
 
 ### EXAMPLES
@@ -129,7 +135,7 @@ const mind = new mindServer
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin', {
     useTls: true,
     tlsRejectSelfSigned: false,
-    app: {
+    db: {
         globals: [
             'customers',
             'orders',

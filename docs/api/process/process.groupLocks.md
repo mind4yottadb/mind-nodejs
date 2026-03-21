@@ -18,7 +18,7 @@
 
 **Type**: method
 
-**Async**: yes, returns a Promise
+**Async**: no
 
 **Parameters**:
 <br><br>

@@ -37,10 +37,13 @@ const run = async () => {
     mind.process.groupLocks()
     await mind.db.globals.globalTest._("test", 23).addLock()
     await mind.db.globals.globalTest._("extra lock", 78).addLock()
+
+    await mind.process.commitLocks()
     let locks = await mind.process.showLocks()
     console.log(locks)
 
-    await mind.process.commitLocks()
+    await mind.process.removeAllLocks()
+
     locks = await mind.process.showLocks()
     console.log(locks)
 

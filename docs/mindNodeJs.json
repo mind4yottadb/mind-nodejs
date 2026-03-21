@@ -203,6 +203,28 @@
                     "id": "",
                     "icon": "",
                     "children": [
+                        {
+                            "text": "Methods",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "resetStats()",
+                                    "id": "api/session/session.resetStats.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "stats()",
+                                    "id": "api/session/session.stats.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "timeSinceConnect()",
+                                    "id": "api/session/session.timeSinceConnect.md",
+                                    "icon": ""
+                                }
+                            ]
+                        }
                     ]
                 },
                 {

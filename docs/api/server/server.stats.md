@@ -28,7 +28,7 @@
 
 Returns global statistic information about the currently running sessions.
 
-> note: for statistics about the current session, use the function `process.stats()`.
+> note: for statistics related to the current session only, use the function `process.stats()`.
 
 In order for this function to return statistics, the server needs to have the `--statistics` option turned on, in either
 `grand` or `details` mode.
@@ -58,10 +58,11 @@ const ydb = new mind
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 try {
-    const sessions = await ydb.process.stats()
-    console.log(sessions)
+    const stats = await ydb.process.stats()
+    console.log(stats)
+
 } catch (err) {
-    console.log(err)
+    console.log(err.message)
 }
 
 ydb.disconnect()
@@ -85,8 +86,8 @@ const ydb = new mind
 
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const stats = await ydb.process.stats()
-console.log(sessions)
+const stats = await ydb.server.stats()
+console.log(stats)
 
 ydb.disconnect()
 
@@ -116,8 +117,8 @@ const ydb = new mind
 
 await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const stats = await ydb.process.stats()
-console.log(sessions)
+const stats = await ydb.server.stats()
+console.log(stats)
 
 ydb.disconnect()
 

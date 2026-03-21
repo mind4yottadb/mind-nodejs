@@ -8,7 +8,7 @@ const run = async () => {
     await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
         useTls: false,
         tlsRejectSelfSigned: false,
-        uApi: {appName: 'bhaskar'},
+        uApi: {appName: ''},
         db: {
             globals: [
                 'globalTest', 'myglobal2', 'stef'
@@ -27,8 +27,16 @@ const run = async () => {
 
 //console.dir(ydb)
 
-    ydb.on('error', err => console.log('custom error: ' + err))
-    ydb.on('disconnect', err => console.log('disconnected'))
+    const delay = (time) => {
+        return new Promise(function (resolve) {
+            setTimeout(resolve, time);
+        });
+    };
+
+    await delay(2000)
+
+    let stats = await ydb.session.timeSinceConnect()
+    console.log(stats)
 
 //await ydb.fs.writeFile('/test.txt2', 'this is the data I write')
 //await ydb.fs.appendFile('/test.txt2', 'and then append')

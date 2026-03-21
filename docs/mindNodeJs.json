@@ -406,6 +406,113 @@
                             "id": "",
                             "icon": "",
                             "children": [
+                                {
+                                    "text": "Methods",
+                                    "id": "",
+                                    "icon": "",
+                                    "children": [
+                                        {
+                                            "text": "addName()",
+                                            "id": "api/db.globals/addName.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "removeName()",
+                                            "id": "api/db.globals/removeName.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "addLock()",
+                                            "id": "api/db.globals/addLock.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "removeLock()",
+                                            "id": "api/db.globals/removeLock.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "_()  >>> subscript selector",
+                                            "id": "api/db.glvn/_.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "decrement()",
+                                            "id": "api/db.glvn/decrement.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getJSON()",
+                                            "id": "api/db.glvn/getJSON.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getObject()",
+                                            "id": "api/db.glvn/getObject.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getPiece()",
+                                            "id": "api/db.glvn/getPiece.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getValue()",
+                                            "id": "api/db.glvn/getValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "hasNodes()",
+                                            "id": "api/db.glvn/hasNodes.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "hasValue()",
+                                            "id": "api/db.glvn/hasValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "increment()",
+                                            "id": "api/db.glvn/increment.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "killTree()",
+                                            "id": "api/db.glvn/killTree.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "killValue()",
+                                            "id": "api/db.glvn/killValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "readValue()",
+                                            "id": "api/db.glvn/readValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setJSON()",
+                                            "id": "api/db.glvn/setJSON.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setObject()",
+                                            "id": "api/db.glvn/setObject.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setPiece()",
+                                            "id": "api/db.glvn/setPiece.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setValue()",
+                                            "id": "api/db.glvn/setValue.md",
+                                            "icon": ""
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         {
@@ -413,6 +520,93 @@
                             "id": "",
                             "icon": "",
                             "children": [
+                                {
+                                    "test": "Methods",
+                                    "id": "",
+                                    "icon": "",
+                                    "children": [
+                                        {
+                                            "text": "_()  >>> subscript selector",
+                                            "id": "api/db.glvn/_.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "decrement()",
+                                            "id": "api/db.glvn/decrement.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getJSON()",
+                                            "id": "api/db.glvn/getJSON.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getObject()",
+                                            "id": "api/db.glvn/getObject.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getPiece()",
+                                            "id": "api/db.glvn/getPiece.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getValue()",
+                                            "id": "api/db.glvn/getValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "hasNodes()",
+                                            "id": "api/db.glvn/hasNodes.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "hasValue()",
+                                            "id": "api/db.glvn/hasValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "increment()",
+                                            "id": "api/db.glvn/increment.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "killTree()",
+                                            "id": "api/db.glvn/killTree.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "killValue()",
+                                            "id": "api/db.glvn/killValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "readValue()",
+                                            "id": "api/db.glvn/readValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setJSON()",
+                                            "id": "api/db.glvn/setJSON.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setObject()",
+                                            "id": "api/db.glvn/setObject.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setPiece()",
+                                            "id": "api/db.glvn/setPiece.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setValue()",
+                                            "id": "api/db.glvn/setValue.md",
+                                            "icon": ""
+                                        }
+                                    ]
+                                }
                             ]
                         }
                     ]
@@ -440,27 +634,27 @@
                                     "icon": "",
                                     "children": [
                                         {
-                                            "text": "blobError(str)",
+                                            "text": "blobError()",
                                             "id": "api/RESP3/RESP3.build.blobError.md",
                                             "icon": ""
                                         },
                                         {
-                                            "text": "simpleError(str)",
+                                            "text": "simpleError()",
                                             "id": "api/RESP3/RESP3.build.simpleError.md",
                                             "icon": ""
                                         },
                                         {
-                                            "text": "simpleString(str)",
+                                            "text": "simpleString()",
                                             "id": "api/RESP3/RESP3.build.simpleString.md",
                                             "icon": ""
                                         },
                                         {
-                                            "text": "blob(str)",
+                                            "text": "blob()",
                                             "id": "api/RESP3/RESP3.build.blob.md",
                                             "icon": ""
                                         },
                                         {
-                                            "text": "verbatimString(str)",
+                                            "text": "verbatimString()",
                                             "id": "api/RESP3/RESP3.build.verbatimString.md",
                                             "icon": ""
                                         },
@@ -480,17 +674,17 @@
                                             "icon": ""
                                         },
                                         {
-                                            "text": "int(val)",
+                                            "text": "int()",
                                             "id": "api/RESP3/RESP3.build.int.md",
                                             "icon": ""
                                         },
                                         {
-                                            "text": "double(val)",
+                                            "text": "double()",
                                             "id": "api/RESP3/RESP3.build.double.md",
                                             "icon": ""
                                         },
                                         {
-                                            "text": "bigNumber(val)",
+                                            "text": "bigNumber()",
                                             "id": "api/RESP3/RESP3.build.bigNumber.md",
                                             "icon": ""
                                         }
@@ -502,37 +696,37 @@
                                     "icon": "",
                                     "children": [
                                         {
-                                            "text": "simpleString(str)",
+                                            "text": "simpleString()",
                                             "id": "api/RESP3/RESP3.parse.simpleString.md",
                                             "icon": ""
                                         },
                                         {
-                                            "text": "simpleError(str)",
+                                            "text": "simpleError()",
                                             "id": "api/RESP3/RESP3.parse.simpleError.md",
                                             "icon": ""
                                         },
                                         {
-                                            "text": "boolean(str)",
+                                            "text": "boolean()",
                                             "id": "api/RESP3/RESP3.parse.boolean.md",
                                             "icon": ""
                                         },
                                         {
-                                            "text": "null(str)",
+                                            "text": "null()",
                                             "id": "api/RESP3/RESP3.parse.null.md",
                                             "icon": ""
                                         },
                                         {
-                                            "text": "int(str)",
+                                            "text": "int()",
                                             "id": "api/RESP3/RESP3.parse.int.md",
                                             "icon": ""
                                         },
                                         {
-                                            "text": "double(str)",
+                                            "text": "double()",
                                             "id": "api/RESP3/RESP3.parse.double.md",
                                             "icon": ""
                                         },
                                         {
-                                            "text": "bigNumber(str)",
+                                            "text": "bigNumber()",
                                             "id": "api/RESP3/RESP3.parse.bigNumber.md",
                                             "icon": ""
                                         }

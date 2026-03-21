@@ -51,7 +51,7 @@ The same fields returned by the `grand` option, but grouped by commands and gran
 When stats are off
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 
@@ -80,7 +80,7 @@ err = 'No stats enabled on server'
 When stats are set to `grand`
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 
@@ -111,7 +111,7 @@ stats = {
 When stats are set to `details`
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 

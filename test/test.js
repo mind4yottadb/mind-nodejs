@@ -33,9 +33,7 @@ const run = async () => {
         });
     };
 
-    await delay(2000)
-
-    let stats = await ydb.session.timeSinceConnect()
+    let stats = await ydb.server.plist()
     console.log(stats)
 
 //await ydb.fs.writeFile('/test.txt2', 'this is the data I write')

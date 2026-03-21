@@ -41,7 +41,7 @@ It defaults to group it into five sections separated by hyphens: 8-4-4-4-12.
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 
@@ -64,7 +64,7 @@ GUID = '5b4b97b1-0daa-2d31-bb0e-984998917f05'
 ---
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 
@@ -86,7 +86,7 @@ GUID = '5b4b97b10daa2d31bb0e984998917f05'
 ---
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 

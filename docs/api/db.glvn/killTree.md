@@ -41,9 +41,9 @@ Un-reference the selected node and its usb-nodes.
 Kills a node
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mind4yottadb
+const mind = new mindServer
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

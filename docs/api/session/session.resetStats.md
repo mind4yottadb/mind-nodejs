@@ -37,9 +37,9 @@ If statistics are not enabled, it will throw an error.
 Reads statistics, reset them and read them again
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mind4yottadb
+const mind = new mindServer
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -93,9 +93,9 @@ res = {
 When statistics are not enabled on the server
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mind4yottadb
+const mind = new mindServer
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -118,4 +118,4 @@ res = 'No stats enabled on server'
 
 
 
-[Back](api/namespace.db.globals.md)
+[Back](api/namespace.db.session.md)

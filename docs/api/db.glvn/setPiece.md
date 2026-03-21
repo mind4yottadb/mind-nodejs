@@ -56,9 +56,9 @@ needed.
 set the first piece
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mind4yottadb
+const mind = new mindServer
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -79,9 +79,9 @@ res = 'myString'
 set the 5th piece
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mind4yottadb
+const mind = new mindServer
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -102,9 +102,9 @@ res = '^^^^myString'
 set multiple pieces in one go
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mind4yottadb
+const mind = new mindServer
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

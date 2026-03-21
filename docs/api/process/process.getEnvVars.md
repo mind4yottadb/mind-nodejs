@@ -33,7 +33,7 @@ The env var name is the property name and its value is the value of the env var.
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 

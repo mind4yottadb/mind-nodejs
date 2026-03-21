@@ -33,7 +33,7 @@ Returns the operating system running on the mind server.
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 

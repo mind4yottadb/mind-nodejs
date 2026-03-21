@@ -40,16 +40,16 @@ If `filename` is not found or another error occurs, it will throw an error.
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const data = ydb.fs.readFile('/tmp/testfile.txt')
+const data = mind.fs.readFile('/tmp/testfile.txt')
 console.log(data)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

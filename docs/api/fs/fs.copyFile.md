@@ -39,15 +39,15 @@ If `source` or `destination` files are not found or another error occurs, it wil
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await ydb.fs.copyfile('/tmp/testfile.txt', '/tmp/copyOfFile.txt')
+await mind.fs.copyfile('/tmp/testfile.txt', '/tmp/copyOfFile.txt')
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

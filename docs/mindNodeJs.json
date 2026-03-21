@@ -69,6 +69,11 @@
                                     "icon": ""
                                 },
                                 {
+                                    "text": "mkdir()",
+                                    "id": "api/fs/fs.mkdir.md",
+                                    "icon": ""
+                                },
+                                {
                                     "text": "readFile()",
                                     "id": "api/fs/fs.readFile.md",
                                     "icon": ""

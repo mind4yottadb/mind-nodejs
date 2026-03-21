@@ -39,15 +39,15 @@ If `path` is not found, it is not empty, it is not a directory or another error 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await ydb.fs.rmdir('/tmp/newDirectory')
+await mind.fs.rmdir('/tmp/newDirectory')
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

@@ -40,16 +40,16 @@ If the path doesn't exist it will throw an error.
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const res = await ydb.fs.isDir('/tmp')
+const res = await mind.fs.isDir('/tmp')
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

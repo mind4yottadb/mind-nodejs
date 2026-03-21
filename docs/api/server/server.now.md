@@ -41,7 +41,7 @@ To get the unix time in seconds, use the `unixtime()` function.
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 
@@ -62,7 +62,7 @@ now = 1769615736015
 
 ````
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 

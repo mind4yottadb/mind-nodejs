@@ -43,7 +43,7 @@ Any error returned by the running of the command will be thrown as Error.
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 

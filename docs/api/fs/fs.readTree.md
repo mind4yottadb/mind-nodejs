@@ -44,17 +44,17 @@ If `path` is not found or another error occurs, it will throw an error.
 Using no mask...
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const res = await ydb.fs.readTree('/etc')
+const res = await mind.fs.readTree('/etc')
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -76,17 +76,17 @@ ydb.disconnect()
 Using a mask...
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const res = await ydb.fs.readTree('/etc', '*.conf')
+const res = await mind.fs.readTree('/etc', '*.conf')
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

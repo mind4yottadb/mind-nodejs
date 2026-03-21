@@ -63,16 +63,16 @@ If the `filename` is not found or another error occurs, it will throw an error.
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const res = await ydb.fs.stat('/tmp')
+const res = await mind.fs.stat('/tmp')
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

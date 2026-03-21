@@ -37,15 +37,15 @@ If the `path` of the parent directory is not found or another error occurs, it w
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await ydb.fs.mkdir('/tmp/newDirectory')
+await mind.fs.mkdir('/tmp/newDirectory')
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

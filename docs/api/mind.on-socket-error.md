@@ -43,7 +43,7 @@ Register your function to be triggered by an internal socket error.
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 

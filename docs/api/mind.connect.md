@@ -80,7 +80,7 @@ The `db.globals` is an array of strings, where each string represents a global y
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 
@@ -98,7 +98,7 @@ By comparing the first and second object dump (console.dir) you can see that the
 Example with error handler:
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 
@@ -122,7 +122,7 @@ ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
 Example with option parameters:
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 

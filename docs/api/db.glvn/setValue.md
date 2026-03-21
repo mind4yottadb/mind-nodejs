@@ -46,9 +46,9 @@ The value can be either a string or a number.
 Sets a node to a string
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mind4yottadb
+const mind = new mindServer
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -70,9 +70,9 @@ res = 'this is a string'
 Sets a node to a number
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mind4yottadb
+const mind = new mindServer
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -94,9 +94,9 @@ res = 23.5647
 Sets a node to an empty string
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mind4yottadb
+const mind = new mindServer
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

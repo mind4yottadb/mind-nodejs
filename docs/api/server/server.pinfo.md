@@ -46,7 +46,7 @@ It returns an object, with the following fields:
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 

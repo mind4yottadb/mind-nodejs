@@ -40,15 +40,15 @@ If `oldName` or `newName` files are not found or another error occurs, it will t
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await ydb.fs.renameFile('/tmp/testfile.txt', '/tmp/newtestfile.txt')
+await mind.fs.renameFile('/tmp/testfile.txt', '/tmp/newtestfile.txt')
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

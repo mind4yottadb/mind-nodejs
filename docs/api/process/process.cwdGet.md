@@ -35,7 +35,7 @@ It can be changed using the [process.cwdSet()](process.cwdSet.md) function.
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
 const ydb = new mind
 

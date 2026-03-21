@@ -54,7 +54,7 @@ const res = await mind.db.globals.testGbl.getObject()
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -83,7 +83,7 @@ const res = await mind.db.globals.testGbl.getObject()
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -115,7 +115,7 @@ const res = await mind.db.globals.testGbl._("IdontExists").getObject()
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

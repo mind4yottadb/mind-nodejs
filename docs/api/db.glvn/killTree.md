@@ -60,7 +60,7 @@ try {
 } catch (err) {
     console.error(err.message)
 }
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

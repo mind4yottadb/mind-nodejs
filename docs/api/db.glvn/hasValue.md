@@ -51,7 +51,7 @@ const res = await mind.db.globals._("subnode").testGbl.hasValue()
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -74,7 +74,7 @@ const res = await mind.db.globals.testGbl._("new-subnode").hasValue()
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

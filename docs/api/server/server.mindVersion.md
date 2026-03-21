@@ -35,14 +35,14 @@ Returns the mind software version.
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const mindVersion = ydb.server.mindVersion
+const mindVersion = mind.server.mindVersion
 console.log(mindVersion)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

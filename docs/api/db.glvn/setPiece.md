@@ -67,7 +67,7 @@ await mind.db.globals.testGlobal.setPiece('myString')
 const res = await mind.db.globals.testGlobal.getValue()
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -90,7 +90,7 @@ await mind.db.globals.testGlobal.setPiece('myString', '^', 5)
 const res = await mind.db.globals.testGlobal.getValue()
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -113,7 +113,7 @@ await mind.db.globals.testGlobal.setPiece('myString^myString2^myString3', '^', 8
 const res = await mind.db.globals.testGlobal.getValue()
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

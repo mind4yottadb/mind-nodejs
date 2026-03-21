@@ -35,14 +35,14 @@ Returns the signal number corresponding to SIG_INT.
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const SIG_INT = ydb.server.SIG_INT
+const SIG_INT = mind.server.SIG_INT
 console.log(SIG_INT)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

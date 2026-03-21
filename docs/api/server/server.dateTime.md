@@ -51,14 +51,14 @@ An eventual internal error on the server side will throw an error.
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const datetime = ydb.server.datetime()
+const datetime = mind.server.datetime()
 console.log(datetime)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

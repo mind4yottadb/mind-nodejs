@@ -63,7 +63,7 @@ await mind.db.globals.addName('testGlobal')
 const res = await mind.db.globals.testGlobal.decrement()
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -85,7 +85,7 @@ await mind.db.globals.addName('testGlobal')
 const res = await mind.db.globals.testGlobal.decrement(4)
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -109,7 +109,7 @@ const res = await mind.db.globals.testGlobal._("sub1", "sub2").decrement(8)
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -133,7 +133,7 @@ const res = await mind.db.globals.testGlobal._("sub1", "sub2").decrement(0.25)
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

@@ -42,15 +42,15 @@ It can be read using the [process.cwdGet()](process.cwdGet.md) function.
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await ydb.process.cwdSet('/opt/yottadb/current')
-const cwd = await ydb.process.cwdGet()
+await mind.process.cwdSet('/opt/yottadb/current')
+const cwd = await mind.process.cwdGet()
 console.log(cwd)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

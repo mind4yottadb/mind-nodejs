@@ -45,14 +45,14 @@ An eventual internal error on the server side will throw an error.
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const memUsage = ydb.process.memUsage()
+const memUsage = mind.process.memUsage()
 console.log(memUsage)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

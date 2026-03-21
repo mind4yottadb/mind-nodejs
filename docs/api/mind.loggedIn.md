@@ -37,17 +37,17 @@ Returns true if you are logged in the MIND server.
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-let isLoggedIn = ydb.loggedIn
+let isLoggedIn = mind.loggedIn
 console.log(isLoggedIn)
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-isLoggedIn = ydb.loggedIn
+isLoggedIn = mind.loggedIn
 console.log(isLoggedIn)
 
-ydb.disconnect()
+mind.disconnect()
 ````
 
 ---

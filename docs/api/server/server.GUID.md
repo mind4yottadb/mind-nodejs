@@ -43,14 +43,14 @@ It defaults to group it into five sections separated by hyphens: 8-4-4-4-12.
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const GUID = await ydb.server.GUID()
+const GUID = await mind.server.GUID()
 console.log(GUID)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -66,14 +66,14 @@ GUID = '5b4b97b1-0daa-2d31-bb0e-984998917f05'
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const GUID = await ydb.server.GUID(false)
+const GUID = await mind.server.GUID(false)
 console.log(GUID)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -88,14 +88,14 @@ GUID = '5b4b97b10daa2d31bb0e984998917f05'
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const GUID = await ydb.server.GUID(true, true)
+const GUID = await mind.server.GUID(true, true)
 console.log(GUID)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

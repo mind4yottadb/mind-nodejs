@@ -82,13 +82,13 @@ The `db.globals` is an array of strings, where each string represents a global y
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-console.dir(ydb, {depth: 5})
+console.dir(mind, {depth: 5})
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-console.dir(ydb, {depth: 5})
+console.dir(mind, {depth: 5})
 ````
 
 The code above will return when connection and negotiation are complete so that you can start executing commands.
@@ -100,17 +100,17 @@ Example with error handler:
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
 try {
-    await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+    await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 } catch (err) {
 
 }
 
 // or
 
-ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+mind.connect('127.0.0.1', 10000, 'admin', 'admin')
     .then(() => {
 
     })
@@ -124,9 +124,9 @@ Example with option parameters:
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', {
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin', {
     useTls: true,
     tlsRejectSelfSigned: false,
     app: {

@@ -12,7 +12,7 @@
 ###############################################################*/
 -->
 
-### server.ydbVersion
+### server.mindVersion
 
 ---
 
@@ -35,14 +35,14 @@ Returns the YottaDB software version.
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const ydbVersion = ydb.server.ydbVersion
-console.log(ydbVersion)
+const mindVersion = mind.server.mindVersion
+console.log(mindVersion)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

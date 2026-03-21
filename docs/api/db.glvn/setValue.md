@@ -58,7 +58,7 @@ const res = await mind.db.globals.testGbl.getValue()
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -82,7 +82,7 @@ const res = await mind.db.globals.testGbl.getValue()
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -106,7 +106,7 @@ const res = await mind.db.globals.testGbl.getValue()
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

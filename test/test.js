@@ -1,11 +1,11 @@
 const {exit} = require('node:process')
-const mind = require('../js/index.js')
+const mindServer = require('../js/index.js')
 
-const ydb = new mind
+const mind = new mindServer
 
 
 const run = async () => {
-    await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
+    await mind.connect('127.0.0.1', 10000, "admin", "admin", {
         useTls: false,
         tlsRejectSelfSigned: false,
         uApi: {appName: ''},
@@ -33,8 +33,16 @@ const run = async () => {
         });
     };
 
-    let stats = await ydb.server.plist()
-    console.log(stats)
+
+    mind.process.groupLocks()
+    await mind.db.globals.globalTest._("test", 23).addLock()
+    await mind.db.globals.globalTest._("extra lock", 78).addLock()
+    let locks = await mind.process.showLocks()
+    console.log(locks)
+
+    await mind.process.commitLocks()
+    locks = await mind.process.showLocks()
+    console.log(locks)
 
 //await ydb.fs.writeFile('/test.txt2', 'this is the data I write')
 //await ydb.fs.appendFile('/test.txt2', 'and then append')

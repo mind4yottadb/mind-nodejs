@@ -63,7 +63,7 @@ await mind.db.globals.testGlobal.setValue('aaa^bbb^ccc')
 const res = await mind.db.globals.testGlobal.getPiece()
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -86,7 +86,7 @@ await mind.db.globals.testGlobal.setValue('aaa^bbb^ccc')
 const res = await mind.db.globals.testGlobal.getPiece('^', 2)
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -109,7 +109,7 @@ await mind.db.globals.testGlobal.setValue('aaa^bbb^ccc^ddd^eee^fff')
 const res = await mind.db.globals.testGlobal.getPiece('^', 2, 4)
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -132,7 +132,7 @@ await mind.db.globals.testGlobal.setValue('1^2^3^4^5')
 const res = await mind.db.globals.testGlobal.getPiece('^', 3)
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

@@ -39,17 +39,17 @@ server shutdown).
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-console.dir(ydb, {depth: 5})
+console.dir(mind, {depth: 5})
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-ydb.on('disconnect', () => {
+mind.on('disconnect', () => {
     // your code here
 })
 
-console.dir(ydb, {depth: 5})
+console.dir(mind, {depth: 5})
 ````
 
 ---

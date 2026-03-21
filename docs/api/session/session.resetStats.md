@@ -106,7 +106,7 @@ try {
     console.log(err.message)
 }
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

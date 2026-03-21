@@ -33,7 +33,7 @@
 
 - [hostName](api/server/server.hostName.md)
 - [mindVersion](api/server/server.mindVersion.md)
-- [ydbVersion](api/server/server.ydbVersion.md)
+- [mindVersion](api/server/server.mindVersion.md)
 - [platform](api/server/server.platform.md)
 - [architecture](api/server/server.architecture.md)
 

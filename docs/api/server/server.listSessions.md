@@ -43,14 +43,14 @@ It returns an array of objects, where each object represent a session with the f
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const sessions = await ydb.process.listSessions()
+const sessions = await mind.process.listSessions()
 console.log(sessions)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

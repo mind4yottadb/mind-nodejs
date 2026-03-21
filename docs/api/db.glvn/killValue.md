@@ -65,7 +65,7 @@ try {
 }
 
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

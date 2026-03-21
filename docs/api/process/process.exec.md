@@ -43,14 +43,14 @@ The function will return when the program has terminated.
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const stdout = await ydb.process.dir('ls -la')
+const stdout = await mind.process.dir('ls -la')
 console.log(stdout)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

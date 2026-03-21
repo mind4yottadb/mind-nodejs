@@ -57,7 +57,7 @@ const res = await mind.db.globals.testGbl.getJSON()
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -84,7 +84,7 @@ const res = await mind.db.globals.testGbl.getJSON()
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -109,7 +109,7 @@ const res = await mind.db.globals.testGbl._("IdontExists").getJSON()
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

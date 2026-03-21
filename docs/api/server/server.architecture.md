@@ -35,14 +35,14 @@ Returns the architecture of the server.
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const architecture = ydb.server.architecture
+const architecture = mind.server.architecture
 console.log(architecture)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

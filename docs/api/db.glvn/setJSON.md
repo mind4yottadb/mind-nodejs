@@ -56,7 +56,7 @@ const res = await mind.db.globals.testGbl._('field1').getValue()
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

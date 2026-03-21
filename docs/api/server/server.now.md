@@ -43,14 +43,14 @@ To get the unix time in seconds, use the `unixtime()` function.
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const now = ydb.server.now()
+const now = mind.server.now()
 console.log(now)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -64,14 +64,14 @@ now = 1769615736015
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const now = ydb.process.now('us')
+const now = mind.process.now('us')
 console.log(now)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

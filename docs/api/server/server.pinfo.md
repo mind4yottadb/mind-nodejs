@@ -48,14 +48,14 @@ It returns an object, with the following fields:
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const ret = await ydb.process.pInfo(66789)
+const ret = await mind.process.pInfo(66789)
 console.log(ret)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

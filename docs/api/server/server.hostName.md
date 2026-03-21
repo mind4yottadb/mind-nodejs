@@ -36,14 +36,14 @@ Returns the server host name.
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const hostName = ydb.server.hostName
+const hostName = mind.server.hostName
 console.log(hostName)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

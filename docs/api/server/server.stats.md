@@ -53,19 +53,19 @@ When stats are off
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 try {
-    const stats = await ydb.process.stats()
+    const stats = await mind.process.stats()
     console.log(stats)
 
 } catch (err) {
     console.log(err.message)
 }
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -82,14 +82,14 @@ When stats are set to `grand`
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const stats = await ydb.server.stats()
+const stats = await mind.server.stats()
 console.log(stats)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -113,14 +113,14 @@ When stats are set to `details`
 ````js
 import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const stats = await ydb.server.stats()
+const stats = await mind.server.stats()
 console.log(stats)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 

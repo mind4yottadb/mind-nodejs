@@ -72,12 +72,12 @@
                             "children": [
                                 {
                                     "text": "socketError",
-                                    "id": "api/mind-on-socket-error.md",
+                                    "id": "api/mind.on-socket-error.md",
                                     "icon": ""
                                 },
                                 {
                                     "text": "disconnect",
-                                    "id": "api/mind-on-disconnect.md",
+                                    "id": "api/mind.on-disconnect.md",
                                     "icon": ""
                                 }
                             ]

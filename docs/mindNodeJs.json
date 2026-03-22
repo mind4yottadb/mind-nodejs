@@ -32,6 +32,21 @@
             "icon": ""
         },
         {
+            "text": "The async model",
+            "id": "the-async-model.md",
+            "icon": ""
+        },
+        {
+            "text": "The session lifecycle",
+            "id": "the-session-lifecycle.md",
+            "icon": ""
+        },
+        {
+            "text": "Using globals and vars",
+            "id": "using-globals-and-vars.md",
+            "icon": ""
+        },
+        {
             "text": "API reference",
             "id": "",
             "icon": "",

@@ -27,7 +27,7 @@ class RESP3 {
 
         int: val => '#f' + val.toString() + '\r\n',
         double: val => ',' + val.toString() + '\r\n',
-        bigNumber: num => '(' + num.toString() + '\r\n'
+        bigNumber: val => '(' + val.toString() + '\r\n'
     }
 
     parse = {

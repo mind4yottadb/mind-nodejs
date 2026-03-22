@@ -442,6 +442,11 @@
                                     "icon": "",
                                     "children": [
                                         {
+                                            "text": "_()",
+                                            "id": "api/db.glvn/_.md",
+                                            "icon": ""
+                                        },
+                                        {
                                             "text": "addName()",
                                             "id": "api/db.globals/addName.md",
                                             "icon": ""
@@ -459,11 +464,6 @@
                                         {
                                             "text": "removeLock()",
                                             "id": "api/db.globals/removeLock.md",
-                                            "icon": ""
-                                        },
-                                        {
-                                            "text": "_()",
-                                            "id": "api/db.glvn/_.md",
                                             "icon": ""
                                         },
                                         {
@@ -815,6 +815,33 @@
                                     "icon": ""
                                 }
                             ]
+                        }
+                    ]
+                },
+                {
+                    "text": "user Api (uApi)",
+                    "id": "",
+                    "icon": "",
+                    "children": [
+                        {
+                            "text": "Calling MUMPS code",
+                            "id": "api/uApi/calling-mumps-code.md",
+                            "icon": ""
+                        },
+                        {
+                            "text": "Error handling in uApi",
+                            "id": "api/uApi/error-handling-in-uapi.md",
+                            "icon": ""
+                        },
+                        {
+                            "text": "Supported datatype",
+                            "id": "api/uApi/supported-datatypes.md",
+                            "icon": ""
+                        },
+                        {
+                            "text": "Passing vars by reference",
+                            "id": "api/uApi/passing-vars-by-ref.md",
+                            "icon": ""
                         }
                     ]
                 }

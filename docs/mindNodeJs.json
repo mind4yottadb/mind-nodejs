@@ -3,22 +3,32 @@
     "data": [
         {
             "text": "Getting started",
-            "id": "",
+            "id": "getting-started.md",
             "icon": ""
         },
         {
-            "text": "Installing MIND",
-            "id": "",
+            "text": "Installation",
+            "id": "installation.md",
             "icon": ""
         },
         {
-            "text": "Basic principles",
-            "id": "",
+            "text": "Datatypes",
+            "id": "datatypes.md",
             "icon": ""
         },
         {
             "text": "Error handling",
-            "id": "",
+            "id": "error-handling.md",
+            "icon": ""
+        },
+        {
+            "text": "JSON versus JDOM",
+            "id": "json-versus-jdom.md",
+            "icon": ""
+        },
+        {
+            "text": "Mind object structure",
+            "id": "mind-object-structure.md",
             "icon": ""
         },
         {

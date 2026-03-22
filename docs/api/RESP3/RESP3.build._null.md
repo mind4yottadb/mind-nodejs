@@ -31,21 +31,4 @@ Returns a string with the RESP3 representation of `null`
 
 ---
 
-### EXAMPLES
-
-````js
-import mindServer from 'mind4yottadb'
-
-const mind = new mindServer
-
-await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
-
-mind.process.syslogMessage('Hi, I want to say something')
-
-mind.disconnect()
-
-````
-
----
-
 [Back](api/namespace.RESP3.md)

@@ -16,6 +16,14 @@
 
 ---
 
+This namespace gives you direct remote access to vars.
+
+The available vars are described in your app JSON file, located in the server.
+
+Beside the standard M functionality, it supports also JSON and Objects formats to store and retrieve data.
+
+---
+
 ### Methods:
 
 - [_](api/db.vars/_.md)

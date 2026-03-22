@@ -16,6 +16,12 @@
 
 ---
 
+This namespace gives you access to the internal RESP3 parser and utilities.
+
+> It shouldn't be needed, as everything is performed in the background and fully transparent to the programmer.
+
+---
+
 ### Methods:
 
 - build

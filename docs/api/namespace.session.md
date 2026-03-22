@@ -16,6 +16,10 @@
 
 ---
 
+This namespace allow you to inspect values related to your MIND session.
+
+---
+
 ### Methods:
 
 - [stats()](api/session/session.stats.md)

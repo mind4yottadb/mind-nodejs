@@ -16,6 +16,10 @@
 
 ---
 
+This namespace provides you access to the process associated with your session.
+
+---
+
 ### Methods:
 
 - [exec(command, shell)](api/process/process.exec.md)

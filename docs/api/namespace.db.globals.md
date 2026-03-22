@@ -16,6 +16,15 @@
 
 ---
 
+This namespace gives you direct remote access to globals.
+
+Global names can be listed in the connect method, through the `options` parameter, or dynamically added and / or removed
+using the `addName()` and `removeName()` methods.
+
+Beside the standard M functionality, it supports also JSON and Objects formats to store and retrieve data.
+
+---
+
 ### Methods:
 
 - [_](api/db/db.globals/_.md)

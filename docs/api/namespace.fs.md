@@ -16,6 +16,10 @@
 
 ---
 
+This namespace gives you access to the server's filesystem.
+
+---
+
 ### Methods:
 
 - [writeFile(filename, data)](api/fs/fs.writeFile.md)

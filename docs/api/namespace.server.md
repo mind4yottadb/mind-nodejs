@@ -16,6 +16,11 @@
 
 ---
 
+This namespace gives you access to the whole server (as opposite to the `process` namespace, where you have control of
+your running process only.)
+
+---
+
 ### Methods:
 
 - [kill(pid,SIG)](api/server/server.kill.md)

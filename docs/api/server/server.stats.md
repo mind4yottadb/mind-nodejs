@@ -42,8 +42,10 @@ If the server statistics are set to `grand`, it will return only the grand total
 - `total_nok`: the number of commands that failed
 - `total_invalid_cmd`: the number of invalid commands received
 
-If the server statistics are set to `details`, it will return only the grand totals:
-The same fields returned by the `grand` option, but grouped by commands and grand_totals
+If the server statistics are set to `details`, it will return only the grand totals
+
+The same fields are returned by the `grand` option, but grouped by commands and grand_totals
+
 ---
 
 ### EXAMPLES

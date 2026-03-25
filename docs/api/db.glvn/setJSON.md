@@ -38,6 +38,8 @@ Applies to:
 
 It will convert the supplied json string into JDOM and store it at the current location### EXAMPLES
 
+### EXAMPLES
+
 ---
 
 Create a JDOM node by supplying a JSON string

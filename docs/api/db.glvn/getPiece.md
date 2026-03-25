@@ -45,6 +45,7 @@ If the range supplied by `start` and `end` falls outside the string, an empty st
 The `pieceChar` can be any ascii character (including non-printable chars). The default value is `^`.
 
 If you return a single piece and it is a number, a number datatype will be used, otherwise it will be a string datatype.
+
 ### EXAMPLES
 
 ---

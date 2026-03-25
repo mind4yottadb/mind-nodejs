@@ -49,6 +49,7 @@ If you supply a range (using both `start` and `end` characters), the supplied st
 
 If you supply a `start` number greater than an existing piece, the gap will be filled with as many `pieceChar`s as
 needed.
+
 ### EXAMPLES
 
 ---

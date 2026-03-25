@@ -35,6 +35,7 @@
 It renames a file.
 
 If `oldName` or `newName` files are not found or another error occurs, it will throw an error.
+
 ---
 
 ### EXAMPLES

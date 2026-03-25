@@ -38,6 +38,8 @@ Applies to:
 
 It will store the supplied object at the current location### EXAMPLES
 
+### EXAMPLES
+
 ---
 
 Create a JDOM node by supplying an object

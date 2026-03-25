@@ -34,6 +34,7 @@
 Creates the directory specified in `path`.
 
 If `path` is not found, it is not empty, it is not a directory or another error occurs, it will throw an error.
+
 ---
 
 ### EXAMPLES

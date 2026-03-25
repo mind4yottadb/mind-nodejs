@@ -34,6 +34,7 @@ Applies to:
 Returns an object representing the JDOM found in the selected node.
 
 If you want to return a JSON string, use the method getJSON() instead.
+
 ### EXAMPLES
 
 ---

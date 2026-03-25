@@ -46,6 +46,7 @@ If the parameter `incrementBy` is omitted, it will increase by one.
 
 If the parameter `incrementBy` is a floating point number, then the addition will be executing using floating point
 notation.
+
 ### EXAMPLES
 
 ---

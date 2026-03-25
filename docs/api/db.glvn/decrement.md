@@ -46,6 +46,7 @@ If the parameter `decrementBy` is omitted, it will decrease by one.
 
 If the parameter `decrementBy` is a floating point number, then the subtraction will be executing using floating point
 notation.
+
 ### EXAMPLES
 
 ---

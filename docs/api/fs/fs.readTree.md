@@ -37,6 +37,7 @@ Reads the provided directory specified in `path`and its subdirectories using the
 If `mask` is missing, it will default to `*.*`.
 
 If `path` is not found or another error occurs, it will throw an error.
+
 ---
 
 ### EXAMPLES

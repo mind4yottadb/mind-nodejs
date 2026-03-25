@@ -32,6 +32,7 @@ Applies to:
 ---
 
 Returns the boolean `true` is the selected node has sub-nodes.
+
 ### EXAMPLES
 
 ---

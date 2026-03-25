@@ -37,6 +37,7 @@ Reads the dir content specified in `path` using the optional `mask` parameter.
 If `mask` is missing, it will default to `*.*`.
 
 If `path` is not found or another error occurs, it will throw an error.
+
 ---
 
 ### EXAMPLES

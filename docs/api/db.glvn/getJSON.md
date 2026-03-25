@@ -37,6 +37,7 @@ The node is expected to be populate with a JDOM.
 If you want to return an object, use the method getObject() instead.
 
 This method is meant to be used when JSON has to be transferred directly, without being converted to JSON.
+
 ### EXAMPLES
 
 ---

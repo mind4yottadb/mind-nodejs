@@ -39,6 +39,7 @@ have a value, use the method
 getValue() instead.
 
 If the value is a number, then a number datatype is used, otherwise it will return a string.
+
 ### EXAMPLES
 
 ---

@@ -32,6 +32,7 @@
 Creates the directory specified in `path`.
 
 If the `path` of the parent directory is not found or another error occurs, it will throw an error.
+
 ---
 
 ### EXAMPLES

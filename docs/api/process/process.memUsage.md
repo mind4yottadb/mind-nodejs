@@ -38,6 +38,7 @@ Returns the `allocatedStorage`, the `usedStorage` and the `realStorage` used by 
 > in bytes, requested by current activities.
 
 An eventual internal error on the server side will throw an error.
+
 ---
 
 ### EXAMPLES

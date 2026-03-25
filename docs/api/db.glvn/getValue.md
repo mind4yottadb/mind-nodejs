@@ -38,6 +38,7 @@ If you want to get an error if the path to the node is invalid or the node doesn
 readValue() instead.
 
 If the value is a number, then a number datatype is used, otherwise it will return a string.
+
 ### EXAMPLES
 
 ---

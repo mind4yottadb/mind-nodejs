@@ -44,6 +44,7 @@ The function returns an object with the following properties populated:
 | `year`           | the current year                           |
 
 An eventual internal error on the server side will throw an error.
+
 ---
 
 ### EXAMPLES

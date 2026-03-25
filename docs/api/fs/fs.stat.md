@@ -58,6 +58,7 @@ The function returns an object with the following properties populated:
 | `uid`     | user ID of owner                |
 
 If the `filename` is not found or another error occurs, it will throw an error.
+
 ---
 
 ### EXAMPLES

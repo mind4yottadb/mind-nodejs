@@ -44,6 +44,7 @@ If the server statistics are set to `grand`, it will return only the grand total
 
 If the server statistics are set to `details`, it will return only the grand totals:
 The same fields returned by the `grand` option, but grouped by commands and grand_totals
+
 ---
 
 ### EXAMPLES

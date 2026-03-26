@@ -22,36 +22,28 @@
 **Async**: no
 
 **Parameters**:
-
-| name | data type | Optional | Description |
-|------|-----------|----------|-------------|
-
-**Returns**:
-
-`<string>`
+<br><br>
+**Returns**: '<string>`
 
 ---
 
 Returns the server host name.
-
-
-<br>
 
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const hostName = ydb.server.hostName
+const hostName = mind.server.hostName
 console.log(hostName)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -63,9 +55,6 @@ hostName = '26678cd11bd7'
 
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.process.md)
+[Back](api/namespace.process.md)

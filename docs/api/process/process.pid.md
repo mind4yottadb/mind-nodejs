@@ -21,36 +21,28 @@
 **Async**: no
 
 **Parameters**:
-
-| name | data type | Optional | Description |
-|------|-----------|----------|-------------|
-
-**Returns**:
-
-`<int>`
+<br><br>
+**Returns**: `<int>`
 
 ---
 
 Returns the pid of your session.
-
-
-<br>
 
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const pid = ydb.process.pid
+const pid = mind.process.pid
 console.log(pid)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -62,9 +54,6 @@ pid = 20840
 
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.process.md)
+[Back](api/namespace.process.md)

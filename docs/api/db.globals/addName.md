@@ -1,0 +1,72 @@
+<!--
+#################################################################
+#                                                               #
+# Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
+# All rights reserved.                                          #
+#                                                               #
+#   This source code contains the intellectual property         #
+#   of its copyright holder(s), and is made available           #
+#   under a license.  If you do not know the terms of           #
+#   the license, please stop and do not read further.           #
+#                                                               #
+###############################################################*/
+-->
+
+### addName(name)
+
+Applies to:
+
+- [Globals](../../namespace.db.globals.md)
+
+---
+
+**Type**: method
+
+**Async**: no
+
+**Parameters**:
+
+| Name   | Datatype | Optional | Description                                                    |
+|--------|:--------:|:--------:|----------------------------------------------------------------|
+| `name` |  string  |    No    | The name of the global you want to add, without the ^ prefix.. |
+
+<br>
+**Returns**: `undefined`
+
+---
+
+It adds the name of a global to your environment.
+
+> You can have MIND automatically adding the name(s) by specifying the global list in
+> the [connect()](api/mind.connect.md) method.
+
+### EXAMPLES
+
+---
+
+````js
+import mindServer4yottadb from 'mind4yottadb'
+
+const mind = new mindServer
+
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+mind.db.globals.addName('apiTest')
+await mind.db.globals.apiTest.setValue('test')
+
+const ret = await mind.db.globals.apiTest.getValue()
+console.log(ret)
+
+mind.disconnect()
+
+````
+
+````js
+ret = 'test'
+
+````
+
+---
+
+
+[Back](api/namespace.db.globals.md)

@@ -16,42 +16,39 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**: yes, returns a Promise
 
 **Parameters**:
 
-| name   | data type | Optional | Description               |
-|--------|-----------|----------|---------------------------|
-| `path` | string    | No       | the path you wish to test |
+| Name   | Datatype | Optional | Description               |
+|--------|:--------:|:--------:|---------------------------|
+| `path` |  string  |    No    | the path you wish to test |
 
-**Returns**:
-
-`Promise<BOOLEAN>`
+<br>
+**Returns**: `Promise<BOOLEAN>`
 
 ---
 
 Returns `true` if the supplied path is a file, `false` if it is a directory.
 If the path doesn't exist it will throw an error.
 
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const res = await ydb.fs.isFile('$ydb_dist/mupip')
+const res = await mind.fs.isFile('$mind_dist/mupip')
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -63,4 +60,4 @@ ret = true
 
 ---
 
-[Back](../namespace.fs.md)
+[Back](api/namespace.fs.md)

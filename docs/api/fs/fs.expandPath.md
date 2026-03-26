@@ -16,19 +16,18 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**: yes, returns a Promise
 
 **Parameters**:
 
-| name   | data type | Optional | Description                 |
-|--------|-----------|----------|-----------------------------|
-| `path` | string    | No       | the path you wish to expand |
+| Name   | Datatype | Optional | Description                 |
+|--------|:--------:|:--------:|-----------------------------|
+| `path` |  string  |    No    | the path you wish to expand |
 
-**Returns**:
-
-`Promise<string>`
+<br>
+**Returns**: `Promise<string>`
 
 ---
 
@@ -36,23 +35,22 @@ Returns the extended path of the passed `path` by expanding the included environ
 
 If the `path` is not found or another error occurs, it will throw an error.
 
-<br>
 
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const ret = await ydb.fs.expandPath('$ydb_dist/plugin')
+const ret = await mind.fs.expandPath('$mind_dist/plugin')
 console.log(ret)
 
-ydb.disconnect()
+mind.disconnect()
 ````
 
 returns:
@@ -63,4 +61,4 @@ ret = '/opt/yottadb/current/plugin'
 
 ---
 
-[Back](../namespace.fs.md)
+[Back](api/namespace.fs.md)

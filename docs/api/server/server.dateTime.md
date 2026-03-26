@@ -16,18 +16,13 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**:  yes, returns a Promise
 
 **Parameters**:
-
-| name | data type | Optional | Description |
-|------|-----------|----------|-------------|
-
-**Returns**:
-
-`Promise<object>`
+<br><br>
+**Returns**: `Promise <object>`
 
 ---
 
@@ -50,23 +45,21 @@ The function returns an object with the following properties populated:
 
 An eventual internal error on the server side will throw an error.
 
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const datetime = ydb.server.datetime()
+const datetime = mind.server.datetime()
 console.log(datetime)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -89,9 +82,6 @@ memUsage = {
 
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.server.md)
+[Back](api/namespace.process.md)

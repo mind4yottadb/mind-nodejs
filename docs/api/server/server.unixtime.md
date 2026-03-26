@@ -16,18 +16,13 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**: yes, returns a Promise
 
 **Parameters**:
-
-| name | data type | Optional | Description |
-|------|-----------|----------|-------------|
-
-**Returns**:
-
-`Promise<int>`
+<br><br>
+**Returns**: ` Promise<><int>`
 
 ---
 
@@ -35,24 +30,21 @@
 provides a time stamp for directly comparing different timezones. `unixtime` accuracy is subject to the precision of the
 system clock
 
-
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const unixTime = ydb.server.unixtime()
+const unixTime = mind.server.unixtime()
 console.log(unixTime)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -64,9 +56,6 @@ unixTime = 1767806071551168
 
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.server.md)
+[Back](api/namespace.process.md)

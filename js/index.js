@@ -34,7 +34,7 @@ module.exports = class mind extends EventEmitter {
     useTls = false
     #socket = null
 
-    requiresMind = '0.17.0'
+    requiresMind = '0.20.0'
 
     // namespaces
     server = new nsServer
@@ -86,6 +86,7 @@ module.exports = class mind extends EventEmitter {
 
             // TLS or plain
             if (options && options.useTls && options && options.useTls === true) {
+                that.userTls = true
                 try {
                     that.#socket = tls.connect(port, host, {rejectUnauthorized: (options && options.tlsRejectSelfSigned === false) ? false : true});
                     that.#socket.once('secureConnect', function () {

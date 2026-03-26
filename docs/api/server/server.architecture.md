@@ -21,36 +21,28 @@
 **Async**: no
 
 **Parameters**:
-
-| name | data type | Optional | Description |
-|------|-----------|----------|-------------|
-
-**Returns**:
-
-`<string>`
+<br><br>
+**Returns**: '<string>`
 
 ---
 
 Returns the architecture of the server.
-
-
-<br>
 
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const architecture = ydb.server.architecture
+const architecture = mind.server.architecture
 console.log(architecture)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -62,9 +54,6 @@ architecture = 'x86_64'
 
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.process.md)
+[Back](api/namespace.process.md)

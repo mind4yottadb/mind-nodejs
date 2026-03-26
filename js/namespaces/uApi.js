@@ -23,7 +23,7 @@ const funct = module.exports = {
 
             // validate parameters
             try {
-                parseParams(fn, args)
+                parseParams(fn, args, that)
 
             } catch (err) {
                 reject(err)
@@ -75,7 +75,7 @@ const funct = module.exports = {
 
                 // check whether it needs to return a value or just resolve()
                 if (fn.returns && typeof fn.returns === 'string') {
-                    resolve(RESP3.parse.returns(data))
+                    resolve(RESP3.parse.returns(data, fn.returns))
 
                 } else resolve()
             })
@@ -83,7 +83,7 @@ const funct = module.exports = {
     }
 }
 
-const parseParams = function (fn, args) {
+const parseParams = function (fn, args, that) {
     if (fn.parameters && fn.parameters.length > 0) {
         // when # of params is < that requested
         if (fn.parameters.length !== args.length) {
@@ -101,6 +101,32 @@ const parseParams = function (fn, args) {
 
                     if (args[ix].toString().indexOf('.') > -1 && param.datatype === 'int') {
                         throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be an int.')
+                    }
+
+                    break
+                }
+
+                case 'varByRef': {
+                    if (typeof args[ix] !== 'string') {
+                        throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be a string populated with the var name.')
+
+                    }
+
+                    let found = false
+                    Object.keys(that.db.vars).forEach(function (varName) {
+                        if (varName === args[ix]) found = true;
+                    })
+
+                    if (found === false) {
+                        throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" var: "' + args[ix] + '" was not declared.')
+                    }
+
+                    break
+                }
+
+                case 'json': {
+                    if (typeof args[ix] !== 'string') {
+                        throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be a string.')
                     }
 
                     break

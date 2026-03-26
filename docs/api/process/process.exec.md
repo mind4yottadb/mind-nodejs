@@ -16,20 +16,19 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**: yes, returns a Promise
 
 **Parameters**:
 
-| name      | data type | Optional | Description                                                     |
-|-----------|-----------|----------|-----------------------------------------------------------------|
-| `command` | string    | No       | the command to be executed, including its (optional) parameters |
-| `shell`   | string    | Yes      | the (optional) shell to be used instead of /bin/sh              |
+| Name      | Datatype | Optional | Description                                                     |
+|-----------|:--------:|:--------:|-----------------------------------------------------------------|
+| `command` |  string  |    No    | the command to be executed, including its (optional) parameters |
+| `shell`   |  string  |   Yes    | the (optional) shell to be used instead of /bin/sh              |
 
-**Returns**:
-
-`Promise<string>`
+<br>
+**Returns**: `Promise<string>`
 
 ---
 
@@ -37,24 +36,21 @@ Runs the passed command and return its STDOUT as a string.
 
 The function will return when the program has terminated.
 
-
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const stdout = await ydb.process.dir('ls -la')
+const stdout = await mind.process.dir('ls -la')
 console.log(stdout)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -75,9 +71,6 @@ stdout = 'total 40' +
 
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.process.md)
+[Back](api/namespace.process.md)

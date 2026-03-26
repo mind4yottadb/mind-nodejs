@@ -16,18 +16,12 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**:  yes, returns a Promise
 
 **Parameters**:
-
-| name | data type | Optional | Description |
-|------|-----------|----------|-------------|
-
-**Returns**:
-
-`Promise<object>`
+**Returns**: `Promise <object>`
 
 ---
 
@@ -43,23 +37,21 @@ It returns an array of objects, where each object represent a session with the f
 - `pid`: the process id of the session
 - `elapsedTime`: since how log is the session active, in the format hours, minutes and seconds
 
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const sessions = await ydb.process.listSessions()
+const sessions = await mind.process.listSessions()
 console.log(sessions)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -80,9 +72,6 @@ sessions = [
 ]
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.server.md)
+[Back](api/namespace.process.md)

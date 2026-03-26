@@ -16,41 +16,33 @@
 
 ---
 
-**Type**: constant
+**Type**: property
 
 **Async**: no
 
 **Parameters**:
-
-| name | data type | Optional | Description |
-|------|-----------|----------|-------------|
-
-**Returns**:
-
-`<number>`
+<br><br>
+**Returns**: `<number>`
 
 ---
 
 Returns the signal number corresponding to SIG_INT.
-
-
-<br>
 
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const SIG_INT = ydb.server.SIG_INT
+const SIG_INT = mind.server.SIG_INT
 console.log(SIG_INT)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -62,9 +54,6 @@ SIG_INT = 2
 
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.process.md)
+[Back](api/namespace.process.md)

@@ -20,13 +20,12 @@
 
 **Parameters**:
 
-| name   | data type | Optional | Description             |
-|--------|-----------|----------|-------------------------|
-| `path` | string    | No       | the path of the new dir |
+| Name   | Datatype | Optional | Description             |
+|--------|:--------:|:--------:|-------------------------|
+| `path` |  string  |    No    | the path of the new dir |
 
-**Returns**:
-
-`Promise<>`
+<br>
+**Returns**: `Promise<>`
 
 ---
 
@@ -34,25 +33,23 @@ Creates the directory specified in `path`.
 
 If the `path` of the parent directory is not found or another error occurs, it will throw an error.
 
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await ydb.fs.mkdir('/tmp/newDirectory')
+await mind.fs.mkdir('/tmp/newDirectory')
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
 ---
 
-[Back](../namespace.fs.md)
+[Back](api/namespace.fs.md)

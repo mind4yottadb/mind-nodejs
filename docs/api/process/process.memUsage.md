@@ -16,18 +16,13 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**:  yes, returns a Promise
 
 **Parameters**:
-
-| name | data type | Optional | Description |
-|------|-----------|----------|-------------|
-
-**Returns**:
-
-`Promise<object>`
+<br><br>
+**Returns**: `Promise<object>`
 
 ---
 
@@ -44,23 +39,21 @@ Returns the `allocatedStorage`, the `usedStorage` and the `realStorage` used by 
 
 An eventual internal error on the server side will throw an error.
 
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const memUsage = ydb.process.memUsage()
+const memUsage = mind.process.memUsage()
 console.log(memUsage)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -76,9 +69,6 @@ memUsage = {
 
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.process.md)
+[Back](api/namespace.process.md)

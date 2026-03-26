@@ -132,6 +132,19 @@ describe("uApi methods: returns", async () => {
 
         ydb.disconnect()
     });
+
+    it("returns json", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const ret = await ydb.level_1.level_1_1.method_returns_json({
+            test: 23,
+            test2: 'hey'
+        })
+
+        expect(ret).to.have.string('{"test":23,"test2":"hey"}')
+
+        ydb.disconnect()
+    });
 })
 
 describe("uApi methods: parameters execution", async () => {
@@ -142,6 +155,16 @@ describe("uApi methods: parameters execution", async () => {
 
         expect(typeof res === 'object').to.be.true
         expect(res.param1).to.have.string('this is the string')
+
+        ydb.disconnect()
+    });
+
+    it("1 param json", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const ret = await ydb.level_1.level_1_1.method_par_json_returns_json('{"test":23,"test2":"hey"}')
+
+        expect(ret).to.have.string('{"test":23,"test2":"hey"}')
 
         ydb.disconnect()
     });
@@ -419,3 +442,51 @@ describe("uApi methods: parameters checking: datatype", async () => {
         ydb.disconnect()
     });
 })
+
+describe("uApi methods: parameters with varByRef", async () => {
+    it("2 param: varByRef and string: different datatype", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        try {
+            await ydb.level_1.level_1_1.method_var_by_ref(12, 'bySubscript')
+
+        } catch (err) {
+            expect(err.message).have.string('Parameter 1: "outVar" must be a string populated with the var name.')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("2 param: varByRef and string: not existing var", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        try {
+            await ydb.level_1.level_1_1.method_var_by_ref('myVar', 'bySubscript')
+
+        } catch (err) {
+            expect(err.message).have.string('Parameter 1: "outVar" var: "myVar" was not declared')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("2 param: varByRef and string: ok", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        try {
+            await ydb.level_1.level_1_1.method_var_by_ref('var1', 'bySubscript')
+            const res = await ydb.db.vars.var1._('bySubscript').getValue()
+
+            expect(res).to.have.string('ok')
+
+        } catch (err) {
+            expect(err.message).have.string('Parameter 1: "outVar" var: "myVar" was not declared')
+        }
+
+        ydb.disconnect()
+    });
+})
+
+describe("uApi methods: returns json", async () => {
+})
+

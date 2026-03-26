@@ -14,30 +14,34 @@
 
 # MIND
 
-### Methods:
+---
 
-- [connect()](mind/mind.connect.md)
-- [disconnect()](mind/mind.disconnect.md)
+#### Methods:
 
-### Properties:
+- [connect()](api/mind.connect.md)
+- [disconnect()](api/mind.disconnect.md)
 
-- [connected](mind/mind.connected.md)
-- [loggedIn](mind/mind.loggedIn.md)
+#### Properties:
 
-### Events
+- [connected](api/mind.connected.md)
+- [loggedIn](api/mind.loggedIn.md)
 
-- [socketError](mind/mind.on-error.md)
-- [disconnect](mind/mind.on-disconnect.md)
+#### Events
 
-### Namespaces:
+- [socketError](api/mind.on-socket-error.md)
+- [disconnect](api/mind.on-disconnect.md)
 
-- [process](namespace.process.md)
-- [server](namespace.server.md)
-- [fs](namespace.fs.md)
-- [RESP3](namespace.RESP3.md)
-- [session](namespace.session.md)
+#### Namespaces:
+
+- [process](api/namespace.process.md)
+- [server](api/namespace.server.md)
+- [fs](api/namespace.fs.md)
+- [RESP3](api/namespace.RESP3.md)
+- [session](api/namespace.session.md)
 - db
-    - [globals](db/db.globals)
-    - [vars](db/db.vars)
+    - [globals](api/namespace.db.globals.md)
+    - [vars](api/namespace.db.vars.md)
 - dbms
-- ... {user-defined} 
+
+---
+

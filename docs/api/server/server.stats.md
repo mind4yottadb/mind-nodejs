@@ -16,24 +16,19 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**:  yes, returns a Promise
 
 **Parameters**:
-
-| name | data type | Optional | Description |
-|------|-----------|----------|-------------|
-
-**Returns**:
-
-`Promise<object>`
+<br><br>
+**Returns**: `Promise <object>`
 
 ---
 
 Returns global statistic information about the currently running sessions.
 
-> note: for statistics about the current session, use the function `process.stats()`.
+> note: for statistics related to the current session only, use the function `process.stats()`.
 
 In order for this function to return statistics, the server needs to have the `--statistics` option turned on, in either
 `grand` or `details` mode.
@@ -47,10 +42,9 @@ If the server statistics are set to `grand`, it will return only the grand total
 - `total_nok`: the number of commands that failed
 - `total_invalid_cmd`: the number of invalid commands received
 
-If the server statistics are set to `details`, it will return only the grand totals:
-The same fields returned by the `grand` option, but grouped by commands and grand_totals
+If the server statistics are set to `details`, it will return only the grand totals
 
-<br>
+The same fields are returned by the `grand` option, but grouped by commands and grand_totals
 
 ---
 
@@ -59,20 +53,21 @@ The same fields returned by the `grand` option, but grouped by commands and gran
 When stats are off
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
 try {
-    const sessions = await ydb.process.stats()
-    console.log(sessions)
+    const stats = await mind.process.stats()
+    console.log(stats)
+
 } catch (err) {
-    console.log(err)
+    console.log(err.message)
 }
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -82,24 +77,21 @@ returns:
 
 err = 'No stats enabled on server'
 ````
-
-<br>
-
 ---
 
 When stats are set to `grand`
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const stats = await ydb.process.stats()
-console.log(sessions)
+const stats = await mind.server.stats()
+console.log(stats)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -116,24 +108,21 @@ stats = {
     }
 }
 ````
-
-<br>
-
 ---
 
 When stats are set to `details`
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const stats = await ydb.process.stats()
-console.log(sessions)
+const stats = await mind.server.stats()
+console.log(stats)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -180,10 +169,7 @@ stats = {
     }
 }
 ````
-
-<br>
-
 ---
 
 
-[Back](../namespace.server.md)
+[Back](api/namespace.process.md)

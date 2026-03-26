@@ -22,40 +22,35 @@
 
 **Parameters**:
 
-| name          | data type | Optional | Description              |
-|---------------|-----------|----------|--------------------------|
-| `source`      | string    | No       | the source filename      |
-| `destination` | string    | No       | the destination filename |
+| Name          | Datatype | Optional | Description              |
+|---------------|:--------:|:--------:|--------------------------|
+| `source`      |  string  |    No    | the source filename      |
+| `destination` |  string  |    No    | the destination filename |
 
-**Returns**:
-
-`Promise<>`
+<br>
+**Returns**: `Promise<>`
 
 ---
 
-
-
 If `source` or `destination` files are not found or another error occurs, it will throw an error.
-
-<br>
 
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await ydb.fs.copyfile('/tmp/testfile.txt', '/tmp/copyOfFile.txt')
+await mind.fs.copyfile('/tmp/testfile.txt', '/tmp/copyOfFile.txt')
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
 ---
 
-[Back](../namespace.fs.md)
+[Back](api/namespace.fs.md)

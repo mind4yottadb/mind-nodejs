@@ -14,24 +14,30 @@
 
 # Namespace: fs
 
+---
+
+This namespace gives you access to the server's filesystem.
+
+---
+
 ### Methods:
 
-- [writeFile(filename, data)](fs/fs.writeFile.md)
-- [appendFile(filename, data)](fs/fs.appendFile.md)
-- [copyfile(source, destination)](fs/fs.copyFile.md)
-- [renameFile](fs/fs.renameFile.md)
-- [mkdir(path)](fs/fs.mkdir.md)
-- [rmdir(path)](fs/fs.rmdir.md)
+- [writeFile(filename, data)](api/fs/fs.writeFile.md)
+- [appendFile(filename, data)](api/fs/fs.appendFile.md)
+- [copyfile(source, destination)](api/fs/fs.copyFile.md)
+- [renameFile(source, destination)](api/fs/fs.renameFile.md)
+- [removeFile(filename)](api/fs/fs.removeFile.md)
+- [mkdir(path)](api/fs/fs.mkdir.md)
+- [rmdir(path)](api/fs/fs.rmdir.md)
+- [readFile(filename)](api/fs/fs.readFile.md)
+- [removeFile(filename)](api/fs/fs.removeFile.md)
+- [readDir(path, mask)](api/fs/fs.readDir.md)
+- [readTree(path, mask)](api/fs/fs.readTree.md)
+- [stat(filename)](api/fs/fs.stat.md)
+- [expandPath(path)](api/fs/fs.expandPath.md)
+- [copyFile(source, destination)](api/fs/fs.copyFile.md)
+- [isFile(path)](api/fs/fs.isFile.md)
+- [isDir(path)](api/fs/fs.isDir.md)
 
-### Functions:
+---
 
-- [readFile(filename)](fs/fs.readFile.md)
-- [removeFile(filename)](fs/fs.removeFile.md)
-- [readDir(path, mask)](fs/fs.readDir.md)
-- [readTree(path, mask)](fs/fs.readTree.md)
-- [stat(filename)](fs/fs.stat.md)
-- [expandPath(path)](fs/fs.expandPath.md)
-- [isFile(path)](fs/fs.isFile.md)
-- [isDir(path)](fs/fs.isDir.md)
-
-### Properties:

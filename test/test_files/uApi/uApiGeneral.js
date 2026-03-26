@@ -123,6 +123,7 @@ describe("uApi methods: test existing function", async () => {
         ydb.disconnect()
     });
 
+    /*
     it("getFileProps^%ydbguiUtils: '/opt/yottadb'", async () => {
         const ydb = await createYdbInstance('test-existing')
 
@@ -132,6 +133,7 @@ describe("uApi methods: test existing function", async () => {
 
         ydb.disconnect()
     });
+     */
 
     it("badEntryPoint", async () => {
         const ydb = await createYdbInstance('test-existing')

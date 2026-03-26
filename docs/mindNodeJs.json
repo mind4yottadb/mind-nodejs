@@ -1,0 +1,863 @@
+{
+    "landing_page": "home-page.md",
+    "data": [
+        {
+            "text": "node.js driver for mind4yottadb",
+            "id": "home-page.md",
+            "icon": ""
+        },
+        {
+            "text": "Getting started",
+            "id": "getting-started.md",
+            "icon": ""
+        },
+        {
+            "text": "Installation",
+            "id": "installation.md",
+            "icon": ""
+        },
+        {
+            "text": "Datatypes",
+            "id": "datatypes.md",
+            "icon": ""
+        },
+        {
+            "text": "Error handling",
+            "id": "error-handling.md",
+            "icon": ""
+        },
+        {
+            "text": "JSON vs JDOM",
+            "id": "json-vs-jdom.md",
+            "icon": ""
+        },
+        {
+            "text": "Mind object structure",
+            "id": "mind-object-structure.md",
+            "icon": ""
+        },
+        {
+            "text": "The async model",
+            "id": "the-async-model.md",
+            "icon": ""
+        },
+        {
+            "text": "The session lifecycle",
+            "id": "the-session-lifecycle.md",
+            "icon": ""
+        },
+        {
+            "text": "Using globals and vars",
+            "id": "using-globals-and-vars.md",
+            "icon": ""
+        },
+        {
+            "text": "API reference",
+            "id": "",
+            "icon": "",
+            "children": [
+                {
+                    "text": "mind",
+                    "id": "api/mind.md",
+                    "icon": "",
+                    "children": [
+                        {
+                            "text": "Methods",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "connect()",
+                                    "id": "api/mind.connect.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "disconnect()",
+                                    "id": "api/mind.disconnect.md",
+                                    "icon": ""
+                                }
+                            ]
+                        },
+                        {
+                            "text": "Properties",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "connected",
+                                    "id": "api/mind.connected.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "loggedIn",
+                                    "id": "api/mind.loggedIn.md",
+                                    "icon": ""
+                                }
+                            ]
+                        },
+                        {
+                            "text": "Events",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "socketError",
+                                    "id": "api/mind.on-socket-error.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "disconnect",
+                                    "id": "api/mind.on-disconnect.md",
+                                    "icon": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "fs",
+                    "id": "api/namespace.fs.md",
+                    "icon": "",
+                    "children": [
+                        {
+                            "text": "Methods",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "appendFile()",
+                                    "id": "api/fs/fs.appendFile.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "copyFile()",
+                                    "id": "api/fs/fs.copyFile.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "expandPath()",
+                                    "id": "api/fs/fs.expandPath.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "isDir()",
+                                    "id": "api/fs/fs.isDir.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "isFile()",
+                                    "id": "api/fs/fs.isFile.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "mkdir()",
+                                    "id": "api/fs/fs.mkdir.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "readFile()",
+                                    "id": "api/fs/fs.readFile.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "readDir()",
+                                    "id": "api/fs/fs.readDir.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "readTree()",
+                                    "id": "api/fs/fs.readTree.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "removeFile()",
+                                    "id": "api/fs/fs.removeFile.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "renameFile()",
+                                    "id": "api/fs/fs.renameFile.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "rmdir()",
+                                    "id": "api/fs/fs.rmdir.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "stat()",
+                                    "id": "api/fs/fs.stat.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "writeFile()",
+                                    "id": "api/fs/fs.writeFile.md",
+                                    "icon": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "process",
+                    "id": "api/namespace.process.md",
+                    "icon": "",
+                    "children": [
+                        {
+                            "text": "Methods",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "clearLocksGroup()",
+                                    "id": "api/process/process.clearLocksGroup.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "commitLocks()",
+                                    "id": "api/process/process.commitLocks.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "cwdGet()",
+                                    "id": "api/process/process.cwdGet.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "cwdSet()",
+                                    "id": "api/process/process.cwdSet.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "exec()",
+                                    "id": "api/process/process.exec.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "getEnvVars()",
+                                    "id": "api/process/process.getEnvVars.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "groupLocks()",
+                                    "id": "api/process/process.groupLocks.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "memUsage()",
+                                    "id": "api/process/process.memUsage.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "removeAllLocks()",
+                                    "id": "api/process/process.removeAllLocks.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "showLocks()",
+                                    "id": "api/process/process.showLocks.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "spawn()",
+                                    "id": "api/process/process.spawn.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "syslogMessage()",
+                                    "id": "api/process/process.syslogMessage.md",
+                                    "icon": ""
+                                }
+                            ]
+                        },
+                        {
+                            "text": "Properties",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "pid",
+                                    "id": "api/process/process.pid.md",
+                                    "icon": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "session",
+                    "id": "",
+                    "icon": "",
+                    "children": [
+                        {
+                            "text": "Methods",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "resetStats()",
+                                    "id": "api/session/session.resetStats.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "stats()",
+                                    "id": "api/session/session.stats.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "timeSinceConnect()",
+                                    "id": "api/session/session.timeSinceConnect.md",
+                                    "icon": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "server",
+                    "id": "api/namespace.server.md",
+                    "icon": "",
+                    "children": [
+                        {
+                            "text": "Methods",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "dateTime()",
+                                    "id": "api/server/server.dateTime.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "GUID()",
+                                    "id": "api/server/server.GUID.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "horolog()",
+                                    "id": "api/server/server.horolog.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "kill()",
+                                    "id": "api/server/server.kill.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "listSessions()",
+                                    "id": "api/server/server.listSessions.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "now()",
+                                    "id": "api/server/server.now.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "pinfo()",
+                                    "id": "api/server/server.pinfo.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "plist()",
+                                    "id": "api/server/server.plist.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "stats()",
+                                    "id": "api/server/server.stats.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "unixtime()",
+                                    "id": "api/server/server.unixtime.md",
+                                    "icon": ""
+                                }
+                            ]
+                        },
+                        {
+                            "text": "Properties",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "architecture",
+                                    "id": "api/server/server.architecture.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "hostName",
+                                    "id": "api/server/server.hostName.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "mindVersion",
+                                    "id": "api/server/server.mindVersion.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "platform",
+                                    "id": "api/server/server.platform.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "ydbVersion",
+                                    "id": "api/server/server.ydbVersion.md",
+                                    "icon": ""
+                                }
+                            ]
+                        },
+                        {
+                            "text": "Constants",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "SIG_INT",
+                                    "id": "api/server/server.SIG_INT.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "SIG_KIL",
+                                    "id": "api/server/server.SIG_KIL.md",
+                                    "icon": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "db",
+                    "id": "",
+                    "icon": "",
+                    "children": [
+                        {
+                            "text": "Globals",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "Methods",
+                                    "id": "",
+                                    "icon": "",
+                                    "children": [
+                                        {
+                                            "text": "_()",
+                                            "id": "api/db.glvn/_.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "addName()",
+                                            "id": "api/db.globals/addName.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "removeName()",
+                                            "id": "api/db.globals/removeName.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "addLock()",
+                                            "id": "api/db.globals/addLock.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "removeLock()",
+                                            "id": "api/db.globals/removeLock.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "decrement()",
+                                            "id": "api/db.glvn/decrement.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getJSON()",
+                                            "id": "api/db.glvn/getJSON.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getObject()",
+                                            "id": "api/db.glvn/getObject.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getPiece()",
+                                            "id": "api/db.glvn/getPiece.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getValue()",
+                                            "id": "api/db.glvn/getValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "hasNodes()",
+                                            "id": "api/db.glvn/hasNodes.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "hasValue()",
+                                            "id": "api/db.glvn/hasValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "increment()",
+                                            "id": "api/db.glvn/increment.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "killTree()",
+                                            "id": "api/db.glvn/killTree.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "killValue()",
+                                            "id": "api/db.glvn/killValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "readValue()",
+                                            "id": "api/db.glvn/readValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setJSON()",
+                                            "id": "api/db.glvn/setJSON.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setObject()",
+                                            "id": "api/db.glvn/setObject.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setPiece()",
+                                            "id": "api/db.glvn/setPiece.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setValue()",
+                                            "id": "api/db.glvn/setValue.md",
+                                            "icon": ""
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "text": "Vars",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "Methods",
+                                    "id": "",
+                                    "icon": "",
+                                    "children": [
+                                        {
+                                            "text": "_()",
+                                            "id": "api/db.glvn/_.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "decrement()",
+                                            "id": "api/db.glvn/decrement.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getJSON()",
+                                            "id": "api/db.glvn/getJSON.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getObject()",
+                                            "id": "api/db.glvn/getObject.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getPiece()",
+                                            "id": "api/db.glvn/getPiece.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getValue()",
+                                            "id": "api/db.glvn/getValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "hasNodes()",
+                                            "id": "api/db.glvn/hasNodes.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "hasValue()",
+                                            "id": "api/db.glvn/hasValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "increment()",
+                                            "id": "api/db.glvn/increment.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "killTree()",
+                                            "id": "api/db.glvn/killTree.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "killValue()",
+                                            "id": "api/db.glvn/killValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "readValue()",
+                                            "id": "api/db.glvn/readValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setJSON()",
+                                            "id": "api/db.glvn/setJSON.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setObject()",
+                                            "id": "api/db.glvn/setObject.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setPiece()",
+                                            "id": "api/db.glvn/setPiece.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setValue()",
+                                            "id": "api/db.glvn/setValue.md",
+                                            "icon": ""
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "dbms",
+                    "id": "",
+                    "icon": "",
+                    "children": [
+                    ]
+                },
+                {
+                    "text": "RESP3",
+                    "id": "api/namespace.RESP3.md",
+                    "icon": "",
+                    "children": [
+                        {
+                            "text": "Methods",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "build",
+                                    "id": "",
+                                    "icon": "",
+                                    "children": [
+                                        {
+                                            "text": "blobError()",
+                                            "id": "api/RESP3/RESP3.build.blobError.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "simpleError()",
+                                            "id": "api/RESP3/RESP3.build.simpleError.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "simpleString()",
+                                            "id": "api/RESP3/RESP3.build.simpleString.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "blob()",
+                                            "id": "api/RESP3/RESP3.build.blob.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "verbatimString()",
+                                            "id": "api/RESP3/RESP3.build.verbatimString.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "_null()",
+                                            "id": "api/RESP3/RESP3.build._null.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "_true()",
+                                            "id": "api/RESP3/RESP3.build._true.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "_false()",
+                                            "id": "api/RESP3/RESP3.build._false.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "int()",
+                                            "id": "api/RESP3/RESP3.build.int.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "double()",
+                                            "id": "api/RESP3/RESP3.build.double.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "bigNumber()",
+                                            "id": "api/RESP3/RESP3.build.bigNumber.md",
+                                            "icon": ""
+                                        }
+                                    ]
+                                },
+                                {
+                                    "text": "parse",
+                                    "id": "",
+                                    "icon": "",
+                                    "children": [
+                                        {
+                                            "text": "blob()",
+                                            "id": "api/RESP3/RESP3.parse.blob.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "simpleString()",
+                                            "id": "api/RESP3/RESP3.parse.simpleString.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "simpleError()",
+                                            "id": "api/RESP3/RESP3.parse.simpleError.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "boolean()",
+                                            "id": "api/RESP3/RESP3.parse.boolean.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "null()",
+                                            "id": "api/RESP3/RESP3.parse.null.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "int()",
+                                            "id": "api/RESP3/RESP3.parse.int.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "double()",
+                                            "id": "api/RESP3/RESP3.parse.double.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "bigNumber()",
+                                            "id": "api/RESP3/RESP3.parse.bigNumber.md",
+                                            "icon": ""
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "text": "Constants",
+                            "id": "",
+                            "icon": "",
+                            "children": [
+                                {
+                                    "text": "CRLF",
+                                    "id": "api/RESP3/RESP3.constants.CRLF.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "LF",
+                                    "id": "api/RESP3/RESP3.constants.LF.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "null",
+                                    "id": "api/RESP3/RESP3.constants.null.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "boolean",
+                                    "id": "api/RESP3/RESP3.constants.boolean.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "true",
+                                    "id": "api/RESP3/RESP3.constants.true.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "false",
+                                    "id": "api/RESP3/RESP3.constants.false.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "int",
+                                    "id": "api/RESP3/RESP3.constants.int.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "double",
+                                    "id": "api/RESP3/RESP3.constants.double.md",
+                                    "icon": ""
+                                },
+                                {
+                                    "text": "bigNumber",
+                                    "id": "api/RESP3/RESP3.constants.bigNumber.md",
+                                    "icon": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "user Api (uApi)",
+                    "id": "",
+                    "icon": "",
+                    "children": [
+                        {
+                            "text": "Calling MUMPS code",
+                            "id": "api/uApi/calling-mumps-code.md",
+                            "icon": ""
+                        },
+                        {
+                            "text": "Error handling in uApi",
+                            "id": "api/uApi/error-handling-in-uapi.md",
+                            "icon": ""
+                        },
+                        {
+                            "text": "Supported datatype",
+                            "id": "api/uApi/supported-datatypes.md",
+                            "icon": ""
+                        },
+                        {
+                            "text": "Passing vars by reference",
+                            "id": "api/uApi/passing-vars-by-ref.md",
+                            "icon": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "text": "Examples",
+            "id": "examples.md",
+            "icon": "",
+            "children": [
+            ]
+        }
+    ]
+}

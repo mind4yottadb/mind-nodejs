@@ -22,14 +22,13 @@
 
 **Parameters**:
 
-| name        | data type | Optional | Description                                                          |
-|-------------|-----------|----------|----------------------------------------------------------------------|
-| `pid`       | number    | No       | the process id of the program you wish to terminate                  |
-| `sigNumber` | number    | Yes      | the (optional) signal number. If omitter, it will default to SIG_INT |
+| Name        | Datatype | Optional | Description                                                          |
+|-------------|:--------:|:--------:|----------------------------------------------------------------------|
+| `pid`       |  number  |    No    | the process id of the program you wish to terminate                  |
+| `sigNumber` |  number  |   Yes    | the (optional) signal number. If omitter, it will default to SIG_INT |
 
-**Returns**:
-
-`Promise`
+<br>
+**Returns**: ` Promise<>`
 
 ---
 
@@ -39,29 +38,23 @@ Sends the `sigNumber` to the process pointed by `pid`
 
 Any error returned by the call will be thrown as Error.
 
-
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await ydb.server.kill(12023, ydb.process.SIG_KIL)
+await mind.server.kill(12023, mind.process.SIG_KIL)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.process.md)
+[Back](api/namespace.process.md)

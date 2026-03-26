@@ -16,19 +16,18 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**: yes, returns a Promise
 
 **Parameters**:
 
-| name       | data type | Optional | Description                                   |
-|------------|-----------|----------|-----------------------------------------------|
-| `filename` | string    | No       | the absolute or relative path of the filename |
+| Name       | Datatype | Optional | Description                                   |
+|------------|:--------:|:--------:|-----------------------------------------------|
+| `filename` |  string  |    No    | the absolute or relative path of the filename |
 
-**Returns**:
-
-`Promise <string>`
+<br>
+**Returns**: `Promise<string>`
 
 ---
 
@@ -41,19 +40,19 @@ If `filename` is not found or another error occurs, it will throw an error.
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const data = ydb.fs.readFile('/tmp/testfile.txt')
+const data = mind.fs.readFile('/tmp/testfile.txt')
 console.log(data)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
 ---
 
-[Back](../namespace.fs.md)
+[Back](api/namespace.fs.md)

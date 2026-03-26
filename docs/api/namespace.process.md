@@ -14,19 +14,29 @@
 
 # Namespace: process
 
+---
+
+This namespace provides you access to the process associated with your session.
+
+---
+
 ### Methods:
 
-- [exec(command, shell)](process/process.exec.md)
-- [spawn(command, logFile)](process/process.spawn.md)
-- [cwdSet(path)](process/process.cwdSet.md)
-
-### Functions:
-
-- [cwdGet()](process/process.cwdGet.md)
-- [memUsage()](process/process.memUsage.md)
-- [getEnvVars](process/process.getEnvVars.md)
+- [exec(command, shell)](api/process/process.exec.md)
+- [spawn(command, logFile)](api/process/process.spawn.md)
+- [cwdSet(path)](api/process/process.cwdSet.md)
+- [cwdGet()](api/process/process.cwdGet.md)
+- [memUsage()](api/process/process.memUsage.md)
+- [getEnvVars](api/process/process.getEnvVars.md)
+- [showLocks()](api/process/process.showLocks.md)
+- [groupLocks()](api/process/process.groupLocks.md)
+- [clearLocksGroup()](api/process/process.clearLocksGroup.md)
+- [commitLocks(timeout)](api/process/process.commitLocks.md)
+- [syslogMessage()](api/process/process.syslogMessage.md)
 
 ### Properties:
 
-- [pid](process/process.pid.md)
-- [env](process/process.env.md)
+- [pid](api/process/process.pid.md)
+
+---
+

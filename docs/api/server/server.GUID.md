@@ -22,14 +22,13 @@
 
 **Parameters**:
 
-| name     | data type | Optional | Description                                                                                           |
-|----------|-----------|----------|-------------------------------------------------------------------------------------------------------|
-| `dashed` | boolean   | Yes      | if `true`, it will insert separation dashes in the returned value  . Default is `true`                |
-| `braced` | boolean   | Yes      | if `true`, it will surround the returned value (dashed or not dashed) with braces. Default is `false` |
+| Name     | Datatype | Optional | Description                                                                                           |
+|----------|:--------:|:--------:|-------------------------------------------------------------------------------------------------------|
+| `dashed` | boolean  |   Yes    | if `true`, it will insert separation dashes in the returned value  . Default is `true`                |
+| `braced` | boolean  |   Yes    | if `true`, it will surround the returned value (dashed or not dashed) with braces. Default is `false` |
 
-**Returns**:
-
-`Promise<string>` guid
+<br>
+**Returns**: `Promise <string>` 
 
 ---
 
@@ -37,24 +36,21 @@ Returns the 128-bit MurmurHash3 of the current unixtime of the server, as lower-
 
 It defaults to group it into five sections separated by hyphens: 8-4-4-4-12.
 
-
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const GUID = await ydb.server.GUID()
+const GUID = await mind.server.GUID()
 console.log(GUID)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -65,22 +61,19 @@ GUID = '5b4b97b1-0daa-2d31-bb0e-984998917f05'
 
 ````
 
-<br>
-
-
 ---
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const GUID = await ydb.server.GUID(false)
+const GUID = await mind.server.GUID(false)
 console.log(GUID)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -90,22 +83,19 @@ Returns:
 GUID = '5b4b97b10daa2d31bb0e984998917f05'
 
 ````
-
-<br>
-
 ---
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const GUID = await ydb.server.GUID(true, true)
+const GUID = await mind.server.GUID(true, true)
 console.log(GUID)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -120,4 +110,4 @@ GUID = '{5b4b97b1-0daa-2d31-bb0e-984998917f05}'
 
 
 
-[Back](../namespace.process.md)
+[Back](api/namespace.process.md)

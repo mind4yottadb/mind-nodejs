@@ -16,19 +16,18 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**: yes, returns a Promise
 
 **Parameters**:
 
-| name   | data type | Optional | Description             |
-|--------|-----------|----------|-------------------------|
-| `path` | string    | No       | the new path of the cwd |
+| Name   | Datatype | Optional | Description             |
+|--------|:--------:|:--------:|-------------------------|
+| `path` |  string  |    No    | the new path of the cwd |
 
-**Returns**:
-
-`Promise`
+<br>
+**Returns**: `Promise<>`
 
 ---
 
@@ -36,25 +35,22 @@ Sets the Current Working Directory of your session.
 
 It can be read using the [process.cwdGet()](process.cwdGet.md) function.
 
-
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await ydb.process.cwdSet('/opt/yottadb/current')
-const cwd = await ydb.process.cwdGet()
+await mind.process.cwdSet('/opt/yottadb/current')
+const cwd = await mind.process.cwdGet()
 console.log(cwd)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -66,9 +62,6 @@ cwd = '/opt/yottadb/current'
 
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.process.md)
+[Back](api/namespace.process.md)

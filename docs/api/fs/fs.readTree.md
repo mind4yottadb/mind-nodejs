@@ -16,20 +16,19 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**: yes, returns a Promise
 
 **Parameters**:
 
-| name   | data type | Optional | Description            |
-|--------|-----------|----------|------------------------|
-| `path` | string    | No       | the path to search for |
-| `mask` | string    | Yes      | the mask to be used    |
+| Name   | Datatype | Optional | Description            |
+|--------|:--------:|:--------:|------------------------|
+| `path` |  string  |    No    | the path to search for |
+| `mask` |  string  |   Yes    | the mask to be used    |
 
-**Returns**:
-
-`Promise<array>`
+<br>
+**Returns**: `Promise<array>`
 
 ---
 
@@ -39,8 +38,6 @@ If `mask` is missing, it will default to `*.*`.
 
 If `path` is not found or another error occurs, it will throw an error.
 
-<br>
-
 ---
 
 ### EXAMPLES
@@ -48,17 +45,17 @@ If `path` is not found or another error occurs, it will throw an error.
 Using no mask...
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const res = await ydb.fs.readTree('/etc')
+const res = await mind.fs.readTree('/etc')
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -77,23 +74,20 @@ ydb.disconnect()
 ]
 
 ````
-
-<br>
-
 Using a mask...
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const res = await ydb.fs.readTree('/etc', '*.conf')
+const res = await mind.fs.readTree('/etc', '*.conf')
 
 console.log(res)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -112,4 +106,4 @@ ydb.disconnect()
 
 ---
 
-[Back](../namespace.fs.md)
+[Back](api/namespace.fs.md)

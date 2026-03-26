@@ -21,36 +21,28 @@
 **Async**: no
 
 **Parameters**:
-
-| name | data type | Optional | Description |
-|------|-----------|----------|-------------|
-
-**Returns**:
-
-`<string>`
+<br><br>
+**Returns**: '<string>`
 
 ---
 
 Returns the mind software version.
-
-
-<br>
 
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const mindVersion = ydb.server.mindVersion
+const mindVersion = mind.server.mindVersion
 console.log(mindVersion)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -62,9 +54,6 @@ mindVersion = '0.4.0'
 
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.process.md)
+[Back](api/namespace.process.md)

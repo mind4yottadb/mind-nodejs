@@ -12,7 +12,7 @@
 ###############################################################*/
 -->
 
-### server.ydbVersion
+### server.mindVersion
 
 ---
 
@@ -21,36 +21,28 @@
 **Async**: no
 
 **Parameters**:
-
-| name | data type | Optional | Description |
-|------|-----------|----------|-------------|
-
-**Returns**:
-
-`<string>`
+<br><br>
+**Returns**: '<string>`
 
 ---
 
 Returns the YottaDB software version.
-
-
-<br>
 
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const ydbVersion = ydb.server.ydbVersion
-console.log(ydbVersion)
+const mindVersion = mind.server.mindVersion
+console.log(mindVersion)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -62,9 +54,6 @@ mindVersion = 'r2.02'
 
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.process.md)
+[Back](api/namespace.process.md)

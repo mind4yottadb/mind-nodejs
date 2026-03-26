@@ -22,14 +22,13 @@
 
 **Parameters**:
 
-| name       | data type | Optional | Description                                   |
-|------------|-----------|----------|-----------------------------------------------|
-| `filename` | string    | No       | the absolute or relative path of the filename |
-| `data`     | string    | No       | the data to be written.                       |
+| Name       | Datatype | Optional | Description                                   |
+|------------|:--------:|:--------:|-----------------------------------------------|
+| `filename` |  string  |    No    | the absolute or relative path of the filename |
+| `data`     |  string  |    No    | the data to be written.                       |
 
-**Returns**:
-
-`Promise<>`
+<br>
+**Returns**: `Promise<>`
 
 ---
 
@@ -37,25 +36,23 @@ Write the string in `data` to replace the file specified in `filename`.
 
 If `filename` is not found or another error occurs, it will throw an error.
 
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await ydb.fs.writeFile('/tmp/testfile.txt', 'add another line\n')
+await mind.fs.writeFile('/tmp/testfile.txt', 'add another line\n')
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
 ---
 
-[Back](../namespace.fs.md)
+[Back](api/namespace.fs.md)

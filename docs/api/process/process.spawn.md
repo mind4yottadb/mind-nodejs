@@ -16,20 +16,19 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**: yes, returns a Promise
 
 **Parameters**:
 
-| name      | data type | Optional | Description                                                     |
-|-----------|-----------|----------|-----------------------------------------------------------------|
-| `command` | string    | No       | the command to be executed, including its (optional) parameters |
-| `logFile` | string    | Yes      | the (optional) path to a log file to redirest the STDOUT        |
+| Name      | Datatype | Optional | Description                                                     |
+|-----------|:--------:|:--------:|-----------------------------------------------------------------|
+| `command` |  string  |    No    | the command to be executed, including its (optional) parameters |
+| `logFile` |  string  |   Yes    | the (optional) path to a log file to redirest the STDOUT        |
 
-**Returns**:
-
-`Promise<number>`
+<br>
+**Returns**: `Promise<number>`
 
 ---
 
@@ -39,24 +38,21 @@ Runs the passed command and return its `pid`.
 
 Any error returned by the running of the command will be thrown as Error.
 
-
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const pid = await ydb.process.spawn('/otp/redis-cli -p 8080')
+const pid = await mind.process.spawn('/otp/redis-cli -p 8080')
 console.log(pid)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -68,9 +64,6 @@ pid = 10234
 
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.process.md)
+[Back](api/namespace.process.md)

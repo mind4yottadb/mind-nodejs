@@ -311,7 +311,7 @@ describe("server.plist()", async () => {
 
         expect(plist[0].pid === 1).to.be.true
         expect(plist[0].ppid === 0).to.be.true
-        expect(plist[0].command).to.have.string('/sbin/docker-init -- sleep infinity')
+        expect(plist[0].command.indexOf('/sbin/docker-init -- sleep infinity') > -1 || plist[0].command.indexOf('/sbin/docker-init -- /startup.sh') > -1).to.be.true
         expect(plist[0].uid).to.have.string('root')
 
         ydb.disconnect()

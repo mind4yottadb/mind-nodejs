@@ -22,13 +22,12 @@
 
 **Parameters**:
 
-| name   | data type | Optional | Description                             |
-|--------|-----------|----------|-----------------------------------------|
-| `path` | string    | No       | the path of the directory to be deleted |
+| Name   | Datatype | Optional | Description                             |
+|--------|:--------:|:--------:|-----------------------------------------|
+| `path` |  string  |    No    | the path of the directory to be deleted |
 
-**Returns**:
-
-`Promise<>`
+<br>
+**Returns**: `Promise<>`
 
 ---
 
@@ -36,25 +35,23 @@ Creates the directory specified in `path`.
 
 If `path` is not found, it is not empty, it is not a directory or another error occurs, it will throw an error.
 
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await ydb.fs.rmdir('/tmp/newDirectory')
+await mind.fs.rmdir('/tmp/newDirectory')
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
 ---
 
-[Back](../namespace.fs.md)
+[Back](api/namespace.fs.md)

@@ -14,8 +14,18 @@
 
 # Namespace: session
 
+---
+
+This namespace allow you to inspect values related to your MIND session.
+
+---
+
 ### Methods:
 
-### Functions:
+- [stats()](api/session/session.stats.md)
+- [resetStats()](api/session/session.resetStats.md)
+- [timeSinceConnect()](api/session/session.timeSinceConnect.md)
 
-### Properties:
+
+---
+

@@ -16,19 +16,18 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**:  yes, returns a Promise
 
 **Parameters**:
 
-| name  | data type | Optional | Description                                |
-|-------|-----------|----------|--------------------------------------------|
-| `pid` | number    | No       | the pid of the process you want to examine |
+| Name  | Datatype | Optional | Description                                |
+|-------|:--------:|:--------:|--------------------------------------------|
+| `pid` |  number  |    No    | the pid of the process you want to examine |
 
-**Returns**:
-
-`Promise<object>`
+<br>
+**Returns**: `Promise <object>`
 
 ---
 
@@ -43,23 +42,21 @@ It returns an object, with the following fields:
 - `cUserTime`: the user time used by the process's children, -1 if the process doesn't exist
 - `tCpu`: Total process and child CPU time used in hundredths of a second, -1 if the process doesn't exist
 
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const ret = await ydb.process.pInfo(66789)
+const ret = await mind.process.pInfo(66789)
 console.log(ret)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -77,9 +74,6 @@ ret = {
 }
 ````
 
-<br>
-
-
 ---
 
-[Back](../namespace.server.md)
+[Back](api/namespace.process.md)

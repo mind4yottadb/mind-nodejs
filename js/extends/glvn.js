@@ -63,7 +63,7 @@ class Glvn {
         })
     }
 
-    hasNodes = function (path) {
+    hasNodes = function () {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
@@ -141,7 +141,7 @@ class Glvn {
         })
     }
 
-    readValue = function (path) {
+    readValue = function () {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
@@ -176,7 +176,7 @@ class Glvn {
         })
     }
 
-    killValue = function (path) {
+    killValue = function () {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
@@ -205,7 +205,7 @@ class Glvn {
         })
     }
 
-    killTree = function (path) {
+    killTree = function () {
         const that = this
         const RESP3 = that.objRoot.RESP3
 

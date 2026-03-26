@@ -22,14 +22,13 @@
 
 **Parameters**:
 
-| name      | data type | Optional | Description                 |
-|-----------|-----------|----------|-----------------------------|
-| `oldName` | string    | No       | the file you want to rename |
-| `newName` | string    | No       | the new filename            |
+| Name      | Datatype | Optional | Description                 |
+|-----------|:--------:|:--------:|-----------------------------|
+| `oldName` |  string  |    No    | the file you want to rename |
+| `newName` |  string  |    No    | the new filename            |
 
-**Returns**:
-
-`Promise<>`
+<br>
+**Returns**: `Promise<>`
 
 ---
 
@@ -37,25 +36,23 @@ It renames a file.
 
 If `oldName` or `newName` files are not found or another error occurs, it will throw an error.
 
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await ydb.fs.renameFile('/tmp/testfile.txt', '/tmp/newtestfile.txt')
+await mind.fs.renameFile('/tmp/testfile.txt', '/tmp/newtestfile.txt')
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
 ---
 
-[Back](../namespace.fs.md)
+[Back](api/namespace.fs.md)

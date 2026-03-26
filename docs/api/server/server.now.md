@@ -16,19 +16,18 @@
 
 ---
 
-**Type**: function
+**Type**: method
 
 **Async**: yes, returns a Promise
 
 **Parameters**:
 
-| name         | data type | Optional | Description                                                     |
-|--------------|-----------|----------|-----------------------------------------------------------------|
-| `resolution` | string    | Yes      | the resolution of the number returned, defaults to milliseconds |
+| Name         | Datatype | Optional | Description                                                     |
+|--------------|:--------:|:--------:|-----------------------------------------------------------------|
+| `resolution` |  string  |   Yes    | the resolution of the number returned, defaults to milliseconds |
 
-**Returns**:
-
-`Promise<int>`
+<br>
+**Returns**: ` Promise<>`<int>`
 
 ---
 
@@ -37,24 +36,21 @@ Returns the `unixtime` with the default resolution of milliseconds.
 The `resolution` parameter can be either `ms` (for milliseconds) or `us` (for microseconds).
 To get the unix time in seconds, use the `unixtime()` function.
 
-
-<br>
-
 ---
 
 ### EXAMPLES
 
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const now = ydb.server.now()
+const now = mind.server.now()
 console.log(now)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -65,20 +61,17 @@ returns:
 now = 1769615736015
 
 ````
-
-<br>
-
 ````js
-import mind from 'mind4yottadb'
+import mindServer from 'mind4yottadb'
 
-const ydb = new mind
+const mind = new mindServer
 
-await ydb.connect('127.0.0.1', 10000, 'admin', 'admin')
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const now = ydb.process.now('us')
+const now = mind.process.now('us')
 console.log(now)
 
-ydb.disconnect()
+mind.disconnect()
 
 ````
 
@@ -89,9 +82,6 @@ returns:
 now = 1769615790021047
 
 ````
-
-<br>
-
 ---
 
-[Back](../namespace.server.md)
+[Back](api/namespace.process.md)

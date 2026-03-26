@@ -14,30 +14,38 @@
 
 # Namespace: server
 
+---
+
+This namespace gives you access to the whole server (as opposite to the `process` namespace, where you have control of
+your running process only.)
+
+---
+
 ### Methods:
 
-- [kill(pid,SIG)](server/server.kill.md)
-
-### Functions:
-
-- [GUID(dashed, braced)](./server/server.GUID.md)
-- [listSessions](server/server.listSessions.md)
-- [pinfo](server/server.pinfo.md)
-- [stats](server/server.stats.md)
-- [unixtime()](server/server.unixtime.md)
-- [now()](server/server.now.md)
-- [datetime()](server/server.dateTime.md)
-- [horolog()](server/server.dateTime.md)
+- [kill(pid,SIG)](api/server/server.kill.md)
+- [GUID(dashed, braced)](api/server/server.GUID.md)
+- [listSessions()](api/server/server.listSessions.md)
+- [pinfo](api/server/server.pinfo.md)
+- [plist](api/server/server.plist.md)
+- [stats](api/server/server.stats.md)
+- [unixtime()](api/server/server.unixtime.md)
+- [now()](api/server/server.now.md)
+- [datetime()](api/server/server.dateTime.md)
+- [horolog()](api/server/server.dateTime.md)
 
 ### Properties:
 
-- [hostName](server/server.hostName.md)
-- [mindVersion](server/server.mindVersion.md)
-- [ydbVersion](server/server.ydbVersion.md)
-- [platform](server/server.platform.md)
-- [architecture](server/server.architecture.md)
+- [hostName](api/server/server.hostName.md)
+- [mindVersion](api/server/server.mindVersion.md)
+- [mindVersion](api/server/server.mindVersion.md)
+- [platform](api/server/server.platform.md)
+- [architecture](api/server/server.architecture.md)
 
 ### Constants
 
-- [SIG_INT](server/server.SIG_INT.md)
-- [SIG_KIL](server/server.SIG_KIL.md)
+- [SIG_INT](api/server/server.SIG_INT.md)
+- [SIG_KIL](api/server/server.SIG_KIL.md)
+
+---
+

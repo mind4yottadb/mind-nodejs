@@ -17,6 +17,14 @@
             "icon": ""
         },
         {
+            "text": "Releases",
+            "data": "releases",
+            "id": "",
+            "icon": "",
+            "children": [
+            ]
+        },
+        {
             "text": "Datatypes",
             "id": "datatypes.md",
             "icon": ""
@@ -855,6 +863,13 @@
         {
             "text": "Examples",
             "id": "examples.md",
+            "icon": "",
+            "children": [
+            ]
+        },
+        {
+            "text": "Releases",
+            "id": "",
             "icon": "",
             "children": [
             ]

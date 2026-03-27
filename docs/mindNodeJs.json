@@ -40,6 +40,11 @@
             "icon": ""
         },
         {
+            "text": "Securing your traffic using TLS",
+            "id": "api/securing-tls.md",
+            "icon": ""
+        },
+        {
             "text": "Mind object structure",
             "id": "mind-object-structure.md",
             "icon": ""

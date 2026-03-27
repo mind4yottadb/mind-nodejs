@@ -17,6 +17,14 @@
             "icon": ""
         },
         {
+            "text": "Releases",
+            "data": "releases",
+            "id": "",
+            "icon": "",
+            "children": [
+            ]
+        },
+        {
             "text": "Datatypes",
             "id": "datatypes.md",
             "icon": ""

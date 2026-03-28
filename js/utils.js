@@ -29,6 +29,10 @@ module.exports = {
             return ''
         }
 
+        if (options.connectTimeout && typeof options.connectTimeout !== 'number') {
+            return 'options.connectTimeout must be a number'
+        }
+
         if (options.useTls && typeof options.useTls !== 'boolean') {
             return 'options.useTls must be a boolean'
         }

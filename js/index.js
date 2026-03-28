@@ -84,6 +84,12 @@ module.exports = class mind extends EventEmitter {
                 reject(new Error(err))
             }
 
+            let hTimer = setTimeout(function () {
+                that.#socket.destroy()
+
+                throw new Error('timeout while trying to connect...')
+            }, options.connectTimeout || 5000)
+
             // TLS or plain
             if (options && options.useTls && options && options.useTls === true) {
                 that.userTls = true
@@ -109,6 +115,8 @@ module.exports = class mind extends EventEmitter {
 
             const socketInit = async function (that, lSocket, lWriter, lReader, resolve, reject, username, password, options) {
                 that.connected = true
+
+                clearTimeout(hTimer)
 
                 // mount event handler and route it to the event emitter
                 lSocket

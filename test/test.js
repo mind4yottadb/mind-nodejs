@@ -8,6 +8,7 @@ const run = async () => {
     await mind.connect('127.0.0.1', 10000, "admin", "admin", {
         useTls: false,
         tlsRejectSelfSigned: false,
+        connectTimeout: 5000,
         uApi: {appName: ''},
         db: {
             globals: [
@@ -23,10 +24,9 @@ const run = async () => {
     mind.db.globals.addName('apiTest')
     await mind.db.globals.apiTest.setValue('test')
 
-    mind.db.globals.removeName('apiTest')
     await mind.db.globals.apiTest.setValue('test')
 
-    exit()
+    //exit()
 
 
 }

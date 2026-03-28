@@ -57,6 +57,7 @@ itself according.
 const options = {
     useTls: true,
     tlsRejectSelfSigned: false,
+    connectTimeout: 10000,
     uApi: {appName: 'myApp'},
     db: {
         globals: []
@@ -70,6 +71,8 @@ When `useTls` is true, TLS will be used. If missing or false, TLS will NOT be us
 
 When `tlsRejectSelfSigned` is false, self-signed certificates will be accepted. If missing or set to true, self-signed
 certificates will be rejected.
+
+The `connectTimeout` overrides the default connect timeout of 5000 ms, or 5 seconds). The unit is in milliseconds.
 
 The `db.globals` is an array of strings, where each string represents a global you want to use in your code.
 

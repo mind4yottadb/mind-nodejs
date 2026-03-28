@@ -74,6 +74,8 @@ certificates will be rejected.
 
 The `connectTimeout` overrides the default connect timeout of 5000 ms, or 5 seconds). The unit is in milliseconds.
 
+> A `coonectTimeout` value of 0 will disable the timeout entirely.
+
 The `db.globals` is an array of strings, where each string represents a global you want to use in your code.
 
 > Global name do NOT need to be prefixed by the `^` character. So, a global named `^customers` must be entered as

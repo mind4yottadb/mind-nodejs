@@ -33,7 +33,7 @@ module.exports = class mind extends EventEmitter {
     loggedIn = false
     useTls = false
     #socket = null
-    hTimer = 0
+    hTimer = null
 
     requiresMind = '0.20.0'
 
@@ -85,13 +85,18 @@ module.exports = class mind extends EventEmitter {
                 reject(new Error(err))
             }
 
-            let hTimer = that.hTimer = setTimeout(function () {
-                that.#socket.destroy()
+            let hTimer = that.hTimer
+            if (options && options.connectTimeout === 0) {
+                hTimer = that.hTimer = null
 
-                throw new Error('timeout while trying to connect...')
+            } else {
+                hTimer = that.hTimer = setTimeout(function () {
+                    that.#socket.destroy()
 
-            }, options.connectTimeout || 5000)
+                    throw new Error('timeout while trying to connect...')
 
+                }, options.connectTimeout || 5000)
+            }
             // TLS or plain
             if (options && options.useTls && options && options.useTls === true) {
                 that.userTls = true
@@ -118,12 +123,12 @@ module.exports = class mind extends EventEmitter {
             const socketInit = async function (that, lSocket, lWriter, lReader, resolve, reject, username, password, options) {
                 that.connected = true
 
-                clearTimeout(hTimer)
+                if (hTimer !== null) clearTimeout(hTimer)
 
                 // mount event handler and route it to the event emitter
                 lSocket
                     .on('end', () => {
-                        clearTimeout(hTimer)
+                        if (hTimer !== null) clearTimeout(hTimer)
 
                         that.disconnect()
 
@@ -131,7 +136,7 @@ module.exports = class mind extends EventEmitter {
                     })
                     // mount event handler and route it to the event emitter
                     .on('error', err => {
-                        clearTimeout(hTimer)
+                        if (hTimer !== null) clearTimeout(hTimer)
 
                         that.emit('socketError', err)
 
@@ -164,7 +169,7 @@ module.exports = class mind extends EventEmitter {
 
     disconnect = () => {
         if (this.#socket) {
-            clearTimeout(this.hTimer)
+            if (this.hTimer !== null) clearTimeout(this.hTimer)
             this.#socket.destroy()
         }
         this.connected = false

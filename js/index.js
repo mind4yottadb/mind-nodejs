@@ -33,6 +33,7 @@ module.exports = class mind extends EventEmitter {
     loggedIn = false
     useTls = false
     #socket = null
+    hTimer = 0
 
     requiresMind = '0.20.0'
 
@@ -84,10 +85,11 @@ module.exports = class mind extends EventEmitter {
                 reject(new Error(err))
             }
 
-            let hTimer = setTimeout(function () {
+            let hTimer = that.hTimer = setTimeout(function () {
                 that.#socket.destroy()
 
                 throw new Error('timeout while trying to connect...')
+
             }, options.connectTimeout || 5000)
 
             // TLS or plain
@@ -121,13 +123,18 @@ module.exports = class mind extends EventEmitter {
                 // mount event handler and route it to the event emitter
                 lSocket
                     .on('end', () => {
+                        clearTimeout(hTimer)
+
                         that.disconnect()
 
                         that.emit('disconnect', new Error('Disconnected'))
                     })
                     // mount event handler and route it to the event emitter
                     .on('error', err => {
+                        clearTimeout(hTimer)
+
                         that.emit('socketError', err)
+
                         reject(err)
                     })
 
@@ -156,7 +163,10 @@ module.exports = class mind extends EventEmitter {
     }
 
     disconnect = () => {
-        if (this.#socket) this.#socket.destroy()
+        if (this.#socket) {
+            clearTimeout(this.hTimer)
+            this.#socket.destroy()
+        }
         this.connected = false
         this.loggedIn = false
 

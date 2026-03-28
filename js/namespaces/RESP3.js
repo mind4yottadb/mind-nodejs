@@ -18,7 +18,13 @@ class RESP3 {
 
         simpleString: str => '+' + str + '\r\n',
         blob: str => '$' + str.toString().length.toString() + '\r\n' + str.toString() + '\r\n',
-        verbatimString: (str, type) => '=' + (str.length + 4).toString() + '\r\n' + type + ':' + str + '\r\n',
+        verbatimString: (str, type) => {
+            if (type.length !== 3) {
+                throw new Error('Verbatim type MUST be 3 chars length!')
+            }
+
+            return '=' + (str.length + 4).toString() + '\r\n' + type + ':' + str + '\r\n'
+        },
         streamedString: () => '',
 
         _null: () => '_\r\n',

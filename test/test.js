@@ -1,10 +1,11 @@
 const {exit} = require('node:process')
 const mindServer = require('../js/index.js')
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 
 const run = async () => {
+
     await mind.connect('127.0.0.1', 10000, "admin", "admin", {
         useTls: false,
         tlsRejectSelfSigned: false,

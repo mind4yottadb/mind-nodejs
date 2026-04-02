@@ -22,7 +22,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect()
 
@@ -39,7 +39,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect(123)
 
@@ -56,7 +56,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect([])
 
@@ -73,7 +73,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect({})
 
@@ -90,7 +90,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1')
 
@@ -107,7 +107,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', '234')
 
@@ -124,7 +124,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', [])
 
@@ -141,7 +141,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', {})
 
@@ -158,7 +158,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', false)
 
@@ -175,7 +175,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000)
 
@@ -192,7 +192,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000, [])
 
@@ -209,7 +209,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000, 12)
 
@@ -226,7 +226,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000, {})
 
@@ -243,7 +243,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000, false)
 
@@ -260,7 +260,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000, 'admin')
 
@@ -277,7 +277,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000, 'admin', [])
 
@@ -294,7 +294,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000, 'admin', 12)
 
@@ -311,7 +311,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000, 'admin', {})
 
@@ -328,7 +328,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000, 'admin', false)
 
@@ -346,7 +346,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', 'option')
 
@@ -363,7 +363,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', [])
 
@@ -380,7 +380,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', 12)
 
@@ -397,7 +397,7 @@ describe("connect()", async () => {
         let ydb
 
         try {
-            ydb = new mind
+            ydb = new mind.session
 
             await ydb.connect('127.0.0.1', 10000, 'admin', 'admin', false)
 
@@ -433,7 +433,7 @@ describe("structure after connect()", async () => {
 /*
 describe("TLS", async () => {
     it("error out when self-signed is used", async () => {
-        const ydb = new mind
+        const ydb = new mind.session
         try {
             await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
                     useTls: true,

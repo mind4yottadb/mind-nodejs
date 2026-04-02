@@ -1263,3 +1263,116 @@ describe("globals.findPrev()", async function () {
         ydb.disconnect()
     });
 })
+
+describe("globals.query()", async function () {
+    this.timeout(20000)
+
+    it("with no param and no data ", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        const res = await ydb.db.vars.aaa.query()
+
+        expect(res === '').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with array param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        try {
+            const res = await ydb.db.vars.aaa.query(['test'])
+
+        } catch (err) {
+            expect(err.message === 'glvn must be a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with object param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        try {
+            const res = await ydb.db.vars.aaa.query({x: 'test'})
+
+        } catch (err) {
+            expect(err.message === 'glvn must be a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with boolean param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        try {
+            const res = await ydb.db.vars.aaa.query(false)
+
+        } catch (err) {
+            expect(err.message === 'glvn must be a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with null param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        try {
+            const res = await ydb.db.vars.aaa.query(null)
+
+        } catch (err) {
+            expect(err.message === 'glvn must be a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("find next $name with no param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        const gbl = ydb.db.vars.aaa
+
+        await gbl.killTree()
+        await gbl._("testNode").setObject({
+            test1: {ciao: 'test1val'},
+            test2: 'test2',
+            test3: 'test3',
+        })
+
+        let res = await gbl.query()
+
+        expect(res).to.have.string('aaa("testNode","test1","ciao")')
+
+        ydb.disconnect()
+    });
+
+    it("find next $name with  param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        const gbl = ydb.db.vars.aaa
+
+        await gbl.killTree()
+        await gbl._("testNode").setObject({
+            test1: {ciao: 'test1val'},
+            test2: 'test2',
+            test3: 'test3',
+        })
+
+        let res = await ydb.db.vars.aaa.query('aaa("testNode","test1","ciao")')
+
+        expect(res).to.have.string('aaa("testNode","test2")')
+
+        ydb.disconnect()
+    });
+})

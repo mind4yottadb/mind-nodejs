@@ -26,10 +26,18 @@ const run = async () => {
 
     await gbl.killTree()
     await gbl._("testNode").setObject({
-        test1: 'test1val',
+        test1: {ciao: 'test1val'},
         test2: 'test2',
         test3: 'test3',
     })
+
+    let res = await gbl.query()
+    console.log(res)
+
+    res = await gbl.query(res)
+    console.log(res)
+
+    exit()
 
     let node
     while (node !== '') {

@@ -729,6 +729,43 @@ class Glvn {
         })
     }
 
+    query = function (glvn = undefined) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+
+            if (glvn && typeof glvn !== 'string') {
+                reject(new Error('glvn must be a string'))
+            }
+
+            // send command
+            const opCode = 'glvn.query'
+
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that)) +
+                RESP3.build.blob(glvn || '')
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+                }
+
+                if (data.charAt(0) === '$') {
+                    resolve(RESP3.parse.blob(data))
+
+                } else {
+                    reject(new Error(data.slice(1, -2)))
+                }
+            })
+        })
+    }
+
     _init = function (obj) {
         Object.defineProperties(obj, {
             _path: {

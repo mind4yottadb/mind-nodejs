@@ -1339,3 +1339,119 @@ describe("globals.findPrev()", async function () {
         ydb.disconnect()
     });
 })
+
+describe("globals.query()", async function () {
+    this.timeout(20000)
+
+    it("with no param and no data ", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        const res = await ydb.db.globals.temp.query()
+
+        expect(res === '').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with array param", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        try {
+            const res = await ydb.db.globals.temp.query(['test'])
+
+        } catch (err) {
+            expect(err.message === 'glvn must be a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with object param", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        try {
+            const res = await ydb.db.globals.temp.query({x: 'test'})
+
+        } catch (err) {
+            expect(err.message === 'glvn must be a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with boolean param", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        try {
+            const res = await ydb.db.globals.temp.query(false)
+
+        } catch (err) {
+            expect(err.message === 'glvn must be a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with null param", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        try {
+            const res = await ydb.db.globals.temp.query(null)
+
+        } catch (err) {
+            expect(err.message === 'glvn must be a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("find next $name with no param", async () => {
+        const ydb = await createYdbInstance()
+
+        ydb.db.globals.addName('apiTest')
+        const gbl = ydb.db.globals.apiTest
+
+        await gbl.killTree()
+        await gbl._("testNode").setObject({
+            test1: {ciao: 'test1val'},
+            test2: 'test2',
+            test3: 'test3',
+        })
+
+        let res = await gbl.query()
+
+        expect(res).to.have.string('^apiTest("testNode","test1","ciao")')
+
+        ydb.disconnect()
+    });
+
+    it("find next $name with  param", async () => {
+        const ydb = await createYdbInstance()
+
+        ydb.db.globals.addName('apiTest')
+        ydb.db.globals.addName('apiTest2')
+        const gbl = ydb.db.globals.apiTest
+
+        await gbl.killTree()
+        await gbl._("testNode").setObject({
+            test1: {ciao: 'test1val'},
+            test2: 'test2',
+            test3: 'test3',
+        })
+
+        let res = await ydb.db.globals.apiTest2.query('^apiTest("testNode","test1","ciao")')
+
+        expect(res).to.have.string('^apiTest("testNode","test2")')
+
+        ydb.disconnect()
+    });
+})

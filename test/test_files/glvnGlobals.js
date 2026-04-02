@@ -1050,3 +1050,292 @@ describe("globals.removeLock()", async function () {
     });
 })
 
+describe("globals.findNext()", async function () {
+    this.timeout(20000)
+
+    it("with no param and no data ", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        const res = await ydb.db.globals.temp.findNext()
+
+        expect(res === '').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with array param", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        try {
+            const res = await ydb.db.globals.temp.findNext(['test'])
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with object param", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        try {
+            const res = await ydb.db.globals.temp.findNext({x: 'test'})
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with boolean param", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        try {
+            const res = await ydb.db.globals.temp.findNext(false)
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with null param", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        try {
+            const res = await ydb.db.globals.temp.findNext(null)
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with empty string as param, 1 subscript on root, expect string back", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp._('myString').setValue('hey')
+
+        const res = await ydb.db.globals.temp.findNext()
+        expect(res).to.have.string('myString')
+
+
+        ydb.disconnect()
+    });
+
+    it("with empty string as param, 1 subscript as second subscript, expect string back", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp._('myString', 23).setValue('hey')
+
+        const res = await ydb.db.globals.temp.findNext()
+        expect(res).to.have.string('myString')
+
+        ydb.disconnect()
+    });
+
+    it("with first subscript as param, 1 subscript as second subscript, expect string back", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp._('myString', 23).setValue('hey')
+
+        const res = await ydb.db.globals.temp._('myString').findNext()
+        expect(res === 23).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with first subscript as param, 5 subscript as second subscript, expect string back", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp._('myString').setObject([
+            "entry1",
+            "entry2",
+            "entry3",
+            "entry4",
+            "entry5",
+        ])
+
+        let res = await ydb.db.globals.temp._('myString').findNext()
+        expect(res === 1).to.be.true
+
+        res = await ydb.db.globals.temp._('myString').findNext(res)
+        expect(res === 2).to.be.true
+
+        res = await ydb.db.globals.temp._('myString').findNext(res)
+        expect(res === 3).to.be.true
+
+        res = await ydb.db.globals.temp._('myString').findNext(res)
+        expect(res === 4).to.be.true
+
+        res = await ydb.db.globals.temp._('myString').findNext(res)
+        expect(res === 5).to.be.true
+
+        res = await ydb.db.globals.temp._('myString').findNext(res)
+        expect(res === '').to.be.true
+
+        ydb.disconnect()
+    });
+})
+
+describe("globals.findPrev()", async function () {
+    this.timeout(20000)
+
+    it("with no param and no data ", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        const res = await ydb.db.globals.temp.findPrev()
+
+        expect(res === '').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with array param", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        try {
+            const res = await ydb.db.globals.temp.findPrev(['test'])
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with object param", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        try {
+            const res = await ydb.db.globals.temp.findPrev({x: 'test'})
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with boolean param", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        try {
+            const res = await ydb.db.globals.temp.findPrev(false)
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with null param", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        try {
+            const res = await ydb.db.globals.temp.findPrev(null)
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with empty string as param, 1 subscript on root, expect string back", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp._('myString').setValue('hey')
+
+        const res = await ydb.db.globals.temp.findPrev()
+        expect(res).to.have.string('myString')
+
+
+        ydb.disconnect()
+    });
+
+    it("with empty string as param, 1 subscript as second subscript, expect string back", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp._('myString', 23).setValue('hey')
+
+        const res = await ydb.db.globals.temp.findPrev()
+        expect(res).to.have.string('myString')
+
+        ydb.disconnect()
+    });
+
+    it("with first subscript as param, 1 subscript as second subscript, expect string back", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp._('myString', 23).setValue('hey')
+
+        const res = await ydb.db.globals.temp._('myString').findPrev()
+        expect(res === 23).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with first subscript as param, 5 subscript as second subscript, expect string back", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp._('myString').setObject([
+            "entry1",
+            "entry2",
+            "entry3",
+            "entry4",
+            "entry5",
+        ])
+
+        let res = await ydb.db.globals.temp._('myString').findPrev()
+        expect(res === 5).to.be.true
+
+        res = await ydb.db.globals.temp._('myString').findPrev(res)
+        expect(res === 4).to.be.true
+
+        res = await ydb.db.globals.temp._('myString').findPrev(res)
+        expect(res === 3).to.be.true
+
+        res = await ydb.db.globals.temp._('myString').findPrev(res)
+        expect(res === 2).to.be.true
+
+        res = await ydb.db.globals.temp._('myString').findPrev(res)
+        expect(res === 1).to.be.true
+
+        res = await ydb.db.globals.temp._('myString').findPrev(res)
+        expect(res === '').to.be.true
+
+        ydb.disconnect()
+    });
+})

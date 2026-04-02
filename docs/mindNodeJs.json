@@ -553,6 +553,16 @@
                                             "text": "setValue()",
                                             "id": "api/db.glvn/setValue.md",
                                             "icon": ""
+                                        },
+                                        {
+                                            "text": "findNext()",
+                                            "id": "api/db.glvn/findNext.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "findPrev()",
+                                            "id": "api/db.glvn/findPrev.md",
+                                            "icon": ""
                                         }
                                     ]
                                 }
@@ -646,6 +656,16 @@
                                         {
                                             "text": "setValue()",
                                             "id": "api/db.glvn/setValue.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "findNext()",
+                                            "id": "api/db.glvn/findNext.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "findPrev()",
+                                            "id": "api/db.glvn/findPrev.md",
                                             "icon": ""
                                         }
                                     ]

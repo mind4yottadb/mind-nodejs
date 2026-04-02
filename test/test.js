@@ -22,10 +22,25 @@ const run = async () => {
     )
 
     mind.db.globals.addName('apiTest')
-    //const res = await mind.level_1.isNumber(undefined)
-    //console.log(res)
+    const gbl = mind.db.globals.apiTest
 
-    //exit()
+    await gbl.killTree()
+    await gbl._("testNode").setObject({
+        test1: 'test1val',
+        test2: 'test2',
+        test3: 'test3',
+    })
+
+    let node
+    while (node !== '') {
+        node = await gbl._("testNode").findPrev(node || '')
+        if (node === '') break
+
+        console.log(await gbl._("testNode", node).getValue())
+
+    }
+
+    exit()
 
 
 }

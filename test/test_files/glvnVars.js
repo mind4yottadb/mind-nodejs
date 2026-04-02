@@ -974,3 +974,292 @@ describe("vars.decrement()", async () => {
     });
 })
 
+describe("globals.findNext()", async function () {
+    this.timeout(20000)
+
+    it("with no param and no data ", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        const res = await ydb.db.vars.aaa.findNext()
+
+        expect(res === '').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with array param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        try {
+            const res = await ydb.db.vars.aaa.findNext(['test'])
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with object param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        try {
+            const res = await ydb.db.vars.aaa.findNext({x: 'test'})
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with boolean param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        try {
+            const res = await ydb.db.vars.aaa.findNext(false)
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with null param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        try {
+            const res = await ydb.db.vars.aaa.findNext(null)
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with empty string as param, 1 subscript on root, expect string back", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        await ydb.db.vars.aaa._('myString').setValue('hey')
+
+        const res = await ydb.db.vars.aaa.findNext()
+        expect(res).to.have.string('myString')
+
+
+        ydb.disconnect()
+    });
+
+    it("with empty string as param, 1 subscript as second subscript, expect string back", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        await ydb.db.vars.aaa._('myString', 23).setValue('hey')
+
+        const res = await ydb.db.vars.aaa.findNext()
+        expect(res).to.have.string('myString')
+
+        ydb.disconnect()
+    });
+
+    it("with first subscript as param, 1 subscript as second subscript, expect string back", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        await ydb.db.vars.aaa._('myString', 23).setValue('hey')
+
+        const res = await ydb.db.vars.aaa._('myString').findNext()
+        expect(res === 23).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with first subscript as param, 5 subscript as second subscript, expect string back", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        await ydb.db.vars.aaa._('myString').setObject([
+            "entry1",
+            "entry2",
+            "entry3",
+            "entry4",
+            "entry5",
+        ])
+
+        let res = await ydb.db.vars.aaa._('myString').findNext()
+        expect(res === 1).to.be.true
+
+        res = await ydb.db.vars.aaa._('myString').findNext(res)
+        expect(res === 2).to.be.true
+
+        res = await ydb.db.vars.aaa._('myString').findNext(res)
+        expect(res === 3).to.be.true
+
+        res = await ydb.db.vars.aaa._('myString').findNext(res)
+        expect(res === 4).to.be.true
+
+        res = await ydb.db.vars.aaa._('myString').findNext(res)
+        expect(res === 5).to.be.true
+
+        res = await ydb.db.vars.aaa._('myString').findNext(res)
+        expect(res === '').to.be.true
+
+        ydb.disconnect()
+    });
+})
+
+describe("globals.findPrev()", async function () {
+    this.timeout(20000)
+
+    it("with no param and no data ", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        const res = await ydb.db.vars.aaa.findPrev()
+
+        expect(res === '').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with array param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        try {
+            const res = await ydb.db.vars.aaa.findPrev(['test'])
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with object param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        try {
+            const res = await ydb.db.vars.aaa.findPrev({x: 'test'})
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with boolean param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        try {
+            const res = await ydb.db.vars.aaa.findPrev(false)
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with null param", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        try {
+            const res = await ydb.db.vars.aaa.findPrev(null)
+
+        } catch (err) {
+            expect(err.message === 'findValue must be a number or a string').to.be.true
+
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with empty string as param, 1 subscript on root, expect string back", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        await ydb.db.vars.aaa._('myString').setValue('hey')
+
+        const res = await ydb.db.vars.aaa.findPrev()
+        expect(res).to.have.string('myString')
+
+
+        ydb.disconnect()
+    });
+
+    it("with empty string as param, 1 subscript as second subscript, expect string back", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        await ydb.db.vars.aaa._('myString', 23).setValue('hey')
+
+        const res = await ydb.db.vars.aaa.findPrev()
+        expect(res).to.have.string('myString')
+
+        ydb.disconnect()
+    });
+
+    it("with first subscript as param, 1 subscript as second subscript, expect string back", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        await ydb.db.vars.aaa._('myString', 23).setValue('hey')
+
+        const res = await ydb.db.vars.aaa._('myString').findPrev()
+        expect(res === 23).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with first subscript as param, 5 subscript as second subscript, expect string back", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        await ydb.db.vars.aaa._('myString').setObject([
+            "entry1",
+            "entry2",
+            "entry3",
+            "entry4",
+            "entry5",
+        ])
+
+        let res = await ydb.db.vars.aaa._('myString').findPrev()
+        expect(res === 5).to.be.true
+
+        res = await ydb.db.vars.aaa._('myString').findPrev(res)
+        expect(res === 4).to.be.true
+
+        res = await ydb.db.vars.aaa._('myString').findPrev(res)
+        expect(res === 3).to.be.true
+
+        res = await ydb.db.vars.aaa._('myString').findPrev(res)
+        expect(res === 2).to.be.true
+
+        res = await ydb.db.vars.aaa._('myString').findPrev(res)
+        expect(res === 1).to.be.true
+
+        res = await ydb.db.vars.aaa._('myString').findPrev(res)
+        expect(res === '').to.be.true
+
+        ydb.disconnect()
+    });
+})

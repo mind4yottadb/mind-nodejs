@@ -4,7 +4,7 @@ const mind = require("../js")
 
 module.exports = {
     createYdbInstance: async (appName = '') => {
-        const ydb = new mind
+        const ydb = new mind.session
 
         await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
             useTls: false,

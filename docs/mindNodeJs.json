@@ -563,6 +563,11 @@
                                             "text": "findPrev()",
                                             "id": "api/db.glvn/findPrev.md",
                                             "icon": ""
+                                        },
+                                        {
+                                            "text": "query()",
+                                            "id": "api/db.glvn/query.md",
+                                            "icon": ""
                                         }
                                     ]
                                 }
@@ -666,6 +671,11 @@
                                         {
                                             "text": "findPrev()",
                                             "id": "api/db.glvn/findPrev.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "query()",
+                                            "id": "api/db.glvn/query.md",
                                             "icon": ""
                                         }
                                     ]

@@ -31,7 +31,7 @@ start = async () => {
 
      */
 
-    console.dir(pool.sessions, {depth: 1})
+    console.dir(pool.getStatus(), {depth: 1})
 
 
     await pool.destroy()

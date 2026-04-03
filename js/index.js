@@ -316,6 +316,7 @@ module.exports = {
                         poolSlot: freeSlots[0],
                         done: function () {
                             this.poolSlot.inUse = false
+                            done.caller = {}
                         }
                     })
                     resolve(freeSlots[0].session)
@@ -359,6 +360,7 @@ module.exports = {
                             this.that.extensionInUse--
 
                             this.poolSlot.inUse = false
+                            done.caller = {}
                         }
                     })
 
@@ -382,8 +384,6 @@ module.exports = {
 
                 const hInterval = setInterval(async () => {
                     // is there a slot available?
-                    console.log('Interval... polling')
-
                     if (this.timerTick === true) {
                         console.log('ignoring this entry and stopping timer')
                         clearInterval(hInterval)
@@ -406,6 +406,8 @@ module.exports = {
                             done: function () {
                                 console.log('done on regular slot')
                                 this.poolSlot.inUse = false
+                                done.caller = {}
+
                             }
                         })
 
@@ -455,6 +457,7 @@ module.exports = {
                                 this.that.extensionInUse--
 
                                 this.poolSlot.inUse = false
+                                done.caller = {}
                             }
                         })
 

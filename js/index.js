@@ -291,6 +291,8 @@ module.exports = {
             return new Promise(async (resolve) => {
                 this.sessions.forEach(async session => await session.session.disconnect())
 
+                this.sessions = []
+
                 resolve()
             })
         }
@@ -298,10 +300,6 @@ module.exports = {
 
         getSession = function (timeout = 0) {
             return new Promise(async (resolve, reject) => {
-                this.sessions[0].inUse = true
-                this.sessions[1].inUse = true
-                this.sessions[2].inUse = true
-
                 const freeSlots = this.sessions.filter(session => session.inUse === false)
 
                 console.log('free slots: ', freeSlots.length)
@@ -367,6 +365,8 @@ module.exports = {
                     this.extensionInUse++
 
                     resolve(newSession.session)
+
+                    return
                 }
 
                 // do we have a timeout?

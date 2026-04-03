@@ -137,3 +137,24 @@ describe("Pool creation: create()", async () => {
         pool.destroy()
     });
 })
+
+describe("Pool creation: destroy()", async () => {
+    it("invalid, with no extension", async () => {
+        const pool = new mindServer.sessionsPool(8, 4)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+        let status = pool.getStatus()
+
+        expect(status.sessionsTotal).to.equal(8);
+        expect(status.sessionsInUse).to.equal(0);
+        expect(status.sessionsExtended).to.equal(0);
+
+        pool.destroy()
+
+        status = pool.getStatus()
+
+        expect(status.sessionsTotal).to.equal(0);
+        expect(status.sessionsInUse).to.equal(0);
+        expect(status.sessionsExtended).to.equal(0);
+    })
+})

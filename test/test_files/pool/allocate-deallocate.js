@@ -156,7 +156,7 @@ describe("getSession with no timeout, within ranges", async () => {
 })
 
 describe("getSession without timeout, outside range", async () => {
-    it("get 1 session, check extra method", async () => {
+    it("get 3 session, done() one after one second", async () => {
         const pool = new mindServer.sessionsPool(2)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
@@ -169,7 +169,7 @@ describe("getSession without timeout, outside range", async () => {
         const session = await pool.getSession()
         const session2 = await pool.getSession()
 
-        setInterval(async () => {
+        setTimeout(async () => {
             session.done()
 
         }, 1000)
@@ -185,4 +185,69 @@ describe("getSession without timeout, outside range", async () => {
         pool.destroy()
     })
 
+    it("get 4 session, done() one after one second, extend", async () => {
+        const pool = new mindServer.sessionsPool(2, 1)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+        let status = pool.getStatus()
+
+        expect(status.sessionsTotal).to.equal(2);
+        expect(status.sessionsInUse).to.equal(0);
+        expect(status.sessionsExtended).to.equal(0);
+
+        const session = await pool.getSession()
+        const session2 = await pool.getSession()
+        const session3 = await pool.getSession()
+
+        setTimeout(async () => {
+            session.done()
+
+        }, 1000)
+
+        const session4 = await pool.getSession()
+
+        status = pool.getStatus()
+
+        expect(status.sessionsTotal).to.equal(3);
+        expect(status.sessionsInUse).to.equal(3);
+        expect(status.sessionsExtended).to.equal(1);
+
+        session4.done()
+
+        pool.destroy()
+    })
+
+    it("get 4 session, done() one after one second, extend, then done() all", async () => {
+        const pool = new mindServer.sessionsPool(2, 1)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+        let status = pool.getStatus()
+
+        expect(status.sessionsTotal).to.equal(2);
+        expect(status.sessionsInUse).to.equal(0);
+        expect(status.sessionsExtended).to.equal(0);
+
+        const session = await pool.getSession()
+        const session2 = await pool.getSession()
+        const session3 = await pool.getSession()
+
+        setTimeout(async () => {
+            session.done()
+
+        }, 1000)
+
+        const session4 = await pool.getSession()
+
+        session2.done()
+        session3.done()
+        session4.done()
+
+        status = pool.getStatus()
+
+        expect(status.sessionsTotal).to.equal(2);
+        expect(status.sessionsInUse).to.equal(0);
+        expect(status.sessionsExtended).to.equal(0);
+
+        pool.destroy()
+    })
 })

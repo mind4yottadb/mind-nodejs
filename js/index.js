@@ -301,6 +301,7 @@ module.exports = {
         getSession = function (timeout = 0) {
             return new Promise(async (resolve, reject) => {
                 const freeSlots = this.sessions.filter(session => session.inUse === false)
+                let hInterval = null
 
                 console.log('free slots: ', freeSlots.length)
 
@@ -316,7 +317,6 @@ module.exports = {
                         poolSlot: freeSlots[0],
                         done: function () {
                             this.poolSlot.inUse = false
-                            done.caller = {}
                         }
                     })
                     resolve(freeSlots[0].session)
@@ -360,7 +360,6 @@ module.exports = {
                             this.that.extensionInUse--
 
                             this.poolSlot.inUse = false
-                            done.caller = {}
                         }
                     })
 
@@ -382,11 +381,12 @@ module.exports = {
 
                 }
 
-                const hInterval = setInterval(async () => {
+                hInterval = setInterval(async () => {
                     // is there a slot available?
                     if (this.timerTick === true) {
                         console.log('ignoring this entry and stopping timer')
                         clearInterval(hInterval)
+                        hInterval = null
 
                         return
                     }
@@ -398,16 +398,15 @@ module.exports = {
 
                         clearTimeout(hTimeout)
                         clearInterval(hInterval)
+                        hInterval = null
 
                         Object.assign(freeSlots[0].session, {
                             that: this,
                             ix: this.sessions.length - 1,
                             poolSlot: freeSlots[0],
                             done: function () {
-                                console.log('done on regular slot')
+                                console.log('done on timer regular slot')
                                 this.poolSlot.inUse = false
-                                done.caller = {}
-
                             }
                         })
 
@@ -424,6 +423,7 @@ module.exports = {
 
                         clearTimeout(hTimeout)
                         clearInterval(hInterval)
+                        hInterval = null
 
                         console.log('extending on timeout')
                         const session = new module.exports.session
@@ -450,14 +450,13 @@ module.exports = {
                             ix: this.sessions.length - 1,
                             poolSlot: newSession,
                             done: function () {
-                                console.log('done on extended session')
+                                console.log('done on timer extended session')
                                 this.poolSlot.session.disconnect()
                                 this.that.sessions.splice(this.ix, 1)
 
                                 this.that.extensionInUse--
 
                                 this.poolSlot.inUse = false
-                                done.caller = {}
                             }
                         })
 

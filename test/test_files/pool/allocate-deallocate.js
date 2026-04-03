@@ -15,6 +15,7 @@ const {createYdbInstance, sleep} = require("../../utils.cjs");
 const mindServer = require("../../../js");
 
 describe("getSession with no timeout, within ranges", async () => {
+
     it("get 1 session, check extra method", async () => {
         const pool = new mindServer.sessionsPool(3)
 

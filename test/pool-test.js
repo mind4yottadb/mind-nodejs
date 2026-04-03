@@ -5,6 +5,8 @@ const mindServer = require('../js/index.js')
 start = async () => {
     const pool = new mindServer.sessionsPool(3, 1)
 
+    console.dir(pool, {depth: 1})
+
     await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 
     console.log('created')

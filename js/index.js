@@ -255,6 +255,53 @@ module.exports = {
 
             this.size = size
             this.extension = extension
+
+            Object.defineProperties(this, {
+                size: {
+                    enumerable: false,
+                    configurable: true
+                },
+                extension: {
+                    enumerable: false,
+                    configurable: true
+                },
+                extensionInUse: {
+                    enumerable: false,
+                    configurable: true
+                },
+                sessions: {
+                    enumerable: false,
+                    configurable: true
+                },
+                waitQueue: {
+                    enumerable: false,
+                    configurable: true
+                },
+                host: {
+                    enumerable: false,
+                    configurable: true
+                },
+                port: {
+                    enumerable: false,
+                    configurable: true
+                },
+                username: {
+                    enumerable: false,
+                    configurable: true
+                },
+                password: {
+                    enumerable: false,
+                    configurable: true
+                },
+                options: {
+                    enumerable: false,
+                    configurable: true
+                },
+                timerTick: {
+                    enumerable: false,
+                    configurable: true
+                },
+            })
         }
 
         create = async function (host, port, username, password, options = {}) {
@@ -319,6 +366,9 @@ module.exports = {
                             this.poolSlot.inUse = false
                         }
                     })
+
+                    this.hidePropsInObject(freeSlots[0])
+
                     resolve(freeSlots[0].session)
 
                     return
@@ -362,6 +412,8 @@ module.exports = {
                             this.poolSlot.inUse = false
                         }
                     })
+
+                    this.hidePropsInObject(newSession)
 
                     this.extensionInUse++
 
@@ -409,6 +461,8 @@ module.exports = {
                                 this.poolSlot.inUse = false
                             }
                         })
+
+                        this.hidePropsInObject(freeSlots[0])
 
                         freeSlots[0].inUse = true
 
@@ -460,12 +514,35 @@ module.exports = {
                             }
                         })
 
+                        this.hidePropsInObject(newSession)
+
                         this.extensionInUse++
 
                         resolve(newSession.session)
                         console.log('resolved')
                     }
                 }, 0)
+            })
+        }
+
+        hidePropsInObject = function (obj) {
+            Object.defineProperties(obj.session, {
+                that: {
+                    enumerable: false,
+                    configurable: true
+                },
+                ix: {
+                    enumerable: false,
+                    configurable: true
+                },
+                poolSlot: {
+                    enumerable: false,
+                    configurable: true
+                },
+                hTimer: {
+                    enumerable: false,
+                    configurable: true
+                },
             })
         }
 

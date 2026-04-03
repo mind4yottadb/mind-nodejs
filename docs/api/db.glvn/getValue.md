@@ -46,9 +46,9 @@ If the value is a number, then a number datatype is used, otherwise it will retu
 Try to get a value from a non-existing node.
 
 ````js
-import mindServer4yottadb from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -69,9 +69,9 @@ res = ''
 Try to get a value from a non-existing node.
 
 ````js
-import mindServer4yottadb from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -92,9 +92,9 @@ res = ''
 Get a string value from an existing node.
 
 ````js
-import mindServer4yottadb from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -116,9 +116,9 @@ res = 12
 Get a string value from an existing node.
 
 ````js
-import mindServer4yottadb from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

@@ -42,9 +42,9 @@ If you want to return a JSON string, use the method getJSON() instead.
 Create a JDOM node and retrieve the object.
 
 ````js
-import mindServer4yottadb from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -69,9 +69,9 @@ res = {
 Create a more complex JDOM node and retrieve the object.
 
 ````js
-import mindServer4yottadb from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -104,9 +104,9 @@ res = {
 Accessing an empty or not existing node
 
 ````js
-import mindServer4yottadb from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

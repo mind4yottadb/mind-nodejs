@@ -35,9 +35,9 @@ Returns true if you are connected to the MIND server.
 ### EXAMPLES
 
 ````js
-import mindServer from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 let isConnected = mind.connected
 console.log(isConnected)

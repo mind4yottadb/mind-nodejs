@@ -50,9 +50,9 @@ An eventual internal error on the server side will throw an error.
 ### EXAMPLES
 
 ````js
-import mindServer from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

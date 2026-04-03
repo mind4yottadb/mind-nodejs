@@ -45,9 +45,9 @@ If `path` is not found or another error occurs, it will throw an error.
 Using no mask...
 
 ````js
-import mindServer from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -76,9 +76,9 @@ mind.disconnect()
 Using a mask...
 
 ````js
-import mindServer from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

@@ -37,9 +37,9 @@ server shutdown).
 ### EXAMPLES
 
 ````js
-import mindServer from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 console.dir(mind, {depth: 5})
 

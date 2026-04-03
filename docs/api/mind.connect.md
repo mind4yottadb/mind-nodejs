@@ -91,9 +91,9 @@ If an appName is specified, and it is found, eventual shared variables will be a
 ### EXAMPLES
 
 ````js
-import mindServer from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 console.dir(mind, {depth: 5})
 
@@ -109,9 +109,9 @@ By comparing the first and second object dump (console.dir) you can see that the
 Example with error handler:
 
 ````js
-import mindServer from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 try {
     await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
@@ -133,9 +133,9 @@ mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 Example with option parameters:
 
 ````js
-import mindServer from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin', {
     useTls: true,

@@ -40,9 +40,9 @@ Returns the boolean `true` is the selected node has sub-nodes.
 Inspect a node with sub-nodes
 
 ````js
-import mindServer4yottadb from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -64,9 +64,9 @@ res = true
 Inspect a node without sub-nodes
 
 ````js
-import mindServer4yottadb from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

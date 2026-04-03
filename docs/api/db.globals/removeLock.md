@@ -40,9 +40,9 @@ It removes a lock to the selected global / node.
 Apply 2 locks, display them, remove one and display again.
 
 ````js
-import mindServer4yottadb from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yotadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

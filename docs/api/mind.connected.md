@@ -37,7 +37,7 @@ Returns true if you are connected to the MIND server.
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 let isConnected = mind.connected
 console.log(isConnected)

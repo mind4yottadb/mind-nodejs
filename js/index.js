@@ -230,9 +230,10 @@ module.exports = {
         username = ''
         password = ''
         options = {}
+        timerTick = false
 
         constructor(size, extension = 0) {
-            if (!size) {
+            if (typeof size === 'undefined') {
                 throw new Error('Missing pool size')
             }
 
@@ -242,6 +243,14 @@ module.exports = {
 
             if (extension && typeof extension !== 'number') {
                 throw new Error('Pool extension must be a number')
+            }
+
+            if (size < 2) {
+                throw new Error('Pool size must be at least 2')
+            }
+
+            if (extension && typeof extension < 1) {
+                throw new Error('Pool extension must be at least 1')
             }
 
             this.size = size
@@ -257,7 +266,9 @@ module.exports = {
                         await session.connect(host, port, username, password, options)
 
                     } catch (err) {
-                        reject(err.message)
+                        reject(err)
+
+                        return
                     }
                     this.sessions.push({
                         session: session,
@@ -284,11 +295,6 @@ module.exports = {
             })
         }
 
-        extend = async () => {
-
-        }
-
-        found = false
 
         getSession = function (timeout = 0) {
             return new Promise(async (resolve, reject) => {
@@ -366,7 +372,7 @@ module.exports = {
                 if (timeout > 0) {
                     // setup main timer
                     hTimeout = setTimeout(async () => {
-                        reject(new Error('timoeut expired while trying to get a session'))
+                        reject(new Error('timeout expired while trying to get a session'))
 
                     }, timeout)
 
@@ -376,7 +382,7 @@ module.exports = {
                     // is there a slot available?
                     console.log('Interval... polling')
 
-                    if (this.found === true) {
+                    if (this.timerTick === true) {
                         console.log('ignoring this entry and stopping timer')
                         clearInterval(hInterval)
 
@@ -386,7 +392,7 @@ module.exports = {
                     const freeSlots = this.sessions.filter(session => session.inUse === false)
 
                     if (freeSlots.length > 0) {
-                        this.found = true
+                        this.timerTick = true
 
                         clearTimeout(hTimeout)
                         clearInterval(hInterval)
@@ -410,7 +416,7 @@ module.exports = {
 
                     // can we extend?
                     if (this.extension > 0 && this.extension - this.extensionInUse > 0) {
-                        this.found = true
+                        this.timerTick = true
 
                         clearTimeout(hTimeout)
                         clearInterval(hInterval)
@@ -456,6 +462,17 @@ module.exports = {
                 }, 0)
             })
         }
-    }
 
+        getStatus = function () {
+            const sessionsInUse = this.sessions.filter(session => session.inUse === true)
+            const sessionsExtended = this.sessions.filter(session => session.isExtension === true)
+            const sessionsTotal = this.sessions.length
+
+            return {
+                sessionsTotal: sessionsTotal,
+                sessionsExtended: sessionsExtended.length,
+                sessionsInUse: sessionsInUse.length
+            }
+        }
+    }
 }

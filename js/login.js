@@ -48,9 +48,10 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         let iy = 0
 
         // check header
-        //console.log(data)
         if (dataA[ix].charAt(0) === '-') {
             reject(new Error(dataA[0].slice(1)))
+
+            return
         }
 
         // proceed with the server array
@@ -71,10 +72,16 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         const mindVersion = that.server.mindVersion
         if (mindVersion < that.requiresMind) {
             reject(new Error('invalid mind server version, expected ' + that.requiresMind + ' or higher, but found ' + mindVersion))
+
+            return
         }
 
         // proceed with the process array
-        if (dataA[ix] !== '%1') reject(new Error('invalid packet signature at line: ' + ix + ' Expected: %1'))
+        if (dataA[ix] !== '%1') {
+            reject(new Error('invalid packet signature at line: ' + ix + ' Expected: %1'))
+
+            return
+        }
 
         const processLength = parseInt(dataA[ix].slice(1))
 

@@ -55,7 +55,7 @@ When stats are off
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -84,7 +84,7 @@ When stats are set to `grand`
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -115,7 +115,7 @@ When stats are set to `details`
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

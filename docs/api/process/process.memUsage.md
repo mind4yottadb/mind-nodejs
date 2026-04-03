@@ -46,7 +46,7 @@ An eventual internal error on the server side will throw an error.
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

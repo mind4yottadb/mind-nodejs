@@ -93,7 +93,7 @@ If an appName is specified, and it is found, eventual shared variables will be a
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 console.dir(mind, {depth: 5})
 
@@ -111,7 +111,7 @@ Example with error handler:
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 try {
     await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
@@ -135,7 +135,7 @@ Example with option parameters:
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin', {
     useTls: true,

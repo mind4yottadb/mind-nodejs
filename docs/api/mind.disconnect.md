@@ -37,7 +37,7 @@ If you were using variables in your session, everything will be lost.
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 console.dir(mind, {depth: 5})
 

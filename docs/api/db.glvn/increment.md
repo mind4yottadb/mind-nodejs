@@ -56,7 +56,7 @@ Increment a non existing node
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -78,7 +78,7 @@ Here we increment the previous value by 4
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -101,7 +101,7 @@ Here we use subscripts to increment an existing value
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -125,7 +125,7 @@ Here we use subscripts to increment an existing value using a floating point
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

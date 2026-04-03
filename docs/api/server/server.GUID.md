@@ -43,7 +43,7 @@ It defaults to group it into five sections separated by hyphens: 8-4-4-4-12.
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -66,7 +66,7 @@ GUID = '5b4b97b1-0daa-2d31-bb0e-984998917f05'
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -88,7 +88,7 @@ GUID = '5b4b97b10daa2d31bb0e984998917f05'
 ````js
 import mind4yottadb from 'mind4yottadb'
 
-const mind = new mind4yotadb.session
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

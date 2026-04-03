@@ -42,7 +42,7 @@ Apply 2 locks, display them, remove one and display again.
 ````js
 import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

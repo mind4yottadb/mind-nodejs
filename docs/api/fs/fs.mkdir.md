@@ -40,7 +40,7 @@ If the `path` of the parent directory is not found or another error occurs, it w
 ````js
 import mindServer from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

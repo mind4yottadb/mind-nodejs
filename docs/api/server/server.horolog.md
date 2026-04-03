@@ -48,7 +48,7 @@ Get the horolog and display it.
 ````js
 import mindServerServer from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

@@ -49,7 +49,7 @@ Sets a node to a string
 ````js
 import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -73,7 +73,7 @@ Sets a node to a number
 ````js
 import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -97,7 +97,7 @@ Sets a node to an empty string
 ````js
 import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

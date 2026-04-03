@@ -35,7 +35,7 @@ Returns an object with all the locks in effect and their level FOR THIS PROCESS 
 ````js
 import mindServer from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

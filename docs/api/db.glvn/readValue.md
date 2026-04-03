@@ -49,7 +49,7 @@ Try to read a value from a non-existing node.
 ````js
 import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -81,7 +81,7 @@ Try to read a value from an existing node.
 ````js
 import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

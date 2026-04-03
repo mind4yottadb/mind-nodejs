@@ -35,7 +35,7 @@ Returns the pid of your session.
 ````js
 import mindServer from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

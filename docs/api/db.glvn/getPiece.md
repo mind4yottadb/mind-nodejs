@@ -55,7 +55,7 @@ get the first piece
 ````js
 import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -78,7 +78,7 @@ get the second piece
 ````js
 import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -101,7 +101,7 @@ get the second, third and fourth pieces
 ````js
 import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -124,7 +124,7 @@ get a single number
 ````js
 import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

@@ -45,7 +45,7 @@ Any error returned by the running of the command will be thrown as Error.
 ````js
 import mindServer from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

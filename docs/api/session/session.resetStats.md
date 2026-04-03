@@ -39,7 +39,7 @@ Reads statistics, reset them and read them again
 ````js
 import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -95,7 +95,7 @@ When statistics are not enabled on the server
 ````js
 import mindServer4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

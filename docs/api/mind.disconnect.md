@@ -37,7 +37,7 @@ If you were using variables in your session, everything will be lost.
 ````js
 import mindServer from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 console.dir(mind, {depth: 5})
 

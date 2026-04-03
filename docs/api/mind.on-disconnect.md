@@ -39,7 +39,7 @@ server shutdown).
 ````js
 import mindServer from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 console.dir(mind, {depth: 5})
 

@@ -42,7 +42,7 @@ It can be read using the [process.cwdGet()](process.cwdGet.md) function.
 ````js
 import mindServer from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mindServer.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

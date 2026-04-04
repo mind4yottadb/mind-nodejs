@@ -228,12 +228,13 @@ describe("getSession without timeout, outside range", async () => {
         expect(status.sessionsInUse).to.equal(0);
         expect(status.sessionsExtended).to.equal(0);
 
-        const session = await pool.getSession()
+        let session = await pool.getSession()
         const session2 = await pool.getSession()
         const session3 = await pool.getSession()
 
         setTimeout(async () => {
             session.done()
+            session = null
 
         }, 1000)
 

@@ -16,7 +16,7 @@
 
 Applies to:
 
-- [Globals](../../namespace.db.globals.md)
+- [Globals](../../namespace.db.vars.md)
 - [Vars](../../namespace.db.vars.md)
 
 ---
@@ -87,4 +87,4 @@ res = false
 
 ---
 
-[Back](api/namespace.db.globals.md)
+[Back](api/namespace.db.vars.md)

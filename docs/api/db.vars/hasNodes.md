@@ -12,7 +12,12 @@
 ###############################################################*/
 -->
 
-### session.resetStats()
+### hasNodes()
+
+Applies to:
+
+- [Globals](../../namespace.db.globals.md)
+- [Vars](../../namespace.db.vars.md)
 
 ---
 
@@ -22,19 +27,17 @@
 
 **Parameters**:
 <br><br>
-**Returns**: `Promise<>`
+**Returns**: `Promise<BOOLEAN>`
 
 ---
 
-Resets the statistics for the current session only.
-
-If statistics are not enabled, it will throw an error.
+Returns the boolean `true` is the selected node has sub-nodes.
 
 ### EXAMPLES
 
 ---
 
-Reads statistics, reset them and read them again
+Inspect a node with sub-nodes
 
 ````js
 import mind4yottadb from 'mind4yottadb'
@@ -43,54 +46,23 @@ const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-// create some stats
-await mind.fs.readDir('/opt')
-await mind.fs.readDir('/opt')
-await mind.fs.readDir('/opt')
+await mind.db.globals.addName('testGbl')
+await mind.db.globals.testGbl._("subnode").setValue("dummy")
+const res = await mind.db.globals.testGbl.hasNodes()
 
-// read them
-let stats = await mind.session.stats()
-console.log(stats)
-
-// reset them
-await mind.session.resetStats()
-
-//and read them again
-stats = await mind.session.stats()
-console.log(stats)
+console.log(res)
 
 mind.disconnect()
 
 ````
 
 ````js
-res = {
-    grand_total: {
-        total_invalid_cmd: 0,
-        total_nok: 0,
-        total_ok: 4,
-        total_received: 4
-    }
-}
-{
-    grand_total: {
-        total_invalid_cmd: 0,
-            total_nok
-    :
-        0,
-            total_ok
-    :
-        1,
-            total_received
-    :
-        1
-    }
-}
+res = true
 ````
 
 ---
 
-When statistics are not enabled on the server
+Inspect a node without sub-nodes
 
 ````js
 import mind4yottadb from 'mind4yottadb'
@@ -99,23 +71,20 @@ const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-try {
-    await mind.process.stats()
+await mind.db.globals.addName('testGbl')
+await mind.db.globals.testGbl._("subnode").setValue("dummy")
+const res = await mind.db.globals.testGbl._("subnode").hasNodes()
 
-} catch (err) {
-    console.log(err.message)
-}
+console.log(res)
 
 mind.disconnect()
 
 ````
 
 ````js
-res = 'No stats enabled on server'
+res = false
 ````
 
 ---
 
-
-
-[Back](api/namespace.session.md)
+[Back](api/namespace.db.globals.md)

@@ -12,7 +12,12 @@
 ###############################################################*/
 -->
 
-### session.timeSinceConnect()
+### setJSON(json)
+
+Applies to:
+
+- [Globals](../../namespace.db.globals.md)
+- [Vars](../../namespace.db.vars.md)
 
 ---
 
@@ -21,19 +26,23 @@
 **Async**: yes, returns a Promise
 
 **Parameters**:
-<br><br>
+
+| Name   | Datatype | Optional | Description                                      |
+|--------|:--------:|:--------:|--------------------------------------------------|
+| `json` |  string  |    No    | The string containing the JSON you want to store |
+
+<br>
 **Returns**: `Promise<>`
 
 ---
 
-Returns a floating-point number with the number of seconds (with the microsecond resolution) since the session got
-connected.
+It will convert the supplied json string into JDOM and store it at the current location### EXAMPLES
 
 ### EXAMPLES
 
 ---
 
-Connect, waits for two seconds and then reads the elapsed time.
+Create a JDOM node by supplying a JSON string
 
 ````js
 import mind4yottadb from 'mind4yottadb'
@@ -42,27 +51,22 @@ const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const delay = (time) => {
-    return new Promise(function (resolve) {
-        setTimeout(resolve, time);
-    });
-};
+await mind.db.globals.addName('testGbl')
+await mind.db.globals.testGbl.setJSON('{"field1":22}')
 
-await delay(2000)
+const res = await mind.db.globals.testGbl._('field1').getValue()
 
-const time = await mind.session.timeSinceConnect()
-console.log(time)
-
+console.log(res)
 
 mind.disconnect()
 
 ````
 
 ````js
-res = 2.014392
+res = 22
 ````
 
 ---
 
 
-[Back](api/namespace.session.md)
+[Back](api/namespace.db.globals.md)

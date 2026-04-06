@@ -12,7 +12,12 @@
 ###############################################################*/
 -->
 
-### session.timeSinceConnect()
+### killTree()
+
+Applies to:
+
+- [Globals](../../namespace.db.globals.md)
+- [Vars](../../namespace.db.vars.md)
 
 ---
 
@@ -26,14 +31,15 @@
 
 ---
 
-Returns a floating-point number with the number of seconds (with the microsecond resolution) since the session got
-connected.
+Un-reference the selected node and its usb-nodes.
+
+> This command is NOT setting a value to an empty string, but un-reference the nodes.
 
 ### EXAMPLES
 
 ---
 
-Connect, waits for two seconds and then reads the elapsed time.
+Kills a node
 
 ````js
 import mind4yottadb from 'mind4yottadb'
@@ -42,27 +48,28 @@ const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const delay = (time) => {
-    return new Promise(function (resolve) {
-        setTimeout(resolve, time);
-    });
-};
+await mind.db.globals.addName('testGbl')
+await mind.db.globals.testGbl._("subnode1").setValue("dummy")
+await mind.db.globals.testGbl._("subnode1", "subnode2").setValue("dummy")
+await mind.db.globals.testGbl._("subnode2").setValue("dummy")
+await mind.db.globals.testGbl.killTree()
 
-await delay(2000)
+try {
+    const res = await mind.db.globals.testGbl._("subnode1").readValue()
+    console.log(res)
 
-const time = await mind.session.timeSinceConnect()
-console.log(time)
-
-
+} catch (err) {
+    console.error(err.message)
+}
 mind.disconnect()
 
 ````
 
 ````js
-res = 2.014392
+console.error.output = '^testGbl("subnode1"): path not found'
 ````
 
 ---
 
 
-[Back](api/namespace.session.md)
+[Back](api/namespace.db.globals.md)

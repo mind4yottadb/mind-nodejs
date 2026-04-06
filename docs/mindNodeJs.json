@@ -304,7 +304,7 @@
                         },
                         {
                             "text": "session",
-                            "id": "",
+                            "id": "api/namespace.session.md",
                             "icon": "",
                             "children": [
                                 {
@@ -451,7 +451,7 @@
                             "children": [
                                 {
                                     "text": "Globals",
-                                    "id": "",
+                                    "id": "api/namespace.db.globals.md",
                                     "icon": "",
                                     "children": [
                                         {
@@ -461,7 +461,7 @@
                                             "children": [
                                                 {
                                                     "text": "_()",
-                                                    "id": "api/db.glvn/_.md",
+                                                    "id": "api/db.globals/_.md",
                                                     "icon": ""
                                                 },
                                                 {
@@ -486,92 +486,92 @@
                                                 },
                                                 {
                                                     "text": "decrement()",
-                                                    "id": "api/db.glvn/decrement.md",
+                                                    "id": "api/db.globals/decrement.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "getJSON()",
-                                                    "id": "api/db.glvn/getJSON.md",
+                                                    "id": "api/db.globals/getJSON.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "getObject()",
-                                                    "id": "api/db.glvn/getObject.md",
+                                                    "id": "api/db.globals/getObject.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "getPiece()",
-                                                    "id": "api/db.glvn/getPiece.md",
+                                                    "id": "api/db.globals/getPiece.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "getValue()",
-                                                    "id": "api/db.glvn/getValue.md",
+                                                    "id": "api/db.globals/getValue.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "hasNodes()",
-                                                    "id": "api/db.glvn/hasNodes.md",
+                                                    "id": "api/db.globals/hasNodes.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "hasValue()",
-                                                    "id": "api/db.glvn/hasValue.md",
+                                                    "id": "api/db.globals/hasValue.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "increment()",
-                                                    "id": "api/db.glvn/increment.md",
+                                                    "id": "api/db.globals/increment.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "killTree()",
-                                                    "id": "api/db.glvn/killTree.md",
+                                                    "id": "api/db.globals/killTree.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "killValue()",
-                                                    "id": "api/db.glvn/killValue.md",
+                                                    "id": "api/db.globals/killValue.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "readValue()",
-                                                    "id": "api/db.glvn/readValue.md",
+                                                    "id": "api/db.globals/readValue.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "setJSON()",
-                                                    "id": "api/db.glvn/setJSON.md",
+                                                    "id": "api/db.globals/setJSON.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "setObject()",
-                                                    "id": "api/db.glvn/setObject.md",
+                                                    "id": "api/db.globals/setObject.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "setPiece()",
-                                                    "id": "api/db.glvn/setPiece.md",
+                                                    "id": "api/db.globals/setPiece.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "setValue()",
-                                                    "id": "api/db.glvn/setValue.md",
+                                                    "id": "api/db.globals/setValue.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "findNext()",
-                                                    "id": "api/db.glvn/findNext.md",
+                                                    "id": "api/db.globals/findNext.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "findPrev()",
-                                                    "id": "api/db.glvn/findPrev.md",
+                                                    "id": "api/db.globals/findPrev.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "query()",
-                                                    "id": "api/db.glvn/query.md",
+                                                    "id": "api/db.globals/query.md",
                                                     "icon": ""
                                                 }
                                             ]
@@ -580,7 +580,7 @@
                                 },
                                 {
                                     "text": "Vars",
-                                    "id": "",
+                                    "id": "api/namespace.db.vars.md",
                                     "icon": "",
                                     "children": [
                                         {
@@ -590,97 +590,97 @@
                                             "children": [
                                                 {
                                                     "text": "_()",
-                                                    "id": "api/db.glvn/_.md",
+                                                    "id": "api/db.vars/_.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "decrement()",
-                                                    "id": "api/db.glvn/decrement.md",
+                                                    "id": "api/db.vars/decrement.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "getJSON()",
-                                                    "id": "api/db.glvn/getJSON.md",
+                                                    "id": "api/db.vars/getJSON.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "getObject()",
-                                                    "id": "api/db.glvn/getObject.md",
+                                                    "id": "api/db.vars/getObject.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "getPiece()",
-                                                    "id": "api/db.glvn/getPiece.md",
+                                                    "id": "api/db.vars/getPiece.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "getValue()",
-                                                    "id": "api/db.glvn/getValue.md",
+                                                    "id": "api/db.vars/getValue.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "hasNodes()",
-                                                    "id": "api/db.glvn/hasNodes.md",
+                                                    "id": "api/db.vars/hasNodes.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "hasValue()",
-                                                    "id": "api/db.glvn/hasValue.md",
+                                                    "id": "api/db.vars/hasValue.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "increment()",
-                                                    "id": "api/db.glvn/increment.md",
+                                                    "id": "api/db.vars/increment.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "killTree()",
-                                                    "id": "api/db.glvn/killTree.md",
+                                                    "id": "api/db.vars/killTree.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "killValue()",
-                                                    "id": "api/db.glvn/killValue.md",
+                                                    "id": "api/db.vars/killValue.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "readValue()",
-                                                    "id": "api/db.glvn/readValue.md",
+                                                    "id": "api/db.vars/readValue.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "setJSON()",
-                                                    "id": "api/db.glvn/setJSON.md",
+                                                    "id": "api/db.vars/setJSON.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "setObject()",
-                                                    "id": "api/db.glvn/setObject.md",
+                                                    "id": "api/db.vars/setObject.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "setPiece()",
-                                                    "id": "api/db.glvn/setPiece.md",
+                                                    "id": "api/db.vars/setPiece.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "setValue()",
-                                                    "id": "api/db.glvn/setValue.md",
+                                                    "id": "api/db.vars/setValue.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "findNext()",
-                                                    "id": "api/db.glvn/findNext.md",
+                                                    "id": "api/db.vars/findNext.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "findPrev()",
-                                                    "id": "api/db.glvn/findPrev.md",
+                                                    "id": "api/db.vars/findPrev.md",
                                                     "icon": ""
                                                 },
                                                 {
                                                     "text": "query()",
-                                                    "id": "api/db.glvn/query.md",
+                                                    "id": "api/db.vars/query.md",
                                                     "icon": ""
                                                 }
                                             ]

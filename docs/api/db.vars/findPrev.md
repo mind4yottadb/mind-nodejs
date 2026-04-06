@@ -12,7 +12,12 @@
 ###############################################################*/
 -->
 
-### session.timeSinceConnect()
+### findPrev(findValue)
+
+Applies to:
+
+- [Globals](../../namespace.db.globals.md)
+- [Vars](../../namespace.db.vars.md)
 
 ---
 
@@ -21,19 +26,23 @@
 **Async**: yes, returns a Promise
 
 **Parameters**:
-<br><br>
-**Returns**: `Promise<>`
+
+| Name        |    Datatype     | Optional | Description                                                            |
+|-------------|:---------------:|:--------:|------------------------------------------------------------------------|
+| `findValue` | number / string |   Yes    | The value to search for. If missing, it will equals to an empty string |
+
+<br>
+**Returns**: `Promise<NUMBER / STRING>`
 
 ---
 
-Returns a floating-point number with the number of seconds (with the microsecond resolution) since the session got
-connected.
+If finds the previous collating subscript to the passed parameter `findValue` or an empty string if missing.
 
 ### EXAMPLES
 
 ---
 
-Connect, waits for two seconds and then reads the elapsed time.
+Find the next subscript when used with no parameters
 
 ````js
 import mind4yottadb from 'mind4yottadb'
@@ -42,27 +51,24 @@ const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const delay = (time) => {
-    return new Promise(function (resolve) {
-        setTimeout(resolve, time);
-    });
-};
+await mind.db.globals.addName('testGlobal')
+const gbl = mind.db.globals.testGlobal
 
-await delay(2000)
+await gbl.setObject({
+    test1: 1,
+    test2: 2
+})
 
-const time = await mind.session.timeSinceConnect()
-console.log(time)
-
+const res = await gbl.findPrev()
+console.log(res)
 
 mind.disconnect()
-
 ````
 
 ````js
-res = 2.014392
+res = 'test2'
 ````
 
 ---
 
-
-[Back](api/namespace.session.md)
+[Back](api/namespace.db.globals.md)

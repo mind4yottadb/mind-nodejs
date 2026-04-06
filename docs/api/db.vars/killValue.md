@@ -12,7 +12,12 @@
 ###############################################################*/
 -->
 
-### session.timeSinceConnect()
+### killValue()
+
+Applies to:
+
+- [Globals](../../namespace.db.globals.md)
+- [Vars](../../namespace.db.vars.md)
 
 ---
 
@@ -26,14 +31,15 @@
 
 ---
 
-Returns a floating-point number with the number of seconds (with the microsecond resolution) since the session got
-connected.
+Un-reference the selected value, leaving the subnodes intact.
+
+> This command is NOT setting a value to an empty string, but un-reference the value.
 
 ### EXAMPLES
 
 ---
 
-Connect, waits for two seconds and then reads the elapsed time.
+Kills a a single node value
 
 ````js
 import mind4yottadb from 'mind4yottadb'
@@ -42,16 +48,22 @@ const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const delay = (time) => {
-    return new Promise(function (resolve) {
-        setTimeout(resolve, time);
-    });
-};
+await mind.db.globals.addName('testGbl')
+await mind.db.globals.testGbl._("subnode1").setValue("dummy")
+await mind.db.globals.testGbl._("subnode1", "subnode2").setValue("dummy")
+await mind.db.globals.testGbl._("subnode2").setValue("dummy")
+await mind.db.globals.testGbl._('subnode1').killValue()
 
-await delay(2000)
+try {
+    const res1 = await mind.db.globals.testGbl._("subnode1", "subnode2").readValue()
+    console.log(res1)
 
-const time = await mind.session.timeSinceConnect()
-console.log(time)
+    const res2 = await mind.db.globals.testGbl._("subnode1").readValue()
+    console.log(res2)
+
+} catch (err) {
+    console.error(err.message)
+}
 
 
 mind.disconnect()
@@ -59,10 +71,11 @@ mind.disconnect()
 ````
 
 ````js
-res = 2.014392
+res1 = 'dummy'
+console.error.output = '^testGbl("subnode1"): path not found'
 ````
 
 ---
 
 
-[Back](api/namespace.session.md)
+[Back](api/namespace.db.globals.md)

@@ -118,4 +118,4 @@ res = 'No stats enabled on server'
 
 
 
-[Back](api/namespace.db.session.md)
+[Back](api/namespace.session.md)

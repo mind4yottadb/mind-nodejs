@@ -14,21 +14,23 @@ start = async () => {
     let session44 = await pool.getSession()
     let session55 = await pool.getSession()
 
+    console.dir(pool.sessions, {depth: 1})
+    console.log()
+
     setTimeout(() => {
         console.log('releasing session')
         session.done()
         session = {}
 
-    }, 2000)
+    }, 3000)
 
-    console.dir(pool.sessions, {depth: 1})
-
-    console.log('acquiring session2')
+    console.log('\nacquiring session2: waiting for a slot to be free')
     let session2 = await pool.getSession()
     console.log('session2 acquired')
 
     console.dir(pool.sessions, {depth: 1})
 
+    console.log('\nterminating session55: extension should be gone')
     session55.done()
 
     console.dir(pool.sessions, {depth: 1})

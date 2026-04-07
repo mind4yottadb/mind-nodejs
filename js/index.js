@@ -165,6 +165,13 @@ module.exports = {
                         that.disconnect()
                     }
                 }
+
+                Object.defineProperties(that, {
+                    hTimer: {
+                        enumerable: false,
+                        configurable: true
+                    },
+                })
             })
         }
 

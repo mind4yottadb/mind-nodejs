@@ -11,6 +11,7 @@ const run = async () => {
 
     console.dir(mind.vitals, {depth: 3})
 
+    console.log()
     const ret = await mind.vitals.isValidApiName("this is not valid")
     console.log(ret)
 

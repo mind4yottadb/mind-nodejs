@@ -17,7 +17,6 @@ const run = async () => {
 
     await users.killTree()
     await users._("testNode").setObject({
-        test1: {ciao: 'test1val'},
         test2: 'test2',
         test3: 'test3',
         test4: 'test4',
@@ -27,7 +26,7 @@ const run = async () => {
     })
 
     let node
-    while (node !== '') {
+    while (node !== 'test') {
         node = await users._("testNode").findPrev(node || '')
         if (node === '') break
 

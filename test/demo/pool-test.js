@@ -22,7 +22,7 @@ start = async () => {
         session.done()
         session = {}
 
-    }, 3000)
+    }, 5000)
 
     console.log('\nacquiring session2: waiting for a slot to be free')
     let session2 = await pool.getSession()
@@ -30,14 +30,17 @@ start = async () => {
 
     console.dir(pool.sessions, {depth: 1})
 
-    console.log('\nterminating session55: extension should be gone')
+    console.log('\nterminating session55: extension should be gone and size should go to 3')
     session55.done()
 
     console.dir(pool.sessions, {depth: 1})
 
-    await pool.destroy()
-    console.log('destroyed')
+    console.log('\nterminating session55: size is still 3')
+    session44.done()
 
+    console.dir(pool.sessions, {depth: 1})
+
+    await pool.destroy()
 
     exit()
 }

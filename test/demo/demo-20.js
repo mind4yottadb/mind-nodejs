@@ -9,9 +9,9 @@ const run = async () => {
         uApi: {appName: 'test-existing'},
     })
 
-    console.dir(mind.external_funct, {depth: 3})
+    console.dir(mind.vitals, {depth: 3})
 
-    const ret = await mind.external_funct.isValidApiName("this is not valid")
+    const ret = await mind.vitals.isValidApiName("this is not valid")
     console.log(ret)
 
 

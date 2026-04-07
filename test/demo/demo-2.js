@@ -15,7 +15,10 @@ const run = async () => {
 
     const users = mind.db.globals.users
     const orders = mind.db.globals.orders
+    console.log('^users global')
     console.log(users)
+
+    console.log('\n^orders global')
     console.log(orders)
 
     await users.setValue('this is a test')
@@ -37,6 +40,7 @@ const run = async () => {
         ]
     })
     console.log(await orders.getObject())
+
     await orders.killTree()
     console.log('AFTER KILL')
     console.log(await orders.getObject())

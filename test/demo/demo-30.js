@@ -14,9 +14,11 @@ const run = async () => {
         },
     })
 
-    console.dir(mind.external_funct, {depth: 3})
+    console.dir(mind.vitals, {depth: 3})
 
-    const ret = await mind.external_funct.isValidApiName("this is not valid")
+    const vitals = mind.vitals
+
+    const ret = await vitals.isValidApiName("this is not valid")
     console.log(ret)
 
 

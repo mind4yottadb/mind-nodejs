@@ -16,6 +16,11 @@ const run = async () => {
     console.log(mind.banking.branch)
     console.log(mind.banking.BIC_code)
 
+    try {
+        await mind.banking.cash.dailyBook.checkBalance()
+    } catch (e) {
+        console.log('\nError returned: ' + e.message)
+    }
     mind.disconnect()
 
     exit()

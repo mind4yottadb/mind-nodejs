@@ -28,7 +28,7 @@ const run = async () => {
 
     let node
     while (node !== '') {
-        node = await users._("testNode").findNext(node || '')
+        node = await users._("testNode").findPrev(node || '')
         if (node === '') break
 
         console.log(await users._("testNode", node).getValue())

@@ -13,7 +13,6 @@ const run = async () => {
 
     console.log('\n\n\n')
     console.log('Getting file stat')
-
     const stat = await mind.fs.stat('/opt/yottadb')
     console.log(stat)
 

@@ -16,7 +16,7 @@
 
 ---
 
-The db namespace allows you to access `vars`and `globals`.
+The db namespace allows you to access `vars` (M variables) and `globals` (M globals).
 
 - [vars](api/namespace.db.vars.md)
 - [globals](api/namespace.db.globals.md)

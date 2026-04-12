@@ -116,9 +116,18 @@ module.exports = {
                     }
 
                 } else {
-                    that.#socket = net.createConnection(port, host, async () => {
-                        socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
-                    })
+                    if ((!options.protocol) || (options && options.protocol === 'tcp')) {
+                        // TCP
+                        that.#socket = net.createConnection(port, host, async () => {
+                            socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
+                        })
+
+                    } else {
+                        // UDS
+                        that.#socket = net.createConnection(host, async () => {
+                            socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
+                        })
+                    }
                 }
 
                 const socketInit = async function (that, lSocket, lWriter, lReader, resolve, reject, username, password, options) {

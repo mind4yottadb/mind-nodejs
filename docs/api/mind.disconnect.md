@@ -18,11 +18,11 @@
 
 **Type**: method
 
-**Async**: yes, returns a Promise
+**Async**: no
 
 **Parameters**:
 <br><br>
-**Returns**: `Promise<>`
+**Returns**: `<undefined>`
 
 ---
 
@@ -43,7 +43,7 @@ console.dir(mind, {depth: 5})
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await mind.disconnect()
+mind.disconnect()
 ````
 
 ---

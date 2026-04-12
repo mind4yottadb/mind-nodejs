@@ -29,8 +29,19 @@ module.exports = {
             return ''
         }
 
+        // *****************************************
+        // Socket information
+        // *****************************************
         if (options.connectTimeout && typeof options.connectTimeout !== 'number') {
             return 'options.connectTimeout must be a number'
+        }
+
+        if (options.protocol && typeof options.protocol !== 'string') {
+            return 'options.protocol must be a string'
+        }
+
+        if (options.protocol && (options.protocol !== 'tcp' && options.protocol !== 'uds')) {
+            return 'options.protocol must be either tcp or uds.'
         }
 
         if (options.useTls && typeof options.useTls !== 'boolean') {
@@ -41,6 +52,11 @@ module.exports = {
             return 'options.tlsRejectSelfSigned must be a boolean'
         }
 
+        if (options.protocol === undefined) options.protocol = 'tcp'
+
+        // *****************************************
+        // DB
+        // *****************************************
         if (options.db && typeof options.db !== 'object') {
             return 'options.db must be an object'
         }
@@ -77,6 +93,9 @@ module.exports = {
             if (err !== '') return err
         }
 
+        // *****************************************
+        // uApi
+        // *****************************************
         if (options.uApi && typeof options.uApi !== 'object') {
             return 'options.uApi must be an object'
         }

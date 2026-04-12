@@ -24,7 +24,7 @@
 
 | Name       | Datatype | Optional | Description                                        |
 |------------|:--------:|:--------:|----------------------------------------------------|
-| `host`     |  string  |    No    | the host of the MIND server                        |
+| `host`     |  string  |    No    | the host of the MIND server OR the UDS filename    |
 | `port`     |  number  |    No    | the TCP port of the MIND server                    |
 | `username` |  string  |    No    | the user nameof a known account in the MIND server |
 | `password` |  string  |    No    | the password of a known account in the MIND server |
@@ -56,6 +56,7 @@ itself according.
 ````js
 const options = {
     useTls: true,
+    protocol: 'tpc',
     tlsRejectSelfSigned: false,
     connectTimeout: 10000,
     uApi: {appName: 'myApp'},
@@ -67,19 +68,35 @@ const options = {
 
 ````
 
+<br>
+
+The `protocol` can be set to either `tcp` or `uds`. If missing, it defaults to `tcp`.
+
+> If protocol is set to `uds`, then the host name must point to the uds file
+
+<br>
+
 When `useTls` is true, TLS will be used. If missing or false, TLS will NOT be used.
+
+<br>
 
 When `tlsRejectSelfSigned` is false, self-signed certificates will be accepted. If missing or set to true, self-signed
 certificates will be rejected.
+
+<br>
 
 The `connectTimeout` overrides the default connect timeout of 5000 ms, or 5 seconds). The unit is in milliseconds.
 
 > A `coonectTimeout` value of 0 will disable the timeout entirely.
 
+<br>
+
 The `db.globals` is an array of strings, where each string represents a global you want to use in your code.
 
 > Global name do NOT need to be prefixed by the `^` character. So, a global named `^customers` must be entered as
 `customers`.
+
+<br>
 
 The `uApi.appName` is the (optional) app name. For this to work, the app name must be loaded in the server. If it is not
 found, an error will be thrown.

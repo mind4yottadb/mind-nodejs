@@ -65,22 +65,6 @@ module.exports = {
             return 'options.db.globals must be an array'
         }
 
-        if (options.db && options.db.vars && !Array.isArray(options.db.vars)) {
-            return 'options.db.vars must be an array'
-        }
-
-        if (options.db && options.db.vars) {
-            let err = ''
-
-            options.db.vars.forEach(entry => {
-                if (typeof entry !== 'string') {
-                    err = 'Entries in options.app.vars must be a string'
-                }
-            })
-
-            if (err !== '') return err
-        }
-
         if (options.db && options.db.globals) {
             let err = ''
 

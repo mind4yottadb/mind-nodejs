@@ -84,6 +84,8 @@ module.exports = {
                 const err = utils.validateConnectOptions(options)
                 if (err !== '') {
                     reject(new Error(err))
+
+                    return
                 }
 
                 let hTimer = that.hTimer
@@ -94,7 +96,7 @@ module.exports = {
                     hTimer = that.hTimer = setTimeout(function () {
                         that.#socket.destroy()
 
-                        throw new Error('timeout while trying to connect...')
+                        reject(new Error('timeout while trying to connect...'))
 
                     }, options.connectTimeout || 5000)
                 }

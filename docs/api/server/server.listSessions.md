@@ -21,7 +21,7 @@
 **Async**:  yes, returns a Promise
 
 **Parameters**:
-**Returns**: `Promise <object>`
+**Returns**: `Promise<object>`
 
 ---
 

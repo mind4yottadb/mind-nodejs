@@ -25,6 +25,8 @@ const run = async () => {
     mind.db.globals.addName('apiTest')
     const gbl = mind.db.globals.apiTest
 
+    await mind.process.cwdGet()
+
     await gbl.killTree()
     await gbl._("testNode").setObject({
         test1: {ciao: 'test1val'},

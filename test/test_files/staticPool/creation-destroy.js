@@ -17,7 +17,7 @@ const mindServer = require("../../../js");
 describe("Pool creation: size", async () => {
     it("with no param at all", async () => {
         try {
-            const pool = new mindServer.sessionsPool()
+            const pool = new mindServer.staticPool()
 
         } catch (err) {
             expect(err.message).to.have.string('Missing pool size')
@@ -26,7 +26,7 @@ describe("Pool creation: size", async () => {
 
     it("with string as pool size", async () => {
         try {
-            const pool = new mindServer.sessionsPool('test')
+            const pool = new mindServer.staticPool('test')
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be a number')
@@ -35,7 +35,7 @@ describe("Pool creation: size", async () => {
 
     it("with boolean as pool size", async () => {
         try {
-            const pool = new mindServer.sessionsPool(false)
+            const pool = new mindServer.staticPool(false)
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be a number')
@@ -44,7 +44,7 @@ describe("Pool creation: size", async () => {
 
     it("with null as pool size", async () => {
         try {
-            const pool = new mindServer.sessionsPool(null)
+            const pool = new mindServer.staticPool(null)
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be a number')
@@ -53,7 +53,7 @@ describe("Pool creation: size", async () => {
 
     it("with object as pool size", async () => {
         try {
-            const pool = new mindServer.sessionsPool({test: 12})
+            const pool = new mindServer.staticPool({test: 12})
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be a number')
@@ -62,7 +62,7 @@ describe("Pool creation: size", async () => {
 
     it("with number < 2", async () => {
         try {
-            const pool = new mindServer.sessionsPool(1)
+            const pool = new mindServer.staticPool(1)
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be at least 2')
@@ -71,7 +71,7 @@ describe("Pool creation: size", async () => {
 
     it("with number < 2", async () => {
         try {
-            const pool = new mindServer.sessionsPool(-23)
+            const pool = new mindServer.staticPool(-23)
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be at least 2')
@@ -82,7 +82,7 @@ describe("Pool creation: size", async () => {
 describe("Pool creation: extend", async () => {
     it("with string as extend size", async () => {
         try {
-            const pool = new mindServer.sessionsPool(64, 'test')
+            const pool = new mindServer.staticPool(64, 'test')
 
         } catch (err) {
             expect(err.message).to.have.string('Pool extension must be a number')
@@ -91,7 +91,7 @@ describe("Pool creation: extend", async () => {
 
     it("with number < 1", async () => {
         try {
-            const pool = new mindServer.sessionsPool(64, -2)
+            const pool = new mindServer.staticPool(64, -2)
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be at least 2')
@@ -101,7 +101,7 @@ describe("Pool creation: extend", async () => {
 
 describe("Pool creation: create()", async () => {
     it("invalid, with no extension", async () => {
-        const pool = new mindServer.sessionsPool(3)
+        const pool = new mindServer.staticPool(3)
 
         try {
             await pool.create('127.0.0.1', 10000, 'admin', 'admin2', {})
@@ -112,7 +112,7 @@ describe("Pool creation: create()", async () => {
     })
 
     it("valid, with no extension", async () => {
-        const pool = new mindServer.sessionsPool(3)
+        const pool = new mindServer.staticPool(3)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         const status = pool.getStatus()
@@ -125,7 +125,7 @@ describe("Pool creation: create()", async () => {
     });
 
     it("valid, with extension", async () => {
-        const pool = new mindServer.sessionsPool(8, 4)
+        const pool = new mindServer.staticPool(8, 4)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         const status = pool.getStatus()
@@ -140,7 +140,7 @@ describe("Pool creation: create()", async () => {
 
 describe("Pool creation: destroy()", async () => {
     it("invalid, with no extension", async () => {
-        const pool = new mindServer.sessionsPool(8, 4)
+        const pool = new mindServer.staticPool(8, 4)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()

@@ -238,7 +238,7 @@ module.exports = {
         }
     },
 
-    sessionsPool: class Pool {
+    staticPool: class Pool {
         size = 0
         extension = 0
         extensionInUse = 0

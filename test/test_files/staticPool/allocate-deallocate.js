@@ -17,7 +17,7 @@ const mindServer = require("../../../js");
 describe("getSession with no timeout, within ranges", async () => {
 
     it("get 1 session, check extra method", async () => {
-        const pool = new mindServer.sessionsPool(3)
+        const pool = new mindServer.staticPool(3)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
@@ -40,7 +40,7 @@ describe("getSession with no timeout, within ranges", async () => {
     })
 
     it("get 1 extended session, check extra method", async () => {
-        const pool = new mindServer.sessionsPool(3, 1)
+        const pool = new mindServer.staticPool(3, 1)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
@@ -66,7 +66,7 @@ describe("getSession with no timeout, within ranges", async () => {
     })
 
     it("get 1 session, check count", async () => {
-        const pool = new mindServer.sessionsPool(3)
+        const pool = new mindServer.staticPool(3)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
@@ -87,7 +87,7 @@ describe("getSession with no timeout, within ranges", async () => {
     })
 
     it("get 2 sessions, check count", async () => {
-        const pool = new mindServer.sessionsPool(3)
+        const pool = new mindServer.staticPool(3)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
@@ -109,7 +109,7 @@ describe("getSession with no timeout, within ranges", async () => {
     })
 
     it("get 3 sessions, check count", async () => {
-        const pool = new mindServer.sessionsPool(3)
+        const pool = new mindServer.staticPool(3)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
@@ -132,7 +132,7 @@ describe("getSession with no timeout, within ranges", async () => {
     })
 
     it("get 4 sessions, 3 regular and 1 extended, check count", async () => {
-        const pool = new mindServer.sessionsPool(3, 1)
+        const pool = new mindServer.staticPool(3, 1)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
@@ -158,7 +158,7 @@ describe("getSession with no timeout, within ranges", async () => {
 
 describe("getSession without timeout, outside range", async () => {
     it("get 3 session, done() one after one second", async () => {
-        const pool = new mindServer.sessionsPool(2)
+        const pool = new mindServer.staticPool(2)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
@@ -187,7 +187,7 @@ describe("getSession without timeout, outside range", async () => {
     })
 
     it("get 4 session, done() one after one second, extend", async () => {
-        const pool = new mindServer.sessionsPool(2, 1)
+        const pool = new mindServer.staticPool(2, 1)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
@@ -219,7 +219,7 @@ describe("getSession without timeout, outside range", async () => {
     })
 
     it("get 4 session, done() one after one second, extend, then done() all", async () => {
-        const pool = new mindServer.sessionsPool(2, 1)
+        const pool = new mindServer.staticPool(2, 1)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()

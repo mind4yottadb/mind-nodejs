@@ -371,50 +371,24 @@ module.exports = {
         username = ''
         password = ''
         options = {}
-        timerTick = false
 
-        constructor(size, extension = 0) {
-            if (typeof size === 'undefined') {
-                throw new Error('Missing pool size')
+        constructor(maxSize = 0) {
+            if (typeof maxSize === 'undefined') {
+                throw new Error('Missing maximum pool size')
             }
 
-            if (typeof size !== 'number') {
-                throw new Error('Pool size must be a number')
+            if (typeof maxSize !== 'number') {
+                throw new Error('Pool maximum size must be a number')
             }
 
-            if (extension && typeof extension !== 'number') {
-                throw new Error('Pool extension must be a number')
-            }
-
-            if (size < 2) {
-                throw new Error('Pool size must be at least 2')
-            }
-
-            if (extension && typeof extension < 1) {
-                throw new Error('Pool extension must be at least 1')
-            }
-
-            this.size = size
-            this.extension = extension
+            this.maxSize = size
 
             Object.defineProperties(this, {
-                size: {
-                    enumerable: false,
-                    configurable: true
-                },
-                extension: {
-                    enumerable: false,
-                    configurable: true
-                },
-                extensionInUse: {
+                maxSize: {
                     enumerable: false,
                     configurable: true
                 },
                 sessions: {
-                    enumerable: false,
-                    configurable: true
-                },
-                waitQueue: {
                     enumerable: false,
                     configurable: true
                 },
@@ -438,11 +412,20 @@ module.exports = {
                     enumerable: false,
                     configurable: true
                 },
-                timerTick: {
-                    enumerable: false,
-                    configurable: true
-                },
             })
         }
+
+        getSession = async function (host, port, username, password, options = {}) {
+            await pool.dynamicPool.getSession(this, module, host, port, username, password, options)
+        }
+
+        releaseSession = async function () {
+            await pool.dynamicPool.releaseSession(this)
+        }
+
+        getStatus = function () {
+            return pool.dynamicPool.getStatus(this)
+        }
+
     }
 }

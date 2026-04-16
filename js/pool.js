@@ -234,5 +234,17 @@ module.exports = {
             }
         }
     },
-    dynamicPool: {}
+    dynamicPool: {
+        getSession: async function (that, classModule, host, port, username, password, options) {
+
+        },
+
+        releaseSession: async function (that) {
+
+        },
+
+        getStatus: function (that) {
+
+        }
+    }
 }

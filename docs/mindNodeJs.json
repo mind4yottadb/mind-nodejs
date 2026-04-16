@@ -70,7 +70,7 @@
             "icon": "",
             "children": [
                 {
-                    "text": "session constructor",
+                    "text": "Session constructor",
                     "id": "api/session.constructor.md",
                     "icon": "",
                     "children": [
@@ -901,11 +901,18 @@
                     ]
                 },
                 {
-                    "text": "pool constructor",
-                    "id": "api/pool.constructor.md",
+                    "text": "Static pool constructor",
+                    "id": "api/static-pool.constructor.md",
                     "icon": "",
                     "children": [
 
+                    ]
+                },
+                {
+                    "text": "Dynamic pool constructor",
+                    "id": "api/dynamic-pool.constructor.md",
+                    "icon": "",
+                    "children": [
                     ]
                 }
             ]

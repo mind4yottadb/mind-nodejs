@@ -21,6 +21,7 @@ const nsRESP3 = require('./namespaces/RESP3')
 const nsDb = require('./namespaces/db')
 const nsDbms = require('./namespaces/dbms')
 const nsSession = require('./namespaces/session')
+const pool = require('./pool')
 
 const login = require('./login')
 const utils = require('./utils')
@@ -323,213 +324,17 @@ module.exports = {
         }
 
         create = async function (host, port, username, password, options = {}) {
-            return new Promise(async (resolve, reject) => {
-                for (let ix = 0; ix < this.size; ix++) {
-                    const session = new module.exports.session
-
-                    try {
-                        await session.connect(host, port, username, password, options)
-
-                    } catch (err) {
-                        reject(err)
-
-                        return
-                    }
-                    this.sessions.push({
-                        session: session,
-                        inUse: false,
-                        isExtension: false
-                    })
-                }
-
-                this.host = host
-                this.port = port
-                this.username = username
-                this.password = password
-                this.options = options
-
-                resolve()
-            })
+            await pool.sessionsPool.create(this, module, host, port, username, password, options)
         }
 
         destroy = async function () {
-            return new Promise(async (resolve) => {
-                this.sessions.forEach(async session => await session.session.disconnect())
-
-                this.sessions = []
-
-                resolve()
-            })
+            await pool.sessionsPool.destroy(this)
         }
 
 
-        getSession = function (timeout = 0) {
-            return new Promise(async (resolve, reject) => {
-                const freeSlots = this.sessions.filter(session => session.inUse === false)
-                let hInterval = null
+        getSession = async function (timeout = 0) {
+            return await pool.sessionsPool.getSessions(this, module, timeout)
 
-                // can we get a normal session?
-                if (freeSlots.length > 0) {
-                    freeSlots[0].inUse = true
-
-                    Object.assign(freeSlots[0].session, {
-                        that: this,
-                        ix: this.sessions.length - 1,
-                        poolSlot: freeSlots[0],
-                        done: function () {
-                            this.poolSlot.inUse = false
-                        }
-                    })
-
-                    this.hidePropsInObject(freeSlots[0])
-
-                    resolve(freeSlots[0].session)
-
-                    return
-                }
-
-                // can we extend?
-                if (this.extension > 0 && this.extension - this.extensionInUse > 0) {
-                    const session = new module.exports.session
-
-                    try {
-                        await session.connect(this.host, this.port, this.username, this.password, this.options)
-
-                    } catch (err) {
-                        reject(err.message)
-
-                        return
-                    }
-
-                    const newSession = {
-                        session: session,
-                        inUse: true,
-                        isExtension: true
-                    }
-
-                    this.sessions.push(newSession)
-
-                    Object.assign(newSession.session, {
-                        that: this,
-                        ix: this.sessions.length - 1,
-                        poolSlot: newSession,
-
-                        done: function () {
-                            this.poolSlot.session.disconnect()
-
-                            this.that.sessions.splice(this.ix, 1)
-
-                            this.that.extensionInUse--
-
-                            this.poolSlot.inUse = false
-                        }
-                    })
-
-                    this.hidePropsInObject(newSession)
-
-                    this.extensionInUse++
-
-                    resolve(newSession.session)
-
-                    return
-                }
-
-                // do we have a timeout?
-                let hTimeout = 0
-                if (timeout > 0) {
-                    // setup main timer
-                    hTimeout = setTimeout(async () => {
-                        reject(new Error('timeout expired while trying to get a session'))
-
-                    }, timeout)
-
-                }
-
-                hInterval = setInterval(async () => {
-                    // is there a slot available?
-                    if (this.timerTick === true) {
-                        clearInterval(hInterval)
-                        hInterval = null
-
-                        return
-                    }
-
-                    const freeSlots = this.sessions.filter(session => session.inUse === false)
-
-                    if (freeSlots.length > 0) {
-                        this.timerTick = true
-
-                        clearTimeout(hTimeout)
-                        clearInterval(hInterval)
-                        hInterval = null
-
-                        Object.assign(freeSlots[0].session, {
-                            that: this,
-                            ix: this.sessions.length - 1,
-                            poolSlot: freeSlots[0],
-                            done: function () {
-                                this.poolSlot.inUse = false
-                            }
-                        })
-
-                        this.hidePropsInObject(freeSlots[0])
-
-                        freeSlots[0].inUse = true
-
-                        resolve(freeSlots[0].session)
-
-                        return
-                    }
-
-                    // can we extend?
-                    if (this.extension > 0 && this.extension - this.extensionInUse > 0) {
-                        this.timerTick = true
-
-                        clearTimeout(hTimeout)
-                        clearInterval(hInterval)
-                        hInterval = null
-
-                        const session = new module.exports.session
-
-                        try {
-                            await session.connect(this.host, this.port, this.username, this.password, this.options)
-
-                        } catch (err) {
-                            reject(err.message)
-
-                            return
-                        }
-
-                        const newSession = {
-                            session: session,
-                            inUse: true,
-                            isExtension: true
-                        }
-
-                        this.sessions.push(newSession)
-
-                        Object.assign(newSession.session, {
-                            that: this,
-                            ix: this.sessions.length - 1,
-                            poolSlot: newSession,
-                            done: function () {
-                                this.poolSlot.session.disconnect()
-                                this.that.sessions.splice(this.ix, 1)
-
-                                this.that.extensionInUse--
-
-                                this.poolSlot.inUse = false
-                            }
-                        })
-
-                        this.hidePropsInObject(newSession)
-
-                        this.extensionInUse++
-
-                        resolve(newSession.session)
-                    }
-                }, 0)
-            })
         }
 
         hidePropsInObject = function (obj) {

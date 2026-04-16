@@ -238,7 +238,7 @@ module.exports = {
         }
     },
 
-    staticPool: class Pool {
+    staticPool: class StaticPool {
         size = 0
         extension = 0
         extensionInUse = 0
@@ -356,6 +356,89 @@ module.exports = {
                     configurable: true
                 },
                 hTimer: {
+                    enumerable: false,
+                    configurable: true
+                },
+            })
+        }
+    },
+
+    dynamicPool: class DynamicPool {
+        maxSize = 0
+        sessions = []
+        host = ''
+        port = 0
+        username = ''
+        password = ''
+        options = {}
+        timerTick = false
+
+        constructor(size, extension = 0) {
+            if (typeof size === 'undefined') {
+                throw new Error('Missing pool size')
+            }
+
+            if (typeof size !== 'number') {
+                throw new Error('Pool size must be a number')
+            }
+
+            if (extension && typeof extension !== 'number') {
+                throw new Error('Pool extension must be a number')
+            }
+
+            if (size < 2) {
+                throw new Error('Pool size must be at least 2')
+            }
+
+            if (extension && typeof extension < 1) {
+                throw new Error('Pool extension must be at least 1')
+            }
+
+            this.size = size
+            this.extension = extension
+
+            Object.defineProperties(this, {
+                size: {
+                    enumerable: false,
+                    configurable: true
+                },
+                extension: {
+                    enumerable: false,
+                    configurable: true
+                },
+                extensionInUse: {
+                    enumerable: false,
+                    configurable: true
+                },
+                sessions: {
+                    enumerable: false,
+                    configurable: true
+                },
+                waitQueue: {
+                    enumerable: false,
+                    configurable: true
+                },
+                host: {
+                    enumerable: false,
+                    configurable: true
+                },
+                port: {
+                    enumerable: false,
+                    configurable: true
+                },
+                username: {
+                    enumerable: false,
+                    configurable: true
+                },
+                password: {
+                    enumerable: false,
+                    configurable: true
+                },
+                options: {
+                    enumerable: false,
+                    configurable: true
+                },
+                timerTick: {
                     enumerable: false,
                     configurable: true
                 },

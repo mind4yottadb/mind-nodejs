@@ -100,6 +100,62 @@ describe("Pool creation: extend", async () => {
 })
 
 describe("Pool creation: create()", async () => {
+    it("invalid, missing parameters", async () => {
+        const pool = new mindServer.staticPool(3)
+
+        try {
+            await pool.create()
+
+        } catch (err) {
+            expect(err.message).to.have.string('host must be a string')
+        }
+    })
+
+    it("invalid, missing parameters", async () => {
+        const pool = new mindServer.staticPool(3)
+
+        try {
+            await pool.create('myHost')
+
+        } catch (err) {
+            expect(err.message).to.have.string('port must be a number')
+        }
+    })
+
+    it("invalid, missing parameters", async () => {
+        const pool = new mindServer.staticPool(3)
+
+        try {
+            await pool.create('myHost', 100)
+
+        } catch (err) {
+            expect(err.message).to.have.string('username must be a string')
+        }
+    })
+
+    it("invalid, missing password parameters", async () => {
+        const pool = new mindServer.staticPool(3)
+
+        try {
+            await pool.create('myHost', 100, "user")
+
+        } catch (err) {
+            expect(err.message).to.have.string('password must be a string')
+        }
+    })
+
+    it("invalid, missing password parameters", async () => {
+        const pool = new mindServer.staticPool(3)
+
+        try {
+            await pool.create('myHost', 100, "user", "pass", "options")
+
+        } catch (err) {
+            expect(err.message).to.have.string('options must be an object')
+        }
+    })
+
+
     it("invalid, with no extension", async () => {
         const pool = new mindServer.staticPool(3)
 

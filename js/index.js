@@ -327,8 +327,8 @@ module.exports = {
             await pool.sessionsPool.create(this, module, host, port, username, password, options)
         }
 
-        destroy = async function () {
-            await pool.sessionsPool.destroy(this)
+        destroy = function () {
+            pool.sessionsPool.destroy(this)
         }
 
 
@@ -372,7 +372,7 @@ module.exports = {
         password = ''
         options = {}
 
-        constructor(maxSize = 0) {
+        constructor(host, port, userrname, password, options = {}, maxSize = 0) {
             if (typeof maxSize === 'undefined') {
                 throw new Error('Missing maximum pool size')
             }
@@ -381,7 +381,11 @@ module.exports = {
                 throw new Error('Pool maximum size must be a number')
             }
 
-            this.maxSize = size
+            this.host = host
+            this.port = port
+            this.username = userrname
+            this.password = password
+            this.maxSize = maxSize
 
             Object.defineProperties(this, {
                 maxSize: {

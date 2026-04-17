@@ -42,14 +42,10 @@ module.exports = {
             })
         },
 
-        destroy: async function (that) {
-            return new Promise(async (resolve) => {
-                that.sessions.forEach(async session => await session.session.disconnect())
+        destroy: function (that) {
+            that.sessions.forEach(async session => session.session.disconnect())
 
-                that.sessions = []
-
-                resolve()
-            })
+            that.sessions = []
         },
 
         getSessions: async function (that, classModule, timeout) {
@@ -202,7 +198,6 @@ module.exports = {
                             ix: that.sessions.length - 1,
                             poolSlot: newSession,
                             done: function () {
-                                console.log('kill extended 2')
                                 this.poolSlot.session.disconnect()
                                 this.that.sessions.splice(this.ix, 1)
 

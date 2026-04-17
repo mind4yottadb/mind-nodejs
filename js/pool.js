@@ -223,11 +223,9 @@ module.exports = {
             const sessionsTotal = that.sessions.length
 
             return {
-                current: {
-                    sessionsTotal: sessionsTotal,
-                    sessionsExtended: sessionsExtended.length,
-                    sessionsInUse: sessionsInUse.length
-                },
+                sessionsTotal: sessionsTotal,
+                sessionsExtended: sessionsExtended.length,
+                sessionsInUse: sessionsInUse.length,
                 stats: {
                     sessionsCreatedOk: that.sessionsCreatedOk,
                     sessionsCreatedInError: that.sessionsCreatedInError,

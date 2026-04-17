@@ -65,6 +65,11 @@
             "icon": ""
         },
         {
+            "text": "How the session pool works",
+            "id": "how-the-session-pool-works.md.md",
+            "icon": ""
+        },
+        {
             "text": "API reference",
             "id": "",
             "icon": "",

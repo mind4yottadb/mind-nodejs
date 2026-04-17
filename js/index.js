@@ -251,6 +251,13 @@ module.exports = {
         options = {}
         timerTick = false
 
+        sessionsCreatedOk = 0
+        sessionsCreatedInError = 0
+        extendsCreatedOk = 0
+        extendsCreatedInError = 0
+        extendsRemoved = 0
+        noMoreSlotsHits = 0
+
         constructor(size, extension = 0) {
             if (typeof size === 'undefined') {
                 throw new Error('Missing pool size')

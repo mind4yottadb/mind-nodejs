@@ -223,9 +223,19 @@ module.exports = {
             const sessionsTotal = that.sessions.length
 
             return {
-                sessionsTotal: sessionsTotal,
-                sessionsExtended: sessionsExtended.length,
-                sessionsInUse: sessionsInUse.length
+                current: {
+                    sessionsTotal: sessionsTotal,
+                    sessionsExtended: sessionsExtended.length,
+                    sessionsInUse: sessionsInUse.length
+                },
+                stats: {
+                    sessionsCreatedOk: that.sessionsCreatedOk,
+                    sessionsCreatedInError: that.sessionsCreatedInError,
+                    extendsCreatedOk: that.extendsCreatedOk,
+                    extendsCreatedInError: that.extendsCreatedInError,
+                    extendsRemoved: that.extendsRemoved,
+                    noMoreSlotsHits: that.noMoreSlotsHits
+                }
             }
         }
     },

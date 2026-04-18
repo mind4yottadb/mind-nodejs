@@ -10,7 +10,7 @@ const run = async () => {
         useTls: false,
         tlsRejectSelfSigned: false,
         connectTimeout: 10000,
-        uApi: {appName: 'test-existing'},
+        uApi: {appName: ''},
         db: {
             globals: [
                 'globalTest', 'myglobal2', 'stef'
@@ -21,6 +21,11 @@ const run = async () => {
             exit()
         }
     )
+
+    console.log(mind)
+
+    exit()
+
 
     mind.db.globals.addName('apiTest')
     const gbl = mind.db.globals.apiTest

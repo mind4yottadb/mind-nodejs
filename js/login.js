@@ -77,8 +77,8 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         }
 
         // proceed with the process array
-        if (dataA[ix] !== '%1') {
-            reject(new Error('invalid packet signature at line: ' + ix + ' Expected: %1'))
+        if (dataA[ix] !== '%2') {
+            reject(new Error('invalid packet signature at line: ' + ix + ' Expected: %2'))
 
             return
         }

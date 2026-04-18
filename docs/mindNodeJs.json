@@ -302,6 +302,11 @@
                                             "text": "pid",
                                             "id": "api/process/process.pid.md",
                                             "icon": ""
+                                        },
+                                        {
+                                            "text": "GUID",
+                                            "id": "api/process/process.GUID.md",
+                                            "icon": ""
                                         }
                                     ]
                                 }

@@ -11,13 +11,67 @@
 ###############################################################*/
 
 const {expect} = require("chai");
-const {createYdbInstance} = require("../../utils.cjs");
-const mindServer = require("../../../js");
+const {createYdbInstance} = require("../../../utils.cjs");
+const mindServer = require("../../../../js");
 
 describe("Pool creation: size", async () => {
-    it("with no param at all", async () => {
+    it("with no type at all", async () => {
         try {
             const pool = new mindServer.staticPool()
+
+        } catch (err) {
+            expect(err.message).to.have.string('Type must be a string')
+        }
+    });
+
+    it("with bad type", async () => {
+        try {
+            const pool = new mindServer.staticPool(true)
+
+        } catch (err) {
+            expect(err.message).to.have.string('Type must be a string')
+        }
+    });
+
+    it("with bad type", async () => {
+        try {
+            const pool = new mindServer.staticPool([])
+
+        } catch (err) {
+            expect(err.message).to.have.string('Type must be a string')
+        }
+    });
+
+    it("with bad type", async () => {
+        try {
+            const pool = new mindServer.staticPool({})
+
+        } catch (err) {
+            expect(err.message).to.have.string('Type must be a string')
+        }
+    });
+
+    it("with bad type", async () => {
+        try {
+            const pool = new mindServer.staticPool(23)
+
+        } catch (err) {
+            expect(err.message).to.have.string('Type must be a string')
+        }
+    });
+
+    it("with bad type", async () => {
+        try {
+            const pool = new mindServer.staticPool('test')
+
+        } catch (err) {
+            expect(err.message).to.have.string('Type must be either')
+        }
+    });
+
+    it("with no param at all", async () => {
+        try {
+            const pool = new mindServer.staticPool('stateless')
 
         } catch (err) {
             expect(err.message).to.have.string('Missing pool size')
@@ -26,7 +80,7 @@ describe("Pool creation: size", async () => {
 
     it("with string as pool size", async () => {
         try {
-            const pool = new mindServer.staticPool('test')
+            const pool = new mindServer.staticPool('stateless', 'test')
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be a number')
@@ -35,7 +89,7 @@ describe("Pool creation: size", async () => {
 
     it("with boolean as pool size", async () => {
         try {
-            const pool = new mindServer.staticPool(false)
+            const pool = new mindServer.staticPool('stateless', false)
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be a number')
@@ -44,7 +98,7 @@ describe("Pool creation: size", async () => {
 
     it("with null as pool size", async () => {
         try {
-            const pool = new mindServer.staticPool(null)
+            const pool = new mindServer.staticPool('stateless', null)
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be a number')
@@ -53,7 +107,7 @@ describe("Pool creation: size", async () => {
 
     it("with object as pool size", async () => {
         try {
-            const pool = new mindServer.staticPool({test: 12})
+            const pool = new mindServer.staticPool('stateless', {test: 12})
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be a number')
@@ -62,7 +116,7 @@ describe("Pool creation: size", async () => {
 
     it("with number < 2", async () => {
         try {
-            const pool = new mindServer.staticPool(1)
+            const pool = new mindServer.staticPool('stateless', 1)
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be at least 2')
@@ -71,7 +125,7 @@ describe("Pool creation: size", async () => {
 
     it("with number < 2", async () => {
         try {
-            const pool = new mindServer.staticPool(-23)
+            const pool = new mindServer.staticPool('stateless', -23)
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be at least 2')
@@ -82,7 +136,7 @@ describe("Pool creation: size", async () => {
 describe("Pool creation: extend", async () => {
     it("with string as extend size", async () => {
         try {
-            const pool = new mindServer.staticPool(64, 'test')
+            const pool = new mindServer.staticPool('stateless', 64, 'test')
 
         } catch (err) {
             expect(err.message).to.have.string('Pool extension must be a number')
@@ -91,7 +145,7 @@ describe("Pool creation: extend", async () => {
 
     it("with number < 1", async () => {
         try {
-            const pool = new mindServer.staticPool(64, -2)
+            const pool = new mindServer.staticPool('stateless', 64, -2)
 
         } catch (err) {
             expect(err.message).to.have.string('Pool size must be at least 2')
@@ -101,7 +155,7 @@ describe("Pool creation: extend", async () => {
 
 describe("Pool creation: create()", async () => {
     it("invalid, missing parameters", async () => {
-        const pool = new mindServer.staticPool(3)
+        const pool = new mindServer.staticPool('stateless', 3)
 
         try {
             await pool.create()
@@ -112,7 +166,7 @@ describe("Pool creation: create()", async () => {
     })
 
     it("invalid, missing parameters", async () => {
-        const pool = new mindServer.staticPool(3)
+        const pool = new mindServer.staticPool('stateless', 3)
 
         try {
             await pool.create('myHost')
@@ -123,7 +177,7 @@ describe("Pool creation: create()", async () => {
     })
 
     it("invalid, missing parameters", async () => {
-        const pool = new mindServer.staticPool(3)
+        const pool = new mindServer.staticPool('stateless', 3)
 
         try {
             await pool.create('myHost', 100)
@@ -134,7 +188,7 @@ describe("Pool creation: create()", async () => {
     })
 
     it("invalid, missing password parameters", async () => {
-        const pool = new mindServer.staticPool(3)
+        const pool = new mindServer.staticPool('stateless', 3)
 
         try {
             await pool.create('myHost', 100, "user")
@@ -145,7 +199,7 @@ describe("Pool creation: create()", async () => {
     })
 
     it("invalid, missing password parameters", async () => {
-        const pool = new mindServer.staticPool(3)
+        const pool = new mindServer.staticPool('stateless', 3)
 
         try {
             await pool.create('myHost', 100, "user", "pass", "options")
@@ -157,7 +211,7 @@ describe("Pool creation: create()", async () => {
 
 
     it("invalid, with no extension", async () => {
-        const pool = new mindServer.staticPool(3)
+        const pool = new mindServer.staticPool('stateless', 3)
 
         try {
             await pool.create('127.0.0.1', 10000, 'admin', 'admin2', {})
@@ -168,7 +222,7 @@ describe("Pool creation: create()", async () => {
     })
 
     it("valid, with no extension", async () => {
-        const pool = new mindServer.staticPool(3)
+        const pool = new mindServer.staticPool('stateless', 3)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         const status = pool.getStatus()
@@ -181,7 +235,7 @@ describe("Pool creation: create()", async () => {
     });
 
     it("valid, with extension", async () => {
-        const pool = new mindServer.staticPool(8, 4)
+        const pool = new mindServer.staticPool('stateless', 8, 4)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         const status = pool.getStatus()
@@ -196,7 +250,7 @@ describe("Pool creation: create()", async () => {
 
 describe("Pool creation: destroy()", async () => {
     it("invalid, with no extension", async () => {
-        const pool = new mindServer.staticPool(8, 4)
+        const pool = new mindServer.staticPool('stateless', 8, 4)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
@@ -212,5 +266,40 @@ describe("Pool creation: destroy()", async () => {
         expect(status.sessionsTotal).to.equal(0);
         expect(status.sessionsInUse).to.equal(0);
         expect(status.sessionsExtended).to.equal(0);
+    })
+})
+
+describe("Pool creation: using stateful methods", async () => {
+    it("calling createSession", async () => {
+        const pool = new mindServer.staticPool('stateless', 3)
+
+        try {
+            await pool.createSession()
+
+        } catch (err) {
+            expect(err.message).to.have.string('This function is not available is stateless mode')
+        }
+    })
+
+    it("calling getSessionByGUID", async () => {
+        const pool = new mindServer.staticPool('stateless', 3)
+
+        try {
+            await pool.getSessionByGUID()
+
+        } catch (err) {
+            expect(err.message).to.have.string('This function is not available is stateless mode')
+        }
+    })
+
+    it("calling terminateSession", async () => {
+        const pool = new mindServer.staticPool('stateless', 3)
+
+        try {
+            await pool.terminateSession()
+
+        } catch (err) {
+            expect(err.message).to.have.string('This function is not available is stateless mode')
+        }
     })
 })

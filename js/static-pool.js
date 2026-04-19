@@ -12,8 +12,17 @@
 
 module.exports = {
     sessionsPool: {
+        // ******************
+        // stateless
+        // ******************
         create: async function (that, classModule, host, port, username, password, options) {
             return new Promise(async (resolve, reject) => {
+                if (that.type !== 'stateless') {
+                    reject(new Error('This function is not available is stateful mode'))
+
+                    return
+                }
+
                 for (let ix = 0; ix < that.size; ix++) {
                     const session = new classModule.exports.session
 
@@ -43,6 +52,10 @@ module.exports = {
         },
 
         destroy: function (that) {
+            if (that.type !== 'stateless') {
+                return new Error('This function is not available is stateful mode')
+            }
+
             that.sessions.forEach(async session => session.session.disconnect())
 
             that.sessions = []
@@ -50,6 +63,10 @@ module.exports = {
 
         getSessions: async function (that, classModule, timeout) {
             return new Promise(async (resolve, reject) => {
+                if (that.type !== 'stateless') {
+                    return new Error('This function is not available is stateful mode')
+                }
+
                 const freeSlots = that.sessions.filter(session => session.inUse === false)
                 let hInterval = null
 
@@ -214,6 +231,40 @@ module.exports = {
                         resolve(newSession.session)
                     }
                 }, 0)
+            })
+        },
+
+        // ******************
+        // stateful
+        // ******************
+        createSession: async function (that) {
+            return new Promise(async (resolve, reject) => {
+                if (that.type !== 'stateful') {
+                    reject(new Error('This function is not available is stateless mode'))
+
+                    return
+                }
+            })
+        },
+
+        getSessionByGUID: async function (that, GUID) {
+            return new Promise(async (resolve, reject) => {
+                if (that.type !== 'stateful') {
+                    reject(new Error('This function is not available is stateless mode'))
+
+                    return
+                }
+            })
+
+        },
+
+        terminateSession: async function (that, GUID) {
+            return new Promise(async (resolve, reject) => {
+                if (that.type !== 'stateful') {
+                    reject(new Error('This function is not available is stateless mode'))
+
+                    return
+                }
             })
         },
 

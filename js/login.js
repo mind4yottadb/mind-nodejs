@@ -99,6 +99,15 @@ module.exports = async function (that, writer, reader, resolve, reject, username
                     writable: false
                 }
             })
+
+            Object.defineProperties(that.session, {
+                [RESP3.parse.simpleString(dataA[ix])]: {
+                    value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                }
+            })
         }
 
         // finally the user api

@@ -338,6 +338,18 @@
                                             "icon": ""
                                         }
                                     ]
+                                },
+                                {
+                                    "text": "Properties",
+                                    "id": "",
+                                    "icon": "",
+                                    "children": [
+                                        {
+                                            "text": "GUID",
+                                            "id": "api/process/process.GUID.md",
+                                            "icon": ""
+                                        }
+                                    ]
                                 }
                             ]
                         },

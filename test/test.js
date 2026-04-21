@@ -24,6 +24,8 @@ const run = async () => {
 
     console.log(mind)
 
+    return
+
     exit()
 
 

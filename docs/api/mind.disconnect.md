@@ -18,11 +18,11 @@
 
 **Type**: method
 
-**Async**: yes, returns a Promise
+**Async**: no
 
 **Parameters**:
 <br><br>
-**Returns**: `Promise<>`
+**Returns**: `<undefined>`
 
 ---
 
@@ -35,15 +35,15 @@ If you were using variables in your session, everything will be lost.
 ### EXAMPLES
 
 ````js
-import mindServer from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yottadb.session
 
 console.dir(mind, {depth: 5})
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await mind.disconnect()
+mind.disconnect()
 ````
 
 ---

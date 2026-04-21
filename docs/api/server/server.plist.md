@@ -22,7 +22,7 @@
 
 **Parameters**:
 <br><br>
-**Returns**: `Promise <object>`
+**Returns**: `Promise<object>`
 
 ---
 
@@ -46,7 +46,7 @@ Get the process list and display it.
 ````js
 import mindServerServer from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

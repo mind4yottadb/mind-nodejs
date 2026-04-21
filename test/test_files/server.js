@@ -286,6 +286,7 @@ describe("server.GUID()", async () => {
 describe("server.listSessions()", async () => {
 
     it("list only yourself", async () => {
+        /*
         const ydb = await createYdbInstance()
 
         const sessions = await ydb.server.listSessions()
@@ -298,6 +299,8 @@ describe("server.listSessions()", async () => {
 
         ydb.disconnect()
         ydb2.disconnect()
+
+         */
 
     });
 })

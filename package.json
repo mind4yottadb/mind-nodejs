@@ -1,33 +1,34 @@
 {
-  "name": "mind4yottadb",
-    "version": "0.12.0",
-  "description": "MIND4YOTTADB node.js driver ",
-  "main": "js/index.js",
-  "type": "commonjs",
-  "scripts": {
-    "test": "mocha ./test/bootstrap.js --exit --recursive --timeout=300000 test/test_files"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mind4yottadb/mind-nodejs.git"
-  },
-  "devDependencies": {
-    "chai": "^4.3.4",
-    "lodash": "^4.17.21",
-    "mocha": "^11.7.2"
-  },
-  "engines": {
-    "node": ">= 10.18.1",
-    "npm": ">= 6.13.4"
-  },
-  "author": {
-    "name": "Stefano Lalli",
-    "email": "stefano@dnasoft.nl",
-    "url": "www.dnasoft.nl"
-  },
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mind4yottadb/mind-nodejs/issues"
-  },
-  "homepage": "https://github.com/mind4yottadb/mind-nodejs#readme"
+    "name": "mind4yottadb",
+    "version": "0.13.0",
+    "description": "MIND4YOTTADB node.js driver ",
+    "main": "js/index.js",
+    "type": "commonjs",
+    "scripts": {
+        "test": "mocha ./test/bootstrap.js --exit --recursive --timeout=300000 test/test_files",
+        "test-uds": "mocha ./test/bootstrap.js --exit --recursive --timeout=300000 test/test_files_uds"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mind4yottadb/mind-nodejs.git"
+    },
+    "devDependencies": {
+        "chai": "^4.3.4",
+        "lodash": "^4.17.21",
+        "mocha": "^11.7.2"
+    },
+    "engines": {
+        "node": ">= 10.18.1",
+        "npm": ">= 6.13.4"
+    },
+    "author": {
+        "name": "Stefano Lalli",
+        "email": "stefano@dnasoft.nl",
+        "url": "www.dnasoft.nl"
+    },
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/mind4yottadb/mind-nodejs/issues"
+    },
+    "homepage": "https://github.com/mind4yottadb/mind-nodejs#readme"
 }

@@ -36,9 +36,9 @@ connected.
 Connect, waits for two seconds and then reads the elapsed time.
 
 ````js
-import mindServer4yottadb from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -65,4 +65,4 @@ res = 2.014392
 ---
 
 
-[Back](api/namespace.db.session.md)
+[Back](api/namespace.session.md)

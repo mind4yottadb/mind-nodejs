@@ -13,7 +13,7 @@
 const {expect} = require("chai");
 const {createYdbInstance} = require("../utils.cjs");
 
-describe("process.memUsage()", async () => {
+describe("Pool creation()", async () => {
     it("get memUsage", async () => {
         const ydb = await createYdbInstance()
 

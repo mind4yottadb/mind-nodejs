@@ -37,6 +37,7 @@ This namespace provides you access to the process associated with your session.
 ### Properties:
 
 - [pid](api/process/process.pid.md)
+- [GUID](api/process/process.GUID.md)
 
 ---
 

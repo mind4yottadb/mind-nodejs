@@ -4,11 +4,16 @@ const mind = require("../js")
 
 module.exports = {
     createYdbInstance: async (appName = '') => {
-        const ydb = new mind
+        const ydb = new mind.session
 
-        await ydb.connect('127.0.0.1', 10000, "admin", "admin", {
+        const host = '127.0.0.1'
+        //const host = '/opt/yottadb/current/plugin/etc/mind/mind4yottadb'
+
+        await ydb.connect(host, 10000, "admin", "admin", {
+            protocol: 'tcp',
             useTls: false,
             tlsRejectSelfSigned: false,
+            connectTimeout: 10000,
             uApi: {
                 appName: appName
             },

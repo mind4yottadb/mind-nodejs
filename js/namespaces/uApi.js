@@ -34,6 +34,10 @@ const funct = module.exports = {
             // prepare parameters
             args.forEach((arg, ix) => {
                 switch (typeof arg) {
+                    case 'undefined':
+                        args[ix] = '___'
+
+                        break
                     case 'boolean':
                         args[ix] = arg === true ? '1' : '0'
 
@@ -95,7 +99,7 @@ const parseParams = function (fn, args, that) {
             switch (param.datatype) {
                 case 'int':
                 case 'float': {
-                    if (typeof args[ix] !== 'number') {
+                    if (typeof args[ix] !== 'number' && typeof args[ix] !== 'undefined') {
                         throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be a number.')
                     }
 
@@ -107,7 +111,7 @@ const parseParams = function (fn, args, that) {
                 }
 
                 case 'varByRef': {
-                    if (typeof args[ix] !== 'string') {
+                    if (typeof args[ix] !== 'string' && typeof args[ix] !== 'undefined') {
                         throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be a string populated with the var name.')
 
                     }
@@ -125,7 +129,7 @@ const parseParams = function (fn, args, that) {
                 }
 
                 case 'json': {
-                    if (typeof args[ix] !== 'string') {
+                    if (typeof args[ix] !== 'string' && typeof args[ix] !== 'undefined') {
                         throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be a string.')
                     }
 
@@ -133,7 +137,7 @@ const parseParams = function (fn, args, that) {
                 }
 
                 default: {
-                    if (typeof args[ix] !== param.datatype) {
+                    if (typeof args[ix] !== param.datatype && typeof args[ix] !== 'undefined') {
                         throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be a ' + param.datatype + '.')
                     }
 

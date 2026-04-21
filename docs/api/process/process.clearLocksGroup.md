@@ -22,7 +22,7 @@
 
 **Parameters**:
 <br><br>
-**Returns**: `Promise <>`
+**Returns**: `Promise<>`
 
 ---
 
@@ -37,9 +37,9 @@ Here we create a lockGroup, we add locks, we clear it and then we try to commit 
 The commit() call returns an error.
 
 ````js
-import mindServer from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

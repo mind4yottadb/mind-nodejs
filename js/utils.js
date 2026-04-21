@@ -29,6 +29,21 @@ module.exports = {
             return ''
         }
 
+        // *****************************************
+        // Socket information
+        // *****************************************
+        if (options.connectTimeout && typeof options.connectTimeout !== 'number') {
+            return 'options.connectTimeout must be a number'
+        }
+
+        if (options.protocol && typeof options.protocol !== 'string') {
+            return 'options.protocol must be a string'
+        }
+
+        if (options.protocol && (options.protocol !== 'tcp' && options.protocol !== 'uds')) {
+            return 'options.protocol must be either tcp or uds.'
+        }
+
         if (options.useTls && typeof options.useTls !== 'boolean') {
             return 'options.useTls must be a boolean'
         }
@@ -37,28 +52,17 @@ module.exports = {
             return 'options.tlsRejectSelfSigned must be a boolean'
         }
 
+        if (options.protocol === undefined) options.protocol = 'tcp'
+
+        // *****************************************
+        // DB
+        // *****************************************
         if (options.db && typeof options.db !== 'object') {
             return 'options.db must be an object'
         }
 
         if (options.db && options.db.globals && !Array.isArray(options.db.globals)) {
             return 'options.db.globals must be an array'
-        }
-
-        if (options.db && options.db.vars && !Array.isArray(options.db.vars)) {
-            return 'options.db.vars must be an array'
-        }
-
-        if (options.db && options.db.vars) {
-            let err = ''
-
-            options.db.vars.forEach(entry => {
-                if (typeof entry !== 'string') {
-                    err = 'Entries in options.app.vars must be a string'
-                }
-            })
-
-            if (err !== '') return err
         }
 
         if (options.db && options.db.globals) {
@@ -73,6 +77,9 @@ module.exports = {
             if (err !== '') return err
         }
 
+        // *****************************************
+        // uApi
+        // *****************************************
         if (options.uApi && typeof options.uApi !== 'object') {
             return 'options.uApi must be an object'
         }

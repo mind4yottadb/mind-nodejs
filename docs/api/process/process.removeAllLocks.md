@@ -22,7 +22,7 @@
 
 **Parameters**:
 <br><br>
-**Returns**: `Promise <>`
+**Returns**: `Promise<>`
 
 ---
 
@@ -35,9 +35,9 @@ If no lock group was created, an error is returned.
 ### EXAMPLES
 
 ````js
-import mindServer from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

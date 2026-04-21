@@ -27,7 +27,7 @@
 | `pid` |  number  |    No    | the pid of the process you want to examine |
 
 <br>
-**Returns**: `Promise <object>`
+**Returns**: `Promise<object>`
 
 ---
 
@@ -47,9 +47,9 @@ It returns an object, with the following fields:
 ### EXAMPLES
 
 ````js
-import mindServer from 'mind4yottadb'
+import mind4yottadb from 'mind4yottadb'
 
-const mind = new mindServer
+const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

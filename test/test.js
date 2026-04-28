@@ -125,7 +125,7 @@ const run = async () => {
     const before = new Date()
     let ret
     for (let i = 0; i < 270; i++) {
-        ret = await mind.session.timeSinceConnect()
+        ret = await mind.EHS.login()
         const ret2 = await mind2.session.timeSinceConnect()
         const ret3 = await mind3.session.timeSinceConnect()
         const ret4 = await mind3.session.timeSinceConnect()

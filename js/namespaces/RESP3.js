@@ -72,8 +72,7 @@ class RESP3 {
         },
 
         returns: function (str, returnDatatype) {
-            const type = str.charAt(0)
-
+            let type = str.charAt(0)
             switch (type) {
                 case '+':
                     return this.simpleString(str)
@@ -93,7 +92,7 @@ class RESP3 {
                 case '#':
                     return this.boolean(str)
 
-                case '=':
+                case '|':
                     if (returnDatatype === 'object') {
                         return JSON.parse(str.slice(6 + str.indexOf('\r\n'), -2))
 

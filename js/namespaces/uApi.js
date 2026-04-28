@@ -64,6 +64,9 @@ const funct = module.exports = {
             writer('*' + (package.length) + RESP3.CRLF + package.join(''))
 
             reader(data => {
+                let type = data.charCodeAt(0)
+                if (type === 27) data = data.slice(data.indexOf('=') + 1)
+
                 if (data.charAt(0) === '-') {
                     // process eventual simple error
                     reject(new Error(data.slice(1)))

@@ -704,6 +704,32 @@ describe("globals.setObject()", async () => {
         ydb.disconnect()
     });
 
+    it("Empty object", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp.setObject({})
+
+        const ret = await ydb.db.globals.temp.getObject()
+        expect(typeof ret === 'object').to.be.true
+        expect(Object.keys(ret).length === 0).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("Empty array", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp.setObject([])
+
+        const ret = await ydb.db.globals.temp.getObject()
+        expect(typeof ret === 'object').to.be.true
+        expect(Object.keys(ret).length === 0).to.be.true
+
+        ydb.disconnect()
+    });
+
     it("valid object", async () => {
         const ydb = await createYdbInstance()
 

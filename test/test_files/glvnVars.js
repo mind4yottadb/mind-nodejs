@@ -714,6 +714,31 @@ describe("vars.setObject()", async () => {
         ydb.disconnect()
     });
 
+    it("Empty object", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        await ydb.db.vars.aaa.setObject({})
+
+        const ret = await ydb.db.vars.aaa.getObject()
+        expect(typeof ret === 'object').to.be.true
+        expect(Object.keys(ret).length === 0).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("Empty array", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        await ydb.db.vars.aaa.setObject([])
+
+        const ret = await ydb.db.vars.aaa.getObject()
+        expect(typeof ret === 'object').to.be.true
+        expect(Object.keys(ret).length === 0).to.be.true
+
+        ydb.disconnect()
+    });
     it("valid object", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 

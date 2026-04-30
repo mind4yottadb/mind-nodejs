@@ -122,25 +122,31 @@ const run = async () => {
         }
     )
 
+    mind.on('disconnect', () => {
+        console.log('disconnected')
+    })
+
     const before = new Date()
     let ret
-    for (let i = 0; i < 270; i++) {
-        ret = await mind.EHS.login()
-        const ret2 = await mind2.session.timeSinceConnect()
-        const ret3 = await mind3.session.timeSinceConnect()
-        const ret4 = await mind3.session.timeSinceConnect()
-        const ret5 = await mind3.session.timeSinceConnect()
-        const ret6 = await mind3.session.timeSinceConnect()
-        const ret7 = await mind3.session.timeSinceConnect()
+    for (let i = 0; i < 100; i++) {
+        const [a, b, c, d, e, f, g] = await Promise.all([
+            mind.EHS.login(),
+            mind2.EHS.login(),
+            mind3.EHS.login(),
+            mind4.EHS.login(),
+            mind5.EHS.login(),
+            mind6.EHS.login(),
+            mind7.EHS.login(),
+        ])
+        //console.log(a)
     }
     const after = new Date()
     console.log(after - before)
-    console.log(ret)
 
 
     //console.log(mind)
 
-    //return
+    return
 
     exit()
 

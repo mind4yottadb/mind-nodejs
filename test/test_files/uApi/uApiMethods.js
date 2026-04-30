@@ -490,3 +490,99 @@ describe("uApi methods: parameters with varByRef", async () => {
 describe("uApi methods: returns json", async () => {
 })
 
+describe("uApi methods: pass undefined as param", async () => {
+    it("all args filled", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        try {
+            const res = await ydb.level_1.test_undefined('var1', 'var2', 'var3', 'var4', 'var5')
+            expect(res.a).to.have.string('var1')
+            expect(res.b).to.have.string('var2')
+            expect(res.c).to.have.string('var3')
+            expect(res.d).to.have.string('var4')
+            expect(res.e).to.have.string('var5')
+
+        } catch (err) {
+            console.log(err.message)
+            expect(err.message).have.string('Parameter 1: "outVar" var: "myVar" was not declared')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("first param undefined", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        try {
+            const res = await ydb.level_1.test_undefined(undefined, 'var2', 'var3', 'var4', 'var5')
+            expect(res.a).to.have.string('')
+            expect(res.b).to.have.string('var2')
+            expect(res.c).to.have.string('var3')
+            expect(res.d).to.have.string('var4')
+            expect(res.e).to.have.string('var5')
+
+        } catch (err) {
+            console.log(err.message)
+            expect(err.message).have.string('Parameter 1: "outVar" var: "myVar" was not declared')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("second param undefined", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        try {
+            const res = await ydb.level_1.test_undefined('var1', undefined, 'var3', 'var4', 'var5')
+            expect(res.a).to.have.string('var1')
+            expect(res.b).to.have.string('')
+            expect(res.c).to.have.string('var3')
+            expect(res.d).to.have.string('var4')
+            expect(res.e).to.have.string('var5')
+
+        } catch (err) {
+            console.log(err.message)
+            expect(err.message).have.string('Parameter 1: "outVar" var: "myVar" was not declared')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("third param undefined", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        try {
+            const res = await ydb.level_1.test_undefined('var1', 'var2', undefined, 'var4', 'var5')
+            expect(res.a).to.have.string('var1')
+            expect(res.b).to.have.string('var2')
+            expect(res.c).to.have.string('')
+            expect(res.d).to.have.string('var4')
+            expect(res.e).to.have.string('var5')
+
+        } catch (err) {
+            console.log(err.message)
+            expect(err.message).have.string('Parameter 1: "outVar" var: "myVar" was not declared')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("fourth param undefined", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        try {
+            const res = await ydb.level_1.test_undefined('var1', 'var2', 'var3', undefined, 'var5')
+            expect(res.a).to.have.string('var1')
+            expect(res.b).to.have.string('var2')
+            expect(res.c).to.have.string('var3')
+            expect(res.d).to.have.string('')
+            expect(res.e).to.have.string('var5')
+
+        } catch (err) {
+            console.log(err.message)
+            expect(err.message).have.string('Parameter 1: "outVar" var: "myVar" was not declared')
+        }
+
+        ydb.disconnect()
+    });
+})

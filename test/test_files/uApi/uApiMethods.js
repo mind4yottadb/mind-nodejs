@@ -487,9 +487,6 @@ describe("uApi methods: parameters with varByRef", async () => {
     });
 })
 
-describe("uApi methods: returns json", async () => {
-})
-
 describe("uApi methods: pass undefined as param", async () => {
     it("all args filled", async () => {
         const ydb = await createYdbInstance('test-methods')
@@ -586,3 +583,21 @@ describe("uApi methods: pass undefined as param", async () => {
         ydb.disconnect()
     });
 })
+
+describe("uApi methods: returns json", async () => {
+    it("all args filled", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        try {
+            const res = await ydb.level_1.test_return_json('var1', 'var2', 'var3', 'var4', 'var5')
+            expect(res).to.have.string('{"a":"var1","b":"var2","c":"var3","d":"var4","e":"var5"}')
+
+        } catch (err) {
+            console.log(err.message)
+            expect(err.message).have.string('Parameter 1: "outVar" var: "myVar" was not declared')
+        }
+
+        ydb.disconnect()
+    });
+})
+

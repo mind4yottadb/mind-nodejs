@@ -228,6 +228,7 @@ describe("getSession without timeout, outside range", async () => {
         expect(status.sessionsExtended).to.equal(0);
 
         let session = await pool.getSession()
+        const dir = await session.fs.isDir('/opt')
         const session2 = await pool.getSession()
         const session3 = await pool.getSession()
 
@@ -274,9 +275,15 @@ describe("getSession without timeout, outside range", async () => {
         status = pool.getStatus()
         console.log(status)
 
+        const session = sessions[1]
+        const dir = await session.fs.isDir('/opt')
+        console.log(dir)
+
+        status = pool.getStatus()
+        console.log(status)
+
         console.log()
         pool.destroy()
+        console.log('destroyed')
     })
-
-
 })

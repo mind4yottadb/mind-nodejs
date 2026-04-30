@@ -23,31 +23,24 @@ module.exports = {
                     return
                 }
 
-                let sessionsArray = []
                 for (let ix = 0; ix < that.size; ix++) {
                     const session = new classModule.exports.session
 
                     try {
-                        session.connect(host, port, username, password, options)
+                        await session.connect(host, port, username, password, options)
+
+                        that.sessions.push({
+                            session: session,
+                            inUse: false,
+                            isExtension: false
+                        })
 
                     } catch (err) {
                         reject(err)
 
                         return
                     }
-                    sessionsArray.push(session)
                 }
-
-                Promise.all(sessionsArray)
-                    .then((resArray) => {
-                        for (let ix = 0; ix < that.size; ix++) {
-                            that.sessions.push({
-                                session: resArray[ix],
-                                inUse: false,
-                                isExtension: false
-                            })
-                        }
-                    })
 
                 that.host = host
                 that.port = port

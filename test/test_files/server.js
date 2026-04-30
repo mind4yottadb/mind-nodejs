@@ -306,7 +306,6 @@ describe("server.listSessions()", async () => {
 })
 
 describe("server.plist()", async () => {
-
     it("list and validate", async () => {
         const ydb = await createYdbInstance()
 

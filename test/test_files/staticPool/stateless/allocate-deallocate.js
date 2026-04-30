@@ -15,7 +15,6 @@ const {createYdbInstance, sleep} = require("../../../utils.cjs");
 const mindServer = require("../../../../js");
 
 describe("getSession with no timeout, within ranges", async () => {
-
     it("get 1 session, check extra method", async () => {
         const pool = new mindServer.staticPool('stateless', 3)
 
@@ -252,4 +251,32 @@ describe("getSession without timeout, outside range", async () => {
 
         pool.destroy()
     })
+
+    it("randomly get and release sessions", async () => {
+        const pool = new mindServer.staticPool('stateless', 64)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+        let status = pool.getStatus()
+
+        expect(status.sessionsTotal).to.equal(64);
+        expect(status.sessionsInUse).to.equal(0);
+        expect(status.sessionsExtended).to.equal(0);
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+        let sessions = []
+        for (let i = 0; i < getRandomInt(64); i++) {
+            sessions.push(await pool.getSession())
+        }
+
+        status = pool.getStatus()
+        console.log(status)
+
+        console.log()
+        pool.destroy()
+    })
+
+
 })

@@ -147,6 +147,8 @@ module.exports = {
 
                 that.noMoreSlotsHits++
 
+                that.timerTick -= false
+
                 // do we have a timeout?
                 let hTimeout = 0
                 if (timeout > 0) {

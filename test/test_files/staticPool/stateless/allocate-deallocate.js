@@ -262,10 +262,10 @@ describe("getSession without timeout, outside range", async () => {
             return Math.floor(Math.random() * max);
         }
 
-        let max1 = 600
-        let max2 = 600
-        let max3 = 600
-        let max4 = 600
+        let max1 = 100
+        let max2 = 100
+        let max3 = 100
+        let max4 = 100
 
         const int1 = setInterval((async () => {
             max1--
@@ -286,7 +286,7 @@ describe("getSession without timeout, outside range", async () => {
             }
             session.done()
 
-        }), getRandomInt(5) * 1)
+        }), getRandomInt(5) * 10)
 
         const int2 = setInterval((async () => {
             max2--
@@ -307,7 +307,7 @@ describe("getSession without timeout, outside range", async () => {
             }
             session.done()
 
-        }), getRandomInt(10) * 1)
+        }), getRandomInt(10) * 10)
 
         const int3 = setInterval((async () => {
             max3--
@@ -327,7 +327,7 @@ describe("getSession without timeout, outside range", async () => {
             }
             session.done()
 
-        }), getRandomInt(10) * 1)
+        }), getRandomInt(10) * 10)
 
         const int4 = setInterval((async () => {
             max4--
@@ -347,7 +347,7 @@ describe("getSession without timeout, outside range", async () => {
             }
             session.done()
 
-        }), getRandomInt(10) * 1)
+        }), getRandomInt(10) * 10)
 
         await sleep(11000)
 
@@ -359,10 +359,11 @@ describe("getSession without timeout, outside range", async () => {
         pool.destroy()
 
         const status = pool.getStatus()
-        console.log(status)
+
         expect(status.sessionsInUse).to.be.equal(0);
         expect(status.stats.sessionsCreatedOk).to.be.greaterThan(0)
         expect(status.stats.extendsCreatedOk).to.be.equal(0)
+        expect(status.stats.noMoreSlotsHits).to.be.greaterThan(0)
     })
 
     it("small pool, with extension, randomly get and release sessions, trigger some waitHits in stats", async () => {
@@ -475,6 +476,7 @@ describe("getSession without timeout, outside range", async () => {
         expect(status.sessionsInUse).to.be.equal(0);
         expect(status.stats.sessionsCreatedOk).to.be.greaterThan(0)
         expect(status.stats.extendsCreatedOk).to.be.greaterThan(0)
+        expect(status.stats.noMoreSlotsHits).to.be.equal(0)
         expect(status.stats.extendsRemoved).to.be.equal(status.stats.extendsCreatedOk)
     })
 })

@@ -84,6 +84,8 @@ module.exports = {
                         }
                     })
 
+                    that.sessionsCreatedOk++
+
                     that.hidePropsInObject(freeSlots[0])
 
                     resolve(freeSlots[0].session)
@@ -99,6 +101,8 @@ module.exports = {
                         await session.connect(that.host, that.port, that.username, that.password, that.options)
 
                     } catch (err) {
+                        that.extendsCreatedInError++
+
                         reject(err.message)
 
                         return
@@ -111,6 +115,8 @@ module.exports = {
                     }
 
                     that.sessions.push(newSession)
+
+                    that.extendsCreatedOk++
 
                     Object.assign(newSession.session, {
                         that: that,
@@ -132,10 +138,14 @@ module.exports = {
 
                     that.extensionInUse++
 
+                    that.extendsRemoved++
+
                     resolve(newSession.session)
 
                     return
                 }
+
+                that.noMoreSlotsHits++
 
                 // do we have a timeout?
                 let hTimeout = 0
@@ -179,6 +189,8 @@ module.exports = {
 
                         freeSlots[0].inUse = true
 
+                        that.sessionsCreatedOk++
+
                         resolve(freeSlots[0].session)
 
                         return
@@ -198,6 +210,8 @@ module.exports = {
                             await session.connect(that.host, that.port, that.username, that.password, that.options)
 
                         } catch (err) {
+                            that.extendsCreatedInError++
+
                             reject(err.message)
 
                             return
@@ -211,6 +225,8 @@ module.exports = {
 
                         that.sessions.push(newSession)
 
+                        that.extendsCreatedOk++
+
                         Object.assign(newSession.session, {
                             that: that,
                             ix: that.sessions.length - 1,
@@ -220,6 +236,8 @@ module.exports = {
                                 this.that.sessions.splice(this.ix, 1)
 
                                 this.that.extensionInUse--
+
+                                that.extendsRemoved++
 
                                 this.poolSlot.inUse = false
                             }

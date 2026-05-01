@@ -284,7 +284,7 @@ module.exports = {
                 throw new Error('Pool size must be at least 2')
             }
 
-            if (extension && typeof extension < 1) {
+            if (extension && extension < 1) {
                 throw new Error('Pool extension must be at least 1')
             }
 
@@ -326,12 +326,12 @@ module.exports = {
             this.size = size
             this.extension = extension
 
-            if (extension) {
-                this.host = extension.host
-                this.port = extension.port
-                this.username = extension.username
-                this.password = extension.password
-                this.options = extension.options
+            if (credentials) {
+                this.host = credentials.host
+                this.port = credentials.port
+                this.username = credentials.username
+                this.password = credentials.password
+                this.options = credentials.options
             }
 
             Object.defineProperties(this, {

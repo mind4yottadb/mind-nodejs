@@ -186,7 +186,7 @@ describe("getSession without timeout, outside range", async () => {
     })
 
     it("get 4 session, done() one after one second, extend", async () => {
-        const pool = new mindServer.staticPool('stateless', 2, 1)
+        const pool = new mindServer.staticPool('stateless', 2)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
@@ -218,7 +218,7 @@ describe("getSession without timeout, outside range", async () => {
     })
 
     it("get 4 session, done() one after one second, extend, then done() all", async () => {
-        const pool = new mindServer.staticPool('stateless', 2, 1)
+        const pool = new mindServer.staticPool('stateless', 2)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
@@ -254,36 +254,91 @@ describe("getSession without timeout, outside range", async () => {
     })
 
     it("randomly get and release sessions", async () => {
-        const pool = new mindServer.staticPool('stateless', 64)
+        const pool = new mindServer.staticPool('stateless', 2)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
-
-        expect(status.sessionsTotal).to.equal(64);
-        expect(status.sessionsInUse).to.equal(0);
-        expect(status.sessionsExtended).to.equal(0);
 
         function getRandomInt(max) {
             return Math.floor(Math.random() * max);
         }
 
-        let sessions = []
-        for (let i = 0; i < getRandomInt(64); i++) {
-            sessions.push(await pool.getSession())
-        }
+        let max1 = 200
+        let max2 = 200
+        let max3 = 200
 
-        status = pool.getStatus()
-        console.log(status)
+        const int1 = setInterval((async () => {
+            max1--
 
-        const session = sessions[1]
-        const dir = await session.fs.isDir('/opt')
-        console.log(dir)
+            if (max1 === 0) {
+                clearInterval(int1)
 
-        status = pool.getStatus()
-        console.log(status)
+                return
+            }
 
-        console.log()
+            const session = await pool.getSession()
+
+            try {
+                const cwd = await session.process.cwdGet()
+
+            } catch (err) {
+                console.log(err.message)
+            }
+            session.done()
+
+        }), getRandomInt(5) * 10)
+
+        const int2 = setInterval((async () => {
+            max2--
+
+            if (max2 === 0) {
+                clearInterval(int2)
+
+                return
+            }
+
+            const session = await pool.getSession()
+
+            try {
+                const cwd = await session.process.cwdGet()
+
+            } catch (err) {
+                console.log(err.message)
+            }
+            session.done()
+
+        }), getRandomInt(10) * 10)
+
+        const int3 = setInterval((async () => {
+            max3--
+
+            if (max3 === 0) {
+                clearInterval(int3)
+
+                return
+            }
+
+            const session = await pool.getSession()
+            try {
+                const cwd = await session.process.cwdGet()
+
+            } catch (err) {
+                console.log(err.message)
+            }
+            session.done()
+
+        }), getRandomInt(10) * 10)
+
+
+        await sleep(11000)
+
+        clearInterval(int1)
+        clearInterval(int2)
+        clearInterval(int3)
+
         pool.destroy()
-        console.log('destroyed')
+
+        console.log(pool.getStatus())
+        expect(pool.getStatus().sessionsInUse).to.be.equal(0);
     })
 })

@@ -262,10 +262,122 @@ describe("getSession without timeout, outside range", async () => {
             return Math.floor(Math.random() * max);
         }
 
-        let max1 = 200
-        let max2 = 200
-        let max3 = 200
-        let max4 = 200
+        let max1 = 600
+        let max2 = 600
+        let max3 = 600
+        let max4 = 600
+
+        const int1 = setInterval((async () => {
+            max1--
+
+            if (max1 === 0) {
+                clearInterval(int1)
+
+                return
+            }
+
+            const session = await pool.getSession()
+
+            try {
+                const cwd = await session.process.cwdGet()
+
+            } catch (err) {
+                console.log(err.message)
+            }
+            session.done()
+
+        }), getRandomInt(5) * 1)
+
+        const int2 = setInterval((async () => {
+            max2--
+
+            if (max2 === 0) {
+                clearInterval(int2)
+
+                return
+            }
+
+            const session = await pool.getSession()
+
+            try {
+                const cwd = await session.process.cwdGet()
+
+            } catch (err) {
+                console.log(err.message)
+            }
+            session.done()
+
+        }), getRandomInt(10) * 1)
+
+        const int3 = setInterval((async () => {
+            max3--
+
+            if (max3 === 0) {
+                clearInterval(int3)
+
+                return
+            }
+
+            const session = await pool.getSession()
+            try {
+                const cwd = await session.process.cwdGet()
+
+            } catch (err) {
+                console.log(err.message)
+            }
+            session.done()
+
+        }), getRandomInt(10) * 1)
+
+        const int4 = setInterval((async () => {
+            max4--
+
+            if (max4 === 0) {
+                clearInterval(int4)
+
+                return
+            }
+
+            const session = await pool.getSession()
+            try {
+                const cwd = await session.process.cwdGet()
+
+            } catch (err) {
+                console.log(err.message)
+            }
+            session.done()
+
+        }), getRandomInt(10) * 1)
+
+        await sleep(11000)
+
+        clearInterval(int1)
+        clearInterval(int2)
+        clearInterval(int3)
+        clearInterval(int4)
+
+        pool.destroy()
+
+        const status = pool.getStatus()
+        console.log(status)
+        expect(status.sessionsInUse).to.be.equal(0);
+        expect(status.stats.sessionsCreatedOk).to.be.greaterThan(0)
+        expect(status.stats.extendsCreatedOk).to.be.equal(0)
+    })
+
+    it("small pool, with extension, randomly get and release sessions, trigger some waitHits in stats", async () => {
+        const pool = new mindServer.staticPool('stateless', 2, 20)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+        let max1 = 600
+        let max2 = 600
+        let max3 = 600
+        let max4 = 600
 
         const int1 = setInterval((async () => {
             max1--
@@ -347,8 +459,7 @@ describe("getSession without timeout, outside range", async () => {
             }
             session.done()
 
-        }), getRandomInt(10) * 10)
-
+        }), getRandomInt(10) * 1)
 
         await sleep(11000)
 
@@ -360,8 +471,10 @@ describe("getSession without timeout, outside range", async () => {
         pool.destroy()
 
         const status = pool.getStatus()
+        console.log(status)
         expect(status.sessionsInUse).to.be.equal(0);
         expect(status.stats.sessionsCreatedOk).to.be.greaterThan(0)
-        expect(status.stats.extendsCreatedOk).to.be.equal(0)
+        expect(status.stats.extendsCreatedOk).to.be.greaterThan(0)
+        expect(status.stats.extendsRemoved).to.be.equal(status.stats.extendsCreatedOk)
     })
 })

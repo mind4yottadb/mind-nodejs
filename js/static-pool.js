@@ -130,6 +130,8 @@ module.exports = {
 
                             this.that.extensionInUse--
 
+                            that.extendsRemoved++
+
                             this.poolSlot.inUse = false
                         }
                     })
@@ -137,8 +139,6 @@ module.exports = {
                     that.hidePropsInObject(newSession)
 
                     that.extensionInUse++
-
-                    that.extendsRemoved++
 
                     resolve(newSession.session)
 

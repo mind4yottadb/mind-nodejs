@@ -57,7 +57,7 @@ module.exports = {
                 return new Error('This function is not available is stateful mode')
             }
 
-            that.sessions.forEach(async session => session.session.disconnect())
+            that.sessions.forEach(async session => await session.session.disconnect())
 
             that.sessions = []
         },

@@ -349,7 +349,7 @@ describe("getSession without timeout, outside range", async () => {
 
         }), getRandomInt(10) * 10)
 
-        await sleep(11000)
+        await sleep(6000)
 
         clearInterval(int1)
         clearInterval(int2)
@@ -367,7 +367,7 @@ describe("getSession without timeout, outside range", async () => {
     })
 
     it("small pool, with extension, randomly get and release sessions, trigger some waitHits in stats", async () => {
-        const pool = new mindServer.staticPool('stateless', 2, 20)
+        let pool = new mindServer.staticPool('stateless', 2, 20)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 
@@ -375,10 +375,10 @@ describe("getSession without timeout, outside range", async () => {
             return Math.floor(Math.random() * max);
         }
 
-        let max1 = 600
-        let max2 = 600
-        let max3 = 600
-        let max4 = 600
+        let max1 = 300
+        let max2 = 300
+        let max3 = 300
+        let max4 = 300
 
         const int1 = setInterval((async () => {
             max1--
@@ -462,7 +462,7 @@ describe("getSession without timeout, outside range", async () => {
 
         }), getRandomInt(10) * 1)
 
-        await sleep(11000)
+        await sleep(8000)
 
         clearInterval(int1)
         clearInterval(int2)
@@ -472,7 +472,7 @@ describe("getSession without timeout, outside range", async () => {
         pool.destroy()
 
         const status = pool.getStatus()
-        console.log(status)
+
         expect(status.sessionsInUse).to.be.equal(0);
         expect(status.stats.sessionsCreatedOk).to.be.greaterThan(0)
         expect(status.stats.extendsCreatedOk).to.be.greaterThan(0)

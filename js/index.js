@@ -244,7 +244,6 @@ module.exports = {
         extension = 0
         extensionInUse = 0
         sessions = []
-        waitQueue = []
         host = ''
         port = 0
         username = ''
@@ -258,6 +257,7 @@ module.exports = {
         extendsCreatedInError = 0
         extendsRemoved = 0
         noMoreSlotsHits = 0
+        timeoutExpired = 0
 
         constructor(type, size, extension = 0, credentials = {}) {
             if (typeof type !== 'string') {

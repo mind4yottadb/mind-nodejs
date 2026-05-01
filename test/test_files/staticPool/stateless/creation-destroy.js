@@ -148,7 +148,7 @@ describe("Pool creation: extend", async () => {
             const pool = new mindServer.staticPool('stateless', 64, -2)
 
         } catch (err) {
-            expect(err.message).to.have.string('Pool size must be at least 2')
+            expect(err.message).to.have.string('Pool extension must be at least 1')
         }
     });
 })

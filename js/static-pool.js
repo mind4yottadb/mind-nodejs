@@ -152,6 +152,8 @@ module.exports = {
                 if (timeout > 0) {
                     // setup main timer
                     hTimeout = setTimeout(async () => {
+                        that.timeoutExpired++
+
                         reject(new Error('timeout expired while trying to get a session'))
 
                     }, timeout)
@@ -302,7 +304,8 @@ module.exports = {
                     extendsCreatedOk: that.extendsCreatedOk,
                     extendsCreatedInError: that.extendsCreatedInError,
                     extendsRemoved: that.extendsRemoved,
-                    noMoreSlotsHits: that.noMoreSlotsHits
+                    noMoreSlotsHits: that.noMoreSlotsHits,
+                    timeoutExpired: that.timeoutExpired
                 }
             }
         }

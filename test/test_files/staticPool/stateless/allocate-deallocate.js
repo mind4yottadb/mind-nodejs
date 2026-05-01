@@ -186,7 +186,7 @@ describe("getSession without timeout, outside range", async () => {
     })
 
     it("get 4 session, done() one after one second, extend", async () => {
-        const pool = new mindServer.staticPool('stateless', 2)
+        const pool = new mindServer.staticPool('stateless', 2, 1)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
@@ -218,7 +218,7 @@ describe("getSession without timeout, outside range", async () => {
     })
 
     it("get 4 session, done() one after one second, extend, then done() all", async () => {
-        const pool = new mindServer.staticPool('stateless', 2)
+        const pool = new mindServer.staticPool('stateless', 2, 1)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
         let status = pool.getStatus()
@@ -253,11 +253,10 @@ describe("getSession without timeout, outside range", async () => {
         pool.destroy()
     })
 
-    it("randomly get and release sessions", async () => {
+    it("small pool, no extension, randomly get and release sessions, trigger some waitHits in stats", async () => {
         const pool = new mindServer.staticPool('stateless', 2)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
-        let status = pool.getStatus()
 
         function getRandomInt(max) {
             return Math.floor(Math.random() * max);
@@ -338,7 +337,9 @@ describe("getSession without timeout, outside range", async () => {
 
         pool.destroy()
 
-        console.log(pool.getStatus())
-        expect(pool.getStatus().sessionsInUse).to.be.equal(0);
+        const status = pool.getStatus()
+        expect(status.sessionsInUse).to.be.equal(0);
+        expect(status.stats.sessionsCreatedOk).to.be.greaterThan(0)
+        expect(status.stats.extendsCreatedOk).to.be.equal(0)
     })
 })

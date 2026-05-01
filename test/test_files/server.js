@@ -310,7 +310,7 @@ describe("server.plist()", async () => {
         const ydb = await createYdbInstance()
 
         const plist = await ydb.server.plist()
-        console.log(plist)
+
         expect(plist[0].pid === 1).to.be.true
         expect(plist[0].ppid === 0).to.be.true
         expect(plist[0].command.indexOf('/sbin/docker-init -- sleep infinity') > -1 || plist[0].command.indexOf('/sbin/docker-init -- /startup.sh') > -1).to.be.true

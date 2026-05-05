@@ -461,7 +461,7 @@ describe("Pool stateless: allocate / deallocate", async () => {
                 }
                 session.done()
 
-            }), getRandomInt(10) * 1)
+            }), getRandomInt(10) * 10)
 
             await sleep(8000)
 

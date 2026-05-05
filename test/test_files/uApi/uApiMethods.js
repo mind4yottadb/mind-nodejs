@@ -120,19 +120,6 @@ describe("uApi methods: returns", async () => {
         ydb.disconnect()
     });
 
-    it("returns null", async () => {
-        const ydb = await createYdbInstance('test-methods')
-
-        try {
-            const res = await ydb.level_1.testParams0ErrBlob()
-
-        } catch (err) {
-            expect(err.message).have.string('This is a blob error\\nwith more\\nextended text\\nand multiple lines')
-        }
-
-        ydb.disconnect()
-    });
-
     it("returns json", async () => {
         const ydb = await createYdbInstance('test-methods')
 

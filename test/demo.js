@@ -1,28 +1,20 @@
 const {exit} = require('node:process')
 const mind4yottadb = require('../js/index.js')
 
-const mind = new mind4yottadb
+const mind = new mind4yottadb.session
 
 
 const run = async () => {
     await mind.connect('127.0.0.1', 10000, "admin", "admin", {
         useTls: false,
         tlsRejectSelfSigned: false,
-        uApi: {appName: 'bhaskar'}
+        uApi: {appName: 'hooks-and-code'}
     })
 
-    const myObj = {
-        test1: 'a string',
-        myData: {
-            testarray: [
-                'aaaa',
-                'bbb',
-                'ccc'
-            ]
-        }
-    }
 
-    await mind.db.vars.test1.setValue('test')
+    return
+
+    await mind.soTest.triggerError()
 
     //mind.db.globals.addName("test")
     //const gbl = mind.db.globals.test

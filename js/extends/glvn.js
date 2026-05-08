@@ -570,10 +570,14 @@ class Glvn {
 
             if (typeof incrementBy !== 'number') {
                 reject(new Error('incrementBy must be a number'))
+
+                return
             }
 
             if (incrementBy === 0 || incrementBy < 0) {
                 reject(new Error('incrementBy must be a positive number'))
+
+                return
             }
 
             // send command
@@ -614,10 +618,14 @@ class Glvn {
 
             if (typeof decrementBy !== 'number') {
                 reject(new Error('decrementBy must be a number'))
+
+                return
             }
 
             if (decrementBy === 0 || decrementBy < 0) {
                 reject(new Error('decrementBy must be a positive number'))
+
+                return
             }
 
             // send command
@@ -658,6 +666,8 @@ class Glvn {
 
             if (typeof findValue !== 'number' && typeof findValue !== 'string') {
                 reject(new Error('findValue must be a number or a string'))
+
+                return
             }
 
             // send command
@@ -698,6 +708,8 @@ class Glvn {
 
             if (typeof findValue !== 'number' && typeof findValue !== 'string') {
                 reject(new Error('findValue must be a number or a string'))
+
+                return
             }
 
             // send command
@@ -738,6 +750,8 @@ class Glvn {
 
             if (glvn && typeof glvn !== 'string') {
                 reject(new Error('glvn must be a string'))
+
+                return
             }
 
             // send command

@@ -19,7 +19,13 @@ const funct = module.exports = {
         const package = []
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+
 
             // validate parameters
             try {

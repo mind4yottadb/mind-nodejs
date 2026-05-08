@@ -18,7 +18,13 @@ class Sessions {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+
 
             // send command
             const opCode = 'session.stats'
@@ -49,7 +55,13 @@ class Sessions {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+
 
             // send command
             const opCode = 'session.resetStats'
@@ -74,7 +86,13 @@ class Sessions {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+
 
             // send command
             const opCode = 'session.timeSinceConnect'

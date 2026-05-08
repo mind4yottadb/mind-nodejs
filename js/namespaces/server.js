@@ -24,7 +24,11 @@ class Server {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+            }
+
+
 
             if (utils.validateTypeOfField(pid, 'number') === false) {
                 reject(new Error('Parameter pid must be a number'))
@@ -66,7 +70,13 @@ class Server {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+
 
             if (utils.validateTypeOfField(pid, 'number') === false) {
                 reject(new Error('Parameter pid must be a number'))
@@ -119,7 +129,13 @@ class Server {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+
 
             if (typeof dashed !== 'boolean' || typeof braced !== 'boolean') {
                 reject(new Error('Parameter must be a boolean'))
@@ -150,7 +166,13 @@ class Server {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+
 
             // send command
             const opCode = 'server.stats'
@@ -181,7 +203,13 @@ class Server {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+
 
             // send command
             const opCode = 'server.listSessions'
@@ -212,7 +240,13 @@ class Server {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+
 
             // send command
             const opCode = 'server.plist'
@@ -237,7 +271,13 @@ class Server {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+
 
             // send command
             const opCode = 'server.unixtime'
@@ -262,7 +302,13 @@ class Server {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+
 
             if (resolution !== 'ms' && resolution !== 'us') {
                 reject(new Error('Resolution can be either ms (milliseconds) or us (microseconds)'))
@@ -294,7 +340,13 @@ class Server {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+
 
             // send command
             const opCode = 'server.datetime'
@@ -326,7 +378,13 @@ class Server {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+
 
             // send command
             const opCode = 'server.horolog'

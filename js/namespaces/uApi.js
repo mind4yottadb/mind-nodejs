@@ -25,8 +25,6 @@ const funct = module.exports = {
                 return
             }
 
-
-
             // validate parameters
             try {
                 parseParams(fn, args, that)

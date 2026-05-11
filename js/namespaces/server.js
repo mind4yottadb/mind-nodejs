@@ -76,8 +76,6 @@ class Server {
                 return
             }
 
-
-
             if (utils.validateTypeOfField(pid, 'number') === false) {
                 reject(new Error('Parameter pid must be a number'))
 
@@ -135,8 +133,6 @@ class Server {
                 return
             }
 
-
-
             if (typeof dashed !== 'boolean' || typeof braced !== 'boolean') {
                 reject(new Error('Parameter must be a boolean'))
             }
@@ -171,8 +167,6 @@ class Server {
 
                 return
             }
-
-
 
             // send command
             const opCode = 'server.stats'
@@ -209,8 +203,6 @@ class Server {
                 return
             }
 
-
-
             // send command
             const opCode = 'server.listSessions'
             that.writer("*1" + RESP3.CRLF +
@@ -246,8 +238,6 @@ class Server {
                 return
             }
 
-
-
             // send command
             const opCode = 'server.plist'
             that.writer("*1" + RESP3.CRLF +
@@ -277,8 +267,6 @@ class Server {
                 return
             }
 
-
-
             // send command
             const opCode = 'server.unixtime'
             that.writer("*1" + RESP3.CRLF +
@@ -307,8 +295,6 @@ class Server {
 
                 return
             }
-
-
 
             if (resolution !== 'ms' && resolution !== 'us') {
                 reject(new Error('Resolution can be either ms (milliseconds) or us (microseconds)'))
@@ -346,8 +332,6 @@ class Server {
                 return
             }
 
-
-
             // send command
             const opCode = 'server.datetime'
             that.writer("*1" + RESP3.CRLF +
@@ -383,8 +367,6 @@ class Server {
 
                 return
             }
-
-
 
             // send command
             const opCode = 'server.horolog'

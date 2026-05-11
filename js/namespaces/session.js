@@ -24,8 +24,6 @@ class Sessions {
                 return
             }
 
-
-
             // send command
             const opCode = 'session.stats'
             that.writer("*1" + RESP3.CRLF +
@@ -61,8 +59,6 @@ class Sessions {
                 return
             }
 
-
-
             // send command
             const opCode = 'session.resetStats'
             that.writer("*1" + RESP3.CRLF +
@@ -91,8 +87,6 @@ class Sessions {
 
                 return
             }
-
-
 
             // send command
             const opCode = 'session.timeSinceConnect'

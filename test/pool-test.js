@@ -11,8 +11,6 @@ start = async () => {
 
     console.log('created')
 
-    return
-
     let session = await pool.getSession()
 
     setTimeout(() => {
@@ -38,6 +36,7 @@ start = async () => {
     console.dir(pool.getStatus(), {depth: 1})
 
 
+    return
     await pool.destroy()
     console.log('destroyed')
 

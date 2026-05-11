@@ -123,6 +123,7 @@ class Process {
 
                 return
             }
+
             // send command
             const opCode = 'process.cwdGet'
             that.writer("*1" + RESP3.CRLF +

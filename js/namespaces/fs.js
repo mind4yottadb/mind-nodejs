@@ -21,7 +21,11 @@ class Fs {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (filename === undefined) {
                 reject(new Error('the filename has not been provided'))
@@ -67,8 +71,6 @@ class Fs {
 
                 return
             }
-
-
 
             if (filename === undefined) {
                 reject(new Error('the filename has not been provided'))
@@ -122,8 +124,6 @@ class Fs {
                 return
             }
 
-
-
             if (filename === undefined) {
                 reject(new Error('the filename has not been provided'))
 
@@ -176,8 +176,6 @@ class Fs {
                 return
             }
 
-
-
             if (path === undefined) {
                 reject(new Error('the path has not been provided'))
 
@@ -229,8 +227,6 @@ class Fs {
                 return
             }
 
-
-
             if (path === undefined) {
                 reject(new Error('the path has not been provided'))
 
@@ -277,7 +273,11 @@ class Fs {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (filename === undefined) {
                 reject(new Error('the filename has not been provided'))
@@ -318,7 +318,11 @@ class Fs {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (filename === undefined) {
                 reject(new Error('the filename has not been provided'))
@@ -372,7 +376,11 @@ class Fs {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (filename === undefined) {
                 reject(new Error('the filename has not been provided'))
@@ -420,7 +428,11 @@ class Fs {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (source === undefined) {
                 reject(new Error('the source has not been provided'))
@@ -474,7 +486,11 @@ class Fs {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (path === undefined) {
                 reject(new Error('the path has not been provided'))
@@ -515,7 +531,11 @@ class Fs {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (path === undefined) {
                 reject(new Error('the path has not been provided'))
@@ -556,7 +576,11 @@ class Fs {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (path === undefined) {
                 reject(new Error('the path has not been provided'))
@@ -597,7 +621,11 @@ class Fs {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (filename === undefined) {
                 reject(new Error('the filename has not been provided'))
@@ -638,7 +666,11 @@ class Fs {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (filename === undefined) {
                 reject(new Error('the filename has not been provided'))

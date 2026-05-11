@@ -11,6 +11,7 @@ const run = async () => {
         uApi: {appName: 'hooks-and-code'}
     })
 
+    console.log(mind.session)
 
     return
 

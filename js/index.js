@@ -37,7 +37,7 @@ module.exports = {
         #socket = null
         hTimer = null
 
-        requiresMind = '0.23.0'
+        requiresMind = '0.24.0'
 
         // namespaces
         server = new nsServer

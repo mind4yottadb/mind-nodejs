@@ -87,20 +87,11 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         // continue with process
         iy = ix
-        for (ix = ix + 1; ix < iy + processLength * 2; ix += 2) {
+        for (ix = ix + 1; ix < iy + processLength * 3; ix += 2) {
             const name = RESP3.parse.simpleString(dataA[ix])
-            console.log(name)
             const strValue = RESP3.parse.simpleString(dataA[ix + 1])
-            Object.defineProperties(that.process, {
-                [RESP3.parse.simpleString(dataA[ix])]: {
-                    value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
-                    enumerable: true,
-                    configurable: true,
-                    writable: false
-                }
-            })
 
-            Object.defineProperties(that.session, {
+            Object.defineProperties(that.process, {
                 [RESP3.parse.simpleString(dataA[ix])]: {
                     value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
                     enumerable: true,

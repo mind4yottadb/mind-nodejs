@@ -258,6 +258,7 @@ module.exports = {
         extendsRemoved = 0
         noMoreSlotsHits = 0
         timeoutExpired = 0
+        remoteDisconnects = 0
 
         constructor(type, size, extension = 0, credentials = {}) {
             if (typeof type !== 'string') {

@@ -29,11 +29,18 @@ module.exports = {
                     try {
                         await session.connect(host, port, username, password, options)
 
-                        that.sessions.push({
+                        const sessionLength = that.sessions.push({
                             session: session,
                             inUse: false,
                             isExtension: false
                         })
+
+                        session.on('disconnect', () => {
+                            that.remoteDisconnects++
+
+                            throw new Error('Session disconnected')
+                        })
+
 
                     } catch (err) {
                         reject(err)

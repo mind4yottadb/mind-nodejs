@@ -51,11 +51,6 @@ module.exports = {
         connect = (host, port, username, password, options = {}) => {
             const that = this
 
-            const hTmeoutTimer = setTimeout(() => {
-                throw new Error('Timeout while trying to connect...')
-
-            }, 1E9)
-
             return new Promise(function (resolve, reject) {
                 // perform validation
                 if (typeof host !== 'string' || host === '') {

@@ -31,13 +31,13 @@ module.exports = {
         // ********************************
         // public methods and properties
         // ********************************
-        connected = false
-        loggedIn = false
-        useTls = false
-        #socket = null
-        hTimer = null
+        connected = false               // true if connected
+        loggedIn = false                // true if logged in
+        useTls = false                  // true if tls is used
+        #socket = null                      // socket object
+        hTimer = null                       // connect timeout timer
 
-        requiresMind = '0.24.0'
+        requiresMind = '0.24.0'         // required server version
 
         // namespaces
         server = new nsServer
@@ -239,26 +239,26 @@ module.exports = {
     },
 
     staticPool: class StaticPool {
-        type = ''
-        size = 0
-        extension = 0
-        extensionInUse = 0
-        sessions = []
-        host = ''
-        port = 0
-        username = ''
-        password = ''
-        options = {}
-        timerTick = false
+        type = ''                         // 'stateful' or 'stateless'
+        size = 0                        // size (in sessions)
+        extension = 0                   // extension size (in sessions)
+        extensionInUse = 0              // how many extension sessions are currently in use
+        sessions = []                     // sessions array
+        host = ''                        // credentials to connect extensions
+        port = 0                        // credentials to connect extensions
+        username = ''                   // credentials to connect extensions
+        password = ''                   // credentials to connect extensions
+        options = {}                        // credentials to connect extensions
+        timerTick = false               // internal timer
 
-        sessionsCreatedOk = 0
-        sessionsCreatedInError = 0
-        extendsCreatedOk = 0
-        extendsCreatedInError = 0
-        extendsRemoved = 0
-        noMoreSlotsHits = 0
-        timeoutExpired = 0
-        remoteDisconnects = 0
+        sessionsCreatedOk = 0           // how many sessions were created
+        sessionsCreatedInError = 0      // how many session got error on creation
+        extendsCreatedOk = 0            // how many extends got created
+        extendsCreatedInError = 0       // how many extends got error on creation
+        extendsRemoved = 0              // how many extends got removed
+        noMoreSlotsHits = 0             // how many times no more slots were available and the getSession() had to wait
+        timeoutExpired = 0              // how many times a timeout expired while getting a session
+        remoteDisconnects = 0           // how many sessions got remotely disconnected
 
         constructor(type, size, extension = 0, credentials = {}) {
             if (typeof type !== 'string') {

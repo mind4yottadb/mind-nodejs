@@ -75,5 +75,28 @@ describe("session.timeSinceConnect()", async () => {
 
         ydb.disconnect()
     });
+})
 
+describe("session.GUID", async () => {
+    it("expect GUID to be 32 chars long", async function () {
+        this.timeout(10000)
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.session.GUID
+        expect(res.length === 36).to.be.true
+
+        ydb.disconnect()
+    });
+})
+
+describe("session.serverPid", async () => {
+    it("expect serverPid to be > 0", async function () {
+        this.timeout(10000)
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.session.serverPid
+        expect(res > 0).to.be.true
+
+        ydb.disconnect()
+    });
 })

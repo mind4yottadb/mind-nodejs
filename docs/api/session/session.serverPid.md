@@ -12,48 +12,6 @@
 ###############################################################*/
 -->
 
-### process.GUID
+### session.serverPid()
 
 ---
-
-**Type**: property / readonly
-
-**Async**: no
-
-**Parameters**:
-<br><br>
-**Returns**: `<string>`
-
----
-
-Returns a unique GUID.
-
----
-
-### EXAMPLES
-
-````js
-import mind4yottadb from 'mind4yottadb'
-
-const mind = new mind4yottadb.session
-
-await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
-
-const pid = mind.process.GUID
-console.log(pid)
-
-mind.disconnect()
-
-````
-
-returns:
-
-````js
-
-pid = 'f0c79dbdf87119a5062ec800b409f966'
-
-````
-
----
-
-[Back](api/namespace.process.md)

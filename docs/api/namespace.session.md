@@ -29,3 +29,7 @@ This namespace allow you to inspect values related to your MIND session.
 
 ---
 
+### Properties
+
+- [GUID](api/session/session.GUID.md)
+- [serverPid](api/session/session.serverPid.md)

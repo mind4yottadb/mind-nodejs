@@ -254,6 +254,69 @@ describe("Pool stateless: allocate / deallocate", async () => {
             pool.destroy()
         })
 
+        it("get 4 session, done() one after 5 seconds, tryo to get session with 1 sec timeout, should error out", async () => {
+            const pool = new mindServer.staticPool('stateless', 2, 1)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+            let status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(2);
+            expect(status.sessionsInUse).to.equal(0);
+            expect(status.sessionsExtended).to.equal(0);
+
+            let session = await pool.getSession()
+            const dir = await session.fs.isDir('/opt')
+            const session2 = await pool.getSession()
+            const session3 = await pool.getSession()
+
+            setTimeout(async () => {
+                session.done()
+                session = null
+
+            }, 5000)
+
+            try {
+                const session4 = await pool.getSession(1000)
+
+            } catch (err) {
+                expect(err.message).to.have.string('timeout expired while trying to get a session')
+            }
+
+            pool.destroy()
+        })
+
+        it("get 4 session, done() one after 5 seconds, tryo to get session with 1 sec timeout, check timeoutExpired prop", async () => {
+            const pool = new mindServer.staticPool('stateless', 2, 1)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+            let status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(2);
+            expect(status.sessionsInUse).to.equal(0);
+            expect(status.sessionsExtended).to.equal(0);
+
+            let session = await pool.getSession()
+            const session2 = await pool.getSession()
+            const session3 = await pool.getSession()
+
+            setTimeout(async () => {
+                session.done()
+                session = null
+
+            }, 5000)
+
+            try {
+                const session4 = await pool.getSession(1000)
+
+            } catch (err) {
+                expect(err.message).to.have.string('timeout expired while trying to get a session')
+
+                expect(pool.timeoutExpired).to.be.greaterThan(0)
+            }
+
+            pool.destroy()
+        })
+
         it("small pool, no extension, randomly get and release sessions, trigger some waitHits in stats", async () => {
             const pool = new mindServer.staticPool('stateless', 2)
 
@@ -463,7 +526,7 @@ describe("Pool stateless: allocate / deallocate", async () => {
 
             }), getRandomInt(10) * 10)
 
-            await sleep(8000)
+            await sleep(9000)
 
             clearInterval(int1)
             clearInterval(int2)

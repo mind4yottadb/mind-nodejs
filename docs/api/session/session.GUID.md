@@ -26,7 +26,7 @@
 
 ---
 
-Returns a unique GUID.
+Returns a unique GUID for the session.
 
 ---
 
@@ -39,8 +39,8 @@ const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const pid = mind.session.GUID
-console.log(pid)
+const GUID = mind.session.GUID
+console.log(GUID)
 
 mind.disconnect()
 
@@ -50,10 +50,10 @@ returns:
 
 ````js
 
-pid = 'f0c79dbdf87119a5062ec800b409f966'
+GUID = 'f0c79dbdf87119a5062ec800b409f966'
 
 ````
 
 ---
 
-[Back](api/namespace.process.md)
+[Back](api/namespace.session.md)

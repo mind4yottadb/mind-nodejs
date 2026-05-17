@@ -912,6 +912,15 @@ describe("fs.stat()", async () => {
         ydb.disconnect()
     })
 
+    it("when a valid path with env var is provided", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.fs.stat('$ydb_dist/plugin/etc/mind')
+        expect(Object.keys(res).length).to.equal(16)
+
+        ydb.disconnect()
+    })
+
 })
 
 describe("fs.rmdir()", async () => {

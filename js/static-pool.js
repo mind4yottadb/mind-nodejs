@@ -41,7 +41,6 @@ module.exports = {
                             throw new Error('Session remotely disconnected')
                         })
 
-
                     } catch (err) {
                         reject(err)
 

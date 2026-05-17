@@ -110,21 +110,37 @@ module.exports = {
                             reject(err)
                         });
                     } catch (err) {
-                        throw err
+                        reject(err)
+
+                        return
                     }
 
                 } else {
                     if ((!options.protocol) || (options && options.protocol === 'tcp')) {
                         // TCP
-                        that.#socket = net.createConnection(port, host, async () => {
-                            socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
-                        })
+                        try {
+                            that.#socket = net.createConnection(port, host, async () => {
+                                socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
+                            })
+
+                        } catch (err) {
+                            reject(err)
+
+                            return
+                        }
 
                     } else {
                         // UDS
-                        that.#socket = net.createConnection(host, async () => {
-                            socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
-                        })
+                        try {
+                            that.#socket = net.createConnection(host, async () => {
+                                socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
+                            })
+
+                        } catch (err) {
+                            reject(err)
+
+                            return
+                        }
                     }
                 }
 
@@ -150,7 +166,6 @@ module.exports = {
 
                             reject(err)
                         })
-
 
                     // force utf-8 encoding
                     lSocket.setEncoding('utf8')
@@ -386,7 +401,17 @@ module.exports = {
         // stateless
         // ******************
         create = async function (host, port, username, password, options = {}) {
-            await pool.sessionsPool.create(this, module, host, port, username, password, options)
+            return new Promise(async (resolve, reject) => {
+                try {
+                    await pool.sessionsPool.create(this, module, host, port, username, password, options)
+
+                    resolve()
+
+                } catch (err) {
+                    reject(err)
+                }
+
+            })
         }
 
         destroy = function () {
@@ -420,6 +445,9 @@ module.exports = {
             return pool.sessionsPool.getStatus(this)
         }
 
+        // ******************
+        // hide internal props in object to programmers
+        // ******************
         hidePropsInObject = function (obj) {
             Object.defineProperties(obj.session, {
                 that: {

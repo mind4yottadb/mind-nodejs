@@ -1,6 +1,6 @@
 /*###############################################################
 #                                                               #
-# Copyright (c) 2025-2026 DnaSoft BV and/or its subsidiaries.   #
+# Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
 #                                                               #
 #   This source code contains the intellectual property         #
@@ -285,7 +285,7 @@ describe("Pool stateless: allocate / deallocate", async () => {
             pool.destroy()
         })
 
-        it("get 4 session, done() one after 5 seconds, tryo to get session with 1 sec timeout, check timeoutExpired prop", async () => {
+        it("get 4 session, done() one after 5 seconds, try to get session with 1 sec timeout, check timeoutExpired prop", async () => {
             const pool = new mindServer.staticPool('stateless', 2, 1)
 
             await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})

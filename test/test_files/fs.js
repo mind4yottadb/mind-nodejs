@@ -981,11 +981,27 @@ describe("fs.rmdir()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.fs.mkdir('/tmp/stef/testrmdir2').catch(err => {
-            })
-            await ydb.fs.rmdir('/tmp/stef/testrmdir2')
+            await ydb.fs.mkdir('/tmp/stef/testrmdir3')
+
+            await ydb.fs.rmdir('/tmp/stef/testrmdir3')
 
         } catch (err) {
+            expect(err.message).to.have.string('shouldn\'t happen')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when path has no files and env var, should succeed", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.mkdir('$ydb_dist/plugin/etc/mind/testrmdir3')
+
+            await ydb.fs.rmdir('$ydb_dist/plugin/etc/mind/testrmdir3')
+
+        } catch (err) {
+            console.log(err.message)
             expect(err.message).to.have.string('shouldn\'t happen')
         }
 
@@ -1047,7 +1063,7 @@ describe("fs.mkdir()", async () => {
         ydb.disconnect()
     })
 
-    it("when path does not exists", async () => {
+    it("when path does not exists, should succeed", async () => {
         const ydb = await createYdbInstance()
 
         try {
@@ -1058,6 +1074,25 @@ describe("fs.mkdir()", async () => {
 
         try {
             const res = await ydb.fs.mkdir('/tmp/stef/testmkdir')
+
+        } catch (err) {
+            expect(err.message).to.have.string('shouldn\'t exist')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when path does not exists and env var is in path, should succeed", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.rmdir('$ydb_dist/plugin/etc/mind/testmkdir')
+
+        } catch (err) {
+        }
+
+        try {
+            const res = await ydb.fs.mkdir('$ydb_dist/plugin/etc/mind/testmkdir')
 
         } catch (err) {
             expect(err.message).to.have.string('shouldn\'t exist')

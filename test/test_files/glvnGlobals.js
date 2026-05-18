@@ -138,6 +138,55 @@ describe("globals.getValue()", async () => {
     });
 })
 
+describe("globals.datatype()", async () => {
+    it("test a not existing node", async () => {
+        const ydb = await createYdbInstance()
+
+        ydb.db.globals.addName('datatypeTest')
+        await ydb.db.globals.datatypeTest.killTree()
+        const res = await ydb.db.globals.datatypeTest.datatype()
+        expect(res).to.have.string('undefined')
+
+        ydb.disconnect()
+    });
+
+    it("test an existing node with int", async () => {
+        const ydb = await createYdbInstance()
+
+        ydb.db.globals.addName('datatypeTest')
+        await ydb.db.globals.datatypeTest.killTree()
+        await ydb.db.globals.datatypeTest.setValue(12)
+        const res = await ydb.db.globals.datatypeTest.datatype()
+        expect(res).to.have.string('int')
+
+        ydb.disconnect()
+    });
+
+    it("test an existing node with float", async () => {
+        const ydb = await createYdbInstance()
+
+        ydb.db.globals.addName('datatypeTest')
+        await ydb.db.globals.datatypeTest.killTree()
+        await ydb.db.globals.datatypeTest.setValue(44.12)
+        const res = await ydb.db.globals.datatypeTest.datatype()
+        expect(res).to.have.string('float')
+
+        ydb.disconnect()
+    });
+
+    it("test an existing node with string", async () => {
+        const ydb = await createYdbInstance()
+
+        ydb.db.globals.addName('datatypeTest')
+        await ydb.db.globals.datatypeTest.killTree()
+        await ydb.db.globals.datatypeTest.setValue('a string...')
+        const res = await ydb.db.globals.datatypeTest.datatype()
+        expect(res).to.have.string('string')
+
+        ydb.disconnect()
+    });
+})
+
 describe("globals.readValue()", async () => {
     it("test a valid global root number", async () => {
         const ydb = await createYdbInstance()

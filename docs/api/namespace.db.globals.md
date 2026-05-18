@@ -36,6 +36,7 @@ Beside the standard M functionality, it supports also JSON and Objects formats t
 - [hasNodes()](api/db.globals/hasNodes.md)
 - [getValue()](api/db.globals/getValue.md)
 - [readValue()](api/db.globals/readValue.md)
+- [datatype()](api/db.globals/datatype.md)
 - [killValue()](api/db.globals/killValue.md)
 - [killTree()](api/db.globals/killTree.md)
 - [getPiece(pieceChar, start, end)](api/db.globals/getPiece.md)

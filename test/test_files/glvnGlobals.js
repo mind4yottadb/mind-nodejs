@@ -1530,3 +1530,49 @@ describe("globals.query()", async function () {
         ydb.disconnect()
     });
 })
+
+describe("globals.toString()", async function () {
+    it("with a plain global", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.db.globals.temp.toString()
+
+        expect(res === '^temp').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with a global and subscripts", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.db.globals.temp._('first sub', 23, 'third').toString()
+
+        expect(res === '^temp("first sub",23,"third")').to.be.true
+
+        ydb.disconnect()
+    });
+})
+
+describe("vars.toString()", async function () {
+
+    it("with a plain var", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const res = await ydb.db.vars.var1.toString()
+
+        expect(res === 'var1').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with a var and subscripts", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const res = await ydb.db.vars.var1._('first sub', 23, 'third').toString()
+
+        expect(res === 'var1("first sub",23,"third")').to.be.true
+
+        ydb.disconnect()
+    });
+
+})

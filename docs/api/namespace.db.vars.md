@@ -26,9 +26,10 @@ Beside the standard M functionality, it supports also JSON and Objects formats t
 
 ### Methods:
 
-- [_](api/db.vars/_.md)
-- [addName](api/db.vars/addName.md)
-- [removeName](api/db.vars/removeName.md)
+- [_()](api/db.vars/_.md)
+- [toString()](api/db.vars/toString.md)
+- [addName()](api/db.vars/addName.md)
+- [removeName()](api/db.vars/removeName.md)
 - [hasValue()](api/db.vars/hasValue.md)
 - [hasNodes()](api/db.vars/hasNodes.md)
 - [getValue()](api/db.vars/getValue.md)

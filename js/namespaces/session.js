@@ -119,6 +119,8 @@ class Sessions {
 
             if (typeof logString !== 'string') {
                 reject(new Error('logString parameter must be a string'))
+
+                return
             }
 
             // send command

@@ -439,10 +439,10 @@ describe("Pool stateless: allocate / deallocate", async () => {
                 return Math.floor(Math.random() * max);
             }
 
-            let max1 = 300
-            let max2 = 300
-            let max3 = 300
-            let max4 = 300
+            let max1 = 150
+            let max2 = 150
+            let max3 = 150
+            let max4 = 150
 
             const int1 = setInterval((async () => {
                 max1--

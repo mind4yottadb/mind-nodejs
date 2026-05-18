@@ -32,6 +32,7 @@ Beside the standard M functionality, it supports also JSON and Objects formats t
 - [removeName()](api/db.vars/removeName.md)
 - [hasValue()](api/db.vars/hasValue.md)
 - [hasNodes()](api/db.vars/hasNodes.md)
+- [merge(glvn)](api/db.vars/merge.md)
 - [getValue()](api/db.vars/getValue.md)
 - [readValue()](api/db.vars/readValue.md)
 - [datatype()](api/db.vars/datatype.md)

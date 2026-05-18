@@ -35,6 +35,7 @@ Beside the standard M functionality, it supports also JSON and Objects formats t
 - [addLock()](api/db.globals/addLock.md)
 - [hasValue()](api/db.globals/hasValue.md)
 - [hasNodes()](api/db.globals/hasNodes.md)
+- [merge(glvn)](api/db.globals/merge.md)
 - [getValue()](api/db.globals/getValue.md)
 - [readValue()](api/db.globals/readValue.md)
 - [datatype()](api/db.globals/datatype.md)

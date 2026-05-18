@@ -11,8 +11,7 @@ const run = async () => {
         uApi: {appName: 'hooks-and-code'}
     })
 
-    mind.db.globals.addName('test')
-    console.log(await mind.db.globals.test.datatype())
+    await mind.session.log('HEY THERE')
 
     return
 

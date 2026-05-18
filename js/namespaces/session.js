@@ -105,6 +105,40 @@ class Sessions {
             })
         })
     }
+
+    log = function (logString = '') {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+            if (typeof logString !== 'string') {
+                reject(new Error('logString parameter must be a string'))
+            }
+
+            // send command
+            const opCode = 'session.log'
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(logString)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                resolve()
+            })
+        })
+    }
 }
 
 module.exports = Sessions

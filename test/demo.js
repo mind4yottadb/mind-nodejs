@@ -13,10 +13,10 @@ const run = async () => {
 
     mind.db.globals.addName('mergeTest')
     mind.db.globals.addName('mergeTest2')
-    await mind.db.globals.mergeTest2.setObject({test: 1, test2: 'this is a test'})
-    await mind.db.globals.mergeTest.merge(mind.db.globals.mergeTest2)
+    //await mind.db.globals.mergeTest2.setObject({test: 1, test2: 'this is a test'})
+    //await mind.db.globals.mergeTest.merge(mind.db.globals.mergeTest2)
 
-    console.log(await mind.db.globals.mergeTest.getObject())
+    console.log(mind.db.globals.mergeTest._("test").toString())
 
     return
 

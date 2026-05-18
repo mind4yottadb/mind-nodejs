@@ -915,6 +915,12 @@ class Glvn {
         })
     }
 
+    toString = function () {
+        const that = this
+
+        return utils.generateGlvn(this)
+    }
+
     _init = function (obj) {
         Object.defineProperties(obj, {
             _path: {

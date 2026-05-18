@@ -83,22 +83,13 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             return
         }
 
-        const processLength = parseInt(dataA[ix].slice(1))
+        const sessionLength = parseInt(dataA[ix].slice(1))
 
-        // continue with process
+        // continue with session
         iy = ix
-        for (ix = ix + 1; ix < iy + processLength * 2; ix += 2) {
+        for (ix = ix + 1; ix < iy + sessionLength * 3; ix += 2) {
             const name = RESP3.parse.simpleString(dataA[ix])
-
             const strValue = RESP3.parse.simpleString(dataA[ix + 1])
-            Object.defineProperties(that.process, {
-                [RESP3.parse.simpleString(dataA[ix])]: {
-                    value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
-                    enumerable: true,
-                    configurable: true,
-                    writable: false
-                }
-            })
 
             Object.defineProperties(that.session, {
                 [RESP3.parse.simpleString(dataA[ix])]: {

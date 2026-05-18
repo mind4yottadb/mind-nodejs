@@ -714,6 +714,31 @@ describe("vars.setObject()", async () => {
         ydb.disconnect()
     });
 
+    it("Empty object", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        await ydb.db.vars.aaa.setObject({})
+
+        const ret = await ydb.db.vars.aaa.getObject()
+        expect(typeof ret === 'object').to.be.true
+        expect(Object.keys(ret).length === 0).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("Empty array", async () => {
+        const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
+
+        await ydb.db.vars.aaa.killTree()
+        await ydb.db.vars.aaa.setObject([])
+
+        const ret = await ydb.db.vars.aaa.getObject()
+        expect(typeof ret === 'object').to.be.true
+        expect(Object.keys(ret).length === 0).to.be.true
+
+        ydb.disconnect()
+    });
     it("valid object", async () => {
         const ydb = await createYdbInstance('test-obj-structure-13-23-3x-desc')
 
@@ -1372,6 +1397,101 @@ describe("globals.query()", async function () {
         let res = await ydb.db.vars.aaa.query('aaa("testNode","test1","ciao")')
 
         expect(res).to.have.string('aaa("testNode","test2")')
+
+        ydb.disconnect()
+    });
+})
+
+describe("vars.toString()", async function () {
+
+    it("with a plain var", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const res = await ydb.db.vars.var1.toString()
+
+        expect(res === 'var1').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with a var and subscripts", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        const res = await ydb.db.vars.var1._('first sub', 23, 'third').toString()
+
+        expect(res === 'var1("first sub",23,"third")').to.be.true
+
+        ydb.disconnect()
+    });
+})
+
+describe("glvn.merge()", async function () {
+    it("merge an object from another var and return it", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        await ydb.db.vars.var2.setObject({test: 1, test2: 'this is a test'})
+        await ydb.db.vars.var1.merge(ydb.db.vars.var2.toString())
+
+        const ret = await ydb.db.vars.var1.getJSON()
+
+        expect(ret === '{"test":1,"test2":"this is a test"}').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("merge an object from another var to a node and return it", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        await ydb.db.vars.var2.setObject({test: 1, test2: 'this is a test'})
+        await ydb.db.vars.var1._('subs').merge(ydb.db.vars.var2.toString())
+
+        const ret = await ydb.db.vars.var1._('subs').getJSON()
+
+        expect(ret === '{"test":1,"test2":"this is a test"}').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("merge from an invalid path var to a node and return it", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        await ydb.db.vars.var1._('subs').merge(ydb.db.vars.var2._('notExist').toString())
+
+        const ret = await ydb.db.vars.var1._('subs').hasNodes()
+        expect(ret).to.be.false
+
+        const ret2 = await ydb.db.vars.var1._('subs').hasValue()
+        expect(ret2).to.be.false
+
+        ydb.disconnect()
+    });
+
+    it("merge an object from another global and return it", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        ydb.db.globals.addName('mergeTest')
+        await ydb.db.globals.mergeTest.killTree()
+        await ydb.db.globals.mergeTest.setObject({test: 1, test2: 'this is a test'})
+        await ydb.db.vars.var1.merge(ydb.db.globals.mergeTest.toString())
+
+        const ret = await ydb.db.vars.var1.getJSON()
+
+        expect(ret === '{"test":1,"test2":"this is a test"}').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("merge an object from another global to a node and return it", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        ydb.db.globals.addName('mergeTest')
+        await ydb.db.globals.mergeTest.killTree()
+        await ydb.db.globals.mergeTest.setObject({test: 1, test2: 'this is a test'})
+        await ydb.db.vars.var1._('subs').merge(ydb.db.globals.mergeTest.toString())
+
+        const ret = await ydb.db.vars.var1._('subs').getJSON()
+
+        expect(ret === '{"test":1,"test2":"this is a test"}').to.be.true
 
         ydb.disconnect()
     });

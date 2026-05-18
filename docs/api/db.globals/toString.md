@@ -12,25 +12,32 @@
 ###############################################################*/
 -->
 
-### process.GUID
+### toString()
+
+Applies to:
+
+- [Globals](../../namespace.db.globals.md)
+- [Vars](../../namespace.db.vars.md)
 
 ---
 
-**Type**: property / readonly
+**Type**: method
 
 **Async**: no
 
 **Parameters**:
 <br><br>
-**Returns**: `<string>`
+**Returns**: `nothing`
 
 ---
 
-Returns a unique GUID.
-
----
+Converts the currently referenced glvn to a string
 
 ### EXAMPLES
+
+---
+
+Extract the glvn path from a global name
 
 ````js
 import mind4yottadb from 'mind4yottadb'
@@ -39,21 +46,18 @@ const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const pid = mind.process.GUID
-console.log(pid)
+await mind.db.globals.addName('testGbl')
+const ret = mind.db.globals.testGbl._('first sub', 34, 'third').toString()
 
 mind.disconnect()
 
 ````
 
-returns:
-
 ````js
-
-pid = 'f0c79dbdf87119a5062ec800b409f966'
-
+ret = '^testGlb("first sub",34,"third")'
 ````
 
 ---
 
-[Back](api/namespace.process.md)
+
+[Back](api/namespace.db.globals.md)

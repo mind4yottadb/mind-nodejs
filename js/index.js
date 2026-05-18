@@ -31,13 +31,13 @@ module.exports = {
         // ********************************
         // public methods and properties
         // ********************************
-        connected = false
-        loggedIn = false
-        useTls = false
-        #socket = null
-        hTimer = null
+        connected = false               // true if connected
+        loggedIn = false                // true if logged in
+        useTls = false                  // true if tls is used
+        #socket = null                      // socket object
+        hTimer = null                       // connect timeout timer
 
-        requiresMind = '0.22.0'
+        requiresMind = '0.24.0'         // required server version
 
         // namespaces
         server = new nsServer
@@ -50,11 +50,6 @@ module.exports = {
 
         connect = (host, port, username, password, options = {}) => {
             const that = this
-
-            const hTmeoutTimer = setTimeout(() => {
-                throw new Error('Timeout while trying to connect...')
-
-            }, 1E9)
 
             return new Promise(function (resolve, reject) {
                 // perform validation
@@ -115,21 +110,37 @@ module.exports = {
                             reject(err)
                         });
                     } catch (err) {
-                        throw err
+                        reject(err)
+
+                        return
                     }
 
                 } else {
                     if ((!options.protocol) || (options && options.protocol === 'tcp')) {
                         // TCP
-                        that.#socket = net.createConnection(port, host, async () => {
-                            socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
-                        })
+                        try {
+                            that.#socket = net.createConnection(port, host, async () => {
+                                socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
+                            })
+
+                        } catch (err) {
+                            reject(err)
+
+                            return
+                        }
 
                     } else {
                         // UDS
-                        that.#socket = net.createConnection(host, async () => {
-                            socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
-                        })
+                        try {
+                            that.#socket = net.createConnection(host, async () => {
+                                socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
+                            })
+
+                        } catch (err) {
+                            reject(err)
+
+                            return
+                        }
                     }
                 }
 
@@ -155,7 +166,6 @@ module.exports = {
 
                             reject(err)
                         })
-
 
                     // force utf-8 encoding
                     lSocket.setEncoding('utf8')
@@ -239,25 +249,26 @@ module.exports = {
     },
 
     staticPool: class StaticPool {
-        type = ''
-        size = 0
-        extension = 0
-        extensionInUse = 0
-        sessions = []
-        waitQueue = []
-        host = ''
-        port = 0
-        username = ''
-        password = ''
-        options = {}
-        timerTick = false
+        type = ''                         // 'stateful' or 'stateless'
+        size = 0                        // size (in sessions)
+        extension = 0                   // extension size (in sessions)
+        extensionInUse = 0              // how many extension sessions are currently in use
+        sessions = []                     // sessions array
+        host = ''                        // credentials to connect extensions
+        port = 0                        // credentials to connect extensions
+        username = ''                   // credentials to connect extensions
+        password = ''                   // credentials to connect extensions
+        options = {}                        // credentials to connect extensions
+        timerTick = false               // internal timer
 
-        sessionsCreatedOk = 0
-        sessionsCreatedInError = 0
-        extendsCreatedOk = 0
-        extendsCreatedInError = 0
-        extendsRemoved = 0
-        noMoreSlotsHits = 0
+        sessionsCreatedOk = 0           // how many sessions were created
+        sessionsCreatedInError = 0      // how many session got error on creation
+        extendsCreatedOk = 0            // how many extends got created
+        extendsCreatedInError = 0       // how many extends got error on creation
+        extendsRemoved = 0              // how many extends got removed
+        noMoreSlotsHits = 0             // how many times no more slots were available and the getSession() had to wait
+        timeoutExpired = 0              // how many times a timeout expired while getting a session
+        remoteDisconnects = 0           // how many sessions got remotely disconnected
 
         constructor(type, size, extension = 0, credentials = {}) {
             if (typeof type !== 'string') {
@@ -284,7 +295,7 @@ module.exports = {
                 throw new Error('Pool size must be at least 2')
             }
 
-            if (extension && typeof extension < 1) {
+            if (extension && extension < 1) {
                 throw new Error('Pool extension must be at least 1')
             }
 
@@ -326,12 +337,12 @@ module.exports = {
             this.size = size
             this.extension = extension
 
-            if (extension) {
-                this.host = extension.host
-                this.port = extension.port
-                this.username = extension.username
-                this.password = extension.password
-                this.options = extension.options
+            if (credentials) {
+                this.host = credentials.host
+                this.port = credentials.port
+                this.username = credentials.username
+                this.password = credentials.password
+                this.options = credentials.options
             }
 
             Object.defineProperties(this, {
@@ -390,7 +401,17 @@ module.exports = {
         // stateless
         // ******************
         create = async function (host, port, username, password, options = {}) {
-            await pool.sessionsPool.create(this, module, host, port, username, password, options)
+            return new Promise(async (resolve, reject) => {
+                try {
+                    await pool.sessionsPool.create(this, module, host, port, username, password, options)
+
+                    resolve()
+
+                } catch (err) {
+                    reject(err)
+                }
+
+            })
         }
 
         destroy = function () {
@@ -424,6 +445,9 @@ module.exports = {
             return pool.sessionsPool.getStatus(this)
         }
 
+        // ******************
+        // hide internal props in object to programmers
+        // ******************
         hidePropsInObject = function (obj) {
             Object.defineProperties(obj.session, {
                 that: {

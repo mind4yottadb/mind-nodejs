@@ -3,7 +3,7 @@ const mindServer = require('../js/index.js')
 
 
 start = async () => {
-    const pool = new mindServer.sessionsPool(3, 1)
+    const pool = new mindServer.staticPool('stateless', 64)
 
     console.dir(pool, {depth: 1})
 
@@ -36,6 +36,7 @@ start = async () => {
     console.dir(pool.getStatus(), {depth: 1})
 
 
+    return
     await pool.destroy()
     console.log('destroyed')
 

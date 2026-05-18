@@ -138,6 +138,55 @@ describe("globals.getValue()", async () => {
     });
 })
 
+describe("globals.datatype()", async () => {
+    it("test a not existing node", async () => {
+        const ydb = await createYdbInstance()
+
+        ydb.db.globals.addName('datatypeTest')
+        await ydb.db.globals.datatypeTest.killTree()
+        const res = await ydb.db.globals.datatypeTest.datatype()
+        expect(res).to.have.string('undefined')
+
+        ydb.disconnect()
+    });
+
+    it("test an existing node with int", async () => {
+        const ydb = await createYdbInstance()
+
+        ydb.db.globals.addName('datatypeTest')
+        await ydb.db.globals.datatypeTest.killTree()
+        await ydb.db.globals.datatypeTest.setValue(12)
+        const res = await ydb.db.globals.datatypeTest.datatype()
+        expect(res).to.have.string('int')
+
+        ydb.disconnect()
+    });
+
+    it("test an existing node with float", async () => {
+        const ydb = await createYdbInstance()
+
+        ydb.db.globals.addName('datatypeTest')
+        await ydb.db.globals.datatypeTest.killTree()
+        await ydb.db.globals.datatypeTest.setValue(44.12)
+        const res = await ydb.db.globals.datatypeTest.datatype()
+        expect(res).to.have.string('float')
+
+        ydb.disconnect()
+    });
+
+    it("test an existing node with string", async () => {
+        const ydb = await createYdbInstance()
+
+        ydb.db.globals.addName('datatypeTest')
+        await ydb.db.globals.datatypeTest.killTree()
+        await ydb.db.globals.datatypeTest.setValue('a string...')
+        const res = await ydb.db.globals.datatypeTest.datatype()
+        expect(res).to.have.string('string')
+
+        ydb.disconnect()
+    });
+})
+
 describe("globals.readValue()", async () => {
     it("test a valid global root number", async () => {
         const ydb = await createYdbInstance()
@@ -700,6 +749,32 @@ describe("globals.setObject()", async () => {
         } catch (err) {
             expect(err.message).to.have.string('obj must be an object')
         }
+
+        ydb.disconnect()
+    });
+
+    it("Empty object", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp.setObject({})
+
+        const ret = await ydb.db.globals.temp.getObject()
+        expect(typeof ret === 'object').to.be.true
+        expect(Object.keys(ret).length === 0).to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("Empty array", async () => {
+        const ydb = await createYdbInstance()
+
+        await ydb.db.globals.temp.killTree()
+        await ydb.db.globals.temp.setObject([])
+
+        const ret = await ydb.db.globals.temp.getObject()
+        expect(typeof ret === 'object').to.be.true
+        expect(Object.keys(ret).length === 0).to.be.true
 
         ydb.disconnect()
     });
@@ -1454,4 +1529,103 @@ describe("globals.query()", async function () {
 
         ydb.disconnect()
     });
+})
+
+describe("globals.toString()", async function () {
+    it("with a plain global", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.db.globals.temp.toString()
+
+        expect(res === '^temp').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("with a global and subscripts", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.db.globals.temp._('first sub', 23, 'third').toString()
+
+        expect(res === '^temp("first sub",23,"third")').to.be.true
+
+        ydb.disconnect()
+    });
+})
+
+describe("glvn.merge()", async function () {
+    it("merge an object from another global and return it", async () => {
+        const ydb = await createYdbInstance()
+
+        ydb.db.globals.addName('mergeTest')
+        ydb.db.globals.addName('mergeTest2')
+        await ydb.db.globals.mergeTest2.setObject({test: 1, test2: 'this is a test'})
+        await ydb.db.globals.mergeTest.merge(ydb.db.globals.mergeTest2.toString())
+
+        const ret = await ydb.db.globals.mergeTest.getJSON()
+
+        expect(ret === '{"test":1,"test2":"this is a test"}').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("merge an object from another global to a node and return it", async () => {
+        const ydb = await createYdbInstance()
+
+        ydb.db.globals.addName('mergeTest3')
+        ydb.db.globals.addName('mergeTest4')
+        await ydb.db.globals.mergeTest4.setObject({test: 1, test2: 'this is a test'})
+        await ydb.db.globals.mergeTest3._('subs').merge(ydb.db.globals.mergeTest4.toString())
+
+        const ret = await ydb.db.globals.mergeTest3._('subs').getJSON()
+
+        expect(ret === '{"test":1,"test2":"this is a test"}').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("merge from an invalid path global to a node and return it", async () => {
+        const ydb = await createYdbInstance()
+
+        ydb.db.globals.addName('mergeTestBad')
+        ydb.db.globals.addName('mergeTestBad2')
+        await ydb.db.globals.mergeTestBad._('subs').merge(ydb.db.globals.mergeTestBad2._('notExist').toString())
+
+        const ret = await ydb.db.globals.mergeTestBad._('subs').hasNodes()
+        expect(ret).to.be.false
+
+        const ret2 = await ydb.db.globals.mergeTestBad._('subs').hasValue()
+        expect(ret2).to.be.false
+
+        ydb.disconnect()
+    });
+
+    it("merge an object from another var and return it", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        ydb.db.globals.addName('mergeTest')
+        await ydb.db.vars.var1.setObject({test: 1, test2: 'this is a test'})
+        await ydb.db.globals.mergeTest.merge(ydb.db.vars.var1.toString())
+
+        const ret = await ydb.db.globals.mergeTest.getJSON()
+
+        expect(ret === '{"test":1,"test2":"this is a test"}').to.be.true
+
+        ydb.disconnect()
+    });
+
+    it("merge an object from another var to a node and return it", async () => {
+        const ydb = await createYdbInstance('test-methods')
+
+        ydb.db.globals.addName('mergeTest3')
+        await ydb.db.vars.var2.setObject({test: 1, test2: 'this is a test'})
+        await ydb.db.globals.mergeTest3._('subs').merge(ydb.db.vars.var2.toString())
+
+        const ret = await ydb.db.globals.mergeTest3._('subs').getJSON()
+
+        expect(ret === '{"test":1,"test2":"this is a test"}').to.be.true
+
+        ydb.disconnect()
+    });
+
 })

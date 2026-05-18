@@ -23,7 +23,11 @@ class Global extends Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (typeof timeout !== 'number') {
                 reject(new Error('timeout must be a number'))
@@ -69,7 +73,11 @@ class Global extends Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (that.objRoot.process._groupLocksFlag === true) {
                 const glvn = utils.generateGlvn(that)

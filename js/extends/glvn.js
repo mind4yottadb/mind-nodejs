@@ -33,7 +33,11 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             // send command
             const opCode = 'glvn.hasValue'
@@ -68,7 +72,11 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             // send command
             const opCode = 'glvn.hasNodes'
@@ -98,12 +106,37 @@ class Glvn {
         })
     }
 
-    getTree = function (path) {
+    datatype = function () {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
 
-    }
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
 
-    setTree = function (path, data) {
+                return
+            }
 
+            // send command
+            const opCode = 'glvn.datatype'
+
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that))
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                resolve(RESP3.parse.simpleString(data))
+            })
+        })
     }
 
     getValue = function () {
@@ -111,7 +144,11 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             // send command
             const opCode = 'glvn.getValue'
@@ -146,7 +183,11 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             // send command
             const opCode = 'glvn.readValue'
@@ -181,7 +222,11 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             // send command
             const opCode = 'glvn.killValue'
@@ -210,7 +255,11 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             // send command
             const opCode = 'glvn.killTree'
@@ -239,7 +288,11 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (typeof pieceChar !== 'string') {
                 reject(new Error('pieceChar must be a string'))
@@ -309,7 +362,11 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (typeof data !== 'string' && typeof data !== 'number') {
                 reject(new Error('data must be either a string or a number'))
@@ -350,7 +407,11 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (typeof data !== 'string' && typeof data !== 'number') {
                 reject(new Error('data must be either a string or a number'))
@@ -422,7 +483,11 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (typeof json !== 'string') {
                 reject(new Error('JSON must be a string'))
@@ -460,7 +525,11 @@ class Glvn {
         let json
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (typeof obj !== 'object' || obj === null) {
                 reject(new Error('obj must be an object'))
@@ -506,7 +575,11 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             // send command
             const opCode = 'glvn.getJSON'
@@ -536,7 +609,11 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             // send command
             const opCode = 'glvn.getJSON'
@@ -566,14 +643,22 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (typeof incrementBy !== 'number') {
                 reject(new Error('incrementBy must be a number'))
+
+                return
             }
 
             if (incrementBy === 0 || incrementBy < 0) {
                 reject(new Error('incrementBy must be a positive number'))
+
+                return
             }
 
             // send command
@@ -610,14 +695,22 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (typeof decrementBy !== 'number') {
                 reject(new Error('decrementBy must be a number'))
+
+                return
             }
 
             if (decrementBy === 0 || decrementBy < 0) {
                 reject(new Error('decrementBy must be a positive number'))
+
+                return
             }
 
             // send command
@@ -654,10 +747,16 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (typeof findValue !== 'number' && typeof findValue !== 'string') {
                 reject(new Error('findValue must be a number or a string'))
+
+                return
             }
 
             // send command
@@ -694,10 +793,16 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (typeof findValue !== 'number' && typeof findValue !== 'string') {
                 reject(new Error('findValue must be a number or a string'))
+
+                return
             }
 
             // send command
@@ -734,10 +839,16 @@ class Glvn {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (glvn && typeof glvn !== 'string') {
                 reject(new Error('glvn must be a string'))
+
+                return
             }
 
             // send command
@@ -764,6 +875,48 @@ class Glvn {
                 }
             })
         })
+    }
+
+    merge = function (glvn = undefined) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
+
+            if (glvn && typeof glvn !== 'string') {
+                reject(new Error('glvn must be a string'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'glvn.merge'
+
+            that.writer("*3" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that)) +
+                RESP3.build.blob(glvn || '')
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+                }
+
+                resolve()
+            })
+        })
+    }
+
+    toString = function () {
+        return utils.generateGlvn(this)
     }
 
     _init = function (obj) {

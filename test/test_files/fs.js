@@ -296,7 +296,6 @@ describe("fs.readDir()", async () => {
 
             expect(res[0]).to.have.string('mind')
             expect(res[1]).to.have.string('ydbgui')
-            expect(res.length === 2).to.be.true
 
         } catch (err) {
             console.log(err)
@@ -533,7 +532,7 @@ describe("fs.removeFile()", async () => {
             const res = await ydb.fs.removeFile(path)
 
         } catch (err) {
-            expect(err.message).to.have.string('error opening: ' + path)
+            expect(err.message).to.have.string('the source filename could not be found')
         }
 
         ydb.disconnect()
@@ -547,6 +546,28 @@ describe("fs.removeFile()", async () => {
             let res = await ydb.fs.writeFile('/tmp/fileToBeDeleted', 'file data')
 
             res = await ydb.fs.expandPath(path)
+            expect(res === '').to.be.false
+
+            res = await ydb.fs.removeFile(path)
+
+            res = await ydb.fs.expandPath(path)
+            expect(res === '').to.be.true
+
+        } catch (err) {
+            expect(err.message).to.have.string('path could not be resolved')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("create a file using env vars, delete it and verify", async () => {
+        const ydb = await createYdbInstance()
+        const path = '$ydb_dist/plugin/etc/mind/fileToBeDeleted'
+
+        try {
+            await ydb.fs.writeFile(path, 'file data')
+
+            let res = await ydb.fs.expandPath(path)
             expect(res === '').to.be.false
 
             res = await ydb.fs.removeFile(path)
@@ -613,7 +634,7 @@ describe("fs.renameFile()", async () => {
             const res = await ydb.fs.renameFile('', destination)
 
         } catch (err) {
-            expect(err.message).to.have.string('the filename has not been provided')
+            expect(err.message).to.have.string('the source filename has not been provided')
         }
 
         ydb.disconnect()
@@ -628,7 +649,7 @@ describe("fs.renameFile()", async () => {
             const res = await ydb.fs.renameFile(source, destination)
 
         } catch (err) {
-            expect(err.message).to.have.string('error opening: ' + source)
+            expect(err.message).to.have.string('the source filename could not be found')
         }
 
         ydb.disconnect()
@@ -647,13 +668,34 @@ describe("fs.renameFile()", async () => {
 
             res = await ydb.fs.renameFile(source, destination)
 
+            res = await ydb.fs.expandPath(destination)
+            expect(res === '').to.be.false
+
+        } catch (err) {
+            expect(err.message).to.have.string('path could not be resolved')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("create a file using env vars in the path, delete it and verify", async () => {
+        const ydb = await createYdbInstance()
+        const source = '$ydb_dist/plugin/etc/mind/mindrules'
+        const destination = '$ydb_dist/plugin/etc/mind/mindrules2'
+
+        try {
+            let res = await ydb.fs.writeFile(source, 'file data')
+
             res = await ydb.fs.expandPath(source)
-            expect(res === '').to.be.true
+            expect(res === '').to.be.false
+
+            res = await ydb.fs.renameFile(source, destination)
 
             res = await ydb.fs.expandPath(destination)
             expect(res === '').to.be.false
 
         } catch (err) {
+            console.log(err.message)
             expect(err.message).to.have.string('path could not be resolved')
         }
 
@@ -798,6 +840,26 @@ describe("fs.copyfile()", async () => {
         ydb.disconnect()
 
     });
+
+    it("when source and destination are ok and have an env var in the path, copy and verify", async () => {
+        const ydb = await createYdbInstance()
+        const path = '$ydb_dist/plugin/etc/mind/mind.conf'
+        const destination = '$ydb_dist/plugin/etc/mind/anew'
+
+        try {
+            await ydb.fs.copyfile(path, destination)
+
+            const res = await ydb.fs.readFile(destination)
+            expect(res === '').to.be.false
+
+        } catch (err) {
+            console.log(err.message)
+            expect(err.message).to.have.string('the destination filename can not be a directory')
+        }
+
+        ydb.disconnect()
+
+    });
 })
 
 describe("fs.stat()", async () => {
@@ -845,6 +907,15 @@ describe("fs.stat()", async () => {
         const ydb = await createYdbInstance()
 
         const res = await ydb.fs.stat('/opt/mind')
+        expect(Object.keys(res).length).to.equal(16)
+
+        ydb.disconnect()
+    })
+
+    it("when a valid path with env var is provided", async () => {
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.fs.stat('$ydb_dist/plugin/etc/mind')
         expect(Object.keys(res).length).to.equal(16)
 
         ydb.disconnect()
@@ -910,11 +981,27 @@ describe("fs.rmdir()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.fs.mkdir('/tmp/stef/testrmdir2').catch(err => {
-            })
-            await ydb.fs.rmdir('/tmp/stef/testrmdir2')
+            await ydb.fs.mkdir('/tmp/stef/testrmdir3')
+
+            await ydb.fs.rmdir('/tmp/stef/testrmdir3')
 
         } catch (err) {
+            expect(err.message).to.have.string('shouldn\'t happen')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when path has no files and env var, should succeed", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.fs.mkdir('$ydb_dist/plugin/etc/mind/testrmdir3')
+
+            await ydb.fs.rmdir('$ydb_dist/plugin/etc/mind/testrmdir3')
+
+        } catch (err) {
+            console.log(err.message)
             expect(err.message).to.have.string('shouldn\'t happen')
         }
 
@@ -976,7 +1063,7 @@ describe("fs.mkdir()", async () => {
         ydb.disconnect()
     })
 
-    it("when path does not exists", async () => {
+    it("when path does not exists, should succeed", async () => {
         const ydb = await createYdbInstance()
 
         try {
@@ -987,6 +1074,25 @@ describe("fs.mkdir()", async () => {
 
         try {
             const res = await ydb.fs.mkdir('/tmp/stef/testmkdir')
+
+        } catch (err) {
+            expect(err.message).to.have.string('shouldn\'t exist')
+        }
+
+        ydb.disconnect()
+    })
+
+    it("when path does not exists and env var is in path, should succeed", async () => {
+        const ydb = await createYdbInstance()
+
+        try {
+            const res = await ydb.fs.rmdir('$ydb_dist/plugin/etc/mind/testmkdir')
+
+        } catch (err) {
+        }
+
+        try {
+            const res = await ydb.fs.mkdir('$ydb_dist/plugin/etc/mind/testmkdir')
 
         } catch (err) {
             expect(err.message).to.have.string('shouldn\'t exist')

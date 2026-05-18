@@ -112,13 +112,16 @@ module.exports = {
     },
 
     validateGlvnPath: path => {
+        let cnt = -1
+
         for (const sub of path) {
+            cnt++
             if (typeof sub !== 'string' && typeof sub !== 'number') {
-                throw new Error('Subpath must be a string or number')
+                throw new Error('Subpath: ' + cnt + ' must be a string or number')
             }
 
             if (typeof sub === 'string' && sub === '') {
-                throw new Error('String in path is empty')
+                throw new Error('String in path position: ' + cnt + ' is empty')
             }
         }
     },

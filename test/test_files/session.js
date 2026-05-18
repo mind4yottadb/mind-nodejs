@@ -75,5 +75,109 @@ describe("session.timeSinceConnect()", async () => {
 
         ydb.disconnect()
     });
-
 })
+
+describe("session.GUID", async () => {
+    it("expect GUID to be 32 chars long", async function () {
+        this.timeout(10000)
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.session.GUID
+        expect(res.length === 36).to.be.true
+
+        ydb.disconnect()
+    });
+})
+
+describe("session.serverPid", async () => {
+    it("expect serverPid to be > 0", async function () {
+        this.timeout(10000)
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.session.serverPid
+        expect(res > 0).to.be.true
+
+        ydb.disconnect()
+    });
+})
+
+describe("session.log()", async () => {
+    it("pass an object as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.log({a: 2})
+
+        } catch (err) {
+            expect(err.message).to.have.string('logString parameter must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("pass an array as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.log([{a: 2}])
+
+        } catch (err) {
+            expect(err.message).to.have.string('logString parameter must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("pass a boolean as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.log(false)
+
+        } catch (err) {
+            expect(err.message).to.have.string('logString parameter must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("pass null as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.log(null)
+
+        } catch (err) {
+            expect(err.message).to.have.string('logString parameter must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("pass empty string", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.log()
+
+        } catch (err) {
+            expect(err.message).to.have.string('logString parameter must be a string')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("pass string", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.log('test')
+
+        } catch (err) {
+            expect(err.message).to.have.string('logString parameter must be a string')
+        }
+
+        ydb.disconnect()
+    });
+})
+

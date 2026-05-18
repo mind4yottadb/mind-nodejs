@@ -1,28 +1,26 @@
 const {exit} = require('node:process')
 const mind4yottadb = require('../js/index.js')
 
-const mind = new mind4yottadb
+const mind = new mind4yottadb.session
 
 
 const run = async () => {
     await mind.connect('127.0.0.1', 10000, "admin", "admin", {
         useTls: false,
         tlsRejectSelfSigned: false,
-        uApi: {appName: 'bhaskar'}
+        uApi: {appName: 'hooks-and-code'}
     })
 
-    const myObj = {
-        test1: 'a string',
-        myData: {
-            testarray: [
-                'aaaa',
-                'bbb',
-                'ccc'
-            ]
-        }
-    }
+    mind.db.globals.addName('mergeTest')
+    mind.db.globals.addName('mergeTest2')
+    //await mind.db.globals.mergeTest2.setObject({test: 1, test2: 'this is a test'})
+    //await mind.db.globals.mergeTest.merge(mind.db.globals.mergeTest2)
 
-    await mind.db.vars.test1.setValue('test')
+    console.log(mind.db.globals.mergeTest._("test").toString())
+
+    return
+
+    await mind.soTest.triggerError()
 
     //mind.db.globals.addName("test")
     //const gbl = mind.db.globals.test

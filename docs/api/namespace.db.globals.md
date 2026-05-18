@@ -27,15 +27,18 @@ Beside the standard M functionality, it supports also JSON and Objects formats t
 
 ### Methods:
 
-- [_](api/db.globals/_.md)
-- [addName](api/db.globals/addName.md)
-- [removeName](api/db.globals/removeName.md)
-- [removeLock](api/db.globals/removeLock.md)
-- [addLock](api/db.globals/addLock.md)
+- [_()](api/db.globals/_.md)
+- [toString()](api/db.globals/toString.md)
+- [addName()](api/db.globals/addName.md)
+- [removeName()](api/db.globals/removeName.md)
+- [removeLock()](api/db.globals/removeLock.md)
+- [addLock()](api/db.globals/addLock.md)
 - [hasValue()](api/db.globals/hasValue.md)
 - [hasNodes()](api/db.globals/hasNodes.md)
+- [merge(glvn)](api/db.globals/merge.md)
 - [getValue()](api/db.globals/getValue.md)
 - [readValue()](api/db.globals/readValue.md)
+- [datatype()](api/db.globals/datatype.md)
 - [killValue()](api/db.globals/killValue.md)
 - [killTree()](api/db.globals/killTree.md)
 - [getPiece(pieceChar, start, end)](api/db.globals/getPiece.md)

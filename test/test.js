@@ -2,6 +2,12 @@ const {exit} = require('node:process')
 const mindServer = require('../js/index.js')
 
 const mind = new mindServer.session
+const mind2 = new mindServer.session
+const mind3 = new mindServer.session
+const mind4 = new mindServer.session
+const mind5 = new mindServer.session
+const mind6 = new mindServer.session
+const mind7 = new mindServer.session
 
 
 const run = async () => {
@@ -10,7 +16,7 @@ const run = async () => {
         useTls: false,
         tlsRejectSelfSigned: false,
         connectTimeout: 10000,
-        uApi: {appName: ''},
+        uApi: {appName: 'ehs'},
         db: {
             globals: [
                 'globalTest', 'myglobal2', 'stef'
@@ -22,7 +28,123 @@ const run = async () => {
         }
     )
 
-    console.log(mind)
+    await mind2.connect('127.0.0.1', 10000, "admin", "admin", {
+        useTls: false,
+        tlsRejectSelfSigned: false,
+        connectTimeout: 10000,
+        uApi: {appName: 'ehs'},
+        db: {
+            globals: [
+                'globalTest', 'myglobal2', 'stef'
+            ]
+        },
+    }).catch(err => {
+            console.log(err.message)
+            exit()
+        }
+    )
+    await mind3.connect('127.0.0.1', 10000, "admin", "admin", {
+        useTls: false,
+        tlsRejectSelfSigned: false,
+        connectTimeout: 10000,
+        uApi: {appName: 'ehs'},
+        db: {
+            globals: [
+                'globalTest', 'myglobal2', 'stef'
+            ]
+        },
+    }).catch(err => {
+            console.log(err.message)
+            exit()
+        }
+    )
+
+    await mind4.connect('127.0.0.1', 10000, "admin", "admin", {
+        useTls: false,
+        tlsRejectSelfSigned: false,
+        connectTimeout: 10000,
+        uApi: {appName: 'ehs'},
+        db: {
+            globals: [
+                'globalTest', 'myglobal2', 'stef'
+            ]
+        },
+    }).catch(err => {
+            console.log(err.message)
+            exit()
+        }
+    )
+    await mind5.connect('127.0.0.1', 10000, "admin", "admin", {
+        useTls: false,
+        tlsRejectSelfSigned: false,
+        connectTimeout: 10000,
+        uApi: {appName: 'ehs'},
+        db: {
+            globals: [
+                'globalTest', 'myglobal2', 'stef'
+            ]
+        },
+    }).catch(err => {
+            console.log(err.message)
+            exit()
+        }
+    )
+
+    await mind6.connect('127.0.0.1', 10000, "admin", "admin", {
+        useTls: false,
+        tlsRejectSelfSigned: false,
+        connectTimeout: 10000,
+        uApi: {appName: 'ehs'},
+        db: {
+            globals: [
+                'globalTest', 'myglobal2', 'stef'
+            ]
+        },
+    }).catch(err => {
+            console.log(err.message)
+            exit()
+        }
+    )
+
+    await mind7.connect('127.0.0.1', 10000, "admin", "admin", {
+        useTls: false,
+        tlsRejectSelfSigned: false,
+        connectTimeout: 10000,
+        uApi: {appName: 'ehs'},
+        db: {
+            globals: [
+                'globalTest', 'myglobal2', 'stef'
+            ]
+        },
+    }).catch(err => {
+            console.log(err.message)
+            exit()
+        }
+    )
+
+    mind.on('disconnect', () => {
+        console.log('disconnected')
+    })
+
+    const before = new Date()
+    let ret
+    for (let i = 0; i < 100; i++) {
+        const [a, b, c, d, e, f, g] = await Promise.all([
+            mind.EHS.login(),
+            mind2.EHS.login(),
+            mind3.EHS.login(),
+            mind4.EHS.login(),
+            mind5.EHS.login(),
+            mind6.EHS.login(),
+            mind7.EHS.login(),
+        ])
+        //console.log(a)
+    }
+    const after = new Date()
+    console.log(after - before)
+
+
+    //console.log(mind)
 
     return
 

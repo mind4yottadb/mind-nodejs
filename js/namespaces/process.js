@@ -20,7 +20,11 @@ class Process {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (command === '') {
                 reject(new Error('the command has not been provided'))
@@ -65,7 +69,11 @@ class Process {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (command === '') {
                 reject(new Error('the command has not been provided'))
@@ -110,7 +118,11 @@ class Process {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             // send command
             const opCode = 'process.cwdGet'
@@ -135,8 +147,11 @@ class Process {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
 
+                return
+            }
             if (path === '') {
                 reject(new Error('the path has not been provided'))
 
@@ -173,7 +188,11 @@ class Process {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             // send command
             const opCode = 'process.memUsage'
@@ -205,7 +224,11 @@ class Process {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             // send command
             const opCode = 'process.getEnvVars'
@@ -237,7 +260,11 @@ class Process {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             // send command
             const opCode = 'process.showLocks'
@@ -272,7 +299,11 @@ class Process {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             // send command
             const opCode = 'process.removeAllLocks'
@@ -306,7 +337,11 @@ class Process {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (that._groupLocksFlag === false) {
                 reject(new Error('No lock group started, execute groupLocks() first'))
@@ -353,7 +388,11 @@ class Process {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) reject(new Error('Not logged in'))
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error('Not logged in'))
+
+                return
+            }
 
             if (typeof message !== 'string') {
                 reject(new Error('message must be a string'))

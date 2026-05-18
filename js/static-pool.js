@@ -29,16 +29,23 @@ module.exports = {
                     try {
                         await session.connect(host, port, username, password, options)
 
+                        const sessionLength = that.sessions.push({
+                            session: session,
+                            inUse: false,
+                            isExtension: false
+                        })
+
+                        session.on('disconnect', () => {
+                            that.remoteDisconnects++
+
+                            throw new Error('Session remotely disconnected')
+                        })
+
                     } catch (err) {
                         reject(err)
 
                         return
                     }
-                    that.sessions.push({
-                        session: session,
-                        inUse: false,
-                        isExtension: false
-                    })
                 }
 
                 that.host = host
@@ -56,7 +63,7 @@ module.exports = {
                 return new Error('This function is not available is stateful mode')
             }
 
-            that.sessions.forEach(async session => session.session.disconnect())
+            that.sessions.forEach(async session => await session.session.disconnect())
 
             that.sessions = []
         },
@@ -83,6 +90,8 @@ module.exports = {
                         }
                     })
 
+                    that.sessionsCreatedOk++
+
                     that.hidePropsInObject(freeSlots[0])
 
                     resolve(freeSlots[0].session)
@@ -98,6 +107,8 @@ module.exports = {
                         await session.connect(that.host, that.port, that.username, that.password, that.options)
 
                     } catch (err) {
+                        that.extendsCreatedInError++
+
                         reject(err.message)
 
                         return
@@ -111,6 +122,8 @@ module.exports = {
 
                     that.sessions.push(newSession)
 
+                    that.extendsCreatedOk++
+
                     Object.assign(newSession.session, {
                         that: that,
                         ix: that.sessions.length - 1,
@@ -122,6 +135,8 @@ module.exports = {
                             this.that.sessions.splice(this.ix, 1)
 
                             this.that.extensionInUse--
+
+                            that.extendsRemoved++
 
                             this.poolSlot.inUse = false
                         }
@@ -136,11 +151,17 @@ module.exports = {
                     return
                 }
 
+                that.noMoreSlotsHits++
+
+                that.timerTick -= false
+
                 // do we have a timeout?
                 let hTimeout = 0
                 if (timeout > 0) {
                     // setup main timer
                     hTimeout = setTimeout(async () => {
+                        that.timeoutExpired++
+
                         reject(new Error('timeout expired while trying to get a session'))
 
                     }, timeout)
@@ -178,6 +199,8 @@ module.exports = {
 
                         freeSlots[0].inUse = true
 
+                        that.sessionsCreatedOk++
+
                         resolve(freeSlots[0].session)
 
                         return
@@ -197,6 +220,8 @@ module.exports = {
                             await session.connect(that.host, that.port, that.username, that.password, that.options)
 
                         } catch (err) {
+                            that.extendsCreatedInError++
+
                             reject(err.message)
 
                             return
@@ -210,6 +235,8 @@ module.exports = {
 
                         that.sessions.push(newSession)
 
+                        that.extendsCreatedOk++
+
                         Object.assign(newSession.session, {
                             that: that,
                             ix: that.sessions.length - 1,
@@ -219,6 +246,8 @@ module.exports = {
                                 this.that.sessions.splice(this.ix, 1)
 
                                 this.that.extensionInUse--
+
+                                that.extendsRemoved++
 
                                 this.poolSlot.inUse = false
                             }
@@ -283,7 +312,8 @@ module.exports = {
                     extendsCreatedOk: that.extendsCreatedOk,
                     extendsCreatedInError: that.extendsCreatedInError,
                     extendsRemoved: that.extendsRemoved,
-                    noMoreSlotsHits: that.noMoreSlotsHits
+                    noMoreSlotsHits: that.noMoreSlotsHits,
+                    timeoutExpired: that.timeoutExpired
                 }
             }
         }

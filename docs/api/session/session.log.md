@@ -12,25 +12,34 @@
 ###############################################################*/
 -->
 
-### session.GUID
+### session.log(logString)
 
 ---
 
-**Type**: property / readonly
+**Type**: method
 
-**Async**: no
+**Async**: yes, returns a Promise
 
 **Parameters**:
-<br><br>
-**Returns**: `<string>`
+
+| Name        | Datatype | Optional | Description                                                     |
+|-------------|:--------:|:--------:|-----------------------------------------------------------------|
+| `logString` |  string  |   Yes    | the string to be logged. If omitted, it will be an empty string |
+
+<br>
+**Returns**: `Promise<>` 
 
 ---
 
-Returns a unique GUID for the session.
+Dumps the provided string to the MIND server log.
 
----
+It will ALWAYS be logged, also when the logging-level is set to none.
 
 ### EXAMPLES
+
+---
+
+Reads statistics, reset them and read them again
 
 ````js
 import mind4yottadb from 'mind4yottadb'
@@ -39,21 +48,13 @@ const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-const GUID = mind.session.GUID
-console.log(GUID)
+await mind.session.log('This is a string')
 
 mind.disconnect()
-
-````
-
-returns:
-
-````js
-
-GUID = 'f0c79dbdf87119a5062ec800b409f966'
-
 ````
 
 ---
+
+
 
 [Back](api/namespace.session.md)

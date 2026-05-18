@@ -25,6 +25,7 @@ This namespace allow you to inspect values related to your MIND session.
 - [stats()](api/session/session.stats.md)
 - [resetStats()](api/session/session.resetStats.md)
 - [timeSinceConnect()](api/session/session.timeSinceConnect.md)
+- [log()](api/session/session.log.md)
 
 
 ---

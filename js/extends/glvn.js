@@ -106,12 +106,37 @@ class Glvn {
         })
     }
 
-    getTree = function (path) {
+    datatype = function () {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
 
-    }
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error('Not logged in'))
 
-    setTree = function (path, data) {
+                return
+            }
 
+            // send command
+            const opCode = 'glvn.datatype'
+
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(utils.generateGlvn(that))
+            );
+
+            that._path = ''
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                resolve(RESP3.parse.simpleString(data))
+            })
+        })
     }
 
     getValue = function () {

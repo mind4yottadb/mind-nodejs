@@ -5,18 +5,20 @@ const mind = new mind4yottadb.session
 
 
 const run = async () => {
-    await mind.connect('127.0.0.1', 10000, "admin", "admin", {
+    await mind.connect('127.0.0.1', 10001, "admin", "admin", {
         useTls: false,
         tlsRejectSelfSigned: false,
-        uApi: {appName: 'hooks-and-code'}
+        uApi: {appName: 'remote-vista'}
     })
 
-    mind.db.globals.addName('mergeTest')
-    mind.db.globals.addName('mergeTest2')
+    const ret = await mind.EHS.login("PRO1234", "PRO1234!!", "HMP UI CONTEXT")
+
+    console.log(ret)
+
     //await mind.db.globals.mergeTest2.setObject({test: 1, test2: 'this is a test'})
     //await mind.db.globals.mergeTest.merge(mind.db.globals.mergeTest2)
 
-    console.log(mind.db.globals.mergeTest._("test").toString())
+    exit()
 
     return
 

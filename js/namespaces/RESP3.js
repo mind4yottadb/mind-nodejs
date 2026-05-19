@@ -72,7 +72,6 @@ class RESP3 {
         },
 
         returns: function (str, returnDatatype) {
-
             let type = str.charAt(0)
 
             if (type === '') {
@@ -101,22 +100,11 @@ class RESP3 {
 
                 case '|':
                     if (returnDatatype === 'object') {
-                        console.log(str)
                         return JSON.parse(str.slice(6 + str.indexOf('\r\n'), -2))
 
                     } else {
                         return str.slice(6 + str.indexOf('\r\n'), -2)
                     }
-                /*
-                if (returnDatatype === 'object') {
-                    const str2 = str.slice(5, -2)
-                    return JSON.parse(str2)
-
-                } else {
-                    return str.slice(5 , -2)
-                }
-
-                 */
 
                 default :
                     return this.simpleError('+INVALID RESP3 datatype')

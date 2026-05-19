@@ -101,6 +101,7 @@ class RESP3 {
 
                 case '|':
                     if (returnDatatype === 'object') {
+                        console.log(str)
                         return JSON.parse(str.slice(6 + str.indexOf('\r\n'), -2))
 
                     } else {

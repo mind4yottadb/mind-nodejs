@@ -87,7 +87,7 @@ module.exports = {
                 }
 
                 let hTimer = that.hTimer
-                if (options && options.connectTimeout === 0) {
+                if ((options.connectTimeout && options.connectTimeout === 0) || options.connectTimeout === undefined) {
                     hTimer = that.hTimer = null
 
                 } else {

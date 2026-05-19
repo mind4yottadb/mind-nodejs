@@ -73,6 +73,12 @@ class RESP3 {
 
         returns: function (str, returnDatatype) {
             let type = str.charAt(0)
+
+            if (type === '') {
+                type = '|'
+                str = '\r\n' + str.slice(str.indexOf('\n') + 1)
+            }
+
             switch (type) {
                 case '+':
                     return this.simpleString(str)

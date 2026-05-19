@@ -26,6 +26,8 @@ const pool = require('./static-pool')
 const login = require('./login')
 const utils = require('./utils')
 
+const requiredMind = '0.24.0'         // required server version
+
 module.exports = {
     session: class mind extends EventEmitter {
         // ********************************
@@ -37,7 +39,7 @@ module.exports = {
         #socket = null                      // socket object
         hTimer = null                       // connect timeout timer
 
-        requiresMind = '0.24.0'         // required server version
+        requiresMind = requiredMind         // required server version
 
         // namespaces
         server = new nsServer
@@ -85,7 +87,7 @@ module.exports = {
                 }
 
                 let hTimer = that.hTimer
-                if (options && options.connectTimeout === 0) {
+                if ((options.connectTimeout && options.connectTimeout === 0) || options.connectTimeout === undefined) {
                     hTimer = that.hTimer = null
 
                 } else {

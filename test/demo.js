@@ -11,9 +11,41 @@ const run = async () => {
         uApi: {appName: 'remote-vista'}
     })
 
-    const ret = await mind.EHS.login("PRO1234", "PRO1234!!", "HMP UI CONTEXT")
+    const pool = new mind4yottadb.staticPool('stateless', 2)
 
-    console.log(ret)
+    await pool.create('127.0.0.1', 10001, 'admin', 'admin', {
+        useTls: false,
+        tlsRejectSelfSigned: false,
+        uApi: {appName: 'remote-vista'}
+    })
+
+    const s1 = await pool.getSession()
+    const s2 = await pool.getSession()
+
+    console.dir(s1, {depth: 2})
+
+    const ret = await s1.EHS.login("CAS123", "CAS123..", "HMP UI CONTEXT")
+
+    console.dir(ret, {depth: 20})
+
+    const ret3 = await s2.EHS.executeRpc(ret[3].guid, "XUS DIVISION GET", {})
+    console.dir(ret3)
+
+    const ret2 = await s2.EHS.executeRpc(ret[3].guid, "ORWPT LIST ALL",
+        [
+            {
+                type: "SINGLE VALUE",
+                value: ""
+            },
+            {
+                type: "SINGLE VALUE",
+                value: -1
+            }
+        ]
+    )
+
+    console.dir(ret2, {depth: 20})
+
 
     //await mind.db.globals.mergeTest2.setObject({test: 1, test2: 'this is a test'})
     //await mind.db.globals.mergeTest.merge(mind.db.globals.mergeTest2)

@@ -17,12 +17,6 @@ module.exports = {
         // ******************
         create: async function (that, classModule, host, port, username, password, options) {
             return new Promise(async (resolve, reject) => {
-                if (that.type !== 'stateless') {
-                    reject(new Error('This function is not available is stateful mode'))
-
-                    return
-                }
-
                 for (let ix = 0; ix < that.size; ix++) {
                     const session = new classModule.exports.session
 
@@ -59,10 +53,6 @@ module.exports = {
         },
 
         destroy: function (that) {
-            if (that.type !== 'stateless') {
-                return new Error('This function is not available is stateful mode')
-            }
-
             that.sessions.forEach(async session => await session.session.disconnect())
 
             that.sessions = []
@@ -70,10 +60,6 @@ module.exports = {
 
         getSessions: async function (that, classModule, timeout) {
             return new Promise(async (resolve, reject) => {
-                if (that.type !== 'stateless') {
-                    return new Error('This function is not available is stateful mode')
-                }
-
                 const freeSlots = that.sessions.filter(session => session.inUse === false)
                 let hInterval = null
 
@@ -263,6 +249,28 @@ module.exports = {
             })
         },
 
+        getStatus: function (that) {
+            const sessionsInUse = that.sessions.filter(session => session.inUse === true)
+            const sessionsExtended = that.sessions.filter(session => session.isExtension === true)
+            const sessionsTotal = that.sessions.length
+
+            return {
+                sessionsTotal: sessionsTotal,
+                sessionsExtended: sessionsExtended.length,
+                sessionsInUse: sessionsInUse.length,
+                stats: {
+                    sessionsCreatedOk: that.sessionsCreatedOk,
+                    sessionsCreatedInError: that.sessionsCreatedInError,
+                    extendsCreatedOk: that.extendsCreatedOk,
+                    extendsCreatedInError: that.extendsCreatedInError,
+                    extendsRemoved: that.extendsRemoved,
+                    noMoreSlotsHits: that.noMoreSlotsHits,
+                    timeoutExpired: that.timeoutExpired
+                }
+            }
+        }
+    },
+    dynamicPool: {
         // ******************
         // stateful
         // ******************
@@ -297,38 +305,5 @@ module.exports = {
             })
         },
 
-        getStatus: function (that) {
-            const sessionsInUse = that.sessions.filter(session => session.inUse === true)
-            const sessionsExtended = that.sessions.filter(session => session.isExtension === true)
-            const sessionsTotal = that.sessions.length
-
-            return {
-                sessionsTotal: sessionsTotal,
-                sessionsExtended: sessionsExtended.length,
-                sessionsInUse: sessionsInUse.length,
-                stats: {
-                    sessionsCreatedOk: that.sessionsCreatedOk,
-                    sessionsCreatedInError: that.sessionsCreatedInError,
-                    extendsCreatedOk: that.extendsCreatedOk,
-                    extendsCreatedInError: that.extendsCreatedInError,
-                    extendsRemoved: that.extendsRemoved,
-                    noMoreSlotsHits: that.noMoreSlotsHits,
-                    timeoutExpired: that.timeoutExpired
-                }
-            }
-        }
-    },
-    dynamicPool: {
-        getSession: async function (that, classModule, host, port, username, password, options) {
-
-        },
-
-        releaseSession: async function (that) {
-
-        },
-
-        getStatus: function (that) {
-
-        }
     }
 }

@@ -251,7 +251,6 @@ module.exports = {
     },
 
     staticPool: class StaticPool {
-        type = ''                         // 'stateful' or 'stateless'
         size = 0                        // size (in sessions)
         extension = 0                   // extension size (in sessions)
         extensionInUse = 0              // how many extension sessions are currently in use
@@ -272,15 +271,7 @@ module.exports = {
         timeoutExpired = 0              // how many times a timeout expired while getting a session
         remoteDisconnects = 0           // how many sessions got remotely disconnected
 
-        constructor(type, size, extension = 0, credentials = {}) {
-            if (typeof type !== 'string') {
-                throw new Error('Type must be a string')
-            }
-
-            if (type !== 'stateful' && type !== 'stateless') {
-                throw new Error('Type must be either "stateful" or "stateless"')
-            }
-
+        constructor(size, extension = 0, credentials = {}) {
             if (typeof size === 'undefined') {
                 throw new Error('Missing pool size')
             }
@@ -301,57 +292,16 @@ module.exports = {
                 throw new Error('Pool extension must be at least 1')
             }
 
-            if (type === 'stateful') {
-                if (typeof credentials !== 'object') {
-                    throw new Error('credentials must be an object')
-                }
-
-                if (credentials.host !== 'string') {
-                    throw new Error('credentials.host must be an string')
-                }
-
-                if (credentials.port !== 'number') {
-                    throw new Error('credentials.port must be a number')
-                }
-
-                if (credentials.username !== 'string') {
-                    throw new Error('credentials.username must be an string')
-                }
-
-                if (credentials.password !== 'string') {
-                    throw new Error('credentials.password must be an string')
-                }
-
-                if (credentials.username === '') {
-                    throw new Error('credentials.username can not be an empty string')
-                }
-
-                if (credentials.password === '') {
-                    throw new Error('credentials.password can not be an empty string')
-                }
-
-                if (credentials.options !== 'object') {
-                    credentials.options = {}
-                }
-            }
-
-            this.type = type
             this.size = size
             this.extension = extension
 
-            if (credentials) {
-                this.host = credentials.host
-                this.port = credentials.port
-                this.username = credentials.username
-                this.password = credentials.password
-                this.options = credentials.options
-            }
+            this.host = credentials.host
+            this.port = credentials.port
+            this.username = credentials.username
+            this.password = credentials.password
+            this.options = credentials.options
 
             Object.defineProperties(this, {
-                type: {
-                    enumerable: false,
-                    configurable: true
-                },
                 size: {
                     enumerable: false,
                     configurable: true
@@ -422,22 +372,6 @@ module.exports = {
 
         getSession = async function (timeout = 0) {
             return await pool.sessionsPool.getSessions(this, module, timeout)
-        }
-
-        // ******************
-        // stateful
-        // ******************
-        createSession = async function () {
-            await pool.sessionsPool.createSession(this, module)
-        }
-
-        getSessionByGUID = async function (GUID) {
-            await pool.sessionsPool.getSessionByGUID(this, GUID)
-        }
-
-        terminateSession = async function (GUID) {
-            await pool.sessionsPool.terminateSession(this, GUID)
-
         }
 
         // ******************
@@ -528,17 +462,20 @@ module.exports = {
             })
         }
 
-        getSession = async function (host, port, username, password, options = {}) {
-            await pool.dynamicPool.getSession(this, module, host, port, username, password, options)
+        // ******************
+        // stateful
+        // ******************
+        createSession = async function () {
+            await pool.sessionsPool.createSession(this, module)
         }
 
-        releaseSession = async function () {
-            await pool.dynamicPool.releaseSession(this)
+        getSessionByGUID = async function (GUID) {
+            await pool.sessionsPool.getSessionByGUID(this, GUID)
         }
 
-        getStatus = function () {
-            return pool.dynamicPool.getStatus(this)
-        }
+        terminateSession = async function (GUID) {
+            await pool.sessionsPool.terminateSession(this, GUID)
 
+        }
     }
 }

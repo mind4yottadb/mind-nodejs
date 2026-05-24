@@ -11,7 +11,7 @@ const run = async () => {
         uApi: {appName: 'remote-vista'}
     })
 
-    const pool = new mind4yottadb.staticPool('stateless', 2)
+    const pool = new mind4yottadb.staticPool(2)
 
     await pool.create('127.0.0.1', 10001, 'admin', 'admin', {
         useTls: false,
@@ -35,11 +35,11 @@ const run = async () => {
         [
             {
                 type: "SINGLE VALUE",
-                value: ""
+                value: "CC"
             },
             {
                 type: "SINGLE VALUE",
-                value: -1
+                value: 1
             }
         ]
     )

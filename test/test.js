@@ -28,7 +28,7 @@ const run = async () => {
         }
     )
 
-    await mind.db.globals.stef.merge(mind.db.globals.stef._('test').toString())
+    console.log(mind)
 
     exit()
 

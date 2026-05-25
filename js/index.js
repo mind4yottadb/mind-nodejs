@@ -165,8 +165,6 @@ module.exports = {
                             if (hTimer !== null) clearTimeout(hTimer)
 
                             that.emit('socketError', err)
-
-                            reject(err)
                         })
 
                     // force utf-8 encoding

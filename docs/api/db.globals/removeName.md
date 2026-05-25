@@ -17,6 +17,7 @@
 Applies to:
 
 - [Globals](../../namespace.db.globals.md)
+- [Vars](../../namespace.db.vars.md)
 
 ---
 

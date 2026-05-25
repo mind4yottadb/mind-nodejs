@@ -262,14 +262,16 @@ module.exports = {
         options = {}                        // credentials to connect extensions
         timerTick = false               // internal timer
 
-        sessionsCreatedOk = 0           // how many sessions were created
-        sessionsCreatedInError = 0      // how many session got error on creation
-        extendsCreatedOk = 0            // how many extends got created
-        extendsCreatedInError = 0       // how many extends got error on creation
-        extendsRemoved = 0              // how many extends got removed
-        noMoreSlotsHits = 0             // how many times no more slots were available and the getSession() had to wait
-        timeoutExpired = 0              // how many times a timeout expired while getting a session
-        remoteDisconnects = 0           // how many sessions got remotely disconnected
+        stats = {
+            sessionsCreatedOk: 0,           // how many sessions were created
+            sessionsCreatedInError: 0,      // how many session got error on creation
+            extendsCreatedOk: 0,            // how many extends got created
+            extendsCreatedInError: 0,       // how many extends got error on creation
+            extendsRemoved: 0,              // how many extends got removed
+            noMoreSlotsHits: 0,             // how many times no more slots were available and the getSession() had to wait
+            timeoutExpired: 0,              // how many times a timeout expired while getting a session
+            remoteDisconnects: 0,           // how many sessions got remotely disconnected
+        }
 
         constructor(size, extension = 0, credentials = {}) {
             if (typeof size === 'undefined') {

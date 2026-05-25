@@ -311,7 +311,7 @@ describe("Pool stateless: allocate / deallocate", async () => {
             } catch (err) {
                 expect(err.message).to.have.string('timeout expired while trying to get a session')
 
-                expect(pool.timeoutExpired).to.be.greaterThan(0)
+                expect(pool.stats.timeoutExpired).to.be.greaterThan(0)
             }
 
             pool.destroy()

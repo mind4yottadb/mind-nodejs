@@ -30,7 +30,7 @@ module.exports = {
                         })
 
                         session.on('disconnect', () => {
-                            that.remoteDisconnects++
+                            that.stats.remoteDisconnects++
                         })
 
 
@@ -75,7 +75,7 @@ module.exports = {
                         }
                     })
 
-                    that.sessionsCreatedOk++
+                    that.stats.sessionsCreatedOk++
 
                     that.hidePropsInObject(freeSlots[0])
 
@@ -92,7 +92,7 @@ module.exports = {
                         await session.connect(that.host, that.port, that.username, that.password, that.options)
 
                     } catch (err) {
-                        that.extendsCreatedInError++
+                        that.stats.extendsCreatedInError++
 
                         reject(err.message)
 
@@ -107,7 +107,7 @@ module.exports = {
 
                     that.sessions.push(newSession)
 
-                    that.extendsCreatedOk++
+                    that.stats.extendsCreatedOk++
 
                     Object.assign(newSession.session, {
                         that: that,
@@ -121,7 +121,7 @@ module.exports = {
 
                             this.that.extensionInUse--
 
-                            that.extendsRemoved++
+                            that.stats.extendsRemoved++
 
                             this.poolSlot.inUse = false
                         }
@@ -136,7 +136,7 @@ module.exports = {
                     return
                 }
 
-                that.noMoreSlotsHits++
+                that.stats.noMoreSlotsHits++
 
                 that.timerTick -= false
 
@@ -145,7 +145,7 @@ module.exports = {
                 if (timeout > 0) {
                     // setup main timer
                     hTimeout = setTimeout(async () => {
-                        that.timeoutExpired++
+                        that.stats.timeoutExpired++
 
                         reject(new Error('timeout expired while trying to get a session'))
 
@@ -184,7 +184,7 @@ module.exports = {
 
                         freeSlots[0].inUse = true
 
-                        that.sessionsCreatedOk++
+                        that.stats.sessionsCreatedOk++
 
                         resolve(freeSlots[0].session)
 
@@ -205,7 +205,7 @@ module.exports = {
                             await session.connect(that.host, that.port, that.username, that.password, that.options)
 
                         } catch (err) {
-                            that.extendsCreatedInError++
+                            that.stats.extendsCreatedInError++
 
                             reject(err.message)
 
@@ -220,7 +220,7 @@ module.exports = {
 
                         that.sessions.push(newSession)
 
-                        that.extendsCreatedOk++
+                        that.stats.extendsCreatedOk++
 
                         Object.assign(newSession.session, {
                             that: that,
@@ -232,7 +232,7 @@ module.exports = {
 
                                 this.that.extensionInUse--
 
-                                that.extendsRemoved++
+                                that.stats.extendsRemoved++
 
                                 this.poolSlot.inUse = false
                             }
@@ -257,15 +257,7 @@ module.exports = {
                 sessionsTotal: sessionsTotal,
                 sessionsExtended: sessionsExtended.length,
                 sessionsInUse: sessionsInUse.length,
-                stats: {
-                    sessionsCreatedOk: that.sessionsCreatedOk,
-                    sessionsCreatedInError: that.sessionsCreatedInError,
-                    extendsCreatedOk: that.extendsCreatedOk,
-                    extendsCreatedInError: that.extendsCreatedInError,
-                    extendsRemoved: that.extendsRemoved,
-                    noMoreSlotsHits: that.noMoreSlotsHits,
-                    timeoutExpired: that.timeoutExpired
-                }
+                stats: that.stats
             }
         }
     },

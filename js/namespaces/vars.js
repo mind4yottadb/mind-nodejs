@@ -26,7 +26,7 @@ class Vars extends GlvnManagement {
 
         Object.defineProperties(obj, {
             addName: {
-                enumerable: false,
+                enumerable: true,
                 configurable: false,
                 writable: false
             },
@@ -34,7 +34,7 @@ class Vars extends GlvnManagement {
 
         Object.defineProperties(obj, {
             removeName: {
-                enumerable: false,
+                enumerable: true,
                 configurable: false,
                 writable: false
             },

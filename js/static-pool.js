@@ -11,60 +11,164 @@
 ###############################################################*/
 
 module.exports = {
-    sessionsPool: {
-        // ******************
-        // stateless
-        // ******************
-        create: async function (that, classModule, host, port, username, password, options) {
-            return new Promise(async (resolve, reject) => {
-                for (let ix = 0; ix < that.size; ix++) {
-                    const session = new classModule.exports.session
+    // ******************
+    // stateless
+    // ******************
+    create: async function (that, classModule, host, port, username, password, options) {
+        return new Promise(async (resolve, reject) => {
+            for (let ix = 0; ix < that.size; ix++) {
+                const session = new classModule.exports.session
 
-                    try {
-                        await session.connect(host, port, username, password, options)
+                try {
+                    await session.connect(host, port, username, password, options)
 
-                        const sessionLength = that.sessions.push({
-                            session: session,
-                            inUse: false,
-                            isExtension: false
-                        })
+                    const sessionLength = that.sessions.push({
+                        session: session,
+                        inUse: false,
+                        isExtension: false
+                    })
 
-                        session.on('disconnect', () => {
-                            that.stats.remoteDisconnects++
-                        })
+                    session.on('disconnect', () => {
+                        that.stats.remoteDisconnects++
+                    })
 
 
-                    } catch (err) {
-                        reject(err)
+                } catch (err) {
+                    reject(err)
 
-                        return
+                    return
+                }
+            }
+
+            that.host = host
+            that.port = port
+            that.username = username
+            that.password = password
+            that.options = options
+
+            resolve()
+        })
+    },
+
+    destroy: function (that) {
+        that.sessions.forEach(async session => await session.session.disconnect())
+
+        that.sessions = []
+    },
+
+    getSessions: async function (that, classModule, timeout) {
+        return new Promise(async (resolve, reject) => {
+            const freeSlots = that.sessions.filter(session => session.inUse === false)
+            let hInterval = null
+
+            // can we get a normal session?
+            if (freeSlots.length > 0) {
+                freeSlots[0].inUse = true
+
+                Object.assign(freeSlots[0].session, {
+                    that: that,
+                    ix: that.sessions.length - 1,
+                    poolSlot: freeSlots[0],
+                    done: function () {
+                        this.poolSlot.inUse = false
                     }
+                })
+
+                that.stats.sessionsCreatedOk++
+
+                that.hidePropsInObject(freeSlots[0])
+
+                resolve(freeSlots[0].session)
+
+                return
+            }
+
+            // can we extend?
+            if (that.extension > 0 && that.extension - that.extensionInUse > 0) {
+                const session = new classModule.exports.session
+
+                try {
+                    await session.connect(that.host, that.port, that.username, that.password, that.options)
+
+                } catch (err) {
+                    that.stats.extendsCreatedInError++
+
+                    reject(err.message)
+
+                    return
                 }
 
-                that.host = host
-                that.port = port
-                that.username = username
-                that.password = password
-                that.options = options
+                const newSession = {
+                    session: session,
+                    inUse: true,
+                    isExtension: true
+                }
 
-                resolve()
-            })
-        },
+                that.sessions.push(newSession)
 
-        destroy: function (that) {
-            that.sessions.forEach(async session => await session.session.disconnect())
+                that.stats.extendsCreatedOk++
 
-            that.sessions = []
-        },
+                Object.assign(newSession.session, {
+                    that: that,
+                    ix: that.sessions.length - 1,
+                    poolSlot: newSession,
 
-        getSessions: async function (that, classModule, timeout) {
-            return new Promise(async (resolve, reject) => {
+                    done: function () {
+                        this.poolSlot.session.disconnect()
+
+                        this.that.sessions.splice(this.ix, 1)
+
+                        this.that.extensionInUse--
+
+                        that.stats.extendsRemoved++
+
+                        this.poolSlot.inUse = false
+                    }
+                })
+
+                that.hidePropsInObject(newSession)
+
+                that.extensionInUse++
+
+                resolve(newSession.session)
+
+                return
+            }
+
+            that.stats.noMoreSlotsHits++
+
+            that.timerTick -= false
+
+            // do we have a timeout?
+            let hTimeout = 0
+            if (timeout > 0) {
+                // setup main timer
+                hTimeout = setTimeout(async () => {
+                    that.stats.timeoutExpired++
+
+                    reject(new Error('timeout expired while trying to get a session'))
+
+                }, timeout)
+
+            }
+
+            hInterval = setInterval(async () => {
+                // is there a slot available?
+                if (that.timerTick === true) {
+                    clearInterval(hInterval)
+                    hInterval = null
+
+                    return
+                }
+
                 const freeSlots = that.sessions.filter(session => session.inUse === false)
-                let hInterval = null
 
-                // can we get a normal session?
                 if (freeSlots.length > 0) {
-                    freeSlots[0].inUse = true
+                    that.timerTick = true
+
+                    clearTimeout(hTimeout)
+                    clearInterval(hInterval)
+                    hInterval = null
 
                     Object.assign(freeSlots[0].session, {
                         that: that,
@@ -75,9 +179,11 @@ module.exports = {
                         }
                     })
 
-                    that.stats.sessionsCreatedOk++
-
                     that.hidePropsInObject(freeSlots[0])
+
+                    freeSlots[0].inUse = true
+
+                    that.stats.sessionsCreatedOk++
 
                     resolve(freeSlots[0].session)
 
@@ -86,6 +192,12 @@ module.exports = {
 
                 // can we extend?
                 if (that.extension > 0 && that.extension - that.extensionInUse > 0) {
+                    that.timerTick = true
+
+                    clearTimeout(hTimeout)
+                    clearInterval(hInterval)
+                    hInterval = null
+
                     const session = new classModule.exports.session
 
                     try {
@@ -113,10 +225,8 @@ module.exports = {
                         that: that,
                         ix: that.sessions.length - 1,
                         poolSlot: newSession,
-
                         done: function () {
                             this.poolSlot.session.disconnect()
-
                             this.that.sessions.splice(this.ix, 1)
 
                             this.that.extensionInUse--
@@ -132,169 +242,23 @@ module.exports = {
                     that.extensionInUse++
 
                     resolve(newSession.session)
-
-                    return
                 }
-
-                that.stats.noMoreSlotsHits++
-
-                that.timerTick -= false
-
-                // do we have a timeout?
-                let hTimeout = 0
-                if (timeout > 0) {
-                    // setup main timer
-                    hTimeout = setTimeout(async () => {
-                        that.stats.timeoutExpired++
-
-                        reject(new Error('timeout expired while trying to get a session'))
-
-                    }, timeout)
-
-                }
-
-                hInterval = setInterval(async () => {
-                    // is there a slot available?
-                    if (that.timerTick === true) {
-                        clearInterval(hInterval)
-                        hInterval = null
-
-                        return
-                    }
-
-                    const freeSlots = that.sessions.filter(session => session.inUse === false)
-
-                    if (freeSlots.length > 0) {
-                        that.timerTick = true
-
-                        clearTimeout(hTimeout)
-                        clearInterval(hInterval)
-                        hInterval = null
-
-                        Object.assign(freeSlots[0].session, {
-                            that: that,
-                            ix: that.sessions.length - 1,
-                            poolSlot: freeSlots[0],
-                            done: function () {
-                                this.poolSlot.inUse = false
-                            }
-                        })
-
-                        that.hidePropsInObject(freeSlots[0])
-
-                        freeSlots[0].inUse = true
-
-                        that.stats.sessionsCreatedOk++
-
-                        resolve(freeSlots[0].session)
-
-                        return
-                    }
-
-                    // can we extend?
-                    if (that.extension > 0 && that.extension - that.extensionInUse > 0) {
-                        that.timerTick = true
-
-                        clearTimeout(hTimeout)
-                        clearInterval(hInterval)
-                        hInterval = null
-
-                        const session = new classModule.exports.session
-
-                        try {
-                            await session.connect(that.host, that.port, that.username, that.password, that.options)
-
-                        } catch (err) {
-                            that.stats.extendsCreatedInError++
-
-                            reject(err.message)
-
-                            return
-                        }
-
-                        const newSession = {
-                            session: session,
-                            inUse: true,
-                            isExtension: true
-                        }
-
-                        that.sessions.push(newSession)
-
-                        that.stats.extendsCreatedOk++
-
-                        Object.assign(newSession.session, {
-                            that: that,
-                            ix: that.sessions.length - 1,
-                            poolSlot: newSession,
-                            done: function () {
-                                this.poolSlot.session.disconnect()
-                                this.that.sessions.splice(this.ix, 1)
-
-                                this.that.extensionInUse--
-
-                                that.stats.extendsRemoved++
-
-                                this.poolSlot.inUse = false
-                            }
-                        })
-
-                        that.hidePropsInObject(newSession)
-
-                        that.extensionInUse++
-
-                        resolve(newSession.session)
-                    }
-                }, 0)
-            })
-        },
-
-        getStatus: function (that) {
-            const sessionsInUse = that.sessions.filter(session => session.inUse === true)
-            const sessionsExtended = that.sessions.filter(session => session.isExtension === true)
-            const sessionsTotal = that.sessions.length
-
-            return {
-                sessionsTotal: sessionsTotal,
-                sessionsExtended: sessionsExtended.length,
-                sessionsInUse: sessionsInUse.length,
-                stats: that.stats
-            }
-        }
+            }, 0)
+        })
     },
-    dynamicPool: {
-        // ******************
-        // stateful
-        // ******************
-        createSession: async function (that) {
-            return new Promise(async (resolve, reject) => {
-                if (that.type !== 'stateful') {
-                    reject(new Error('This function is not available is stateless mode'))
 
-                    return
-                }
-            })
-        },
+    getStatus: function (that) {
+        const sessionsInUse = that.sessions.filter(session => session.inUse === true)
+        const sessionsExtended = that.sessions.filter(session => session.isExtension === true)
+        const sessionsTotal = that.sessions.length
 
-        getSessionByGUID: async function (that, GUID) {
-            return new Promise(async (resolve, reject) => {
-                if (that.type !== 'stateful') {
-                    reject(new Error('This function is not available is stateless mode'))
-
-                    return
-                }
-            })
-
-        },
-
-        terminateSession: async function (that, GUID) {
-            return new Promise(async (resolve, reject) => {
-                if (that.type !== 'stateful') {
-                    reject(new Error('This function is not available is stateless mode'))
-
-                    return
-                }
-            })
-        },
-
+        return {
+            sessionsTotal: sessionsTotal,
+            sessionsExtended: sessionsExtended.length,
+            sessionsInUse: sessionsInUse.length,
+            stats: that.stats
+        }
     }
+
+
 }

@@ -3,9 +3,14 @@ const mindServer = require('../js/index.js')
 
 
 start = async () => {
-    const pool = new mindServer.staticPool('stateless', 64)
+    const pool = new mindServer.staticPool(2)
 
     console.dir(pool, {depth: 1})
+    console.log(pool.size)
+    pool.size = 4
+    console.log(pool.size)
+
+    return
 
     await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 

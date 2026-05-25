@@ -21,7 +21,8 @@ const nsRESP3 = require('./namespaces/RESP3')
 const nsDb = require('./namespaces/db')
 const nsDbms = require('./namespaces/dbms')
 const nsSession = require('./namespaces/session')
-const pool = require('./static-pool')
+const staticPool = require('./static-pool')
+const dynamicPool = require('./dynamic-pool')
 
 const login = require('./login')
 const utils = require('./utils')
@@ -249,6 +250,38 @@ module.exports = {
     },
 
     staticPool: class StaticPool {
+        config = {
+            shrink: function () {
+
+            },
+            expand: function () {
+
+            },
+            changeExtension: function () {
+
+            },
+            currentSettings: function () {
+
+            },
+            server: {
+                changeLogLevel: function () {
+
+                },
+                changeLogDumpRequest: function () {
+
+                },
+                changeLogDumpResponse: function () {
+
+                },
+                changeStatsMode: function () {
+
+                },
+                changeErrorDump: function () {
+
+                }
+            }
+        }
+
         size = 0                        // size (in sessions)
         extension = 0                   // extension size (in sessions)
         extensionInUse = 0              // how many extension sessions are currently in use
@@ -269,6 +302,32 @@ module.exports = {
             noMoreSlotsHits: 0,             // how many times no more slots were available and the getSession() had to wait
             timeoutExpired: 0,              // how many times a timeout expired while getting a session
             remoteDisconnects: 0,           // how many sessions got remotely disconnected
+        }
+
+        create = async function (host, port, username, password, options = {}) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    await staticPool.create(this, module, host, port, username, password, options)
+
+                    resolve()
+
+                } catch (err) {
+                    reject(err)
+                }
+
+            })
+        }
+
+        destroy = function () {
+            staticPool.destroy(this)
+        }
+
+        getSession = async function (timeout = 0) {
+            return await staticPool.getSessions(this, module, timeout)
+        }
+
+        getStatus = function () {
+            return staticPool.getStatus(this)
         }
 
         constructor(size, extension = 0, credentials = {}) {
@@ -294,12 +353,6 @@ module.exports = {
 
             this.size = size
             this.extension = extension
-
-            this.host = credentials.host
-            this.port = credentials.port
-            this.username = credentials.username
-            this.password = credentials.password
-            this.options = credentials.options
 
             Object.defineProperties(this, {
                 size: {
@@ -346,39 +399,11 @@ module.exports = {
                     enumerable: false,
                     configurable: true
                 },
-            })
-        }
-
-        // ******************
-        // stateless
-        // ******************
-        create = async function (host, port, username, password, options = {}) {
-            return new Promise(async (resolve, reject) => {
-                try {
-                    await pool.sessionsPool.create(this, module, host, port, username, password, options)
-
-                    resolve()
-
-                } catch (err) {
-                    reject(err)
+                hidePropsInObject: {
+                    enumerable: false,
+                    configurable: true
                 }
-
             })
-        }
-
-        destroy = function () {
-            pool.sessionsPool.destroy(this)
-        }
-
-        getSession = async function (timeout = 0) {
-            return await pool.sessionsPool.getSessions(this, module, timeout)
-        }
-
-        // ******************
-        // STATUS
-        // ******************
-        getStatus = function () {
-            return pool.sessionsPool.getStatus(this)
         }
 
         // ******************
@@ -407,14 +432,6 @@ module.exports = {
     },
 
     dynamicPool: class DynamicPool {
-        maxSize = 0
-        sessions = []
-        host = ''
-        port = 0
-        username = ''
-        password = ''
-        options = {}
-
         constructor(host, port, userrname, password, options = {}, maxSize = 0) {
             if (typeof maxSize === 'undefined') {
                 throw new Error('Missing maximum pool size')
@@ -462,19 +479,24 @@ module.exports = {
             })
         }
 
-        // ******************
-        // stateful
-        // ******************
+        maxSize = 0
+        sessions = []
+        host = ''
+        port = 0
+        username = ''
+        password = ''
+        options = {}
+
         createSession = async function () {
-            await pool.sessionsPool.createSession(this, module)
+            await dynamicPool.createSession(this, module)
         }
 
         getSessionByGUID = async function (GUID) {
-            await pool.sessionsPool.getSessionByGUID(this, GUID)
+            await dynamicPool.getSessionByGUID(this, GUID)
         }
 
         terminateSession = async function (GUID) {
-            await pool.sessionsPool.terminateSession(this, GUID)
+            await dynamicPool.terminateSession(this, GUID)
 
         }
     }

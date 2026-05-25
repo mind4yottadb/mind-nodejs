@@ -10,8 +10,9 @@
 #                                                               #
 ###############################################################*/
 
+const {exit} = require('process')
 const {expect} = require("chai");
-const {createYdbInstance} = require("../../utils.cjs");
+const {createYdbInstance, sleep} = require("../../utils.cjs");
 const mindServer = require("../../../js");
 
 describe("Pool: creation / destroy", async () => {
@@ -216,3 +217,4 @@ describe("Pool: creation / destroy", async () => {
         })
     })
 })
+

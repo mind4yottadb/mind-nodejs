@@ -31,9 +31,8 @@ module.exports = {
 
                         session.on('disconnect', () => {
                             that.remoteDisconnects++
-
-                            throw new Error('Session remotely disconnected')
                         })
+
 
                     } catch (err) {
                         reject(err)

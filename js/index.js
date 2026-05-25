@@ -158,7 +158,7 @@ module.exports = {
 
                             that.disconnect()
 
-                            that.emit('disconnect', new Error('Disconnected'))
+                            that.emit('disconnect')
                         })
                         // mount event handler and route it to the event emitter
                         .on('error', err => {

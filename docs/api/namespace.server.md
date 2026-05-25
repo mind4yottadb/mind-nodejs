@@ -46,6 +46,7 @@ your running process only.)
 
 - [SIG_INT](api/server/server.SIG_INT.md)
 - [SIG_KIL](api/server/server.SIG_KIL.md)
+- [SIG_USR1](api/server/server.SIG_KIL.md)
 
 ---
 

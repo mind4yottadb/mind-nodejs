@@ -415,6 +415,16 @@ class Server {
         })
 
         Object.defineProperties(obj, {
+            SIG_USR1: {
+                value: 10,
+                enumerable: true,
+                configurable: false,
+                writable: false
+            }
+
+        })
+
+        Object.defineProperties(obj, {
             _init: {
                 enumerable: false,
             }

@@ -264,6 +264,9 @@ module.exports = {
 
             },
             server: {
+                getCurrentSettings: function () {
+
+                },
                 changeLogLevel: function () {
 
                 },
@@ -432,7 +435,11 @@ module.exports = {
     },
 
     dynamicPool: class DynamicPool {
-        constructor(host, port, userrname, password, options = {}, maxSize = 0) {
+        constructor(params = {}, maxSize = 0) {
+            // validate login params
+            // host, port, userrname, password, options = {},
+            // sessionIdleTimeout
+
             if (typeof maxSize === 'undefined') {
                 throw new Error('Missing maximum pool size')
             }

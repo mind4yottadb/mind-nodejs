@@ -11,22 +11,28 @@
 ###############################################################*/
 
 module.exports = {
-    // ******************
-    // stateful
-    // ******************
-    createSession: async function (that) {
-        return new Promise(async (resolve, reject) => {
-        })
-    },
+    NOT_LOGGED_IN: 100,
 
-    getSessionByGUID: async function (that, GUID) {
-        return new Promise(async (resolve, reject) => {
-        })
+    LOG_STR_NOT_A_STRING: 200,
 
-    },
+    NAME_ALREADY_REGISTERED: 300,
+    NAME_NOT_FOUND: 301,
+    NAME_EMPTY_OR_NOT_STRING: 302,
 
-    terminateSession: async function (that, GUID) {
-        return new Promise(async (resolve, reject) => {
-        })
-    },
+    HOST_MUST_BE_STRING: 350,
+    PORT_MUST_BE_NUMBER: 351,
+    USERNAME_MUST_BE_STRING: 352,
+    PASSWORD_MUST_BE_STRING: 353,
+    TIMEOUT_MUST_BE_NUMBER: 354,
+    TIMEOUT_NOT_POSITIVE_NUMBER: 355,
+
+    METHOD_BAD_ARGS_NUMBER: 400,
+    METHOD_PARAM_NOT_NUMBER: 401,
+    METHOD_PARAM_NOT_STRING: 402,
+    METHOD_PARAM_NOT_VAR_NAME: 403,
+
+    FILENAME_NOT_PROVIDED: 450,
+    FILENAME_NOT_STRING: 451
+
+
 }

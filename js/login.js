@@ -76,13 +76,6 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             return
         }
 
-        // proceed with the process array
-        if (dataA[ix] !== '%2') {
-            reject(new Error('invalid packet signature at line: ' + ix + ' Expected: %2'))
-
-            return
-        }
-
         const sessionLength = parseInt(dataA[ix].slice(1))
 
         // continue with session

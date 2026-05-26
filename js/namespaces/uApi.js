@@ -11,7 +11,7 @@
 ###############################################################*/
 
 const utils = require("../utils");
-
+const errors = require('../errors.js')
 
 const funct = module.exports = {
     method: function (that, reader, writer, fn, namespace, args) {
@@ -20,7 +20,7 @@ const funct = module.exports = {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -70,7 +70,7 @@ const funct = module.exports = {
             reader(data => {
                 if (data.charAt(0) === '-') {
                     // process eventual simple error
-                    reject(new Error(data.slice(1)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
 
@@ -95,7 +95,7 @@ const parseParams = function (fn, args, that) {
     if (fn.parameters && fn.parameters.length > 0) {
         // when # of params is < that requested
         if (fn.parameters.length !== args.length) {
-            throw new Error('Expected ' + fn.parameters.length + ' parameters, got ' + args.length + '.')
+            throw new Error(errors.METHOD_BAD_ARGS_NUMBER + 'Expected ' + fn.parameters.length + ' parameters, got ' + args.length + '.')
         }
 
         // validate datatype of each parameter
@@ -104,11 +104,11 @@ const parseParams = function (fn, args, that) {
                 case 'int':
                 case 'float': {
                     if (typeof args[ix] !== 'number' && typeof args[ix] !== 'undefined') {
-                        throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be a number.')
+                        throw new Error(errors.PARAM_NOT_NUMBER + 'Parameter ' + (ix + 1) + ': "' + param.name + '" must be a number.')
                     }
 
                     if (args[ix].toString().indexOf('.') > -1 && param.datatype === 'int') {
-                        throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be an int.')
+                        throw new Error(errors.PARAM_NOT_INT + 'Parameter ' + (ix + 1) + ': "' + param.name + '" must be an int.')
                     }
 
                     break
@@ -116,7 +116,7 @@ const parseParams = function (fn, args, that) {
 
                 case 'varByRef': {
                     if (typeof args[ix] !== 'string' && typeof args[ix] !== 'undefined') {
-                        throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be a string populated with the var name.')
+                        throw new Error(errors.PARAM_NOT_STRING + 'Parameter ' + (ix + 1) + ': "' + param.name + '" must be a string populated with the var name.')
 
                     }
 
@@ -126,7 +126,7 @@ const parseParams = function (fn, args, that) {
                     })
 
                     if (found === false) {
-                        throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" var: "' + args[ix] + '" was not declared.')
+                        throw new Error(errors.PARAM_NOT_EXISTING + 'Parameter ' + (ix + 1) + ': "' + param.name + '" var: "' + args[ix] + '" was not declared.')
                     }
 
                     break
@@ -134,7 +134,7 @@ const parseParams = function (fn, args, that) {
 
                 case 'json': {
                     if (typeof args[ix] !== 'string' && typeof args[ix] !== 'undefined') {
-                        throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be a string.')
+                        throw new Error(errors.PARAM_NOT_STRING + 'Parameter ' + (ix + 1) + ': "' + param.name + '" must be a string.')
                     }
 
                     break
@@ -142,7 +142,7 @@ const parseParams = function (fn, args, that) {
 
                 default: {
                     if (typeof args[ix] !== param.datatype && typeof args[ix] !== 'undefined') {
-                        throw new Error('Parameter ' + (ix + 1) + ': "' + param.name + '" must be a ' + param.datatype + '.')
+                        throw new Error(errors.PARAM_BAD_DATA_TYPE + 'Parameter ' + (ix + 1) + ': "' + param.name + '" must be a ' + param.datatype + '.')
                     }
 
                     break

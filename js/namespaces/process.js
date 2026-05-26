@@ -11,6 +11,7 @@
 ###############################################################*/
 
 const utils = require("../utils");
+const errors = require('../errors.js')
 
 class Process {
     pid = null
@@ -21,25 +22,25 @@ class Process {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
 
             if (command === '') {
-                reject(new Error('the command has not been provided'))
+                reject(new Error(errors.PARAM_MISSING + 'the command has not been provided'))
 
                 return
             }
 
             if (utils.validateTypeOfField(command, 'string') === false) {
-                reject(new Error('Parameter command must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'Parameter command must be a string'))
 
                 return
             }
 
             if (utils.validateTypeOfField(shell, 'string') === false) {
-                reject(new Error('Parameter shell must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'Parameter shell must be a string'))
 
                 return
             }
@@ -70,25 +71,25 @@ class Process {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
 
             if (command === '') {
-                reject(new Error('the command has not been provided'))
+                reject(new Error(errors.PARAM_MISSING + 'the command has not been provided'))
 
                 return
             }
 
             if (utils.validateTypeOfField(command, 'string') === false) {
-                reject(new Error('Parameter command must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'Parameter command must be a string'))
 
                 return
             }
 
             if (utils.validateTypeOfField(logFile, 'string') === false) {
-                reject(new Error('Parameter logFile must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'Parameter logFile must be a string'))
 
                 return
             }
@@ -119,7 +120,7 @@ class Process {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -148,18 +149,18 @@ class Process {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
             if (path === '') {
-                reject(new Error('the path has not been provided'))
+                reject(new Error(errors.PARAM_MISSING + 'the path has not been provided'))
 
                 return
             }
 
             if (utils.validateTypeOfField(path, 'string') === false) {
-                reject(new Error('Parameter path must be a string'))
+                reject(new Error(errors.PATH_NOT_STRING + 'Parameter path must be a string'))
 
                 return
             }
@@ -189,7 +190,7 @@ class Process {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -225,7 +226,7 @@ class Process {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -261,7 +262,7 @@ class Process {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -300,7 +301,7 @@ class Process {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -338,7 +339,7 @@ class Process {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }

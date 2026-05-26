@@ -26,6 +26,7 @@ const dynamicPool = require('./dynamic-pool')
 
 const login = require('./login')
 const utils = require('./utils')
+const errors = require("./errors");
 
 const requiredMind = '0.24.0'         // required server version
 
@@ -57,25 +58,25 @@ module.exports = {
             return new Promise(function (resolve, reject) {
                 // perform validation
                 if (typeof host !== 'string' || host === '') {
-                    reject(new Error('host must be a string'));
+                    reject(new Error(errors.HOST_MUST_BE_STRING + 'host must be a string'));
 
                     return
                 }
 
                 if (typeof port !== 'number') {
-                    reject(new Error('port must be a number'));
+                    reject(new Error(errors.PARAM_NOT_NUMBER + 'port must be a number'));
 
                     return
                 }
 
                 if (typeof username !== 'string' || username === '') {
-                    reject(new Error('username must be a string'));
+                    reject(new Error(errors.PARAM_NOT_STRING + 'username must be a string'));
 
                     return
                 }
 
                 if (typeof password !== 'string' || password === '') {
-                    reject(new Error('password must be a string'));
+                    reject(new Error(errors.PARAM_NOT_STRING + 'password must be a string'));
 
                     return
                 }
@@ -95,7 +96,7 @@ module.exports = {
                     hTimer = that.hTimer = setTimeout(function () {
                         that.#socket.destroy()
 
-                        reject(new Error('timeout while trying to connect...'))
+                        reject(new Error(errors.TIMEOUT_OCCURRED + 'timeout while trying to connect...'))
 
                     }, options.connectTimeout || 5000)
                 }
@@ -226,7 +227,7 @@ module.exports = {
                 const msg_sliced = msg.slice(total_sent, msg.length);
                 const sentOk = that.#socket.write(msg_sliced);
 
-                if (!sentOk) throw new Error('RuntimeError: socket connection broken');
+                if (!sentOk) throw new Error(errors.SOCKET_DISCONNECTED + 'RuntimeError: socket connection broken');
 
                 total_sent = total_sent + msg_sliced.length;
             }
@@ -335,15 +336,15 @@ module.exports = {
 
         constructor(size, extension = 0, credentials = {}) {
             if (typeof size === 'undefined') {
-                throw new Error('Missing pool size')
+                throw new Error(errors.PARAM_MISSING + 'Missing pool size')
             }
 
             if (typeof size !== 'number') {
-                throw new Error('Pool size must be a number')
+                throw new Error(errors.PARAM_NOT_NUMBER + 'Pool size must be a number')
             }
 
             if (extension && typeof extension !== 'number') {
-                throw new Error('Pool extension must be a number')
+                throw new Error(errors.PARAM_NOT_NUMBER + 'Pool extension must be a number')
             }
 
             if (size < 2) {
@@ -445,7 +446,7 @@ module.exports = {
             }
 
             if (typeof maxSize !== 'number') {
-                throw new Error('Pool maximum size must be a number')
+                throw new Error(errors.PARAM_NOT_NUMBER + 'Pool maximum size must be a number')
             }
 
             this.host = host

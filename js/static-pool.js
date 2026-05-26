@@ -9,6 +9,7 @@
 #   the license, please stop and do not read further.           #
 #                                                               #
 ###############################################################*/
+const errors = require("./errors");
 
 module.exports = {
     // ******************
@@ -146,7 +147,7 @@ module.exports = {
                 hTimeout = setTimeout(async () => {
                     that.stats.timeoutExpired++
 
-                    reject(new Error('timeout expired while trying to get a session'))
+                    reject(new Error(errors.TIMEOUT_OCCURRED + 'timeout expired while trying to get a session'))
 
                 }, timeout)
 

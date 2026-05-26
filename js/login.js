@@ -12,6 +12,7 @@
 
 const uapi = require("./uapi")
 const fs = require("fs");
+const errors = require("./errors");
 
 const driverName = 'mind4yottadb.js'
 const driverVersion = JSON.parse(fs.readFileSync(__dirname.substring(0, __dirname.lastIndexOf('\\')) + '/package.json', 'utf8')).version
@@ -71,7 +72,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         const mindVersion = that.server.mindVersion
         if (mindVersion < that.requiresMind) {
-            reject(new Error('invalid mind server version, expected ' + that.requiresMind + ' or higher, but found ' + mindVersion))
+            reject(new Error(errors.BAD_SERVER_VERSION + 'invalid mind server version, expected ' + that.requiresMind + ' or higher, but found ' + mindVersion))
 
             return
         }
@@ -150,7 +151,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
                     that.db.vars.addName(_var)
 
                 } catch (err) {
-                    reject(new Error('Error occurred adding var name: ' + _var + ': ' + err.message))
+                    reject(new Error(errors.ERROR_ADDING_NAME + 'Error occurred adding var name: ' + _var + ': ' + err.message))
                 }
             })
         }
@@ -161,7 +162,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
                     that.db.globals.addName(_var)
 
                 } catch (err) {
-                    reject(new Error('Error occurred adding global name: ' + _var + ': ' + err.message))
+                    reject(new Error(errors.ERROR_ADDING_NAME + 'Error occurred adding global name: ' + _var + ': ' + err.message))
                 }
             })
         }

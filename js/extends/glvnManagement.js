@@ -13,10 +13,11 @@
 const Glvn = require('./glvn')
 const Global = require('./global')
 const utils = require('../utils')
+const errors = require("../errors");
 
 class GlvnManagement {
     addName = function (name) {
-        if (this.objRoot.connected === false || this.objRoot.loggedIn === false) throw new Error('Not logged in')
+        if (this.objRoot.connected === false || this.objRoot.loggedIn === false) throw new Error(errors.NOT_LOGGED_IN + 'Not logged in')
 
         // validate name
         utils.validateGlvnName(name)
@@ -24,7 +25,7 @@ class GlvnManagement {
         // check existance
         const names = Object.keys(this)
         if (names.find(lName => lName === name)) {
-            throw new Error('Name already registered')
+            throw new Error(errors.NAME_ALREADY_REGISTERED + 'Name already registered')
         }
 
         // create new entry
@@ -56,7 +57,7 @@ class GlvnManagement {
     }
 
     removeName = function (name) {
-        if (this.objRoot.connected === false || this.objRoot.loggedIn === false) throw new Error('Not logged in')
+        if (this.objRoot.connected === false || this.objRoot.loggedIn === false) throw new Error(errors.NOT_LOGGED_IN + 'Not logged in')
 
         // validate name
         utils.validateGlvnName(name)
@@ -67,7 +68,7 @@ class GlvnManagement {
             delete this[name]
 
         } else {
-            throw new Error('Name not found')
+            throw new Error(errors.NAME_NOT_FOUND + 'Name not found')
         }
     }
 }

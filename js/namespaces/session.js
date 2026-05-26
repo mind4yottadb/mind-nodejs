@@ -11,6 +11,7 @@
 ###############################################################*/
 
 const utils = require("../utils");
+const errors = require('../errors.js')
 
 class Sessions {
     stats = function () {
@@ -19,7 +20,7 @@ class Sessions {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -54,7 +55,7 @@ class Sessions {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -83,7 +84,7 @@ class Sessions {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -112,13 +113,13 @@ class Sessions {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
 
             if (typeof logString !== 'string') {
-                reject(new Error('logString parameter must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'logString parameter must be a string'))
 
                 return
             }

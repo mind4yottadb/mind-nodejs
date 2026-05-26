@@ -11,6 +11,7 @@
 ###############################################################*/
 
 const utils = require("../utils");
+const errors = require('../errors.js')
 
 class Server {
     hostName = ''
@@ -25,13 +26,13 @@ class Server {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
             }
 
 
 
             if (utils.validateTypeOfField(pid, 'number') === false) {
-                reject(new Error('Parameter pid must be a number'))
+                reject(new Error(errors.PARAM_NOT_NUMBER + 'Parameter pid must be a number'))
 
                 return
             }
@@ -71,25 +72,25 @@ class Server {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
 
             if (utils.validateTypeOfField(pid, 'number') === false) {
-                reject(new Error('Parameter pid must be a number'))
+                reject(new Error(errors.PARAM_NOT_NUMBER + 'Parameter pid must be a number'))
 
                 return
             }
 
             if (pid === 0) {
-                reject(new Error('the path has not been provided'))
+                reject(new Error(errors.PATH_NOT_PROVIDED + 'the path has not been provided'))
 
                 return
             }
 
             if (utils.validateTypeOfField(sigNumber, 'number') === false) {
-                reject(new Error('Parameter sigNumber must be a number'))
+                reject(new Error(errors.PARAM_NOT_NUMBER + 'Parameter sigNumber must be a number'))
 
                 return
             }
@@ -128,13 +129,13 @@ class Server {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
 
             if (typeof dashed !== 'boolean' || typeof braced !== 'boolean') {
-                reject(new Error('Parameter must be a boolean'))
+                reject(new Error(errors.PARAM_NOT_BOOLEAN + 'Parameter must be a boolean'))
             }
 
             // send command
@@ -163,7 +164,7 @@ class Server {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -198,7 +199,7 @@ class Server {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -233,7 +234,7 @@ class Server {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -262,7 +263,7 @@ class Server {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -291,7 +292,7 @@ class Server {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }

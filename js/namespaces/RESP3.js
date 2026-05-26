@@ -20,7 +20,7 @@ class RESP3 {
         blob: str => '$' + str.toString().length.toString() + '\r\n' + str.toString() + '\r\n',
         verbatimString: (str, type) => {
             if (type.length !== 3) {
-                throw new Error('Verbatim type MUST be 3 chars length!')
+                throw new Error(errors.VERBATIM_TYPE_NOT_3_CHARS + 'Verbatim type MUST be 3 chars length!')
             }
 
             return '=' + (str.length + 4).toString() + '\r\n' + type + ':' + str + '\r\n'

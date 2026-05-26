@@ -9,6 +9,7 @@
 #   the license, please stop and do not read further.           #
 #                                                               #
 ###############################################################*/
+const errors = require("./errors");
 
 module.exports = {
     validateTypeOfField: (param, type) => {
@@ -18,11 +19,11 @@ module.exports = {
     validateConnectOptions: options => {
 
         if (typeof options !== 'object') {
-            return 'options must be an object'
+            return errors.PARAM_NOT_OBJECT + 'options must be an object'
         }
 
         if (Array.isArray(options)) {
-            return 'options cannot be an array'
+            return errors.PARAM_IS_ARRAY + 'options cannot be an array'
         }
 
         if (Object.keys(options).length === 0) {
@@ -33,23 +34,23 @@ module.exports = {
         // Socket information
         // *****************************************
         if (options.connectTimeout && typeof options.connectTimeout !== 'number') {
-            return 'options.connectTimeout must be a number'
+            return errors.PARAM_NOT_NUMBER + 'options.connectTimeout must be a number'
         }
 
         if (options.protocol && typeof options.protocol !== 'string') {
-            return 'options.protocol must be a string'
+            return errors.PARAM_NOT_STRING + 'options.protocol must be a string'
         }
 
         if (options.protocol && (options.protocol !== 'tcp' && options.protocol !== 'uds')) {
-            return 'options.protocol must be either tcp or uds.'
+            return errors.PARAM_BAD_VALUE + 'options.protocol must be either tcp or uds.'
         }
 
         if (options.useTls && typeof options.useTls !== 'boolean') {
-            return 'options.useTls must be a boolean'
+            return errors.PARAM_NOT_BOOLEAN + 'options.useTls must be a boolean'
         }
 
         if (options.tlsRejectSelfSigned && typeof options.tlsRejectSelfSigned !== 'boolean') {
-            return 'options.tlsRejectSelfSigned must be a boolean'
+            return errors.PARAM_NOT_BOOLEAN + 'options.tlsRejectSelfSigned must be a boolean'
         }
 
         if (options.protocol === undefined) options.protocol = 'tcp'
@@ -58,11 +59,11 @@ module.exports = {
         // DB
         // *****************************************
         if (options.db && typeof options.db !== 'object') {
-            return 'options.db must be an object'
+            return errors.PARAM_NOT_OBJECT + 'options.db must be an object'
         }
 
         if (options.db && options.db.globals && !Array.isArray(options.db.globals)) {
-            return 'options.db.globals must be an array'
+            return errors.PARAM_NOT_ARRAY + 'options.db.globals must be an array'
         }
 
         if (options.db && options.db.globals) {
@@ -70,7 +71,7 @@ module.exports = {
 
             options.db.globals.forEach(entry => {
                 if (typeof entry !== 'string') {
-                    err = 'Entries in options.app.globals must be a string'
+                    err = errors.PARAM_NOT_STRING + 'Entries in options.app.globals must be a string'
                 }
             })
 
@@ -81,12 +82,12 @@ module.exports = {
         // uApi
         // *****************************************
         if (options.uApi && typeof options.uApi !== 'object') {
-            return 'options.uApi must be an object'
+            return errors.PARAM_NOT_OBJECT + 'options.uApi must be an object'
         }
 
         if (options.uApi && options.uApi.appName) {
             if (typeof options.uApi.appName !== 'string') {
-                return 'options.uApi.appName must be a string'
+                return errors.PARAM_NOT_STRING + 'options.uApi.appName must be a string'
             }
         }
 
@@ -95,7 +96,7 @@ module.exports = {
 
     validateGlvnName: name => {
         if (name === undefined || typeof name !== 'string') {
-            throw new Error('Name empty or not string type')
+            throw new Error(errors.PARAM_NOT_STRING_OR_EMPTY + 'Name empty or not string type')
         }
 
         const baseIndex = name.charAt(0) === '_' ? 1 : 0
@@ -107,7 +108,7 @@ module.exports = {
         result2 = (name.charAt(0) === '_' || strRegex.test(name.charAt(0)))
 
         if (!result || !result2) {
-            throw new Error('Invalid name, must be alphanumeric with first char alphabetic or underscore')
+            throw new Error(errors.BAD_SYNTAX + 'Invalid name, must be alphanumeric with first char alphabetic or underscore')
         }
     },
 
@@ -117,11 +118,11 @@ module.exports = {
         for (const sub of path) {
             cnt++
             if (typeof sub !== 'string' && typeof sub !== 'number') {
-                throw new Error('Subpath: ' + cnt + ' must be a string or number')
+                throw new Error(errors.PARAM_NOT_STRING_OR_NUMBER + 'Subpath: ' + cnt + ' must be a string or number')
             }
 
             if (typeof sub === 'string' && sub === '') {
-                throw new Error('String in path position: ' + cnt + ' is empty')
+                throw new Error(errors.STRING_IS_EMPTY + 'String in path position: ' + cnt + ' is empty')
             }
         }
     },

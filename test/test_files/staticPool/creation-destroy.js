@@ -165,7 +165,7 @@ describe("Pool: creation / destroy", async () => {
                 await pool.create('127.0.0.1', 10000, 'admin', 'admin2', {})
 
             } catch (err) {
-                expect(err.message).to.have.string('LOGIN FAILED Invalid credentials')
+                expect(err.message).to.have.string('LOGIN_FAILED,Invalid credentials')
             }
         })
 

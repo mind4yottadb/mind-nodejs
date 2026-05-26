@@ -24,7 +24,7 @@ describe("Pool creation: connect errors", async () => {
             console.log('did it')
 
         } catch (err) {
-            expect(err.message).to.have.string('LOGIN FAILED Invalid credentials')
+            expect(err.message).to.have.string('LOGIN_FAILED,Invalid credentials')
         }
     });
 
@@ -37,7 +37,7 @@ describe("Pool creation: connect errors", async () => {
             console.log('did it')
 
         } catch (err) {
-            expect(err.message).to.have.string('LOGIN FAILED Invalid credentials')
+            expect(err.message).to.have.string('LOGIN_FAILED,Invalid credentials')
         }
     });
 

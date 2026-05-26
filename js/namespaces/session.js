@@ -39,7 +39,8 @@ class Sessions {
                 }
 
                 if (data.indexOf('+no data') > -1) {
-                    reject(new Error('No stats enabled on server'))
+                    //reject(new Error('No stats enabled on server'))
+                    resolve({})
 
                     return
                 }

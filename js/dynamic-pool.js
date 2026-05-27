@@ -11,22 +11,26 @@
 ###############################################################*/
 
 module.exports = {
-    // ******************
-    // stateful
-    // ******************
-    createSession: async function (that) {
+    createNewSession: async function (that, timeout) {
         return new Promise(async (resolve, reject) => {
+
         })
     },
-
-    getSessionByGUID: async function (that, GUID) {
+    getSessionByGUID: async function (that, GUID, timeout) {
         return new Promise(async (resolve, reject) => {
-        })
 
+        })
     },
 
     terminateSession: async function (that, GUID) {
         return new Promise(async (resolve, reject) => {
+
+        })
+    },
+
+    getStatus: async function (that, GUID) {
+        return new Promise(async (resolve, reject) => {
+
         })
     },
 }

@@ -438,8 +438,7 @@ module.exports = {
     dynamicPool: class DynamicPool {
         constructor(params = {}, maxSize = 0) {
             // validate login params
-            // host, port, userrname, password, options = {},
-            // sessionIdleTimeout
+            // host, port, username, password, options = {},
 
             if (typeof maxSize === 'undefined') {
                 throw new Error('Missing maximum pool size')
@@ -449,10 +448,67 @@ module.exports = {
                 throw new Error(errors.PARAM_NOT_NUMBER + 'Pool maximum size must be a number')
             }
 
-            this.host = host
-            this.port = port
-            this.username = userrname
-            this.password = password
+            if (Object.keys(params).length === 0) {
+                throw new Error('Missing params for pool')
+            }
+
+            if (params.host === undefined) {
+                throw new Error('Missing params.host')
+            }
+
+            if (typeof params.host !== 'string') {
+                throw new Error('params.host must be a string')
+            }
+
+            if (params.host === '') {
+                throw new Error('params.host can not be an empty string')
+            }
+
+            if (params.port === undefined) {
+                throw new Error('Missing params.port')
+            }
+
+            if (typeof params.port !== 'number') {
+                throw new Error('params.port must be a number')
+            }
+
+            if (params.host < 0) {
+                throw new Error('params.port must be a positive number')
+            }
+
+            if (params.username === undefined) {
+                throw new Error('Missing params.username')
+            }
+
+            if (typeof params.username !== 'string') {
+                throw new Error('params.username must be a string')
+            }
+
+            if (params.username === '') {
+                throw new Error('params.username can not be an empty string')
+            }
+
+            if (params.password === undefined) {
+                throw new Error('Missing params.password')
+            }
+
+            if (typeof params.password !== 'string') {
+                throw new Error('params.password must be a string')
+            }
+
+            if (params.password === '') {
+                throw new Error('params.password can not be an empty string')
+            }
+
+            if (options && typeof params.options !== 'object') {
+                throw new Error('params.options must be an object')
+            }
+
+            this.host = params.host
+            this.port = params.port
+            this.username = params.username
+            this.password = params.password
+            this.options = params.options
             this.maxSize = maxSize
 
             Object.defineProperties(this, {
@@ -495,17 +551,20 @@ module.exports = {
         password = ''
         options = {}
 
-        createSession = async function () {
-            await dynamicPool.createSession(this, module)
+        createNewSession = async function (timeout = 0) {
+            await dynamicPool.createNewSession(this, timeout)
         }
 
-        getSessionByGUID = async function (GUID) {
-            await dynamicPool.getSessionByGUID(this, GUID)
+        getSessionByGUID = async function (GUID, timeout = 1000) {
+            await dynamicPool.getSessionByGUID(this, GUID, timeout)
         }
 
         terminateSession = async function (GUID) {
             await dynamicPool.terminateSession(this, GUID)
+        }
 
+        getStatus = async function () {
+            return await dynamicPool.getStatus(this)
         }
     }
 }

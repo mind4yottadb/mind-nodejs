@@ -15,7 +15,7 @@ const {expect} = require("chai");
 const {createYdbInstance, sleep} = require("../../utils.cjs");
 const mindServer = require("../../../js");
 
-describe("Pool: creation / destroy", async () => {
+describe("Pool static: creation / destroy", async () => {
     describe("Pool creation: size", async () => {
         it("with no param at all", async () => {
             try {

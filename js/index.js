@@ -440,16 +440,16 @@ module.exports = {
             // validate login params
             // host, port, username, password, options = {},
 
-            if (typeof maxSize === 'undefined') {
-                throw new Error('Missing maximum pool size')
+            if (typeof params !== 'object' || Array.isArray(params) === true) {
+                throw new Error('params is not an object')
             }
 
-            if (typeof maxSize !== 'number') {
-                throw new Error(errors.PARAM_NOT_NUMBER + 'Pool maximum size must be a number')
+            if (params === null) {
+                throw new Error('params is not an object')
             }
 
             if (Object.keys(params).length === 0) {
-                throw new Error('Missing params for pool')
+                throw new Error('params is empty')
             }
 
             if (params.host === undefined) {
@@ -500,8 +500,16 @@ module.exports = {
                 throw new Error('params.password can not be an empty string')
             }
 
-            if (options && typeof params.options !== 'object') {
+            if (params.options && typeof params.options !== 'object') {
                 throw new Error('params.options must be an object')
+            }
+
+            if (typeof maxSize === 'undefined') {
+                throw new Error('Missing maximum pool size')
+            }
+
+            if (typeof maxSize !== 'number') {
+                throw new Error(errors.PARAM_NOT_NUMBER + 'Pool maximum size must be a number')
             }
 
             this.host = params.host

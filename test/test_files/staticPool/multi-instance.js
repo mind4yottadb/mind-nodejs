@@ -14,7 +14,7 @@ const {expect} = require("chai");
 const {createYdbInstance} = require("../../utils.cjs");
 const mindServer = require("../../../js");
 
-describe("Pool creation: multi instance", async () => {
+describe("Pool static creation: multi instance", async () => {
     it("with two pools", async () => {
         const pool = new mindServer.staticPool(3)
         const pool2 = new mindServer.staticPool(2, 1)

@@ -14,7 +14,7 @@ const {expect} = require("chai");
 const {createYdbInstance} = require("../../utils.cjs");
 const mindServer = require("../../../js");
 
-describe("Pool creation: connect errors", async () => {
+describe("Pool static creation: connect errors", async () => {
     it("with wrong credentials", async () => {
         const pool = new mindServer.staticPool(3)
 

@@ -489,115 +489,116 @@ describe("Pool dynamic: creation / destroy", async () => {
         });
     })
 
-    it("with string as maximumSize", async () => {
-        try {
-            const pool = new mindServer.dynamicPool({
-                host: 'localhost',
-                port: 500,
-                username: "test",
-                password: 'welcome01',
-            }, 'string test')
+    describe("params object", async () => {
+        it("with string as maximumSize", async () => {
+            try {
+                const pool = new mindServer.dynamicPool({
+                    host: 'localhost',
+                    port: 500,
+                    username: "test",
+                    password: 'welcome01',
+                }, 'string test')
 
-        } catch (err) {
-            expect(err.message).to.have.string('PARAM_NOT_NUMBER,Pool maximum size must be a number')
-        }
-    })
+            } catch (err) {
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER,Pool maximum size must be a number')
+            }
+        })
 
-    it("with boolean as maximumSize", async () => {
-        try {
-            const pool = new mindServer.dynamicPool({
-                host: 'localhost',
-                port: 500,
-                username: "test",
-                password: 'welcome01',
-            }, false)
+        it("with boolean as maximumSize", async () => {
+            try {
+                const pool = new mindServer.dynamicPool({
+                    host: 'localhost',
+                    port: 500,
+                    username: "test",
+                    password: 'welcome01',
+                }, false)
 
-        } catch (err) {
-            expect(err.message).to.have.string('PARAM_NOT_NUMBER,Pool maximum size must be a number')
-        }
-    })
+            } catch (err) {
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER,Pool maximum size must be a number')
+            }
+        })
 
-    it("with null as maximumSize", async () => {
-        try {
-            const pool = new mindServer.dynamicPool({
-                host: 'localhost',
-                port: 500,
-                username: "test",
-                password: 'welcome01',
-            }, null)
+        it("with null as maximumSize", async () => {
+            try {
+                const pool = new mindServer.dynamicPool({
+                    host: 'localhost',
+                    port: 500,
+                    username: "test",
+                    password: 'welcome01',
+                }, null)
 
-        } catch (err) {
-            expect(err.message).to.have.string('PARAM_NOT_NUMBER,Pool maximum size must be a number')
-        }
-    })
+            } catch (err) {
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER,Pool maximum size must be a number')
+            }
+        })
 
-    it("with object as maximumSize", async () => {
-        try {
-            const pool = new mindServer.dynamicPool({
-                host: 'localhost',
-                port: 500,
-                username: "test",
-                password: 'welcome01',
-            }, {})
+        it("with object as maximumSize", async () => {
+            try {
+                const pool = new mindServer.dynamicPool({
+                    host: 'localhost',
+                    port: 500,
+                    username: "test",
+                    password: 'welcome01',
+                }, {})
 
-        } catch (err) {
-            expect(err.message).to.have.string('PARAM_NOT_NUMBER,Pool maximum size must be a number')
-        }
-    })
+            } catch (err) {
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER,Pool maximum size must be a number')
+            }
+        })
 
-    it("with no maximumSize", async () => {
-        try {
-            const pool = new mindServer.dynamicPool({
-                host: 'localhost',
-                port: 500,
-                username: "test",
-                password: 'welcome01',
-            })
-        } catch (err) {
-            expect(err.message).to.have.string('params.options must be an object')
-        }
-    })
+        it("with no maximumSize", async () => {
+            try {
+                const pool = new mindServer.dynamicPool({
+                    host: 'localhost',
+                    port: 500,
+                    username: "test",
+                    password: 'welcome01',
+                })
+            } catch (err) {
+                expect(err.message).to.have.string('params.options must be an object')
+            }
+        })
 
-    it("with negative maximumSize", async () => {
-        try {
-            const pool = new mindServer.dynamicPool({
-                host: 'localhost',
-                port: 500,
-                username: "test",
-                password: 'welcome01',
-            }, -1)
+        it("with negative maximumSize", async () => {
+            try {
+                const pool = new mindServer.dynamicPool({
+                    host: 'localhost',
+                    port: 500,
+                    username: "test",
+                    password: 'welcome01',
+                }, -1)
 
-        } catch (err) {
-            expect(err.message).to.have.string('Pool maximum size must be equal or greater than 0')
-        }
-    })
+            } catch (err) {
+                expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_GREATER,Pool maximum size must be equal or greater than 0')
+            }
+        })
 
-    it("with 0 as maximumSize", async () => {
-        try {
-            const pool = new mindServer.dynamicPool({
-                host: 'localhost',
-                port: 500,
-                username: "test",
-                password: 'welcome01',
-            }, 0)
+        it("with 0 as maximumSize", async () => {
+            try {
+                const pool = new mindServer.dynamicPool({
+                    host: 'localhost',
+                    port: 500,
+                    username: "test",
+                    password: 'welcome01',
+                }, 0)
 
-        } catch (err) {
-            expect(err.message).to.have.string('should not happen')
-        }
-    })
+            } catch (err) {
+                expect(err.message).to.have.string('should not happen')
+            }
+        })
 
-    it("with positive maximumSize", async () => {
-        try {
-            const pool = new mindServer.dynamicPool({
-                host: 'localhost',
-                port: 500,
-                username: "test",
-                password: 'welcome01',
-            }, 10)
+        it("with positive maximumSize", async () => {
+            try {
+                const pool = new mindServer.dynamicPool({
+                    host: 'localhost',
+                    port: 500,
+                    username: "test",
+                    password: 'welcome01',
+                }, 10)
 
-        } catch (err) {
-            expect(err.message).to.have.string('should not happen')
-        }
+            } catch (err) {
+                expect(err.message).to.have.string('should not happen')
+            }
+        })
     })
 })
-

@@ -441,67 +441,67 @@ module.exports = {
             // host, port, username, password, options = {},
 
             if (typeof params !== 'object' || Array.isArray(params) === true) {
-                throw new Error('params is not an object')
+                throw new Error(errors.PARAM_NOT_OBJECT + 'params is not an object')
             }
 
             if (params === null) {
-                throw new Error('params is not an object')
+                throw new Error(errors.PARAM_NOT_OBJECT + 'params is not an object')
             }
 
             if (Object.keys(params).length === 0) {
-                throw new Error('params is empty')
+                throw new Error(errors.PARAM_IS_EMPTY + 'params is empty')
             }
 
             if (params.host === undefined) {
-                throw new Error('Missing params.host')
+                throw new Error(errors.PARAM_MISSING + 'Missing params.host')
             }
 
             if (typeof params.host !== 'string') {
-                throw new Error('params.host must be a string')
+                throw new Error(errors.PARAM_NOT_STRING + 'params.host must be a string')
             }
 
             if (params.host === '') {
-                throw new Error('params.host can not be an empty string')
+                throw new Error(errors.STRING_IS_EMPTY + 'params.host can not be an empty string')
             }
 
             if (params.port === undefined) {
-                throw new Error('Missing params.port')
+                throw new Error(errors.PARAM_MISSING + 'Missing params.port')
             }
 
             if (typeof params.port !== 'number') {
-                throw new Error('params.port must be a number')
+                throw new Error(errors.PARAM_NOT_NUMBER + 'params.port must be a number')
             }
 
             if (params.host < 0) {
-                throw new Error('params.port must be a positive number')
+                throw new Error(errors.PARAM_NOT_GREATER_THAN_ZERO + 'params.port must be a positive number')
             }
 
             if (params.username === undefined) {
-                throw new Error('Missing params.username')
+                throw new Error(errors.PARAM_MISSING + 'Missing params.username')
             }
 
             if (typeof params.username !== 'string') {
-                throw new Error('params.username must be a string')
+                throw new Error(errors.PARAM_NOT_STRING + 'params.username must be a string')
             }
 
             if (params.username === '') {
-                throw new Error('params.username can not be an empty string')
+                throw new Error(errors.STRING_IS_EMPTY + 'params.username can not be an empty string')
             }
 
             if (params.password === undefined) {
-                throw new Error('Missing params.password')
+                throw new Error(errors.PARAM_MISSING + 'Missing params.password')
             }
 
             if (typeof params.password !== 'string') {
-                throw new Error('params.password must be a string')
+                throw new Error(errors.PARAM_NOT_STRING + 'params.password must be a string')
             }
 
             if (params.password === '') {
-                throw new Error('params.password can not be an empty string')
+                throw new Error(errors.STRING_IS_EMPTY + 'params.password can not be an empty string')
             }
 
             if (params.options && typeof params.options !== 'object') {
-                throw new Error('params.options must be an object')
+                throw new Error(errors.PARAM_NOT_OBJECT + 'params.options must be an object')
             }
 
             if (typeof maxSize !== 'number') {
@@ -509,7 +509,7 @@ module.exports = {
             }
 
             if (maxSize < 0) {
-                throw new Error(errors.PARAM_NOT_NUMBER + 'Pool maximum size must be equal or greater than 0')
+                throw new Error(errors.PARAM_NOT_ZERO_OR_GREATER + 'Pool maximum size must be equal or greater than 0')
             }
 
             this.host = params.host

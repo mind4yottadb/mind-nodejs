@@ -560,19 +560,32 @@ module.exports = {
         options = {}
 
         createNewSession = async function (timeout = 0) {
-            await dynamicPool.createNewSession(this, timeout)
+            await dynamicPool.createNewSession(this, module, timeout)
         }
 
         getSessionByGUID = async function (GUID, timeout = 1000) {
-            await dynamicPool.getSessionByGUID(this, GUID, timeout)
+            await dynamicPool.getSessionByGUID(this, module, GUID, timeout)
         }
 
         terminateSession = async function (GUID) {
-            await dynamicPool.terminateSession(this, GUID)
+            await dynamicPool.terminateSession(this, module, GUID)
         }
 
         getStatus = async function () {
-            return await dynamicPool.getStatus(this)
+            return await dynamicPool.getStatus(this, module)
+        }
+
+        verifyConnection = async function () {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    await dynamicPool.verifyConnection(this, module)
+
+                    resolve()
+
+                } catch (err) {
+                    reject(err)
+                }
+            })
         }
     }
 }

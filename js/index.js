@@ -23,12 +23,12 @@ const nsDbms = require('./namespaces/dbms')
 const nsSession = require('./namespaces/session')
 const staticPool = require('./static-pool')
 const dynamicPool = require('./dynamic-pool')
-
 const login = require('./login')
+
 const utils = require('./utils')
 const errors = require("./errors");
 
-const requiredMind = '0.24.0'         // required server version
+const requiredMind = '0.27.0'         // required server version
 
 module.exports = {
     session: class mind extends EventEmitter {
@@ -504,12 +504,12 @@ module.exports = {
                 throw new Error('params.options must be an object')
             }
 
-            if (typeof maxSize === 'undefined') {
-                throw new Error('Missing maximum pool size')
-            }
-
             if (typeof maxSize !== 'number') {
                 throw new Error(errors.PARAM_NOT_NUMBER + 'Pool maximum size must be a number')
+            }
+
+            if (maxSize < 0) {
+                throw new Error(errors.PARAM_NOT_NUMBER + 'Pool maximum size must be equal or greater than 0')
             }
 
             this.host = params.host
@@ -552,7 +552,7 @@ module.exports = {
         }
 
         maxSize = 0
-        sessions = []
+        sessions = {}
         host = ''
         port = 0
         username = ''
@@ -560,11 +560,11 @@ module.exports = {
         options = {}
 
         createNewSession = async function (timeout = 0) {
-            await dynamicPool.createNewSession(this, module, timeout)
+            return await dynamicPool.createNewSession(this, module, timeout)
         }
 
         getSessionByGUID = async function (GUID, timeout = 1000) {
-            await dynamicPool.getSessionByGUID(this, module, GUID, timeout)
+            return await dynamicPool.getSessionByGUID(this, module, GUID, timeout)
         }
 
         terminateSession = async function (GUID) {

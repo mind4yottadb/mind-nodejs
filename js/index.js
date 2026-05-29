@@ -568,11 +568,15 @@ module.exports = {
         }
 
         terminateSession = async function (GUID) {
-            await dynamicPool.terminateSession(this, module, GUID)
+            await dynamicPool.terminateSession(this, GUID)
+        }
+
+        terminatePool = async function () {
+            await dynamicPool.terminatePool(this)
         }
 
         getStatus = async function () {
-            return await dynamicPool.getStatus(this, module)
+            return await dynamicPool.getStatus(this)
         }
 
         verifyConnection = async function () {

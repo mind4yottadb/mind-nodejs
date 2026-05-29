@@ -10,10 +10,18 @@
 #                                                               #
 ###############################################################*/
 
+const errors = require('./errors')
+
 module.exports = {
     createNewSession: async function (that, classModule, timeout) {
         return new Promise(async (resolve, reject) => {
                 const session = new classModule.exports.session
+
+            if (that.maxSize > 0 && Object.keys(that.sessions).length === that.maxSize) {
+                reject(new Error(errors.POOL_NO_MORE_SLOTS + 'you reached the maximum number of slots available for this pool'))
+
+                return
+            }
 
                 try {
                     await session.connect(that.host, that.port, that.username, that.password, that.options)
@@ -65,23 +73,25 @@ module.exports = {
                 reject(err)
             }
         })
-    }
+    },
 
-    ,
-
-    terminateSession: async function (that, classModule, GUID) {
+    terminateSession: async function (that, GUID) {
         return new Promise(async (resolve, reject) => {
 
         })
-    }
-    ,
+    },
 
-    getStatus: async function (that, classModule, GUID) {
+    terminatePool: async function (that) {
         return new Promise(async (resolve, reject) => {
 
         })
-    }
-    ,
+    },
+
+    getStatus: async function (that, GUID) {
+        return new Promise(async (resolve, reject) => {
+
+        })
+    },
 
     verifyConnection: async function (that, classModule) {
         return new Promise(async (resolve, reject) => {
@@ -98,6 +108,5 @@ module.exports = {
 
             session.disconnect()
         })
-    }
-    ,
+    },
 }

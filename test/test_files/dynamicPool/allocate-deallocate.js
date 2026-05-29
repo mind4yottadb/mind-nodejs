@@ -57,7 +57,7 @@ describe("Pool dynamic: connect-errors", async () => {
         } catch (err) {
             session.disconnect()
 
-            expect(err.message).to.have.string('bad')
+            expect(err.message).to.have.string('session in use')
         }
 
     });
@@ -125,8 +125,7 @@ describe("Pool dynamic: connect-errors", async () => {
 
             session = await pool.createNewSession()
             const guid = session.session.GUID
-            const session2 = await pool.getSessionByGUID(guid)
-            session2.done()
+            session.done()
 
             const session3 = await pool.getSessionByGUID(guid)
 
@@ -139,5 +138,29 @@ describe("Pool dynamic: connect-errors", async () => {
             expect(err.message).to.have.string('should not occur')
         }
 
+    });
+
+    it("try to get a session out of a full pool", async () => {
+        let session
+        try {
+            const pool = new mindServer.dynamicPool({
+                host: 'localhost',
+                port: 10000,
+                username: "admin",
+                password: 'admin',
+            }, 1)
+
+            session = await pool.createNewSession()
+
+            const session2 = await pool.createNewSession()
+
+            session.disconnect()
+
+
+        } catch (err) {
+            session.disconnect()
+
+            expect(err.message).to.have.string('POOL_NO_MORE_SLOTS')
+        }
     });
 })

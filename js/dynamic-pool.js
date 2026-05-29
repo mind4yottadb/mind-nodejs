@@ -10,10 +10,18 @@
 #                                                               #
 ###############################################################*/
 
+const errors = require('./errors')
+
 module.exports = {
     createNewSession: async function (that, classModule, timeout) {
         return new Promise(async (resolve, reject) => {
                 const session = new classModule.exports.session
+
+            if (that.maxSize > 0 && Object.keys(that.sessions).length === that.maxSize) {
+                reject(new Error(errors.POOL_NO_MORE_SLOTS + 'you reached the maximum number of slots available for this pool'))
+
+                return
+            }
 
                 try {
                     await session.connect(that.host, that.port, that.username, that.password, that.options)
@@ -21,7 +29,7 @@ module.exports = {
                     Object.assign(that.sessions, {
                         [session.session.GUID]: {
                             session: session,
-                            inUse: false
+                            inUse: true
                         }
                     })
 
@@ -65,23 +73,49 @@ module.exports = {
                 reject(err)
             }
         })
-    }
+    },
 
-    ,
+    terminateSession: async function (that, GUID) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                if (that.sessions[GUID] === undefined) {
+                    reject(new Error('guid does not exist'))
 
-    terminateSession: async function (that, classModule, GUID) {
+                    return
+                }
+
+                that.sessions[GUID].session.disconnect()
+                delete that.sessions[GUID]
+
+                resolve()
+
+            } catch (err) {
+                reject(err)
+            }
+        })
+    },
+
+    terminatePool: async function (that) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                for (const [guid, session] of Object.entries(that.sessions)) {
+                    await session.session.disconnect()
+                    delete that.sessions[guid]
+                }
+
+                resolve()
+
+            } catch (err) {
+                reject(err)
+            }
+        })
+    },
+
+    getStatus: async function (that, GUID) {
         return new Promise(async (resolve, reject) => {
 
         })
-    }
-    ,
-
-    getStatus: async function (that, classModule, GUID) {
-        return new Promise(async (resolve, reject) => {
-
-        })
-    }
-    ,
+    },
 
     verifyConnection: async function (that, classModule) {
         return new Promise(async (resolve, reject) => {
@@ -98,6 +132,5 @@ module.exports = {
 
             session.disconnect()
         })
-    }
-    ,
+    },
 }

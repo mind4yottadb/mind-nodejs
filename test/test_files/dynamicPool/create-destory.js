@@ -15,7 +15,7 @@ const {expect} = require("chai");
 const {createYdbInstance, sleep} = require("../../utils.cjs");
 const mindServer = require("../../../js");
 
-describe("Pool dynamic: creation / destroy", async () => {
+describe("Pool dynamic: creation", async () => {
     describe("params object", async () => {
         it("with no param at all", async () => {
             try {
@@ -600,5 +600,87 @@ describe("Pool dynamic: creation / destroy", async () => {
                 expect(err.message).to.have.string('should not happen')
             }
         })
+    })
+})
+
+describe("Pool dynamic: destroy", async () => {
+    describe("terminateSession()", async () => {
+        it("destroy non existing entry", async () => {
+            try {
+                const pool = new mindServer.dynamicPool({
+                    host: 'localhost',
+                    port: 10000,
+                    username: "admin",
+                    password: 'admin'
+                })
+
+                const session = await pool.createNewSession()
+                const guid = session.session.GUID
+
+                await pool.terminateSession(guid + 'xxx')
+
+                console.log('should error')
+
+            } catch (err) {
+                expect(err.message).to.have.string('guid does not exist')
+            }
+        });
+
+        it("destroy existing entry", async () => {
+            try {
+                const pool = new mindServer.dynamicPool({
+                    host: 'localhost',
+                    port: 10000,
+                    username: "admin",
+                    password: 'admin'
+                })
+
+                const session = await pool.createNewSession()
+                const guid = session.session.GUID
+
+                await pool.terminateSession(guid)
+
+            } catch (err) {
+                expect(err.message).to.have.string('guid does not exist')
+            }
+        });
+    })
+
+    describe("terminatePool()", async () => {
+        it("destroy empty pool", async () => {
+            try {
+                const pool = new mindServer.dynamicPool({
+                    host: 'localhost',
+                    port: 10000,
+                    username: "admin",
+                    password: 'admin'
+                })
+
+                await pool.terminatePool()
+
+            } catch (err) {
+                expect(err.message).to.have.string('guid does not exist')
+            }
+        });
+
+        it("destroy non empty pool", async () => {
+            try {
+                const pool = new mindServer.dynamicPool({
+                    host: 'localhost',
+                    port: 10000,
+                    username: "admin",
+                    password: 'admin'
+                })
+
+                const session1 = await pool.createNewSession()
+                const session2 = await pool.createNewSession()
+
+                await pool.terminatePool()
+
+            } catch (err) {
+                expect(err.message).to.have.string('guid does not exist')
+            }
+        });
+
     })
 })

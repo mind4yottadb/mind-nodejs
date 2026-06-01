@@ -29,10 +29,16 @@ module.exports = {
                         isExtension: false
                     })
 
-                    session.on('disconnect', () => {
-                        that.stats.remoteDisconnects++
-                    })
+                    session.on('disconnect', function () {
+                        for (let ix in that.sessions) {
+                            if (that.sessions[ix].session.session.GUID === this.session.GUID) {
+                                that.sessions.splice(ix, 1)
+                            }
+                        }
 
+                        that.stats.remoteDisconnects++
+                        that.size--
+                    })
 
                 } catch (err) {
                     reject(err)
@@ -125,6 +131,13 @@ module.exports = {
 
                         this.poolSlot.inUse = false
                     }
+                })
+
+                session.on('disconnect', function () {
+                    this.that.sessions.splice(this.ix, 1)
+                    that.stats.remoteDisconnects++
+                    that.extensionInUse--
+                    that.extendsRemoved++
                 })
 
                 that.hidePropsInObject(newSession)
@@ -236,6 +249,13 @@ module.exports = {
 
                             this.poolSlot.inUse = false
                         }
+                    })
+
+                    session.on('disconnect', function () {
+                        this.that.sessions.splice(this.ix, 1)
+                        that.stats.remoteDisconnects++
+                        that.extensionInUse--
+                        that.extendsRemoved++
                     })
 
                     that.hidePropsInObject(newSession)

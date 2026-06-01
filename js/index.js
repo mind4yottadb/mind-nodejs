@@ -220,9 +220,6 @@ module.exports = {
             this.session.GUID = guid
         }
 
-        // ********************************
-        // private methods and properties
-        // ********************************
         #writePacket = (msg) => {
             const that = this
 
@@ -254,7 +251,31 @@ module.exports = {
         }
     },
 
+    // ********************************
+    // static pool
+    // ********************************
     staticPool: class StaticPool {
+        stats = {
+            sessionsCreatedOk: 0,           // how many sessions were created
+            sessionsCreatedInError: 0,      // how many session got error on creation
+            extendsCreatedOk: 0,            // how many extends got created
+            extendsCreatedInError: 0,       // how many extends got error on creation
+            extendsRemoved: 0,              // how many extends got removed
+            noMoreSlotsHits: 0,             // how many times no more slots were available and the getSession() had to wait
+            timeoutExpired: 0,              // how many times a timeout expired while getting a session
+            remoteDisconnects: 0,           // how many sessions got remotely disconnected
+        }
+
+        size = 0                        // size (in sessions)
+        extension = 0                   // extension size (in sessions)
+        extensionInUse = 0              // how many extension sessions are currently in use
+        sessions = []                     // sessions array
+        host = ''                        // credentials to connect extensions
+        port = 0                        // credentials to connect extensions
+        username = ''                   // credentials to connect extensions
+        password = ''                   // credentials to connect extensions
+        options = {}                        // credentials to connect extensions
+        timerTick = false               // internal timer
         config = {
             shrink: function () {
 
@@ -288,54 +309,6 @@ module.exports = {
 
                 }
             }
-        }
-
-        size = 0                        // size (in sessions)
-        extension = 0                   // extension size (in sessions)
-        extensionInUse = 0              // how many extension sessions are currently in use
-        sessions = []                     // sessions array
-        host = ''                        // credentials to connect extensions
-        port = 0                        // credentials to connect extensions
-        username = ''                   // credentials to connect extensions
-        password = ''                   // credentials to connect extensions
-        options = {}                        // credentials to connect extensions
-        timerTick = false               // internal timer
-
-        stats = {
-            sessionsCreatedOk: 0,           // how many sessions were created
-            sessionsCreatedInError: 0,      // how many session got error on creation
-            extendsCreatedOk: 0,            // how many extends got created
-            extendsCreatedInError: 0,       // how many extends got error on creation
-            extendsRemoved: 0,              // how many extends got removed
-            noMoreSlotsHits: 0,             // how many times no more slots were available and the getSession() had to wait
-            timeoutExpired: 0,              // how many times a timeout expired while getting a session
-            remoteDisconnects: 0,           // how many sessions got remotely disconnected
-        }
-
-        create = async function (host, port, username, password, options = {}) {
-            return new Promise(async (resolve, reject) => {
-                try {
-                    await staticPool.create(this, module, host, port, username, password, options)
-
-                    resolve()
-
-                } catch (err) {
-                    reject(err)
-                }
-
-            })
-        }
-
-        destroy = function () {
-            staticPool.destroy(this)
-        }
-
-        getSession = async function (timeout = 0) {
-            return await staticPool.getSessions(this, module, timeout)
-        }
-
-        getStatus = function () {
-            return staticPool.getStatus(this)
         }
 
         constructor(size, extension = 0, credentials = {}) {
@@ -414,6 +387,32 @@ module.exports = {
             })
         }
 
+        create = async function (host, port, username, password, options = {}) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    await staticPool.create(this, module, host, port, username, password, options)
+
+                    resolve()
+
+                } catch (err) {
+                    reject(err)
+                }
+
+            })
+        }
+
+        destroy = function () {
+            staticPool.destroy(this)
+        }
+
+        getSession = async function (timeout = 0) {
+            return await staticPool.getSessions(this, module, timeout)
+        }
+
+        getStatus = function () {
+            return staticPool.getStatus(this)
+        }
+
         // ******************
         // hide internal props in object to programmers
         // ******************
@@ -439,6 +438,9 @@ module.exports = {
         }
     },
 
+    // ********************************
+    // dynamic pool
+    // ********************************
     dynamicPool: class DynamicPool {
         constructor(params = {}, maxSize = 0) {
             // validate login params
@@ -562,6 +564,47 @@ module.exports = {
         username = ''
         password = ''
         options = {}
+
+        stats = {
+            inUseError: 0,             // how many times no more slots were available and the getSession() had to wait
+            remoteDisconnects: 0,           // how many sessions got remotely disconnected
+        }
+
+
+        config = {
+            shrink: function () {
+
+            },
+            expand: function () {
+
+            },
+            changeExtension: function () {
+
+            },
+            currentSettings: function () {
+
+            },
+            server: {
+                getCurrentSettings: function () {
+
+                },
+                changeLogLevel: function () {
+
+                },
+                changeLogDumpRequest: function () {
+
+                },
+                changeLogDumpResponse: function () {
+
+                },
+                changeStatsMode: function () {
+
+                },
+                changeErrorDump: function () {
+
+                }
+            }
+        }
 
         createNewSession = async function (timeout = 0) {
             return await dynamicPool.createNewSession(this, module, timeout)

@@ -42,6 +42,8 @@ module.exports = {
                     // mount handler to remove entry from sessions{} when remote disconnect occurs
                     session.on('disconnect', function () {
                         delete that.sessions[this.session.GUID]
+
+                        that.stats.remoteDisconnects++
                     })
 
                     resolve(session)
@@ -65,6 +67,8 @@ module.exports = {
 
                 // TODO: this should be change in a queue with 0 ms timer
                 if (that.sessions[GUID].inUse === true) {
+                    that.stats.inUseError++
+
                     reject(new Error(errors.POOL_SESSION_IN_USE + 'session in use'))
 
                     return

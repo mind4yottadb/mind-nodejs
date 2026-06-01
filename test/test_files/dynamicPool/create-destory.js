@@ -614,8 +614,7 @@ describe("Pool dynamic: destroy", async () => {
                     password: 'admin'
                 })
 
-                const session = await pool.createNewSession()
-                const guid = session.session.GUID
+                const [session, guid] = await pool.createNewSession()
 
                 await pool.terminateSession(guid + 'xxx')
 
@@ -635,8 +634,7 @@ describe("Pool dynamic: destroy", async () => {
                     password: 'admin'
                 })
 
-                const session = await pool.createNewSession()
-                const guid = session.session.GUID
+                const [session, guid] = await pool.createNewSession()
 
                 await pool.terminateSession(guid)
 

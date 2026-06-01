@@ -46,7 +46,7 @@ module.exports = {
                         that.stats.remoteDisconnects++
                     })
 
-                    resolve(session)
+                    resolve([session, session.session.GUID])
 
                 } catch
                     (err) {

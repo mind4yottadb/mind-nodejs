@@ -164,3 +164,40 @@ describe("Pool dynamic: connect-errors", async () => {
         }
     });
 })
+
+it("try to get a released session by GUID and check the vars", async () => {
+    let session
+    try {
+        const pool = new mindServer.dynamicPool({
+            host: 'localhost',
+            port: 10000,
+            username: "admin",
+            password: 'admin',
+            options: {
+                uApi: {appName: "test-vars"},
+            }
+        })
+
+        session = await pool.createNewSession()
+
+        // set the var testVar1
+        await session.db.vars.testVar1.setValue(1234)
+
+        const guid = session.session.GUID
+        session.done()
+
+        const session3 = await pool.getSessionByGUID(guid)
+
+        const foundInVar = await session3.db.vars.testVar1.getValue()
+
+        expect(foundInVar).to.equal(1234)
+
+        session.disconnect()
+
+    } catch (err) {
+        session.disconnect()
+
+        expect(err.message).to.have.string('should not occur')
+    }
+});
+

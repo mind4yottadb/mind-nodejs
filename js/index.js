@@ -200,6 +200,8 @@ module.exports = {
         }
 
         disconnect = () => {
+            const guid = this.session.GUID
+
             if (this.#socket) {
                 if (this.hTimer !== null) clearTimeout(this.hTimer)
                 this.#socket.destroy()
@@ -214,6 +216,8 @@ module.exports = {
             this.db = new nsDb
             this.dbms = new nsDbms
             this.session = new nsSession
+
+            this.session.GUID = guid
         }
 
         // ********************************

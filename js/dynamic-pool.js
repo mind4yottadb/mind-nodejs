@@ -39,6 +39,11 @@ module.exports = {
                         }
                     })
 
+                    // mount handler to remove entry from sessions{} when remote disconnect occurs
+                    session.on('disconnect', function () {
+                        delete that.sessions[this.session.GUID]
+                    })
+
                     resolve(session)
 
                 } catch
@@ -53,14 +58,14 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 if (that.sessions[GUID] === undefined) {
-                    reject(new Error('guid does not exist'))
+                    reject(new Error(errors.POOL_GUID_NOT_FOUND + 'guid does not exist'))
 
                     return
                 }
 
                 // TODO: this should be change in a queue with 0 ms timer
                 if (that.sessions[GUID].inUse === true) {
-                    reject(new Error('session in use'))
+                    reject(new Error(errors.POOL_SESSION_IN_USE + 'session in use'))
 
                     return
                 }
@@ -79,7 +84,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 if (that.sessions[GUID] === undefined) {
-                    reject(new Error('guid does not exist'))
+                    reject(new Error(errors.POOL_GUID_NOT_FOUND + 'guid does not exist'))
 
                     return
                 }

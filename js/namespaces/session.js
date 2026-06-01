@@ -13,7 +13,7 @@
 const utils = require("../utils");
 const errors = require('../errors.js')
 
-class Sessions {
+class Session {
     stats = function () {
         const that = this
         const RESP3 = that.objRoot.RESP3
@@ -145,4 +145,4 @@ class Sessions {
     }
 }
 
-module.exports = Sessions
+module.exports = Session

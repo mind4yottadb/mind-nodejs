@@ -63,6 +63,10 @@ module.exports = {
         that.sessions = []
     },
 
+    rundown: function (that) {
+
+    },
+
     getSessions: async function (that, classModule, timeout) {
         return new Promise(async (resolve, reject) => {
             const freeSlots = that.sessions.filter(session => session.inUse === false)

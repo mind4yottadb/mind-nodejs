@@ -266,17 +266,21 @@ module.exports = {
             remoteDisconnects: 0,           // how many sessions got remotely disconnected
         }
 
-        size = 0                        // size (in sessions)
-        extension = 0                   // extension size (in sessions)
-        extensionInUse = 0              // how many extension sessions are currently in use
-        sessions = []                     // sessions array
-        host = ''                        // credentials to connect extensions
-        port = 0                        // credentials to connect extensions
-        username = ''                   // credentials to connect extensions
-        password = ''                   // credentials to connect extensions
-        options = {}                        // credentials to connect extensions
-        timerTick = false               // internal timer
-        config = {
+        size = 0                    // size (in sessions)
+        extension = 0               // extension size (in sessions)
+        extensionInUse = 0          // how many extension sessions are currently in use
+        sessions = []                 // sessions array
+        host = ''                    // credentials to connect extensions
+        port = 0                    // credentials to connect extensions
+        username = ''                 // credentials to connect extensions
+        password = ''                 // credentials to connect extensions
+        options = {}                     // credentials to connect extensions
+        timerTick = false           // internal timer
+
+        devOps = {
+            session: {},
+            sessionInUse: false,
+
             shrink: function () {
 
             },
@@ -286,26 +290,35 @@ module.exports = {
             changeExtension: function () {
 
             },
-            currentSettings: function () {
+            getCurrentSettings: function () {
 
             },
             server: {
                 getCurrentSettings: function () {
 
                 },
+
                 changeLogLevel: function () {
 
                 },
-                changeLogDumpRequest: function () {
+
+                changeDumpRequest: function () {
 
                 },
-                changeLogDumpResponse: function () {
+
+                changeDumpResponse: function () {
 
                 },
+
                 changeStatsMode: function () {
 
                 },
+
                 changeErrorDump: function () {
+
+                },
+
+                getPoolStats: function () {
 
                 }
             }
@@ -403,6 +416,10 @@ module.exports = {
 
         destroy = function () {
             staticPool.destroy(this)
+        }
+
+        rundown = function () {
+            staticPool.rundown(this)
         }
 
         getSession = async function (timeout = 0) {

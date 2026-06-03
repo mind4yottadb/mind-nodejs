@@ -278,6 +278,55 @@ class Session {
         })
     }
 
+    setStatsMode = function (value) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
+
+                return
+            }
+
+            if (typeof (value) !== 'number') {
+                reject(new Error(errors.PARAM_NOT_NUMBER + 'timeout must be a number greater than -1'))
+
+                return
+            }
+
+            if (value < 0 || value > 2) {
+                reject(new Error(errors.PARAM_NOT_ZERO_OR_GREATER + 'timeout must be between 0 and 2'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'session.setStatsMode'
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(value)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                if (data.indexOf('+no data') > -1) {
+                    //reject(new Error('No stats enabled on server'))
+                    resolve({})
+
+                    return
+                }
+
+                resolve()
+            })
+        })
+    }
+
     _init = function (obj) {
         Object.defineProperties(obj, {
             ERROR_DUMP_NONE: {
@@ -300,8 +349,28 @@ class Session {
                 configurable: true,
                 writable: false
             },
-        })
 
+            STATS_NONE: {
+                value: 0,
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
+            STATS_GRAND_TOTALS: {
+                value: 1,
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
+            STATS_DETAILS: {
+                value: 2,
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+        })
         Object.defineProperties(obj, {
             _init: {
                 enumerable: false,

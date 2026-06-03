@@ -28,6 +28,7 @@ This namespace allow you to inspect values related to your MIND session.
 - [log()](api/session/session.log.md)
 - [getCurrentSettings()](api/session/session.getCurrentSettings.md)
 - [setErrorDump()](api/session/session.setErrorDump.md)
+- [setStatsMode()](api/session/session.setStatsMode.md)
 
 
 ---
@@ -39,3 +40,6 @@ This namespace allow you to inspect values related to your MIND session.
 - [ERROR_DUMP_NONE](api/session/session.error-dump-none.md)
 - [ERROR_DUMP_BRIEF](api/session/session.error-dump-brief.md)
 - [ERROR_DUMP_FULL](api/session/session.error-dump-full.md)
+- [STATS_NONE](api/session/session.stats-none.md)
+- [STATS_GRAND_TOTALS](api/session/session.stats-grand-totals.md)
+- [STATS_DETAILS](api/session/session.stats-details.md)

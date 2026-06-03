@@ -28,7 +28,7 @@ const login = require('./login')
 const utils = require('./utils')
 const errors = require("./errors");
 
-const requiredMind = '0.27.0'         // required server version
+const requiredMind = '0.28.0'         // required server version
 
 module.exports = {
     session: class mind extends EventEmitter {

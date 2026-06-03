@@ -180,7 +180,54 @@ class Session {
         })
     }
 
+    setIdleTimeout = function (timeout) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
 
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
+
+                return
+            }
+
+            if (typeof (timeout) !== 'number') {
+                reject(new Error(errors.PARAM_NOT_NUMBER + 'timeout must be a number greater than -1'))
+
+                return
+            }
+
+            if (timeout < 0) {
+                reject(new Error(errors.PARAM_NOT_ZERO_OR_GREATER + 'timeout must be zero or higher'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'session.setIdleTimeout'
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(timeout)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                if (data.indexOf('+no data') > -1) {
+                    //reject(new Error('No stats enabled on server'))
+                    resolve({})
+
+                    return
+                }
+
+                resolve()
+            })
+        })
+    }
 }
 
 module.exports = Session

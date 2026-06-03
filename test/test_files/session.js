@@ -181,3 +181,22 @@ describe("session.log()", async () => {
     });
 })
 
+describe("session.getCurrentSettings()", async () => {
+    it("get current settings from session", async function () {
+        this.timeout(10000)
+        const ydb = await createYdbInstance()
+
+        const res = await ydb.session.getCurrentSettings()
+        expect(typeof res === 'object')
+        expect(typeof res.dumpRequest === 'number')
+        expect(typeof res.dumpResponse === 'number')
+        expect(typeof res.errorDump === 'number')
+        expect(typeof res.idleTimeout === 'number')
+        expect(typeof res.logLevel === 'number')
+        expect(typeof res.stats === 'number')
+        expect(typeof res.logFile === 'string')
+        expect(typeof res.userApiDir === 'string')
+
+        ydb.disconnect()
+    });
+})

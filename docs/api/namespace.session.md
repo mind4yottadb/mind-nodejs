@@ -27,6 +27,7 @@ This namespace allow you to inspect values related to your MIND session.
 - [timeSinceConnect()](api/session/session.timeSinceConnect.md)
 - [log()](api/session/session.log.md)
 - [getCurrentSettings()](api/session/session.getCurrentSettings.md)
+- [setErrorDump()](api/session/session.setErrorDump.md)
 
 
 ---
@@ -35,3 +36,6 @@ This namespace allow you to inspect values related to your MIND session.
 
 - [GUID](api/session/session.GUID.md)
 - [serverPid](api/session/session.serverPid.md)
+- [ERROR_DUMP_NONE](api/session/session.error-dump-none.md)
+- [ERROR_DUMP_BRIEF](api/session/session.error-dump-brief.md)
+- [ERROR_DUMP_FULL](api/session/session.error-dump-full.md)

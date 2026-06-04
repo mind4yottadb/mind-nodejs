@@ -30,6 +30,8 @@ const errors = require("./errors");
 
 const requiredMind = '0.28.0'         // required server version
 
+const requiredMind = '0.24.0'         // required server version
+
 module.exports = {
     session: class mind extends EventEmitter {
         // ********************************

@@ -11,6 +11,7 @@
 ###############################################################*/
 
 const utils = require('../utils');
+const errors = require('../errors.js')
 
 class Fs {
     // ************************************
@@ -22,19 +23,19 @@ class Fs {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
 
             if (filename === undefined) {
-                reject(new Error('the filename has not been provided'))
+                reject(new Error(errors.PARAM_MISSING + 'the filename has not been provided'))
 
                 return
             }
 
             if (utils.validateTypeOfField(filename, 'string') === false) {
-                reject(new Error('Parameter filename must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'Parameter filename must be a string'))
 
                 return
             }
@@ -67,25 +68,25 @@ class Fs {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
 
             if (filename === undefined) {
-                reject(new Error('the filename has not been provided'))
+                reject(new Error(errors.FILENAME_NOT_PROVIDED + 'the filename has not been provided'))
 
                 return
             }
 
             if (utils.validateTypeOfField(filename, 'string') === false) {
-                reject(new Error('Parameter filename must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'Parameter filename must be a string'))
 
                 return
             }
 
             if (utils.validateTypeOfField(data, 'string') === false) {
-                reject(new Error('Parameter data must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'Parameter data must be a string'))
 
                 return
             }
@@ -119,25 +120,25 @@ class Fs {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
 
             if (filename === undefined) {
-                reject(new Error('the filename has not been provided'))
+                reject(new Error(errors.FILENAME_NOT_PROVIDED + 'the filename has not been provided'))
 
                 return
             }
 
             if (utils.validateTypeOfField(filename, 'string') === false) {
-                reject(new Error('Parameter filename must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'Parameter filename must be a string'))
 
                 return
             }
 
             if (utils.validateTypeOfField(data, 'string') === false) {
-                reject(new Error('Parameter data must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'Parameter data must be a string'))
 
                 return
             }
@@ -171,25 +172,25 @@ class Fs {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
 
             if (path === undefined) {
-                reject(new Error('the path has not been provided'))
+                reject(new Error(errors.PARAM_MISSING + 'the path has not been provided'))
 
                 return
             }
 
             if (utils.validateTypeOfField(path, 'string') === false) {
-                reject(new Error('Parameter path must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'Parameter path must be a string'))
 
                 return
             }
 
             if (utils.validateTypeOfField(mask, 'string') === false) {
-                reject(new Error('Parameter mask must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'Parameter mask must be a string'))
 
                 return
             }
@@ -222,7 +223,7 @@ class Fs {
 
         return new Promise(function (resolve, reject) {
             if (that.connected === false || that.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -234,13 +235,13 @@ class Fs {
             }
 
             if (utils.validateTypeOfField(path, 'string') === false) {
-                reject(new Error('Parameter path must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'Parameter path must be a string'))
 
                 return
             }
 
             if (utils.validateTypeOfField(mask, 'string') === false) {
-                reject(new Error('Parameter mask must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'Parameter mask must be a string'))
 
                 return
             }

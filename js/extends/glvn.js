@@ -11,6 +11,7 @@
 ###############################################################*/
 
 const utils = require("../utils");
+const errors = require('../errors.js')
 
 class Glvn {
     _path = ''
@@ -34,7 +35,7 @@ class Glvn {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -73,7 +74,7 @@ class Glvn {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -112,7 +113,7 @@ class Glvn {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -145,7 +146,7 @@ class Glvn {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -172,7 +173,7 @@ class Glvn {
                     resolve(RESP3.parse.blob(data))
 
                 } else {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
                 }
             })
         })
@@ -184,7 +185,7 @@ class Glvn {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -211,7 +212,7 @@ class Glvn {
                     resolve(RESP3.parse.blob(data.slice(1)))
 
                 } else {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
                 }
             })
         })
@@ -223,7 +224,7 @@ class Glvn {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -256,7 +257,7 @@ class Glvn {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -289,19 +290,19 @@ class Glvn {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
 
             if (typeof pieceChar !== 'string') {
-                reject(new Error('pieceChar must be a string'))
+                reject(new Error(errors.PARAM_NOT_STRING + 'pieceChar must be a string'))
 
                 return
             }
 
             if (typeof start !== 'number') {
-                reject(new Error('start must be a number'))
+                reject(new Error(errors.PARAM_NOT_NUMBER + 'start must be a number'))
 
                 return
             }
@@ -316,7 +317,7 @@ class Glvn {
                 end = start
 
             } else if (typeof end !== 'number') {
-                reject(new Error('end must be a number'))
+                reject(new Error(errors.PARAM_NOT_NUMBER + 'end must be a number'))
 
                 return
 
@@ -363,13 +364,13 @@ class Glvn {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
 
             if (typeof data !== 'string' && typeof data !== 'number') {
-                reject(new Error('data must be either a string or a number'))
+                reject(new Error(errors.PARAM_NOT_STRING_OR_NUMBER + 'data must be either a string or a number'))
 
                 return
             }
@@ -408,7 +409,7 @@ class Glvn {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }

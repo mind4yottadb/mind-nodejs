@@ -12,7 +12,7 @@
 ###############################################################*/
 -->
 
-### addName(name)
+### removeName(name)
 
 Applies to:
 
@@ -29,17 +29,14 @@ Applies to:
 
 | Name   | Datatype | Optional | Description                                                    |
 |--------|:--------:|:--------:|----------------------------------------------------------------|
-| `name` |  string  |    No    | The name of the global you want to add, without the ^ prefix.. |
+| `name` |  string  |    No    | The name of the var you want to remove, without the ^ prefix.. |
 
 <br>
 **Returns**: `undefined`
 
 ---
 
-It adds the name of a global to your environment.
-
-> You can have MIND automatically adding the name(s) by specifying the global list in
-> the [connect()](api/mind.connect.md) method.
+It removes the name of a var from your environment.
 
 ### EXAMPLES
 
@@ -52,18 +49,18 @@ const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-mind.db.globals.addName('apiTest')
-await mind.db.globals.apiTest.setValue('test')
+mind.db.vars.addName('apiTest')
+await mind.db.vars.apiTest.setValue('test')
 
-const ret = await mind.db.globals.apiTest.getValue()
-console.log(ret)
+mind.db.vars.removeName('apiTest')
+await mind.db.vars.apiTest.setValue('test')
 
-mind.disconnect()
 
 ````
 
 ````js
-ret = 'test'
+
+`TypeError: Cannot read properties of undefined (reading 'setValue')`
 
 ````
 

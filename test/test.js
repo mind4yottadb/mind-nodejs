@@ -16,7 +16,7 @@ const run = async () => {
         useTls: false,
         tlsRejectSelfSigned: false,
         connectTimeout: 10000,
-        uApi: {appName: 'ehs'},
+        uApi: {appName: ''},
         db: {
             globals: [
                 'globalTest', 'myglobal2', 'stef'
@@ -27,6 +27,12 @@ const run = async () => {
             exit()
         }
     )
+
+    console.log(mind)
+
+    exit()
+
+    return
 
     await mind2.connect('127.0.0.1', 10000, "admin", "admin", {
         useTls: false,

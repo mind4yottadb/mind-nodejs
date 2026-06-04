@@ -20,6 +20,7 @@
 
 - [connect()](api/mind.connect.md)
 - [disconnect()](api/mind.disconnect.md)
+- [done()](api/mind.done.md)
 
 #### Properties:
 

@@ -596,6 +596,18 @@ describe("uApi shared vars", async () => {
 
         ydb.disconnect()
     });
+})
 
+describe("uApi maps", async () => {
+    it("existence map", async () => {
+        const ydb = await createYdbInstance('test-map')
+
+        ydb.db.vars.addName('_mindParams')
+
+        expect(await ydb.db.vars._mindParams._('uApiServer', 'map', 'test-map', 'param1').getValue()).to.equal(12)
+        expect(await ydb.db.vars._mindParams._('uApiServer', 'map', 'test-map', 'param2').getValue()).to.equal('it is a string')
+
+        ydb.disconnect()
+    });
 
 })

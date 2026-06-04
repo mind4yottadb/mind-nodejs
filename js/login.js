@@ -12,6 +12,7 @@
 
 const uapi = require("./uapi")
 const fs = require("fs");
+const errors = require("./errors");
 
 const driverName = 'mind4yottadb.js'
 const driverVersion = JSON.parse(fs.readFileSync(__dirname.substring(0, __dirname.lastIndexOf('\\')) + '/package.json', 'utf8')).version
@@ -71,14 +72,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
 
         const mindVersion = that.server.mindVersion
         if (mindVersion < that.requiresMind) {
-            reject(new Error('invalid mind server version, expected ' + that.requiresMind + ' or higher, but found ' + mindVersion))
-
-            return
-        }
-
-        // proceed with the process array
-        if (dataA[ix] !== '%2') {
-            reject(new Error('invalid packet signature at line: ' + ix + ' Expected: %2'))
+            reject(new Error(errors.BAD_SERVER_VERSION + 'invalid mind server version, expected ' + that.requiresMind + ' or higher, but found ' + mindVersion))
 
             return
         }
@@ -91,14 +85,26 @@ module.exports = async function (that, writer, reader, resolve, reject, username
             const name = RESP3.parse.simpleString(dataA[ix])
             const strValue = RESP3.parse.simpleString(dataA[ix + 1])
 
-            Object.defineProperties(that.session, {
-                [RESP3.parse.simpleString(dataA[ix])]: {
-                    value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
-                    enumerable: true,
-                    configurable: true,
-                    writable: false
-                }
-            })
+            if (RESP3.parse.simpleString(dataA[ix]) === "pid") {
+                Object.defineProperties(that.process, {
+                    [RESP3.parse.simpleString(dataA[ix])]: {
+                        value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
+                        enumerable: true,
+                        configurable: true,
+                        writable: false
+                    }
+                })
+
+            } else {
+                Object.defineProperties(that.session, {
+                    [RESP3.parse.simpleString(dataA[ix])]: {
+                        value: isNaN(parseInt(strValue)) ? strValue : parseInt(strValue),
+                        enumerable: true,
+                        configurable: true,
+                        writable: false
+                    }
+                })
+            }
         }
 
         // finally the user api
@@ -127,6 +133,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         // and initialize some classes
         that.server._init(that.server)
         that.process._init(that.process)
+        that.session._init(that.session)
         that.db.globals._init(that.db.globals)
         that.db.vars._init(that.db.vars)
 
@@ -145,7 +152,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
                     that.db.vars.addName(_var)
 
                 } catch (err) {
-                    reject(new Error('Error occurred adding var name: ' + _var + ': ' + err.message))
+                    reject(new Error(errors.ERROR_ADDING_NAME + 'Error occurred adding var name: ' + _var + ': ' + err.message))
                 }
             })
         }
@@ -156,7 +163,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
                     that.db.globals.addName(_var)
 
                 } catch (err) {
-                    reject(new Error('Error occurred adding global name: ' + _var + ': ' + err.message))
+                    reject(new Error(errors.ERROR_ADDING_NAME + 'Error occurred adding global name: ' + _var + ': ' + err.message))
                 }
             })
         }

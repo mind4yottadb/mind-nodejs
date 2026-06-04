@@ -21,10 +21,14 @@ const nsRESP3 = require('./namespaces/RESP3')
 const nsDb = require('./namespaces/db')
 const nsDbms = require('./namespaces/dbms')
 const nsSession = require('./namespaces/session')
-const pool = require('./static-pool')
-
+const staticPool = require('./static-pool')
+const dynamicPool = require('./dynamic-pool')
 const login = require('./login')
+
 const utils = require('./utils')
+const errors = require("./errors");
+
+const requiredMind = '0.28.0'         // required server version
 
 const requiredMind = '0.24.0'         // required server version
 
@@ -56,25 +60,25 @@ module.exports = {
             return new Promise(function (resolve, reject) {
                 // perform validation
                 if (typeof host !== 'string' || host === '') {
-                    reject(new Error('host must be a string'));
+                    reject(new Error(errors.HOST_MUST_BE_STRING + 'host must be a string'));
 
                     return
                 }
 
                 if (typeof port !== 'number') {
-                    reject(new Error('port must be a number'));
+                    reject(new Error(errors.PARAM_NOT_NUMBER + 'port must be a number'));
 
                     return
                 }
 
                 if (typeof username !== 'string' || username === '') {
-                    reject(new Error('username must be a string'));
+                    reject(new Error(errors.PARAM_NOT_STRING + 'username must be a string'));
 
                     return
                 }
 
                 if (typeof password !== 'string' || password === '') {
-                    reject(new Error('password must be a string'));
+                    reject(new Error(errors.PARAM_NOT_STRING + 'password must be a string'));
 
                     return
                 }
@@ -94,7 +98,7 @@ module.exports = {
                     hTimer = that.hTimer = setTimeout(function () {
                         that.#socket.destroy()
 
-                        reject(new Error('timeout while trying to connect...'))
+                        reject(new Error(errors.TIMEOUT_OCCURRED + 'timeout while trying to connect...'))
 
                     }, options.connectTimeout || 5000)
                 }
@@ -158,15 +162,13 @@ module.exports = {
 
                             that.disconnect()
 
-                            that.emit('disconnect', new Error('Disconnected'))
+                            that.emit('disconnect')
                         })
                         // mount event handler and route it to the event emitter
                         .on('error', err => {
                             if (hTimer !== null) clearTimeout(hTimer)
 
                             that.emit('socketError', err)
-
-                            reject(err)
                         })
 
                     // force utf-8 encoding
@@ -200,6 +202,8 @@ module.exports = {
         }
 
         disconnect = () => {
+            const guid = this.session.GUID
+
             if (this.#socket) {
                 if (this.hTimer !== null) clearTimeout(this.hTimer)
                 this.#socket.destroy()
@@ -214,11 +218,10 @@ module.exports = {
             this.db = new nsDb
             this.dbms = new nsDbms
             this.session = new nsSession
+
+            this.session.GUID = guid
         }
 
-        // ********************************
-        // private methods and properties
-        // ********************************
         #writePacket = (msg) => {
             const that = this
 
@@ -227,7 +230,7 @@ module.exports = {
                 const msg_sliced = msg.slice(total_sent, msg.length);
                 const sentOk = that.#socket.write(msg_sliced);
 
-                if (!sentOk) throw new Error('RuntimeError: socket connection broken');
+                if (!sentOk) throw new Error(errors.SOCKET_DISCONNECTED + 'RuntimeError: socket connection broken');
 
                 total_sent = total_sent + msg_sliced.length;
             }
@@ -250,47 +253,90 @@ module.exports = {
         }
     },
 
+    // ********************************
+    // static pool
+    // ********************************
     staticPool: class StaticPool {
-        type = ''                         // 'stateful' or 'stateless'
-        size = 0                        // size (in sessions)
-        extension = 0                   // extension size (in sessions)
-        extensionInUse = 0              // how many extension sessions are currently in use
-        sessions = []                     // sessions array
-        host = ''                        // credentials to connect extensions
-        port = 0                        // credentials to connect extensions
-        username = ''                   // credentials to connect extensions
-        password = ''                   // credentials to connect extensions
-        options = {}                        // credentials to connect extensions
-        timerTick = false               // internal timer
+        stats = {
+            sessionsCreatedOk: 0,           // how many sessions were created
+            sessionsCreatedInError: 0,      // how many session got error on creation
+            extendsCreatedOk: 0,            // how many extends got created
+            extendsCreatedInError: 0,       // how many extends got error on creation
+            extendsRemoved: 0,              // how many extends got removed
+            noMoreSlotsHits: 0,             // how many times no more slots were available and the getSession() had to wait
+            timeoutExpired: 0,              // how many times a timeout expired while getting a session
+            remoteDisconnects: 0,           // how many sessions got remotely disconnected
+        }
 
-        sessionsCreatedOk = 0           // how many sessions were created
-        sessionsCreatedInError = 0      // how many session got error on creation
-        extendsCreatedOk = 0            // how many extends got created
-        extendsCreatedInError = 0       // how many extends got error on creation
-        extendsRemoved = 0              // how many extends got removed
-        noMoreSlotsHits = 0             // how many times no more slots were available and the getSession() had to wait
-        timeoutExpired = 0              // how many times a timeout expired while getting a session
-        remoteDisconnects = 0           // how many sessions got remotely disconnected
+        size = 0                    // size (in sessions)
+        extension = 0               // extension size (in sessions)
+        extensionInUse = 0          // how many extension sessions are currently in use
+        sessions = []                 // sessions array
+        host = ''                    // credentials to connect extensions
+        port = 0                    // credentials to connect extensions
+        username = ''                 // credentials to connect extensions
+        password = ''                 // credentials to connect extensions
+        options = {}                     // credentials to connect extensions
+        timerTick = false           // internal timer
 
-        constructor(type, size, extension = 0, credentials = {}) {
-            if (typeof type !== 'string') {
-                throw new Error('Type must be a string')
+        devOps = {
+            session: {},
+            sessionInUse: false,
+
+            shrink: function () {
+
+            },
+            expand: function () {
+
+            },
+            changeExtension: function () {
+
+            },
+            getCurrentSettings: function () {
+
+            },
+            server: {
+                getCurrentSettings: function () {
+
+                },
+
+                changeLogLevel: function () {
+
+                },
+
+                changeDumpRequest: function () {
+
+                },
+
+                changeDumpResponse: function () {
+
+                },
+
+                changeStatsMode: function () {
+
+                },
+
+                changeErrorDump: function () {
+
+                },
+
+                getPoolStats: function () {
+
+                }
             }
+        }
 
-            if (type !== 'stateful' && type !== 'stateless') {
-                throw new Error('Type must be either "stateful" or "stateless"')
-            }
-
+        constructor(size, extension = 0, credentials = {}) {
             if (typeof size === 'undefined') {
-                throw new Error('Missing pool size')
+                throw new Error(errors.PARAM_MISSING + 'Missing pool size')
             }
 
             if (typeof size !== 'number') {
-                throw new Error('Pool size must be a number')
+                throw new Error(errors.PARAM_NOT_NUMBER + 'Pool size must be a number')
             }
 
             if (extension && typeof extension !== 'number') {
-                throw new Error('Pool extension must be a number')
+                throw new Error(errors.PARAM_NOT_NUMBER + 'Pool extension must be a number')
             }
 
             if (size < 2) {
@@ -301,57 +347,10 @@ module.exports = {
                 throw new Error('Pool extension must be at least 1')
             }
 
-            if (type === 'stateful') {
-                if (typeof credentials !== 'object') {
-                    throw new Error('credentials must be an object')
-                }
-
-                if (credentials.host !== 'string') {
-                    throw new Error('credentials.host must be an string')
-                }
-
-                if (credentials.port !== 'number') {
-                    throw new Error('credentials.port must be a number')
-                }
-
-                if (credentials.username !== 'string') {
-                    throw new Error('credentials.username must be an string')
-                }
-
-                if (credentials.password !== 'string') {
-                    throw new Error('credentials.password must be an string')
-                }
-
-                if (credentials.username === '') {
-                    throw new Error('credentials.username can not be an empty string')
-                }
-
-                if (credentials.password === '') {
-                    throw new Error('credentials.password can not be an empty string')
-                }
-
-                if (credentials.options !== 'object') {
-                    credentials.options = {}
-                }
-            }
-
-            this.type = type
             this.size = size
             this.extension = extension
 
-            if (credentials) {
-                this.host = credentials.host
-                this.port = credentials.port
-                this.username = credentials.username
-                this.password = credentials.password
-                this.options = credentials.options
-            }
-
             Object.defineProperties(this, {
-                type: {
-                    enumerable: false,
-                    configurable: true
-                },
                 size: {
                     enumerable: false,
                     configurable: true
@@ -396,16 +395,17 @@ module.exports = {
                     enumerable: false,
                     configurable: true
                 },
+                hidePropsInObject: {
+                    enumerable: false,
+                    configurable: true
+                }
             })
         }
 
-        // ******************
-        // stateless
-        // ******************
         create = async function (host, port, username, password, options = {}) {
             return new Promise(async (resolve, reject) => {
                 try {
-                    await pool.sessionsPool.create(this, module, host, port, username, password, options)
+                    await staticPool.create(this, module, host, port, username, password, options)
 
                     resolve()
 
@@ -417,34 +417,19 @@ module.exports = {
         }
 
         destroy = function () {
-            pool.sessionsPool.destroy(this)
+            staticPool.destroy(this)
+        }
+
+        rundown = function () {
+            staticPool.rundown(this)
         }
 
         getSession = async function (timeout = 0) {
-            return await pool.sessionsPool.getSessions(this, module, timeout)
+            return await staticPool.getSessions(this, module, timeout)
         }
 
-        // ******************
-        // stateful
-        // ******************
-        createSession = async function () {
-            await pool.sessionsPool.createSession(this, module)
-        }
-
-        getSessionByGUID = async function (GUID) {
-            await pool.sessionsPool.getSessionByGUID(this, GUID)
-        }
-
-        terminateSession = async function (GUID) {
-            await pool.sessionsPool.terminateSession(this, GUID)
-
-        }
-
-        // ******************
-        // STATUS
-        // ******************
         getStatus = function () {
-            return pool.sessionsPool.getStatus(this)
+            return staticPool.getStatus(this)
         }
 
         // ******************
@@ -472,28 +457,91 @@ module.exports = {
         }
     },
 
+    // ********************************
+    // dynamic pool
+    // ********************************
     dynamicPool: class DynamicPool {
-        maxSize = 0
-        sessions = []
-        host = ''
-        port = 0
-        username = ''
-        password = ''
-        options = {}
+        constructor(params = {}, maxSize = 0) {
+            // validate login params
+            // host, port, username, password, options = {},
 
-        constructor(host, port, userrname, password, options = {}, maxSize = 0) {
-            if (typeof maxSize === 'undefined') {
-                throw new Error('Missing maximum pool size')
+            if (typeof params !== 'object' || Array.isArray(params) === true) {
+                throw new Error(errors.PARAM_NOT_OBJECT + 'params is not an object')
+            }
+
+            if (params === null) {
+                throw new Error(errors.PARAM_NOT_OBJECT + 'params is not an object')
+            }
+
+            if (Object.keys(params).length === 0) {
+                throw new Error(errors.PARAM_IS_EMPTY + 'params is empty')
+            }
+
+            if (params.host === undefined) {
+                throw new Error(errors.PARAM_MISSING + 'Missing params.host')
+            }
+
+            if (typeof params.host !== 'string') {
+                throw new Error(errors.PARAM_NOT_STRING + 'params.host must be a string')
+            }
+
+            if (params.host === '') {
+                throw new Error(errors.STRING_IS_EMPTY + 'params.host can not be an empty string')
+            }
+
+            if (params.port === undefined) {
+                throw new Error(errors.PARAM_MISSING + 'Missing params.port')
+            }
+
+            if (typeof params.port !== 'number') {
+                throw new Error(errors.PARAM_NOT_NUMBER + 'params.port must be a number')
+            }
+
+            if (params.host < 0) {
+                throw new Error(errors.PARAM_NOT_GREATER_THAN_ZERO + 'params.port must be a positive number')
+            }
+
+            if (params.username === undefined) {
+                throw new Error(errors.PARAM_MISSING + 'Missing params.username')
+            }
+
+            if (typeof params.username !== 'string') {
+                throw new Error(errors.PARAM_NOT_STRING + 'params.username must be a string')
+            }
+
+            if (params.username === '') {
+                throw new Error(errors.STRING_IS_EMPTY + 'params.username can not be an empty string')
+            }
+
+            if (params.password === undefined) {
+                throw new Error(errors.PARAM_MISSING + 'Missing params.password')
+            }
+
+            if (typeof params.password !== 'string') {
+                throw new Error(errors.PARAM_NOT_STRING + 'params.password must be a string')
+            }
+
+            if (params.password === '') {
+                throw new Error(errors.STRING_IS_EMPTY + 'params.password can not be an empty string')
+            }
+
+            if (params.options && typeof params.options !== 'object') {
+                throw new Error(errors.PARAM_NOT_OBJECT + 'params.options must be an object')
             }
 
             if (typeof maxSize !== 'number') {
-                throw new Error('Pool maximum size must be a number')
+                throw new Error(errors.PARAM_NOT_NUMBER + 'Pool maximum size must be a number')
             }
 
-            this.host = host
-            this.port = port
-            this.username = userrname
-            this.password = password
+            if (maxSize < 0) {
+                throw new Error(errors.PARAM_NOT_ZERO_OR_GREATER + 'Pool maximum size must be equal or greater than 0')
+            }
+
+            this.host = params.host
+            this.port = params.port
+            this.username = params.username
+            this.password = params.password
+            this.options = params.options
             this.maxSize = maxSize
 
             Object.defineProperties(this, {
@@ -528,17 +576,86 @@ module.exports = {
             })
         }
 
-        getSession = async function (host, port, username, password, options = {}) {
-            await pool.dynamicPool.getSession(this, module, host, port, username, password, options)
+        maxSize = 0
+        sessions = {}
+        host = ''
+        port = 0
+        username = ''
+        password = ''
+        options = {}
+
+        stats = {
+            inUseError: 0,             // how many times no more slots were available and the getSession() had to wait
+            remoteDisconnects: 0,           // how many sessions got remotely disconnected
         }
 
-        releaseSession = async function () {
-            await pool.dynamicPool.releaseSession(this)
+
+        config = {
+            shrink: function () {
+
+            },
+            expand: function () {
+
+            },
+            changeExtension: function () {
+
+            },
+            currentSettings: function () {
+
+            },
+            server: {
+                getCurrentSettings: function () {
+
+                },
+                changeLogLevel: function () {
+
+                },
+                changeLogDumpRequest: function () {
+
+                },
+                changeLogDumpResponse: function () {
+
+                },
+                changeStatsMode: function () {
+
+                },
+                changeErrorDump: function () {
+
+                }
+            }
         }
 
-        getStatus = function () {
-            return pool.dynamicPool.getStatus(this)
+        createNewSession = async function (timeout = 0) {
+            return await dynamicPool.createNewSession(this, module, timeout)
         }
 
+        getSessionByGUID = async function (GUID, timeout = 1000) {
+            return await dynamicPool.getSessionByGUID(this, module, GUID, timeout)
+        }
+
+        terminateSession = async function (GUID) {
+            await dynamicPool.terminateSession(this, GUID)
+        }
+
+        terminatePool = async function () {
+            await dynamicPool.terminatePool(this)
+        }
+
+        getStatus = async function () {
+            return await dynamicPool.getStatus(this)
+        }
+
+        verifyConnection = async function () {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    await dynamicPool.verifyConnection(this, module)
+
+                    resolve()
+
+                } catch (err) {
+                    reject(err)
+                }
+            })
+        }
     }
 }

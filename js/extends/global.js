@@ -12,6 +12,7 @@
 
 const Glvn = require("./glvn")
 const utils = require("../utils");
+const errors = require('../errors.js')
 
 class Global extends Glvn {
     spaceOnDisk = function () {
@@ -24,17 +25,17 @@ class Global extends Glvn {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
 
             if (typeof timeout !== 'number') {
-                reject(new Error('timeout must be a number'))
+                reject(new Error(errors.TIMEOUT_MUST_BE_NUMBER + 'timeout must be a number'))
             }
 
             if (timeout < 0) {
-                reject(new Error('timeout must be a positive number'))
+                reject(new Error(errors.TIMEOUT_NOT_POSITIVE_NUMBER + 'timeout must be a positive number'))
             }
 
             if (that.objRoot.process._groupLocksFlag === true) {
@@ -58,7 +59,7 @@ class Global extends Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }
@@ -74,7 +75,7 @@ class Global extends Glvn {
 
         return new Promise(function (resolve, reject) {
             if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
-                reject(new Error('Not logged in'))
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
 
                 return
             }
@@ -102,7 +103,7 @@ class Global extends Glvn {
 
             that.reader(data => {
                 if (data.charAt(0) === '-') {
-                    reject(new Error(data.slice(1, -2)))
+                    reject(new Error(RESP3.parse.simpleError(data)))
 
                     return
                 }

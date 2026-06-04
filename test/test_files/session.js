@@ -691,7 +691,7 @@ describe("session.setStatsMode()", async () => {
             await ydb.session.setStatsMode(-2)
 
         } catch (err) {
-            expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_GREATER')
+            expect(err.message).to.have.string('PARAM_NOT_BETWEEN_ZERO_AND_ONE')
         }
 
         ydb.disconnect()
@@ -701,10 +701,10 @@ describe("session.setStatsMode()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.session.setStatsMode(2)
+            await ydb.session.setStatsMode(3)
 
         } catch (err) {
-            expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_GREATER')
+            expect(err.message).to.have.string('PARAM_NOT_BETWEEN_ZERO_AND_ONE')
         }
 
         ydb.disconnect()
@@ -753,6 +753,282 @@ describe("session.setStatsMode()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_GREATER')
+        }
+
+        ydb.disconnect()
+    });
+})
+
+describe("session.setDumpRequest()", async () => {
+    it("with no parameters", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpRequest()
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with string as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpRequest('test')
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with boolean as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpRequest(true)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with null as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpRequest(null)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with object as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpRequest({test: 12})
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with array as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpRequest([1, 2, 3, 4])
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with number < 0", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpRequest(-2)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_ONE')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with number >2", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpRequest(2)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_ONE')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with correct value using constant", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpRequest(ydb.session.DUMP_REQUEST_OFF)
+
+            const ret = await ydb.session.getCurrentSettings()
+            expect(ret.dumpRequest).to.equal(0)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_ONE')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with correct value using constant", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpRequest(ydb.session.DUMP_REQUEST_ON)
+
+            const ret = await ydb.session.getCurrentSettings()
+            expect(ret.dumpRequest).to.equal(1)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_ONE')
+        }
+
+        ydb.disconnect()
+    });
+})
+
+describe("session.setDumpResponse()", async () => {
+    it("with no parameters", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpResponse()
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with string as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpResponse('test')
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with boolean as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpResponse(true)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with null as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpResponse(null)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with object as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpResponse({test: 12})
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with array as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpResponse([1, 2, 3, 4])
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with number < 0", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpResponse(-2)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_ONE')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with number >2", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpResponse(2)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_ONE')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with correct value using constant", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpResponse(ydb.session.DUMP_RESPONSE_OFF)
+
+            const ret = await ydb.session.getCurrentSettings()
+            expect(ret.dumpResponse).to.equal(0)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_ONE')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with correct value using constant", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setDumpResponse(ydb.session.DUMP_RESPONSE_ON)
+
+            const ret = await ydb.session.getCurrentSettings()
+            expect(ret.dumpResponse).to.equal(1)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_ONE')
         }
 
         ydb.disconnect()

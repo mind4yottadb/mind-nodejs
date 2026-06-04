@@ -1034,3 +1034,141 @@ describe("session.setDumpResponse()", async () => {
         ydb.disconnect()
     });
 })
+
+describe("session.setLogLevel()", async () => {
+    it("with no parameters", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setLogLevel()
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with string as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setLogLevel('test')
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with boolean as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setLogLevel(true)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with null as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setLogLevel(null)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with object as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setLogLevel({test: 12})
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with array as parameter", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setLogLevel([1, 2, 3, 4])
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with number < 0", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setLogLevel(-2)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_BETWEEN_ZERO_AND_THREE')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with number >2", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setLogLevel(4)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_BETWEEN_ZERO_AND_THREE')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with correct value using constant", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setLogLevel(ydb.session.LOG_LEVEL_NONE)
+
+            const ret = await ydb.session.getCurrentSettings()
+            expect(ret.dumpResponse).to.equal(0)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_ONE')
+        }
+
+        ydb.disconnect()
+    });
+
+    it("with correct value using constant", async function () {
+        const ydb = await createYdbInstance()
+
+        try {
+            await ydb.session.setLogLevel(ydb.session.LOG_LEVEL_SESSIONS)
+
+            const ret = await ydb.session.getCurrentSettings()
+            expect(ret.logLevel).to.equal(1)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_BETWEEN_ZERO_AND_THREE')
+        }
+
+        ydb.disconnect()
+    });
+})

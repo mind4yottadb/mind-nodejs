@@ -425,6 +425,54 @@ class Session {
         })
     }
 
+    setLogLevel = function (value) {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
+
+                return
+            }
+
+            if (typeof (value) !== 'number') {
+                reject(new Error(errors.PARAM_NOT_NUMBER + 'timeout must be a number greater than -1'))
+
+                return
+            }
+
+            if (value < 0 || value > 3) {
+                reject(new Error(errors.PARAM_NOT_BETWEEN_ZERO_AND_THREE + 'timeout must be between 0 and 3'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'session.setLogLevel'
+            that.writer("*2" + RESP3.CRLF +
+                RESP3.build.blob(opCode) +
+                RESP3.build.blob(value)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                if (data.indexOf('+no data') > -1) {
+                    //reject(new Error('No stats enabled on server'))
+                    resolve({})
+
+                    return
+                }
+
+                resolve()
+            })
+        })
+    }
     _init = function (obj) {
         Object.defineProperties(obj, {
             ERROR_DUMP_NONE: {
@@ -492,6 +540,34 @@ class Session {
 
             DUMP_RESPONSE_ON: {
                 value: 1,
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
+            LOG_LEVEL_NONE: {
+                value: 0,
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
+            LOG_LEVEL_SESSIONS: {
+                value: 1,
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
+            LOG_LEVEL_COMMANDS: {
+                value: 2,
+                enumerable: true,
+                configurable: true,
+                writable: false
+            },
+
+            LOG_LEVEL_TIMINGS: {
+                value: 3,
                 enumerable: true,
                 configurable: true,
                 writable: false

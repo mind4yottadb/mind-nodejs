@@ -194,6 +194,17 @@ describe("Pool static: creation / destroy", async () => {
 
             pool.destroy()
         });
+
+        it("validate devOps session", async () => {
+            const pool = new mindServer.staticPool(8, 4)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+            expect(pool.devOps.session.server !== undefined).to.be.true
+            expect(typeof pool.devOps.session.done === 'function').to.be.true
+
+            pool.destroy()
+        });
     })
 
     describe("Pool creation: destroy()", async () => {

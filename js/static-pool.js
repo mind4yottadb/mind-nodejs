@@ -12,9 +12,6 @@
 const errors = require("./errors");
 
 module.exports = {
-    // ******************
-    // stateless
-    // ******************
     create: async function (that, classModule, host, port, username, password, options) {
         return new Promise(async (resolve, reject) => {
             for (let ix = 0; ix < that.size; ix++) {
@@ -47,11 +44,29 @@ module.exports = {
                 }
             }
 
+            that.devOps.session = new classModule.exports.session
+
+            try {
+                await that.devOps.session.connect(host, port, username, password, options)
+
+                Object.assign(that.devOps.session, {
+                    done: function () {
+                        that.devOps.sessionInUse = false
+                    }
+                })
+            } catch (err) {
+                reject(err)
+
+                return
+            }
+
             that.host = host
             that.port = port
             that.username = username
             that.password = password
             that.options = options
+
+            that.devOps.sessionInUse = false
 
             resolve()
         })
@@ -59,6 +74,8 @@ module.exports = {
 
     destroy: function (that) {
         that.sessions.forEach(async session => await session.session.disconnect())
+
+        that.devOps.session.disconnect()
 
         that.sessions = []
     },
@@ -272,6 +289,16 @@ module.exports = {
         })
     },
 
+    getDevOpsSession: async function (that, timeout = 0) {
+        if (that.devOps.sessionInUse === true) {
+            throw new Error(errors.POOL_DEVOPS_SESSION_IN_USE + 'devOps session inUse')
+        }
+
+        that.devOps.sessionInUse = true
+
+        return that.devOps.session
+    },
+
     getStatus: function (that) {
         const sessionsInUse = that.sessions.filter(session => session.inUse === true)
         const sessionsExtended = that.sessions.filter(session => session.isExtension === true)
@@ -283,7 +310,6 @@ module.exports = {
             sessionsInUse: sessionsInUse.length,
             stats: that.stats
         }
-    }
-
+    },
 
 }

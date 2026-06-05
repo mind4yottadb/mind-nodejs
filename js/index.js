@@ -277,6 +277,8 @@ module.exports = {
         options = {}                     // credentials to connect extensions
         timerTick = false           // internal timer
 
+        that = this
+
         devOps = {
             session: {},
             sessionInUse: false,
@@ -429,6 +431,11 @@ module.exports = {
         getStatus = function () {
             return staticPool.getStatus(this)
         }
+
+        getDevOpsSession = function (timeout = 0) {
+            return staticPool.getDevOpsSession(this, timeout)
+        }
+
 
         // ******************
         // hide internal props in object to programmers

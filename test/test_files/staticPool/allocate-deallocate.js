@@ -544,4 +544,27 @@ describe("Pool static: allocate / deallocate", async () => {
             expect(status.stats.extendsRemoved).to.be.equal(status.stats.extendsCreatedOk)
         })
     })
+
+    it("verify devOps.session done()", async () => {
+        const pool = new mindServer.staticPool(3)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+        expect(pool.devOps.sessionInUse).to.be.false
+
+        const session = await pool.getDevOpsSession()
+
+        setTimeout(async () => {
+            session.done()
+
+        }, 500, session)
+
+        expect(pool.devOps.sessionInUse).to.be.true
+
+        await sleep(1000)
+
+        expect(pool.devOps.sessionInUse).to.be.false
+
+        pool.destroy()
+    })
 })

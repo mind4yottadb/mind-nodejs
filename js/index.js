@@ -277,52 +277,39 @@ module.exports = {
         options = {}                     // credentials to connect extensions
         timerTick = false           // internal timer
 
-        that = this
-
         devOps = {
             session: {},
             sessionInUse: false,
-
-            shrink: function () {
-
+            getDevOpsSession: function (timeout = 0) {
+                return staticPool.getDevOpsSession(this, timeout)
             },
-            expand: function () {
 
-            },
-            changeExtension: function () {
-
-            },
             getCurrentSettings: function () {
 
             },
-            server: {
-                getCurrentSettings: function () {
 
-                },
+            changeLogLevel: function () {
 
-                changeLogLevel: function () {
+            },
 
-                },
+            changeDumpRequest: function () {
 
-                changeDumpRequest: function () {
+            },
 
-                },
+            changeDumpResponse: function () {
 
-                changeDumpResponse: function () {
+            },
 
-                },
+            changeStatsMode: function () {
 
-                changeStatsMode: function () {
+            },
 
-                },
+            changeErrorDump: function () {
 
-                changeErrorDump: function () {
+            },
 
-                },
+            getPoolStats: function () {
 
-                getPoolStats: function () {
-
-                }
             }
         }
 
@@ -400,6 +387,22 @@ module.exports = {
                     configurable: true
                 }
             })
+
+            Object.defineProperties(this.devOps, {
+                getDevOpsSession: {
+                    enumerable: false,
+                    configurable: true
+                },
+            })
+
+            Object.defineProperties(this.devOps, {
+                shrink: {
+                    value: this._shrink,
+                    enumerable: false,
+                    configurable: true
+                },
+
+            })
         }
 
         create = async function (host, port, username, password, options = {}) {
@@ -432,10 +435,16 @@ module.exports = {
             return staticPool.getStatus(this)
         }
 
-        getDevOpsSession = function (timeout = 0) {
-            return staticPool.getDevOpsSession(this, timeout)
+        shrink = function (numSessions) {
+            staticPool.shrink(this, numSessions)
         }
 
+        expand = async function (numSessions) {
+            await staticPool.expand(this, module, numSessions)
+        }
+        changeExtension = function (numSessions) {
+            staticPool.changeExtension(this, numSessions)
+        }
 
         // ******************
         // hide internal props in object to programmers

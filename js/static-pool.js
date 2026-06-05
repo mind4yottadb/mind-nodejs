@@ -72,6 +72,18 @@ module.exports = {
         })
     },
 
+    shrink: function (that, numSessions) {
+
+    },
+
+    expand: function (that, classModule, numSessions) {
+
+    },
+
+    changeExtension: function (that, numSessions) {
+
+    },
+
     destroy: function (that) {
         that.sessions.forEach(async session => await session.session.disconnect())
 
@@ -290,13 +302,13 @@ module.exports = {
     },
 
     getDevOpsSession: async function (that, timeout = 0) {
-        if (that.devOps.sessionInUse === true) {
+        if (that.sessionInUse === true) {
             throw new Error(errors.POOL_DEVOPS_SESSION_IN_USE + 'devOps session inUse')
         }
 
-        that.devOps.sessionInUse = true
+        that.sessionInUse = true
 
-        return that.devOps.session
+        return that.session
     },
 
     getStatus: function (that) {

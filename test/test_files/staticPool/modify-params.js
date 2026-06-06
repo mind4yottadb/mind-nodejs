@@ -1,5 +1,4 @@
-<!--
-#################################################################
+/*###############################################################
 #                                                               #
 # Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
@@ -10,47 +9,18 @@
 #   the license, please stop and do not read further.           #
 #                                                               #
 ###############################################################*/
--->
 
-### session.DUMP_REQUEST_OFF
+const {expect} = require("chai");
+const {createYdbInstance, sleep} = require("../../utils.cjs");
+const mindServer = require("../../../js");
 
----
+describe("Pool static: modify params", async () => {
+    it("test", async () => {
+        const pool = new mindServer.staticPool(3)
 
-**Type**: property / readonly
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 
-**Async**: no
+        pool.destroy()
+    })
 
-**Parameters**:
-<br><br>
-**Returns**: `<number>`
-
----
-
-### EXAMPLES
-
----
-
-Dump the value
-
-````js
-import mind4yottadb from 'mind4yottadb'
-
-const mind = new mind4yottadb.session
-
-const ret = await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
-console.log(ret)
-
-await mind.session.DUMP_REQUEST_OFF
-
-mind.disconnect()
-````
-
-returns:
-
-````js
-0
-````
-
----
-
-[Back](api/namespace.session.md)
+})

@@ -12,7 +12,7 @@
 ###############################################################*/
 -->
 
-### session.setErrorDump(value)
+### session.setStats(value)
 
 ---
 
@@ -22,27 +22,27 @@
 
 **Parameters**:
 
-| Name    | Datatype | Optional | Description             |
-|---------|:--------:|:--------:|-------------------------|
-| `value` |  number  |   Yes    | the new errorDump value |
+| Name    | Datatype | Optional | Description               |
+|---------|:--------:|:--------:|---------------------------|
+| `value` |  number  |   Yes    | the new dumpRequest value |
 
 <br>
 **Returns**: `Promise<>` 
 
 ---
 
-Change the `error-dump` mode of the server logging for the current session.
+Change the `stats-mode` of the server logging for the current session.
 
 The `value` parameter can be one of the following constants:
 
-- `session.ERROR_DUMP_NONE`
-- `session.ERROR_DUMP_BRIEF`
-- `session.ERROR_DUMP_FULL`
+- `session.STATS_NONE`
+- `session.STATS_GRANMD_TOTALS`
+- `session.STDATS_DETAILS`
 
 <BR>
 
 > If you want to change this setting for an entire session pool, use the method:
-> `pool.devOps.setErrorDump()` instead
+> `pool.devOps.setStats()` instead
 
 ---
 
@@ -50,7 +50,7 @@ The `value` parameter can be one of the following constants:
 
 ---
 
-This will set the ERROR_DUMP brief.
+This will set the STATS to record data grouped by command.
 
 ````js
 import mind4yottadb from 'mind4yottadb'
@@ -59,7 +59,7 @@ const mind = new mind4yottadb.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
-await mind.session.setErrorDump(mind.session.ERROR_DUMP_BRIEF)
+await mind.session.setStats(mind.session.STATS_DETAILS)
 
 mind.disconnect()
 ````

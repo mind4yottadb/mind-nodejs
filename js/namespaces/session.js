@@ -278,7 +278,7 @@ class Session {
         })
     }
 
-    setStatsMode = function (value) {
+    setStats = function (value) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
@@ -302,7 +302,7 @@ class Session {
             }
 
             // send command
-            const opCode = 'session.setStatsMode'
+            const opCode = 'session.setStats'
             that.writer("*2" + RESP3.CRLF +
                 RESP3.build.blob(opCode) +
                 RESP3.build.blob(value)

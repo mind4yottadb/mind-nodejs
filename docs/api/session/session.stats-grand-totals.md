@@ -12,37 +12,17 @@
 ###############################################################*/
 -->
 
-### session.setErrorDump(value)
+### session.STATS_GRAND_TOTALS
 
 ---
 
-**Type**: method
+**Type**: property / readonly
 
-**Async**: yes, returns a Promise
+**Async**: no
 
 **Parameters**:
-
-| Name    | Datatype | Optional | Description             |
-|---------|:--------:|:--------:|-------------------------|
-| `value` |  number  |   Yes    | the new errorDump value |
-
-<br>
-**Returns**: `Promise<>` 
-
----
-
-Change the `error-dump` mode of the server logging for the current session.
-
-The `value` parameter can be one of the following constants:
-
-- `session.ERROR_DUMP_NONE`
-- `session.ERROR_DUMP_BRIEF`
-- `session.ERROR_DUMP_FULL`
-
-<BR>
-
-> If you want to change this setting for an entire session pool, use the method:
-> `pool.devOps.setErrorDump()` instead
+<br><br>
+**Returns**: `<number>`
 
 ---
 
@@ -50,22 +30,27 @@ The `value` parameter can be one of the following constants:
 
 ---
 
-This will set the ERROR_DUMP brief.
+Dump the value
 
 ````js
 import mind4yottadb from 'mind4yottadb'
 
 const mind = new mind4yottadb.session
 
-await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
+const ret = await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
+console.log(ret)
 
-await mind.session.setErrorDump(mind.session.ERROR_DUMP_BRIEF)
+await mind.session.STATS_GRAND_TOTALS
 
 mind.disconnect()
 ````
 
+returns:
+
+````js
+1
+````
+
 ---
-
-
 
 [Back](api/namespace.session.md)

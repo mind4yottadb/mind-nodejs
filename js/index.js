@@ -394,15 +394,6 @@ module.exports = {
                     configurable: true
                 },
             })
-
-            Object.defineProperties(this.devOps, {
-                shrink: {
-                    value: this._shrink,
-                    enumerable: false,
-                    configurable: true
-                },
-
-            })
         }
 
         create = async function (host, port, username, password, options = {}) {

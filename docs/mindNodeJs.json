@@ -336,6 +336,46 @@
                                             "text": "timeSinceConnect()",
                                             "id": "api/session/session.timeSinceConnect.md",
                                             "icon": ""
+                                        },
+                                        {
+                                            "text": "log()",
+                                            "id": "api/session/session.log.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "getCurrentSettings()",
+                                            "id": "api/session/session.getCurrentSettings.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setErrorDump()",
+                                            "id": "api/session/session.setErrorDump.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setStats()",
+                                            "id": "api/session/session.setStats.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setDumpRequest()",
+                                            "id": "api/session/session.setDumpRequest.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setDumpResponse()",
+                                            "id": "api/session/session.setDumpResponse.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setLogLevel()",
+                                            "id": "api/session/session.setLogLevel.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "setIdleTimeout()",
+                                            "id": "api/session/session.setIdleTimeout.md",
+                                            "icon": ""
                                         }
                                     ]
                                 },
@@ -347,6 +387,81 @@
                                         {
                                             "text": "GUID",
                                             "id": "api/process/process.GUID.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "serverPid",
+                                            "id": "api/process/process.serverPid.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "ERROR_DUMP_NONE",
+                                            "id": "api/process/process.ERROR_DUMP_NONE.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "ERROR_DUMP_BRIEF",
+                                            "id": "api/process/process.ERROR_DUMP_BRIEF.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "ERROR_DUMP_FULL",
+                                            "id": "api/process/process.ERROR_DUMP_FULL.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "STATS_NONE",
+                                            "id": "api/process/process.STATS_NONE.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "STATS_GRAND_TOTALS",
+                                            "id": "api/process/process.STATS_GRAND_TOTALS.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "STATS_DETAILS",
+                                            "id": "api/process/process.STATS_DETAILS.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "DUMP_REQUEST_ON",
+                                            "id": "api/process/process.DUMP_REQUEST_ON.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "DUMP_REQUEST_OFF",
+                                            "id": "api/process/process.DUMP_REQUEST_OFF.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "DUMP_RESPONSE_ON",
+                                            "id": "api/process/process.DUMP_RESPONSE_ON.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "DUMP_RESPONSE_OFF",
+                                            "id": "api/process/process.DUMP_RESPONSE_OFF.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "LOG_LEVEL_NONE",
+                                            "id": "api/process/process.LOG_LEVEL_NONE.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "LOG_LEVEL_SESSIONS",
+                                            "id": "api/process/process.LOG_LEVEL_SESSIONS.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "LOG_LEVEL_COMMANDS",
+                                            "id": "api/process/process.LOG_LEVEL_COMMANDS.md",
+                                            "icon": ""
+                                        },
+                                        {
+                                            "text": "LOG_LEVEL_TIMINGS",
+                                            "id": "api/process/process.LOG_LEVEL_TIMINGS.md",
                                             "icon": ""
                                         }
                                     ]

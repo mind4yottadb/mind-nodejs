@@ -33,7 +33,7 @@ Returns process statistic information..
 In order for this function to return statistics, the server needs to have the `--statistics` option turned on, in either
 `grand` or `details` mode.
 
-If the server statistics are off, an error will be thrown.
+If the server statistics are off, an empty object will be returned.
 
 If the server statistics are set to `grand`, it will return only the grand totals:
 
@@ -73,8 +73,7 @@ mind.disconnect()
 returns:
 
 ````js
-
-err = 'No stats enabled on server'
+sessions = {}
 ````
 
 ---

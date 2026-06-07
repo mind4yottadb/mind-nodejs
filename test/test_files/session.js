@@ -1163,7 +1163,6 @@ describe("session.setLogLevel()", async () => {
             await ydb.session.setLogLevel(ydb.session.LOG_LEVEL_SESSIONS)
 
             const ret = await ydb.session.getCurrentSettings()
-            console.log(ret)
             expect(ret.logLevel).to.equal(1)
 
         } catch (err) {

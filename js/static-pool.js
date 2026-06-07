@@ -301,7 +301,7 @@ module.exports = {
         })
     },
 
-    getDevOpsSession: async function (that, timeout = 0) {
+    _getDevOpsSession: async function (that, timeout = 0) {
         if (that.sessionInUse === true) {
             throw new Error(errors.POOL_DEVOPS_SESSION_IN_USE + 'devOps session inUse')
         }

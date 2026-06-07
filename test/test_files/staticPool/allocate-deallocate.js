@@ -552,7 +552,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
         expect(pool.devOps.sessionInUse).to.be.false
 
-        const session = await pool.devOps.getDevOpsSession()
+        const session = await pool.devOps._getDevOpsSession()
 
         setTimeout(async () => {
             session.done()

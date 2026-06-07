@@ -280,8 +280,8 @@ module.exports = {
         devOps = {
             session: {},
             sessionInUse: false,
-            getDevOpsSession: function (timeout = 0) {
-                return staticPool.getDevOpsSession(this, timeout)
+            _getDevOpsSession: function (timeout = 0) {
+                return staticPool._getDevOpsSession(this, timeout)
             },
 
             getCurrentSettings: function () {
@@ -389,7 +389,7 @@ module.exports = {
             })
 
             Object.defineProperties(this.devOps, {
-                getDevOpsSession: {
+                _getDevOpsSession: {
                     enumerable: false,
                     configurable: true
                 },

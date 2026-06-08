@@ -55,7 +55,10 @@ module.exports = {
                     }
                 })
 
+                // initialize the pids and register the unique guid for this pool
                 that.guid = await that.devOps.session._staticPool._register(that)
+
+                // and make it read only
                 Object.defineProperties(that, {
                     guid: {
                         writable: false,

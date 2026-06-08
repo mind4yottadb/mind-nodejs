@@ -281,7 +281,7 @@ module.exports = {
             session: {},
             sessionInUse: false,
             _getDevOpsSession: function (timeout = 0) {
-                return staticPool._getDevOpsSession(this, timeout)
+                return staticPool.devOps._getDevOpsSession(this, timeout)
             },
 
             getPoolStats: function () {
@@ -420,7 +420,7 @@ module.exports = {
         }
 
         getSession = async function (timeout = 0) {
-            return await staticPool.getSessions(this, module, timeout)
+            return await staticPool.getSession(this, module, timeout)
         }
 
         getStatus = function () {

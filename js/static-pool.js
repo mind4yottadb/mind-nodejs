@@ -85,6 +85,10 @@ module.exports = {
     },
 
     destroy: function (that) {
+        if (that.sessions.length === 0) {
+            throw new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized')
+        }
+
         that.sessions.forEach(async session => await session.session.disconnect())
 
         that.devOps.session.disconnect()
@@ -96,8 +100,14 @@ module.exports = {
 
     },
 
-    getSessions: async function (that, classModule, timeout) {
+    getSession: async function (that, classModule, timeout) {
         return new Promise(async (resolve, reject) => {
+            if (that.sessions.length === 0) {
+                reject(new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized'))
+
+                return
+            }
+
             const freeSlots = that.sessions.filter(session => session.inUse === false)
             let hInterval = null
 
@@ -301,16 +311,6 @@ module.exports = {
         })
     },
 
-    _getDevOpsSession: async function (that, timeout = 0) {
-        if (that.sessionInUse === true) {
-            throw new Error(errors.POOL_DEVOPS_SESSION_IN_USE + 'devOps session inUse')
-        }
-
-        that.sessionInUse = true
-
-        return that.session
-    },
-
     getStatus: function (that) {
         const sessionsInUse = that.sessions.filter(session => session.inUse === true)
         const sessionsExtended = that.sessions.filter(session => session.isExtension === true)
@@ -324,4 +324,19 @@ module.exports = {
         }
     },
 
+    devOps: {
+        _getDevOpsSession: async function (that, timeout = 0) {
+            if (Object.keys(that.session).length === 0 || (that.session.loggedIn && that.session.loggedIn === false)) {
+                throw new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized')
+            }
+
+            if (that.sessionInUse === true) {
+                throw new Error(errors.POOL_DEVOPS_SESSION_IN_USE + 'devOps session inUse')
+            }
+
+            that.sessionInUse = true
+
+            return that.session
+        },
+    }
 }

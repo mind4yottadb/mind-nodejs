@@ -55,8 +55,12 @@ module.exports = {
                     }
                 })
 
-                const guid = await that.devOps.session._staticPool._register(that)
-                console.log(guid)
+                that.guid = await that.devOps.session._staticPool._register(that)
+                Object.defineProperties(that, {
+                    guid: {
+                        writable: false,
+                    },
+                })
 
             } catch (err) {
                 reject(err)

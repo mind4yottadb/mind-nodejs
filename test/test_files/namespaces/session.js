@@ -11,7 +11,7 @@
 ###############################################################*/
 
 const {expect} = require("chai");
-const {createYdbInstance, sleep} = require("../utils.cjs");
+const {createYdbInstance, sleep} = require("../../utils.cjs");
 
 describe("session.stats()", async () => {
     /* COMMENTED OUT because of server startup switches...

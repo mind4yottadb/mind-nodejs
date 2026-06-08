@@ -19,7 +19,6 @@ class _staticPool {
         const RESP3 = that.objRoot.RESP3
         const pids = []
 
-
         pool.sessions.forEach(session => {
             pids.push(session.session.process.pid)
         })

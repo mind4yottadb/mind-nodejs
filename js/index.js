@@ -279,6 +279,7 @@ module.exports = {
         password = ''                 // credentials to connect extensions
         options = {}                     // credentials to connect extensions
         timerTick = false           // internal timer
+        guid = ''                    // the guid for the pool
 
         devOps = {
             session: {},

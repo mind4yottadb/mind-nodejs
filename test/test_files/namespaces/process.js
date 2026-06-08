@@ -11,7 +11,7 @@
 ###############################################################*/
 
 const {expect} = require("chai");
-const {createYdbInstance} = require("../utils.cjs");
+const {createYdbInstance} = require("../../utils.cjs");
 
 describe("Pool creation()", async () => {
     it("get memUsage", async () => {

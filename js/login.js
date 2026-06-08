@@ -126,7 +126,7 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         appendToObject(that.server, that)
         appendToObject(that.session, that)
         appendToObject(that.db, that)
-
+        appendToObject(that._staticPool, that)
         appendToObject(that.db.vars, that)
         appendToObject(that.db.globals, that)
 

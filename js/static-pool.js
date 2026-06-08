@@ -54,6 +54,10 @@ module.exports = {
                         that.devOps.sessionInUse = false
                     }
                 })
+
+                const guid = await that.devOps.session._staticPool._register(that)
+                console.log(guid)
+
             } catch (err) {
                 reject(err)
 

@@ -21,6 +21,7 @@ const nsRESP3 = require('./namespaces/RESP3')
 const nsDb = require('./namespaces/db')
 const nsDbms = require('./namespaces/dbms')
 const nsSession = require('./namespaces/session')
+const nsStaticPool = require('./namespaces/_staticPool')
 const staticPool = require('./static-pool')
 const dynamicPool = require('./dynamic-pool')
 const login = require('./login')
@@ -51,6 +52,7 @@ module.exports = {
         db = new nsDb
         dbms = new nsDbms
         session = new nsSession
+        _staticPool = new nsStaticPool
 
         connect = (host, port, username, password, options = {}) => {
             const that = this
@@ -216,6 +218,7 @@ module.exports = {
             this.db = new nsDb
             this.dbms = new nsDbms
             this.session = new nsSession
+            this._staticPool = new nsStaticPool
 
             this.session.GUID = guid
         }

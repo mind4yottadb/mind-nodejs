@@ -14,8 +14,8 @@ const {expect} = require("chai");
 const {createYdbInstance} = require("../../utils.cjs");
 const mindServer = require("../../../js");
 
-describe("_staticPool._register()", async () => {
-    it("verify global gets created", async () => {
+describe("_staticPool.", async () => {
+    it("_staticPool._register()", async () => {
 
         const ydb = await createYdbInstance()
         const pool = new mindServer.staticPool(3)
@@ -27,7 +27,23 @@ describe("_staticPool._register()", async () => {
         const val = await ydb.db.globals._mindPools._(pool.guid, "pids").findNext()
         expect(typeof val).to.have.string('number')
 
+        pool.destroy()
+
         ydb.disconnect()
     });
 
+    it("_staticPool.getPoolStats()", async function () {
+        this.timeout(20000)
+
+        const pool = new mindServer.staticPool(32)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+        const val = await pool.devOps.getPoolStats()
+
+        expect(val.length).to.equal(32)
+
+        pool.destroy()
+
+    });
 })

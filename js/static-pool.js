@@ -349,5 +349,18 @@ module.exports = {
 
             return that.session
         },
+
+        getPoolStats: async function (that) {
+            if (Object.keys(that.session).length === 0 || (that.session.loggedIn && that.session.loggedIn === false)) {
+                throw new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized')
+            }
+
+            const session = await that._getDevOpsSession()
+            const res = await session._staticPool.getPoolStats()
+
+            session.done()
+
+            return res
+        },
     }
 }

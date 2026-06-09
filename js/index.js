@@ -288,8 +288,8 @@ module.exports = {
                 return staticPool.devOps._getDevOpsSession(this, timeout)
             },
 
-            getPoolStats: function () {
-
+            getPoolStats: async function () {
+                return await staticPool.devOps.getPoolStats(this)
             },
 
             getCurrentSettings: function () {
@@ -447,6 +447,10 @@ module.exports = {
         // ******************
         hidePropsInObject = function (obj) {
             Object.defineProperties(obj.session, {
+                _staticPool: {
+                    enumerable: false,
+                    configurable: true
+                },
                 that: {
                     enumerable: false,
                     configurable: true

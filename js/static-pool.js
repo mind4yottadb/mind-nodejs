@@ -356,7 +356,7 @@ module.exports = {
             }
 
             const session = await that._getDevOpsSession()
-            const res = await session._staticPool.getPoolStats()
+            const res = await session._staticPool._getPoolStats()
 
             session.done()
 

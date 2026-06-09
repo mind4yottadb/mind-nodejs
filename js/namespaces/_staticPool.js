@@ -48,7 +48,7 @@ class _staticPool {
         })
     }
 
-    getPoolStats = function () {
+    _getPoolStats = function () {
         const that = this
         const RESP3 = that.objRoot.RESP3
 

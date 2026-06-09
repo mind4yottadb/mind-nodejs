@@ -20,7 +20,8 @@ describe("Pool static: devOps", async () => {
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 
-        console.dir(pool, {depth: 5})
+        const stats = await pool.devOps.getPoolStats()
+        console.log(stats)
 
         const devOps = await pool.devOps._getDevOpsSession()
 

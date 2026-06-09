@@ -359,12 +359,23 @@ module.exports = {
                 throw new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized')
             }
 
-            const session = await that._getDevOpsSession()
-            const res = await session._staticPool._getPoolStats()
+            let session
+            try {
+                session = await that._getDevOpsSession()
+                const res = await session._staticPool._getPoolStats()
 
-            session.done()
+                session.done()
 
-            return res
+                return res
+
+            } catch (err) {
+                try {
+                    session.done()
+                } catch (err) {
+                }
+
+                throw new Error(err.message)
+            }
         },
 
         changeLogLevel: async function (that, logLevel) {

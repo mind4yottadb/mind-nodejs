@@ -296,26 +296,34 @@ module.exports = {
 
             },
 
-            changeLogLevel: async function (logLevel) {
+            setLogLevel: async function (logLevel) {
                 return await staticPool.changeLogLevel(this, logLevel)
             },
 
-            changeDumpRequest: function () {
+            setDumpRequest: async function () {
+                return await staticPool.setDumpRequest(this, logLevel)
 
             },
 
-            changeDumpResponse: function () {
+            setDumpResponse: async function () {
+                return await staticPool.setDumpResponse(this, logLevel)
 
             },
 
-            changeStatsMode: function () {
+            setStats: async function () {
+                return await staticPool.setStats(this, logLevel)
 
             },
 
-            changeErrorDump: function () {
+            setErrorDump: async function () {
+                return await staticPool.setErrorDump(this, logLevel)
 
             },
 
+            setIdleTimeout: async function () {
+                return await staticPool.setIdleTimeout(this, logLevel)
+
+            }
         }
 
         constructor(size, extension = 0, credentials = {}) {

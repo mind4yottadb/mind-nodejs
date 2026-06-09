@@ -378,13 +378,127 @@ module.exports = {
             }
         },
 
-        changeLogLevel: async function (that, logLevel) {
+        setLogLevel: async function (that, logLevel) {
             return new Promise(async (resolve, reject) => {
+                let session
+
                 try {
-                    const session = await that._getDevOpsSession()
+                    session = await that._getDevOpsSession()
                     await session._staticPool._changeServerSetting('logLevel', logLevel)
 
+                    session.done()
+
                 } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err.message)
+                }
+            })
+        },
+
+        setDumpResponse: async function (that, value) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('dumpResponse', value)
+
+                    session.done()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err.message)
+                }
+            })
+        },
+
+        setDumpRequest: async function (that, value) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('dumpRequest', value)
+
+                    session.done()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err.message)
+                }
+            })
+        },
+
+        setStats: async function (that, value) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('stats', value)
+
+                    session.done()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err.message)
+                }
+            })
+        },
+
+        setErrorDump: async function (that, value) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('errorDump', value)
+
+                    session.done()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err.message)
+                }
+            })
+        },
+
+        setIdleTimeout: async function (that, timeout) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('idleTimeout', timeout)
+
+                    session.done()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
                     reject(err.message)
                 }
             })

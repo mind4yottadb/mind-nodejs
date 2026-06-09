@@ -48,6 +48,7 @@ module.exports = {
 
             try {
                 await that.devOps.session.connect(host, port, username, password, options)
+                that.devOps.sessionInUse = true
 
                 Object.assign(that.devOps.session, {
                     done: function () {
@@ -64,6 +65,9 @@ module.exports = {
                         writable: false,
                     },
                 })
+
+                // flag the devOps session as not in use
+                that.devOps.sessionInUse = false
 
             } catch (err) {
                 reject(err)

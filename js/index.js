@@ -398,6 +398,105 @@ module.exports = {
                     enumerable: false,
                     configurable: true
                 },
+
+                ERROR_DUMP_NONE: {
+                    value: 0,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                ERROR_DUMP_BRIEF: {
+                    value: 1,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                ERROR_DUMP_FULL: {
+                    value: 2,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                STATS_NONE: {
+                    value: 0,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                STATS_GRAND_TOTALS: {
+                    value: 1,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                STATS_DETAILS: {
+                    value: 2,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                DUMP_REQUEST_OFF: {
+                    value: 0,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                DUMP_REQUEST_ON: {
+                    value: 1,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                DUMP_RESPONSE_OFF: {
+                    value: 0,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                DUMP_RESPONSE_ON: {
+                    value: 1,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                LOG_LEVEL_NONE: {
+                    value: 0,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                LOG_LEVEL_SESSIONS: {
+                    value: 1,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                LOG_LEVEL_COMMANDS: {
+                    value: 2,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                LOG_LEVEL_TIMINGS: {
+                    value: 3,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
             })
         }
 

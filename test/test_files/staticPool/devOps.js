@@ -20,7 +20,11 @@ describe("Pool static: devOps", async () => {
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 
-        pool.destroy()
+        const devOps = await pool.devOps._getDevOpsSession()
+
+        await devOps._staticPool._changeServerSetting('logLevel', 3)
+
+        //pool.destroy()
     })
 
 })

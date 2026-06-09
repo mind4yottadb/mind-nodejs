@@ -366,5 +366,17 @@ module.exports = {
 
             return res
         },
+
+        changeLogLevel: async function (that, logLevel) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('logLevel', logLevel)
+
+                } catch (err) {
+                    reject(err.message)
+                }
+            })
+        }
     }
 }

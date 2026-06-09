@@ -296,8 +296,8 @@ module.exports = {
 
             },
 
-            changeLogLevel: function () {
-
+            changeLogLevel: async function (logLevel) {
+                return await staticPool.changeLogLevel(this, logLevel)
             },
 
             changeDumpRequest: function () {

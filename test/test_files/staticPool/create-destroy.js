@@ -208,6 +208,16 @@ describe("Pool static: creation / destroy", async () => {
     })
 
     describe("Pool creation: destroy()", async () => {
+        it("with not initialized pool", async () => {
+            const pool = new mindServer.staticPool(8, 4)
+
+            try {
+                pool.destroy()
+            } catch (err) {
+                expect(err.message).to.have.string('POOL_NOT_INITIALIZED')
+            }
+        })
+
         it("invalid, with no extension", async () => {
             const pool = new mindServer.staticPool(8, 4)
 

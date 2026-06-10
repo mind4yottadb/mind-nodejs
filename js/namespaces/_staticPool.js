@@ -24,8 +24,8 @@ class _staticPool {
         })
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) {
-                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized'))
             }
 
             // send command
@@ -53,8 +53,8 @@ class _staticPool {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) {
-                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error(errors.POOL_NOT_INITIALIZED + 'Pool not initialized'))
             }
 
             // send command
@@ -81,8 +81,8 @@ class _staticPool {
         const RESP3 = that.objRoot.RESP3
 
         return new Promise(function (resolve, reject) {
-            if (that.connected === false || that.loggedIn === false) {
-                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized'))
             }
 
             if (typeof name !== 'string') {

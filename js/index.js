@@ -293,31 +293,31 @@ module.exports = {
             },
 
             setLogLevel: async function (logLevel) {
-                return await staticPool.changeLogLevel(this, logLevel)
+                return await staticPool.devOps.setLogLevel(this, logLevel)
             },
 
-            setDumpRequest: async function () {
-                return await staticPool.setDumpRequest(this, logLevel)
-
-            },
-
-            setDumpResponse: async function () {
-                return await staticPool.setDumpResponse(this, logLevel)
+            setDumpRequest: async function (value) {
+                return await staticPool.devOps.setDumpRequest(this, value)
 
             },
 
-            setStats: async function () {
-                return await staticPool.setStats(this, logLevel)
+            setDumpResponse: async function (value) {
+                return await staticPool.devOps.setDumpResponse(this, value)
 
             },
 
-            setErrorDump: async function () {
-                return await staticPool.setErrorDump(this, logLevel)
+            setStats: async function (value) {
+                return await staticPool.devOps.setStats(this, value)
 
             },
 
-            setIdleTimeout: async function () {
-                return await staticPool.setIdleTimeout(this, logLevel)
+            setErrorDump: async function (value) {
+                return await staticPool.devOps.setErrorDump(this, value)
+
+            },
+
+            setIdleTimeout: async function (timeout) {
+                return await staticPool.devOps.setIdleTimeout(this, timeout)
 
             }
         }

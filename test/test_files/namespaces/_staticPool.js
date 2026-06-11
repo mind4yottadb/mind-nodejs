@@ -329,9 +329,138 @@ describe("_staticPool.", async () => {
 
             try {
                 await mind._staticPool._changeServerSetting('logLevel', 3)
-
                 const settings = await pool.sessions[0].session.session.getCurrentSettings()
                 expect(settings.logLevel).to.be.equal(3)
+
+            } catch (err) {
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+            }
+
+            pool.destroy()
+        });
+
+        it("with 2 pools", async function () {
+            const pool1 = new mindServer.staticPool(2)
+            const pool2 = new mindServer.staticPool(2)
+
+            await pool1.create('127.0.0.1', 10000, 'admin', 'admin')
+            await pool2.create('127.0.0.1', 10000, 'admin', 'admin')
+
+            const mind1 = await pool1.devOps._getDevOpsSession()
+            const mind2 = await pool2.devOps._getDevOpsSession()
+
+            try {
+                await mind1._staticPool._changeServerSetting('logLevel', 3)
+                const settings = await pool1.sessions[0].session.session.getCurrentSettings()
+                expect(settings.logLevel).to.be.equal(3)
+
+                await mind2._staticPool._changeServerSetting('logLevel', 3)
+                const settings2 = await pool2.sessions[0].session.session.getCurrentSettings()
+                expect(settings2.logLevel).to.be.equal(3)
+
+            } catch (err) {
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+            }
+
+            pool1.destroy()
+            pool2.destroy()
+        });
+
+        it("with 4 pools", async function () {
+            const pool1 = new mindServer.staticPool(2)
+            const pool2 = new mindServer.staticPool(2)
+            const pool3 = new mindServer.staticPool(2)
+            const pool4 = new mindServer.staticPool(2)
+
+            await pool1.create('127.0.0.1', 10000, 'admin', 'admin')
+            await pool2.create('127.0.0.1', 10000, 'admin', 'admin')
+            await pool3.create('127.0.0.1', 10000, 'admin', 'admin')
+            await pool4.create('127.0.0.1', 10000, 'admin', 'admin')
+
+            const mind1 = await pool1.devOps._getDevOpsSession()
+            const mind2 = await pool2.devOps._getDevOpsSession()
+            const mind3 = await pool3.devOps._getDevOpsSession()
+            const mind4 = await pool4.devOps._getDevOpsSession()
+
+            try {
+                await mind1._staticPool._changeServerSetting('logLevel', 3)
+                const settings = await pool1.sessions[0].session.session.getCurrentSettings()
+                expect(settings.logLevel).to.be.equal(3)
+
+                await mind2._staticPool._changeServerSetting('logLevel', 3)
+                const settings2 = await pool2.sessions[0].session.session.getCurrentSettings()
+                expect(settings2.logLevel).to.be.equal(3)
+
+                await mind3._staticPool._changeServerSetting('logLevel', 3)
+                const settings3 = await pool3.sessions[0].session.session.getCurrentSettings()
+                expect(settings3.logLevel).to.be.equal(3)
+
+                await mind4._staticPool._changeServerSetting('logLevel', 3)
+                const settings4 = await pool4.sessions[0].session.session.getCurrentSettings()
+                expect(settings4.logLevel).to.be.equal(3)
+
+            } catch (err) {
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+            }
+
+            pool1.destroy()
+            pool2.destroy()
+            pool3.destroy()
+            pool4.destroy()
+        });
+
+        it("pool of 8, verify all processes", async function () {
+            const pool = new mindServer.staticPool(8)
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+            const mind = await pool.devOps._getDevOpsSession()
+
+            try {
+                await mind._staticPool._changeServerSetting('logLevel', 3)
+
+                for (let ix = 0; ix < pool.sessions.length - 1; ix++) {
+                    const settings = await pool.sessions[ix].session.session.getCurrentSettings()
+                    expect(settings.logLevel).to.be.equal(3)
+                }
+
+            } catch (err) {
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+            }
+
+            pool.destroy()
+        });
+
+        it("pool of 16, verify all processes", async function () {
+            const pool = new mindServer.staticPool(16)
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+            const mind = await pool.devOps._getDevOpsSession()
+
+            try {
+                await mind._staticPool._changeServerSetting('logLevel', 3)
+
+                for (let ix = 0; ix < pool.sessions.length - 1; ix++) {
+                    const settings = await pool.sessions[ix].session.session.getCurrentSettings()
+                    expect(settings.logLevel).to.be.equal(3)
+                }
+
+            } catch (err) {
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+            }
+
+            pool.destroy()
+        });
+
+        it("pool of 32, verify all processes", async function () {
+            const pool = new mindServer.staticPool(32)
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+            const mind = await pool.devOps._getDevOpsSession()
+
+            try {
+                await mind._staticPool._changeServerSetting('logLevel', 3)
+
+                for (let ix = 0; ix < pool.sessions.length - 1; ix++) {
+                    const settings = await pool.sessions[ix].session.session.getCurrentSettings()
+                    expect(settings.logLevel).to.be.equal(3)
+                }
 
             } catch (err) {
                 expect(err.message).to.have.string('PARAM_NOT_NUMBER')

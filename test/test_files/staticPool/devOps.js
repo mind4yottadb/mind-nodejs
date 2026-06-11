@@ -287,4 +287,132 @@ describe("Pool static: devOps", async () => {
             pool.destroy()
         });
     })
+
+    describe("getPoolStats()", async () => {
+        it("small pool, no extension, randomly get and release sessions, trigger some waitHits in stats", async () => {
+            const pool = new mindServer.staticPool(2)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+            function getRandomInt(max) {
+                return Math.floor(Math.random() * max);
+            }
+
+            let max1 = 100
+            let max2 = 100
+            let max3 = 100
+            let max4 = 100
+
+            const captureDuration = 5000
+            const captureInterval = 100
+            let captureTimer
+            const captureResult = []
+
+
+            // set up the capture
+            setTimeout(() => {
+                clearInterval(captureTimer)
+            }, captureDuration)
+
+            captureTimer = setInterval(async () => {
+                captureResult.push(await pool.devOps.getPoolStats())
+
+            }, captureInterval)
+
+
+            // and start executing commands
+            const int1 = setInterval((async () => {
+                max1--
+
+                if (max1 === 0) {
+                    clearInterval(int1)
+
+                    return
+                }
+
+                const session = await pool.getSession()
+
+                try {
+                    const cwd = await session.process.cwdGet()
+
+                } catch (err) {
+                    console.log(err.message)
+                }
+                session.done()
+
+            }), getRandomInt(5) * 10)
+
+            const int2 = setInterval((async () => {
+                max2--
+
+                if (max2 === 0) {
+                    clearInterval(int2)
+
+                    return
+                }
+
+                const session = await pool.getSession()
+
+                try {
+                    const cwd = await session.fs.readTree('/opt/yottadb/current/plugin/etc/mind', '*.*')
+
+                } catch (err) {
+                    console.log(err.message)
+                }
+                session.done()
+
+            }), getRandomInt(10) * 10)
+
+            const int3 = setInterval((async () => {
+                max3--
+
+                if (max3 === 0) {
+                    clearInterval(int3)
+
+                    return
+                }
+
+                const session = await pool.getSession()
+                try {
+                    const cwd = await session.process.cwdGet()
+
+                } catch (err) {
+                    console.log(err.message)
+                }
+                session.done()
+
+            }), getRandomInt(10) * 10)
+
+            const int4 = setInterval((async () => {
+                max4--
+
+                if (max4 === 0) {
+                    clearInterval(int4)
+
+                    return
+                }
+
+                const session = await pool.getSession()
+                try {
+                    const cwd = await session.fs.readDir('/opt/yottadb/current')
+
+                } catch (err) {
+                    console.log(err.message)
+                }
+                session.done()
+
+            }), getRandomInt(10) * 10)
+
+            await sleep(6000)
+
+            clearInterval(int1)
+            clearInterval(int2)
+            clearInterval(int3)
+            clearInterval(int4)
+
+            pool.destroy()
+
+            expect(captureResult.length > 40)
+        })
+    })
 })

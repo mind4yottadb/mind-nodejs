@@ -1171,4 +1171,91 @@ describe("session.setLogLevel()", async () => {
 
         ydb.disconnect()
     });
+
+    describe("session.resetSettings()", async () => {
+        it("logLevel", async function () {
+            const ydb = await createYdbInstance()
+
+            await ydb.session.setLogLevel(0)
+            let res = await ydb.session.getCurrentSettings()
+            expect(res.logLevel).to.be.equal(0)
+
+            await ydb.session.resetSettings()
+            res = await ydb.session.getCurrentSettings()
+            expect(res.logLevel).to.be.equal(2)
+
+            ydb.disconnect()
+        });
+
+        it("idleTimeout", async function () {
+            const ydb = await createYdbInstance()
+
+            await ydb.session.setIdleTimeout(0)
+            let res = await ydb.session.getCurrentSettings()
+            expect(res.idleTimeout).to.be.equal(0)
+
+            await ydb.session.resetSettings()
+            res = await ydb.session.getCurrentSettings()
+            expect(res.idleTimeout).to.be.equal(30)
+
+            ydb.disconnect()
+        });
+
+        it("stats", async function () {
+            const ydb = await createYdbInstance()
+
+            await ydb.session.setStats(2)
+            let res = await ydb.session.getCurrentSettings()
+            expect(res.stats).to.be.equal(2)
+
+            await ydb.session.resetSettings()
+            res = await ydb.session.getCurrentSettings()
+            expect(res.stats).to.be.equal(0)
+
+            ydb.disconnect()
+        });
+
+        it("dumpRequest", async function () {
+            const ydb = await createYdbInstance()
+
+            await ydb.session.setDumpRequest(1)
+            let res = await ydb.session.getCurrentSettings()
+            expect(res.dumpRequest).to.be.equal(1)
+
+            await ydb.session.resetSettings()
+            res = await ydb.session.getCurrentSettings()
+            expect(res.dumpRequest).to.be.equal(0)
+
+            ydb.disconnect()
+        });
+
+        it("dumpResponse", async function () {
+            const ydb = await createYdbInstance()
+
+            await ydb.session.setDumpResponse(1)
+            let res = await ydb.session.getCurrentSettings()
+            expect(res.dumpResponse).to.be.equal(1)
+
+            await ydb.session.resetSettings()
+            res = await ydb.session.getCurrentSettings()
+            expect(res.dumpResponse).to.be.equal(0)
+
+            ydb.disconnect()
+        });
+
+        it("errorDump", async function () {
+            const ydb = await createYdbInstance()
+
+            await ydb.session.setErrorDump(2)
+            let res = await ydb.session.getCurrentSettings()
+            expect(res.errorDump).to.be.equal(2)
+
+            await ydb.session.resetSettings()
+            res = await ydb.session.getCurrentSettings()
+            expect(res.errorDump).to.be.equal(1)
+
+            ydb.disconnect()
+        });
+    })
 })
+

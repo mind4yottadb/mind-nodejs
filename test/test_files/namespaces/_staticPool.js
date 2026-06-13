@@ -469,4 +469,21 @@ describe("_staticPool.", async () => {
             pool.destroy()
         });
     })
+
+    describe("_resetSettings.", async () => {
+        it("pool not initialized", async function () {
+            const pool = new mindServer.staticPool(2)
+
+            try {
+                const mind = await pool.devOps._getDevOpsSession()
+                await mind._staticPool._changeServerSetting()
+
+                expect(1 === 2).to.be.true
+
+            } catch (err) {
+                expect(err.message).to.have.string('POOL_NOT_INITIALIZED')
+            }
+        });
+
+    })
 })

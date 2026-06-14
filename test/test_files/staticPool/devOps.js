@@ -415,4 +415,132 @@ describe("Pool static: devOps", async () => {
             expect(captureResult.length > 40)
         })
     })
+
+    describe("resetSettings()", async () => {
+        it("with logLevel", async function () {
+            const pool = new mindServer.staticPool(2)
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+            try {
+                await pool.devOps.setLogLevel(pool.devOps.LOG_LEVEL_TIMINGS)
+                const settings = await pool.sessions[0].session.session.getCurrentSettings()
+                expect(settings.logLevel).to.be.equal(pool.devOps.LOG_LEVEL_TIMINGS)
+
+                await pool.devOps.resetSettings()
+                const settings2 = await pool.sessions[0].session.session.getCurrentSettings()
+                expect(settings2.logLevel).to.be.equal(pool.devOps.LOG_LEVEL_COMMANDS)
+
+            } catch (err) {
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+            }
+
+            pool.destroy()
+        });
+
+        it("with dumpRequest", async function () {
+            const pool = new mindServer.staticPool(2)
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+            try {
+                await pool.devOps.setDumpRequest(pool.devOps.DUMP_REQUEST_ON)
+                const settings = await pool.sessions[0].session.session.getCurrentSettings()
+                expect(settings.dumpRequest).to.be.equal(pool.devOps.DUMP_REQUEST_ON)
+
+                await pool.devOps.resetSettings()
+                const settings2 = await pool.sessions[0].session.session.getCurrentSettings()
+                expect(settings2.dumpRequest).to.be.equal(pool.devOps.DUMP_REQUEST_OFF)
+
+            } catch (err) {
+                console.log(err)
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+            }
+
+            pool.destroy()
+        });
+
+        it("with dumpResponse", async function () {
+            const pool = new mindServer.staticPool(2)
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+            try {
+                await pool.devOps.setDumpResponse(pool.devOps.DUMP_RESPONSE_ON)
+                const settings = await pool.sessions[0].session.session.getCurrentSettings()
+                expect(settings.dumpResponse).to.be.equal(pool.devOps.DUMP_RESPONSE_ON)
+
+                await pool.devOps.resetSettings()
+                const settings2 = await pool.sessions[0].session.session.getCurrentSettings()
+                expect(settings2.dumpResponse).to.be.equal(pool.devOps.DUMP_RESPONSE_OFF)
+
+            } catch (err) {
+                console.log(err)
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+            }
+
+            pool.destroy()
+        });
+
+        it("with stats", async function () {
+            const pool = new mindServer.staticPool(2)
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+            try {
+                await pool.devOps.setStats(pool.devOps.STATS_DETAILS)
+                const settings = await pool.sessions[0].session.session.getCurrentSettings()
+                expect(settings.stats).to.be.equal(pool.devOps.STATS_DETAILS)
+
+                await pool.devOps.resetSettings()
+                const settings2 = await pool.sessions[0].session.session.getCurrentSettings()
+                expect(settings2.stats).to.be.equal(pool.devOps.STATS_NONE)
+
+            } catch (err) {
+                console.log(err)
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+            }
+
+            pool.destroy()
+        });
+
+        it("with errorDump", async function () {
+            const pool = new mindServer.staticPool(2)
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+            try {
+                await pool.devOps.setErrorDump(pool.devOps.ERROR_DUMP_NONE)
+                const settings = await pool.sessions[0].session.session.getCurrentSettings()
+                expect(settings.errorDump).to.be.equal(pool.devOps.ERROR_DUMP_NONE)
+
+                await pool.devOps.resetSettings()
+                const settings2 = await pool.sessions[0].session.session.getCurrentSettings()
+                expect(settings2.errorDump).to.be.equal(pool.devOps.ERROR_DUMP_BRIEF)
+
+            } catch (err) {
+                console.log(err)
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+            }
+
+            pool.destroy()
+        });
+
+        it("with idleTimeout", async function () {
+            const pool = new mindServer.staticPool(2)
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+            try {
+                await pool.devOps.setIdleTimeout(0)
+                const settings = await pool.sessions[0].session.session.getCurrentSettings()
+                expect(settings.idleTimeout).to.be.equal(0)
+
+                await pool.devOps.resetSettings()
+                const settings2 = await pool.sessions[0].session.session.getCurrentSettings()
+                expect(settings2.idleTimeout).to.be.equal(30)
+
+            } catch (err) {
+                console.log(err)
+                expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+            }
+
+            pool.destroy()
+        });
+    })
 })
+

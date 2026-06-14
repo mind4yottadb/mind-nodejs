@@ -20,6 +20,9 @@ describe("Pool static: modify params", async () => {
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 
+        await pool.devOps.resetSettings()
+
+
         pool.destroy()
     })
 

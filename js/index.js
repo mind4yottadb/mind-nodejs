@@ -298,27 +298,26 @@ module.exports = {
 
             setDumpRequest: async function (value) {
                 return await staticPool.devOps.setDumpRequest(this, value)
-
             },
 
             setDumpResponse: async function (value) {
                 return await staticPool.devOps.setDumpResponse(this, value)
-
             },
 
             setStats: async function (value) {
                 return await staticPool.devOps.setStats(this, value)
-
             },
 
             setErrorDump: async function (value) {
                 return await staticPool.devOps.setErrorDump(this, value)
-
             },
 
             setIdleTimeout: async function (timeout) {
                 return await staticPool.devOps.setIdleTimeout(this, timeout)
+            },
 
+            resetSettings: async function () {
+                return await staticPool.devOps.resetSettings(this)
             }
         }
 

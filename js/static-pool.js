@@ -90,7 +90,7 @@ module.exports = {
         })
     },
 
-    changeSize: function (that, newSize) {
+    changeSize: function (that, classModule, newSize) {
         return new Promise(async (resolve, reject) => {
             if (that.sessions.length === 0) {
                 reject(new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized'))
@@ -123,7 +123,6 @@ module.exports = {
 
                     try {
                         await session.connect(that.host, that.port, that.username, that.password, that.options)
-
                         that.sessions.push({
                             session: session,
                             inUse: false,
@@ -147,10 +146,11 @@ module.exports = {
                         return
                     }
 
-                    that.size = newSize
-
-                    resolve()
                 }
+
+                that.size = newSize
+
+                resolve()
 
             } else {
                 // we need to shrink

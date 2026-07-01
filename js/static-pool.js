@@ -10,17 +10,19 @@
 #                                                               #
 ###############################################################*/
 const errors = require("./errors");
+const {size} = require("lodash");
 
 module.exports = {
     create: async function (that, classModule, host, port, username, password, options) {
         return new Promise(async (resolve, reject) => {
+            // regular sessions
             for (let ix = 0; ix < that.size; ix++) {
                 const session = new classModule.exports.session
 
                 try {
                     await session.connect(host, port, username, password, options)
 
-                    const sessionLength = that.sessions.push({
+                    that.sessions.push({
                         session: session,
                         inUse: false,
                         isExtension: false
@@ -44,6 +46,7 @@ module.exports = {
                 }
             }
 
+            // devOps session
             that.devOps.session = new classModule.exports.session
 
             try {
@@ -87,12 +90,100 @@ module.exports = {
         })
     },
 
-    shrink: function (that, numSessions) {
+    changeSize: function (that, newSize) {
+        return new Promise(async (resolve, reject) => {
+            if (that.sessions.length === 0) {
+                reject(new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized'))
 
-    },
+                return
+            }
 
-    expand: function (that, classModule, numSessions) {
+            if (typeof newSize !== 'number') {
+                reject(new Error(errors.PARAM_NOT_NUMBER + 'newSize must be a number'))
 
+                return
+            }
+
+            if (newSize < 2) {
+                reject(new Error(errors.POOL_SIZE_NOT_MIN_TWO + 'newSize must be greater than 1'))
+
+                return
+            }
+
+            if (newSize === that.size) {
+                reject(new Error(errors.POOL_NEWSIZE_SAME_AS_SIZE + 'the new size must be different than the current size'))
+
+                return
+            }
+
+            if (newSize > that.size) {
+                // we can extend the size, let's connect the new sessions
+                for (let ix = 0; ix < newSize - that.size; ix++) {
+                    const session = new classModule.exports.session
+
+                    try {
+                        await session.connect(that.host, that.port, that.username, that.password, that.options)
+
+                        that.sessions.push({
+                            session: session,
+                            inUse: false,
+                            isExtension: false
+                        })
+
+                        session.on('disconnect', function () {
+                            for (let ix in that.sessions) {
+                                if (that.sessions[ix].session.session.GUID === this.session.GUID) {
+                                    that.sessions.splice(ix, 1)
+                                }
+                            }
+
+                            that.stats.remoteDisconnects++
+                            that.size--
+                        })
+
+                    } catch (err) {
+                        reject(err)
+
+                        return
+                    }
+
+                    that.size = newSize
+
+                    resolve()
+                }
+
+            } else {
+                // we need to shrink
+                // we start allocating the sessions to be removed, then disconnect them and change the size
+                const sessionsToBeRemoved = newSize - that.size
+
+                const freeSlots = that.sessions.filter(session => session.inUse === false)
+
+                // verify that there are enough sessions to be removed
+                if (newSize > freeSlots.length) {
+                    reject(new Error(errors.POOL_TOO_MANY_SESSIONS_IN_USE + 'Can not shrink due to sessions in use'))
+
+                    return
+                }
+
+                // lock up the free sessions to ensure nobody gets them while disconnecting
+                freeSlots.forEach(session => {
+                    session.session.inUse = true
+                })
+
+                // disconnect them and remove them from the sessions array
+                freeSlots.forEach((session, ix) => {
+                    session.session.disconnect()
+
+                    session.splice(ix, 1)
+                })
+
+                // update size
+                that.size = newSize
+
+                resolve()
+            }
+        })
     },
 
     changeExtension: function (that, numSessions) {
@@ -104,7 +195,7 @@ module.exports = {
             throw new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized')
         }
 
-        that.sessions.forEach(async session => await session.session.disconnect())
+        that.sessions.forEach(async session => session.session.disconnect())
 
         that.devOps.session.disconnect()
 

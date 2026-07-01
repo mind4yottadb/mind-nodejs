@@ -533,13 +533,10 @@ module.exports = {
             return staticPool.getStatus(this)
         }
 
-        shrink = function (numSessions) {
-            staticPool.shrink(this, numSessions)
+        changeSize = function (newSize) {
+            staticPool.changeSize(this, newSize)
         }
 
-        expand = async function (numSessions) {
-            await staticPool.expand(this, module, numSessions)
-        }
         changeExtension = function (numSessions) {
             staticPool.changeExtension(this, numSessions)
         }

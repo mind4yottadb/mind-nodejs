@@ -537,8 +537,8 @@ module.exports = {
             return await staticPool.changeSize(this, module, newSize)
         }
 
-        changeExtension = function (numSessions) {
-            staticPool.changeExtension(this, numSessions)
+        changeExtension = function (newSize) {
+            return staticPool.changeExtension(this, newSize)
         }
 
         // ******************

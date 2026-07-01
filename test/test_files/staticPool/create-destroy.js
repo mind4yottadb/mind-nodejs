@@ -177,7 +177,7 @@ describe("Pool static: creation / destroy", async () => {
 
             expect(status.sessionsTotal).to.equal(3);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             pool.destroy()
         });
@@ -190,7 +190,7 @@ describe("Pool static: creation / destroy", async () => {
 
             expect(status.sessionsTotal).to.equal(8);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             pool.destroy()
         });
@@ -226,7 +226,7 @@ describe("Pool static: creation / destroy", async () => {
 
             expect(status.sessionsTotal).to.equal(8);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             pool.destroy()
 
@@ -234,7 +234,7 @@ describe("Pool static: creation / destroy", async () => {
 
             expect(status.sessionsTotal).to.equal(0);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
         })
     })
 
@@ -264,7 +264,7 @@ describe("Pool static: creation / destroy", async () => {
 
             expect(status.sessionsTotal).to.equal(0);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
         })
 
         it("valid (24) with nothing executing", async () => {
@@ -281,7 +281,7 @@ describe("Pool static: creation / destroy", async () => {
 
             expect(status.sessionsTotal).to.equal(0);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
         })
 
         it("valid (3) with timed locks executing", async () => {
@@ -311,7 +311,7 @@ describe("Pool static: creation / destroy", async () => {
 
             expect(status.sessionsTotal).to.equal(0);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
         })
 
         it("with not initialized pool", async () => {
@@ -338,7 +338,7 @@ describe("Pool static: creation / destroy", async () => {
 
             expect(status.sessionsTotal).to.equal(0);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
         })
 
         it("valid (24,3) with nothing executing", async () => {
@@ -355,7 +355,7 @@ describe("Pool static: creation / destroy", async () => {
 
             expect(status.sessionsTotal).to.equal(0);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
         })
 
         it("valid (3,3) with timed locks executing", async () => {
@@ -385,8 +385,7 @@ describe("Pool static: creation / destroy", async () => {
 
             expect(status.sessionsTotal).to.equal(0);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
         })
     })
-
 })

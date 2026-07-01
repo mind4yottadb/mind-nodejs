@@ -171,3 +171,107 @@ describe("Pool static: changeSize()", async () => {
         pool.destroy()
     })
 })
+
+describe("Pool static: changeExtension()", async () => {
+    it("pool not initialized", async () => {
+        const pool = new mindServer.staticPool(3, 2)
+
+        try {
+            await pool.changeExtension('this is a string')
+
+        } catch (err) {
+            expect(err.message).to.have.string('POOL_NOT_INITIALIZED')
+        }
+
+    })
+
+    it("bad datatype for newSize: string", async () => {
+        const pool = new mindServer.staticPool(3, 2)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+        try {
+            await pool.changeExtension('this is a string')
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        pool.destroy()
+    })
+
+    it("bad datatype for newSize: boolean", async () => {
+        const pool = new mindServer.staticPool(3, 2)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+        try {
+            await pool.changeExtension(false)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        pool.destroy()
+    })
+
+    it("bad datatype for newSize: object", async () => {
+        const pool = new mindServer.staticPool(3, 2)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+        try {
+            await pool.changeExtension({aa: 'this is a string'})
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        pool.destroy()
+    })
+
+    it("bad datatype for newSize: array", async () => {
+        const pool = new mindServer.staticPool(3, 2)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+        try {
+            await pool.changeExtension([1, 2, 3, 45])
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        pool.destroy()
+    })
+
+    it("newSize < 0", async () => {
+        const pool = new mindServer.staticPool(3, 2)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+        try {
+            await pool.changeExtension(-5)
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_ZERO_OR_GREATER')
+        }
+
+        pool.destroy()
+    })
+
+    it("newSize === size", async () => {
+        const pool = new mindServer.staticPool(3)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+        try {
+            await pool.changeExtension(3)
+
+        } catch (err) {
+            expect(err.message).to.have.string('POOL_NEWSIZE_SAME_AS_SIZE')
+        }
+
+        pool.destroy()
+    })
+})

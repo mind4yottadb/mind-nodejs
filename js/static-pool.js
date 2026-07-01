@@ -193,8 +193,37 @@ module.exports = {
         })
     },
 
-    changeExtension: function (that, numSessions) {
+    changeExtension: function (that, newSize) {
+        return new Promise(async (resolve, reject) => {
+            if (that.sessions.length === 0) {
+                reject(new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized'))
 
+                return
+            }
+
+            if (typeof newSize !== 'number') {
+                reject(new Error(errors.PARAM_NOT_NUMBER + 'newSize must be a number'))
+
+                return
+            }
+
+            if (newSize < 0) {
+                reject(new Error(errors.PARAM_NOT_ZERO_OR_GREATER + 'newSize must be equal or greater than 0'))
+
+                return
+            }
+
+            if (newSize === that.size) {
+                reject(new Error(errors.POOL_NEWSIZE_SAME_AS_SIZE + 'the new size must be different than the current size'))
+
+                return
+            }
+
+            that.extension = newSize
+
+            resolve()
+
+        })
     },
 
     destroy: function (that) {
@@ -454,7 +483,7 @@ module.exports = {
         return {
             sessionsTotal: sessionsTotal,
             extensionsTotal: extensionsTotal,
-            sessionsExtended: sessionsExtended.length,
+            sessionsExtendedInUse: sessionsExtended.length,
             sessionsInUse: sessionsInUse.length,
             stats: that.stats
         }

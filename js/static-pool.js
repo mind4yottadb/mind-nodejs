@@ -90,7 +90,7 @@ module.exports = {
         })
     },
 
-    changeSize: function (that, newSize) {
+    changeSize: function (that, classModule, newSize) {
         return new Promise(async (resolve, reject) => {
             if (that.sessions.length === 0) {
                 reject(new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized'))
@@ -123,7 +123,6 @@ module.exports = {
 
                     try {
                         await session.connect(that.host, that.port, that.username, that.password, that.options)
-
                         that.sessions.push({
                             session: session,
                             inUse: false,
@@ -147,16 +146,16 @@ module.exports = {
                         return
                     }
 
-                    that.size = newSize
-
-                    resolve()
                 }
+
+                // update size
+                that.size = newSize
+
+                resolve()
 
             } else {
                 // we need to shrink
                 // we start allocating the sessions to be removed, then disconnect them and change the size
-                const sessionsToBeRemoved = newSize - that.size
-
                 const freeSlots = that.sessions.filter(session => session.inUse === false)
 
                 // verify that there are enough sessions to be removed
@@ -172,11 +171,19 @@ module.exports = {
                 })
 
                 // disconnect them and remove them from the sessions array
-                freeSlots.forEach((session, ix) => {
-                    session.session.disconnect()
+                let deleteCount = 0
+                let ix = that.sessions.length
 
-                    session.splice(ix, 1)
-                })
+                while (ix--) {
+                    if (that.sessions.sessionInUse === true) continue
+                    if (deleteCount === that.size - newSize) break
+
+                    deleteCount++
+
+                    freeSlots[ix].session.disconnect()
+
+                    that.sessions.splice(ix, 1)
+                }
 
                 // update size
                 that.size = newSize

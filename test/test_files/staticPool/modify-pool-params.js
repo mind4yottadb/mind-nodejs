@@ -18,8 +18,6 @@ describe("Pool static: changeSize()", async () => {
     it("pool not initialized", async () => {
         const pool = new mindServer.staticPool(3)
 
-        //await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
-
         try {
             await pool.changeSize('this is a string')
 

@@ -213,7 +213,7 @@ module.exports = {
                 return
             }
 
-            if (newSize === that.size) {
+            if (newSize === that.extension) {
                 reject(new Error(errors.POOL_NEWSIZE_SAME_AS_SIZE + 'the new size must be different than the current size'))
 
                 return
@@ -271,27 +271,26 @@ module.exports = {
                 return
             }
 
-            const freeSlots = that.sessions.filter(session => session.inUse === false)
+            const freeSlotIx = that.sessions.findIndex(session => session.inUse === false && session.isExtension === false)
             let hInterval = null
 
             // can we get a normal session?
-            if (freeSlots.length > 0) {
-                freeSlots[0].inUse = true
+            if (freeSlotIx > -1) {
+                that.sessions[freeSlotIx].inUse = true
 
-                Object.assign(freeSlots[0].session, {
+                Object.assign(that.sessions[freeSlotIx].session, {
                     that: that,
-                    ix: that.sessions.length - 1,
-                    poolSlot: freeSlots[0],
+                    ix: freeSlotIx,
                     done: function () {
-                        this.poolSlot.inUse = false
+                        that.sessions[this.ix].inUse = false
                     }
                 })
 
                 that.stats.sessionsCreatedOk++
 
-                that.hidePropsInObject(freeSlots[0])
+                that.hidePropsInObject(that.sessions[freeSlotIx])
 
-                resolve(freeSlots[0].session)
+                resolve(that.sessions[freeSlotIx].session)
 
                 return
             }
@@ -313,6 +312,7 @@ module.exports = {
 
                 const newSession = {
                     session: session,
+                    guid: session.session.GUID,
                     inUse: true,
                     isExtension: true
                 }
@@ -321,21 +321,24 @@ module.exports = {
 
                 that.stats.extendsCreatedOk++
 
+                that.sessions.forEach(session => {
+                    //console.log(session.session.session)
+                })
+
                 Object.assign(newSession.session, {
                     that: that,
-                    ix: that.sessions.length - 1,
-                    poolSlot: newSession,
-
+                    newSession: newSession,
                     done: function () {
-                        this.poolSlot.session.disconnect()
+                        const ix = that.sessions.findIndex(session => {
+                            return session.session.session.GUID === this.newSession.session.session.GUID
+                        })
+                        that.sessions[ix].session.disconnect()
 
-                        this.that.sessions.splice(this.ix, 1)
+                        that.sessions.splice(ix, 1)
 
-                        this.that.extensionInUse--
+                        that.extensionInUse--
 
                         that.stats.extendsRemoved++
-
-                        this.poolSlot.inUse = false
                     }
                 })
 
@@ -381,31 +384,31 @@ module.exports = {
                     return
                 }
 
-                const freeSlots = that.sessions.filter(session => session.inUse === false)
+                const freeSlotIx = that.sessions.findIndex(session => session.inUse === false && session.isExtension === false)
+                //const freeSlots = that.sessions.filter(session => session.inUse === false)
 
-                if (freeSlots.length > 0) {
+                if (freeSlotIx > -1) {
                     that.timerTick = true
 
                     clearTimeout(hTimeout)
                     clearInterval(hInterval)
                     hInterval = null
 
-                    Object.assign(freeSlots[0].session, {
+                    Object.assign(that.sessions[freeSlotIx].session, {
                         that: that,
-                        ix: that.sessions.length - 1,
-                        poolSlot: freeSlots[0],
+                        ix: freeSlotIx,
                         done: function () {
-                            this.poolSlot.inUse = false
+                            that.sessions[this.ix].inUse = false
                         }
                     })
 
-                    that.hidePropsInObject(freeSlots[0])
+                    that.hidePropsInObject(that.sessions[freeSlotIx])
 
-                    freeSlots[0].inUse = true
+                    that.sessions[freeSlotIx].inUse = true
 
                     that.stats.sessionsCreatedOk++
 
-                    resolve(freeSlots[0].session)
+                    resolve(that.sessions[freeSlotIx].session)
 
                     return
                 }
@@ -433,6 +436,7 @@ module.exports = {
 
                     const newSession = {
                         session: session,
+                        guid: session.session.GUID,
                         inUse: true,
                         isExtension: true
                     }
@@ -441,19 +445,24 @@ module.exports = {
 
                     that.stats.extendsCreatedOk++
 
+                    that.sessions.forEach(session => {
+                        //console.log(session.session.session)
+                    })
+
                     Object.assign(newSession.session, {
                         that: that,
-                        ix: that.sessions.length - 1,
-                        poolSlot: newSession,
+                        newSession: newSession,
                         done: function () {
-                            this.poolSlot.session.disconnect()
-                            this.that.sessions.splice(this.ix, 1)
+                            const ix = that.sessions.findIndex(session => {
+                                return session.session.session.GUID === this.newSession.session.session.GUID
+                            })
+                            that.sessions[ix].session.disconnect()
 
-                            this.that.extensionInUse--
+                            that.sessions.splice(ix, 1)
+
+                            that.extensionInUse--
 
                             that.stats.extendsRemoved++
-
-                            this.poolSlot.inUse = false
                         }
                     })
 
@@ -475,14 +484,16 @@ module.exports = {
     },
 
     getStatus: function (that) {
-        const sessionsInUse = that.sessions.filter(session => session.inUse === true)
-        const sessionsExtended = that.sessions.filter(session => session.isExtension === true)
+        const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === false)
+        const sessionsExtended = that.sessions.filter(session => session.isExtension === true && session.inUse === true)
         const sessionsTotal = that.sessions.length
-        const extensionsTotal = that.extension
+        const extensions = that.extension
+        const size = that.size
 
         return {
+            size: size,
+            extensions: extensions,
             sessionsTotal: sessionsTotal,
-            extensionsTotal: extensionsTotal,
             sessionsExtendedInUse: sessionsExtended.length,
             sessionsInUse: sessionsInUse.length,
             stats: that.stats

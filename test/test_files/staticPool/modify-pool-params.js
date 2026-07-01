@@ -261,7 +261,7 @@ describe("Pool static: changeExtension()", async () => {
     })
 
     it("newSize === size", async () => {
-        const pool = new mindServer.staticPool(3)
+        const pool = new mindServer.staticPool(2, 3)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 
@@ -270,6 +270,61 @@ describe("Pool static: changeExtension()", async () => {
 
         } catch (err) {
             expect(err.message).to.have.string('POOL_NEWSIZE_SAME_AS_SIZE')
+        }
+
+        pool.destroy()
+    })
+
+    it("ext: 1, >>> 2", async () => {
+        const pool = new mindServer.staticPool(2, 1)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+        const session1 = await pool.getSession()
+        const session2 = await pool.getSession()
+        const session3 = await pool.getSession()
+
+        try {
+            const session4 = await pool.getSession(500)
+
+        } catch (err) {
+            expect(err.message).to.have.string('TIMEOUT_OCCURRED')
+
+            await pool.changeExtension(2)
+
+            const session4 = await pool.getSession(500)
+
+            expect(session4.connected).to.be.true
+        }
+
+        pool.destroy()
+    })
+
+    it("ext: 2, >>> 0", async () => {
+        const pool = new mindServer.staticPool(2, 2)
+
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+        const session1 = await pool.getSession()
+        const session2 = await pool.getSession()
+        const session3 = await pool.getSession()
+        const session4 = await pool.getSession()
+
+        await pool.changeExtension(0)
+
+        session3.done()
+        session4.done()
+
+        const status = await pool.getStatus()
+
+        expect(status.sessionsInUse).to.equal(2)
+        expect(status.sessionsExtendedInUse).to.equal(0)
+
+        try {
+            const session4 = await pool.getSession(500)
+
+        } catch (err) {
+            expect(err.message).to.have.string('TIMEOUT_OCCURRED')
         }
 
         pool.destroy()

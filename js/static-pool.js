@@ -215,6 +215,7 @@ module.exports = {
         }
 
         let session
+
         try {
             session = await that.devOps._getDevOpsSession()
             await session._staticPool._rundown()
@@ -448,9 +449,11 @@ module.exports = {
         const sessionsInUse = that.sessions.filter(session => session.inUse === true)
         const sessionsExtended = that.sessions.filter(session => session.isExtension === true)
         const sessionsTotal = that.sessions.length
+        const extensionsTotal = that.extension
 
         return {
             sessionsTotal: sessionsTotal,
+            extensionsTotal: extensionsTotal,
             sessionsExtended: sessionsExtended.length,
             sessionsInUse: sessionsInUse.length,
             stats: that.stats

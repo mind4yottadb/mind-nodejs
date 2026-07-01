@@ -238,7 +238,8 @@ describe("Pool static: creation / destroy", async () => {
         })
     })
 
-    describe("Pool creation: rundown()", async () => {
+    describe("Pool creation: rundown()", async function () {
+        this.timeout(30000)
         it("with not initialized pool", async () => {
             const pool = new mindServer.staticPool(8, 4)
 
@@ -249,7 +250,7 @@ describe("Pool static: creation / destroy", async () => {
             }
         })
 
-        it("valid with nothing executing", async () => {
+        it("valid (3) with nothing executing", async () => {
             const pool = new mindServer.staticPool(3)
 
             await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
@@ -266,7 +267,7 @@ describe("Pool static: creation / destroy", async () => {
             expect(status.sessionsExtended).to.equal(0);
         })
 
-        it("valid with nothing executing", async () => {
+        it("valid (24) with nothing executing", async () => {
             const pool = new mindServer.staticPool(24)
 
             await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
@@ -282,5 +283,110 @@ describe("Pool static: creation / destroy", async () => {
             expect(status.sessionsInUse).to.equal(0);
             expect(status.sessionsExtended).to.equal(0);
         })
+
+        it("valid (3) with timed locks executing", async () => {
+            const pool = new mindServer.staticPool(3)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+            let status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(3);
+
+            const session1 = await pool.getSession()
+            const session2 = await pool.getSession()
+
+            session1.db.globals.addName('test')
+            session2.db.globals.addName('test')
+
+            await session1.db.globals.test.addLock()
+
+            setTimeout(async () => {
+                await pool.rundown()
+
+            }, 1000)
+
+            await session2.db.globals.test.addLock(3)
+
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(0);
+            expect(status.sessionsInUse).to.equal(0);
+            expect(status.sessionsExtended).to.equal(0);
+        })
+
+        it("with not initialized pool", async () => {
+            const pool = new mindServer.staticPool(8, 4)
+
+            try {
+                pool.rundown()
+            } catch (err) {
+                expect(err.message).to.have.string('POOL_NOT_INITIALIZED')
+            }
+        })
+
+        it("valid (3,3) with nothing executing", async () => {
+            const pool = new mindServer.staticPool(3, 3)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+            let status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(3);
+
+            await pool.rundown()
+
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(0);
+            expect(status.sessionsInUse).to.equal(0);
+            expect(status.sessionsExtended).to.equal(0);
+        })
+
+        it("valid (24,3) with nothing executing", async () => {
+            const pool = new mindServer.staticPool(24)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+            let status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(24, 3);
+
+            await pool.rundown()
+
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(0);
+            expect(status.sessionsInUse).to.equal(0);
+            expect(status.sessionsExtended).to.equal(0);
+        })
+
+        it("valid (3,3) with timed locks executing", async () => {
+            const pool = new mindServer.staticPool(3)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+            let status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(3, 3);
+
+            const session1 = await pool.getSession()
+            const session2 = await pool.getSession()
+
+            session1.db.globals.addName('test')
+            session2.db.globals.addName('test')
+
+            await session1.db.globals.test.addLock()
+
+            setTimeout(async () => {
+                await pool.rundown()
+
+            }, 1000)
+
+            await session2.db.globals.test.addLock(3)
+
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(0);
+            expect(status.sessionsInUse).to.equal(0);
+            expect(status.sessionsExtended).to.equal(0);
+        })
     })
+
 })

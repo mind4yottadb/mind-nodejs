@@ -123,6 +123,34 @@ class _staticPool {
             })
         })
     }
+
+    _rundown = function () {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.objRoot.connected === false || that.objRoot.loggedIn === false) {
+                reject(new Error(errors.POOL_NOT_INITIALIZED + 'Pool not initialized'))
+            }
+
+            // send command
+            const opCode = 'pool.rundown'
+
+            that.writer("*1" + RESP3.CRLF +
+                RESP3.build.blob(opCode)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                resolve()
+            })
+        })
+    }
 }
 
 module.exports = _staticPool

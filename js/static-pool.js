@@ -209,8 +209,28 @@ module.exports = {
         that.sessions = []
     },
 
-    rundown: function (that) {
+    rundown: async function (that) {
+        if (Object.keys(that.session).length === 0 || (that.session.loggedIn && that.session.loggedIn === false)) {
+            throw new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized')
+        }
 
+        let session
+        try {
+            session = await that._getDevOpsSession()
+            await session._staticPool._rundown()
+
+            session.disconnect()
+
+            that.sessions = []
+
+        } catch (err) {
+            try {
+                session.done()
+            } catch (err) {
+            }
+
+            throw new Error(err.message)
+        }
     },
 
     getSession: async function (that, classModule, timeout) {

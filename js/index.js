@@ -521,8 +521,8 @@ module.exports = {
             staticPool.destroy(this)
         }
 
-        rundown = function () {
-            staticPool.rundown(this)
+        rundown = async function () {
+            await staticPool.rundown(this)
         }
 
         getSession = async function (timeout = 0) {

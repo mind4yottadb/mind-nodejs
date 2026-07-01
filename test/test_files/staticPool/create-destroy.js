@@ -218,7 +218,7 @@ describe("Pool static: creation / destroy", async () => {
             }
         })
 
-        it("invalid, with no extension", async () => {
+        it("valid", async () => {
             const pool = new mindServer.staticPool(8, 4)
 
             await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
@@ -237,5 +237,50 @@ describe("Pool static: creation / destroy", async () => {
             expect(status.sessionsExtended).to.equal(0);
         })
     })
-})
 
+    describe("Pool creation: rundown()", async () => {
+        it("with not initialized pool", async () => {
+            const pool = new mindServer.staticPool(8, 4)
+
+            try {
+                pool.rundown()
+            } catch (err) {
+                expect(err.message).to.have.string('POOL_NOT_INITIALIZED')
+            }
+        })
+
+        it("valid with nothing executing", async () => {
+            const pool = new mindServer.staticPool(3)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+            let status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(3);
+
+            await pool.rundown()
+
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(0);
+            expect(status.sessionsInUse).to.equal(0);
+            expect(status.sessionsExtended).to.equal(0);
+        })
+
+        it("valid with nothing executing", async () => {
+            const pool = new mindServer.staticPool(24)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+            let status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(24);
+
+            await pool.rundown()
+
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(0);
+            expect(status.sessionsInUse).to.equal(0);
+            expect(status.sessionsExtended).to.equal(0);
+        })
+    })
+})

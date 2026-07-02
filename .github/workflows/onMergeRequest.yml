@@ -9,6 +9,14 @@ jobs:
   build-and-run-server:
     runs-on: ubuntu-latest
     steps:
+      - name: pull
+        uses: actions/checkout@v2
+        with:
+          repository: mind4yottadb/mind-demo-server
+          ref: main
+          path: mind-demo-server
+          clean: false
+
       - uses: actions/checkout@v6
       - name: Use Node.js
         uses: actions/setup-node@v4

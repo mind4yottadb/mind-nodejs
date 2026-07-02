@@ -27,6 +27,4 @@ jobs:
           docker image build --build-arg SERVERMODE=client-test --build-arg BRANCH=main --progress=plain -t mind-server .
           docker run -d --init --tty -p 10000:10000 --name=mind-server mind-server
           cd ..
-          ls
-          npm install
           npm test

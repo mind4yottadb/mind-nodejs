@@ -25,9 +25,8 @@ jobs:
           node-version: '20.x'
 
       - name: run-server
-        working-directory: min-demo-server
+        working-directory: mind-demo-server
         run: |
-          cd mind-demo-server
           docker image build --build-arg SERVERMODE=client-test --build-arg BRANCH=main --progress=plain -t mind-server .
           docker run -d --init --tty -p 10000:10000 --name=mind-server mind-server
 

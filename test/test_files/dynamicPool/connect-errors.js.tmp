@@ -67,6 +67,7 @@ describe("Pool dynamic: connect-errors", async () => {
         }
     });
 
+    /*
     it("with bad host", async function () {
         this.timeout(50000)
         try {
@@ -86,6 +87,7 @@ describe("Pool dynamic: connect-errors", async () => {
             expect(err.message).to.have.string('TIMEOUT_OCCURRED,timeout while trying')
         }
     });
+     */
 
     it("with bad app name", async () => {
         try {

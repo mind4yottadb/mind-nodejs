@@ -12,10 +12,10 @@ jobs:
       - name: pull
         uses: actions/checkout@v2
         with:
+          clean: false
           repository: mind4yottadb/mind-demo-server
           ref: main
           path: mind-demo-server
-          clean: false
 
 
       - uses: actions/checkout@v6

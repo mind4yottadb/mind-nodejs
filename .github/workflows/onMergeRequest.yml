@@ -17,7 +17,7 @@ jobs:
 
       - name: build-and-execute-server+test
         run: |
-          cd test
+          cd /home/runner/work/mind-nodejs/mind-nodejs
           ls -la
           npm install
           npm test

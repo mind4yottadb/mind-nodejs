@@ -11,8 +11,8 @@
 ###############################################################*/
 
 const {expect} = require("chai");
-const {createYdbInstance, sleep} = require("../utils.cjs");
-const utils = require("../../js/utils");
+const {createYdbInstance, sleep} = require("../../utils.cjs");
+const utils = require("../../../js/utils");
 
 describe("glvn: validate path", async () => {
     it("with empty subscript #1", async () => {

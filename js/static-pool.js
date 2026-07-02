@@ -10,20 +10,19 @@
 #                                                               #
 ###############################################################*/
 const errors = require("./errors");
+const {size} = require("lodash");
 
 module.exports = {
-    // ******************
-    // stateless
-    // ******************
     create: async function (that, classModule, host, port, username, password, options) {
         return new Promise(async (resolve, reject) => {
+            // regular sessions
             for (let ix = 0; ix < that.size; ix++) {
                 const session = new classModule.exports.session
 
                 try {
                     await session.connect(host, port, username, password, options)
 
-                    const sessionLength = that.sessions.push({
+                    that.sessions.push({
                         session: session,
                         inUse: false,
                         isExtension: false
@@ -47,49 +46,251 @@ module.exports = {
                 }
             }
 
+            // devOps session
+            that.devOps.session = new classModule.exports.session
+
+            try {
+                await that.devOps.session.connect(host, port, username, password, options)
+                that.devOps.sessionInUse = true
+
+                Object.assign(that.devOps.session, {
+                    done: function () {
+                        that.devOps.sessionInUse = false
+                    }
+                })
+
+                // initialize the pids and register the unique guid for this pool
+                that.guid = await that.devOps.session._staticPool._register(that)
+
+                // and make it read only
+                Object.defineProperties(that, {
+                    guid: {
+                        writable: false,
+                    },
+                })
+
+                // flag the devOps session as not in use
+                that.devOps.sessionInUse = false
+
+            } catch (err) {
+                reject(err)
+
+                return
+            }
+
             that.host = host
             that.port = port
             that.username = username
             that.password = password
             that.options = options
 
+            that.devOps.sessionInUse = false
+
             resolve()
         })
     },
 
+    changeSize: function (that, classModule, newSize) {
+        return new Promise(async (resolve, reject) => {
+            if (that.sessions.length === 0) {
+                reject(new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized'))
+
+                return
+            }
+
+            if (typeof newSize !== 'number') {
+                reject(new Error(errors.PARAM_NOT_NUMBER + 'newSize must be a number'))
+
+                return
+            }
+
+            if (newSize < 2) {
+                reject(new Error(errors.POOL_SIZE_NOT_MIN_TWO + 'newSize must be greater than 1'))
+
+                return
+            }
+
+            if (newSize === that.size) {
+                reject(new Error(errors.POOL_NEWSIZE_SAME_AS_SIZE + 'the new size must be different than the current size'))
+
+                return
+            }
+
+            if (newSize > that.size) {
+                // we can extend the size, let's connect the new sessions
+                for (let ix = 0; ix < newSize - that.size; ix++) {
+                    const session = new classModule.exports.session
+
+                    try {
+                        await session.connect(that.host, that.port, that.username, that.password, that.options)
+                        that.sessions.push({
+                            session: session,
+                            inUse: false,
+                            isExtension: false
+                        })
+
+                        session.on('disconnect', function () {
+                            for (let ix in that.sessions) {
+                                if (that.sessions[ix].session.session.GUID === this.session.GUID) {
+                                    that.sessions.splice(ix, 1)
+                                }
+                            }
+
+                            that.stats.remoteDisconnects++
+                            that.size--
+                        })
+
+                    } catch (err) {
+                        reject(err)
+
+                        return
+                    }
+
+                }
+
+                // update size
+                that.size = newSize
+
+                resolve()
+
+            } else {
+                // we need to shrink
+                // we start allocating the sessions to be removed, then disconnect them and change the size
+                const freeSlots = that.sessions.filter(session => session.inUse === false)
+
+                // verify that there are enough sessions to be removed
+                if (newSize > freeSlots.length) {
+                    reject(new Error(errors.POOL_TOO_MANY_SESSIONS_IN_USE + 'Can not shrink due to sessions in use'))
+
+                    return
+                }
+
+                // lock up the free sessions to ensure nobody gets them while disconnecting
+                freeSlots.forEach(session => {
+                    session.session.inUse = true
+                })
+
+                // disconnect them and remove them from the sessions array
+                let deleteCount = 0
+                let ix = that.sessions.length
+
+                while (ix--) {
+                    if (that.sessions.sessionInUse === true) continue
+                    if (deleteCount === that.size - newSize) break
+
+                    deleteCount++
+
+                    freeSlots[ix].session.disconnect()
+
+                    that.sessions.splice(ix, 1)
+                }
+
+                // update size
+                that.size = newSize
+
+                resolve()
+            }
+        })
+    },
+
+    changeExtension: function (that, newSize) {
+        return new Promise(async (resolve, reject) => {
+            if (that.sessions.length === 0) {
+                reject(new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized'))
+
+                return
+            }
+
+            if (typeof newSize !== 'number') {
+                reject(new Error(errors.PARAM_NOT_NUMBER + 'newSize must be a number'))
+
+                return
+            }
+
+            if (newSize < 0) {
+                reject(new Error(errors.PARAM_NOT_ZERO_OR_GREATER + 'newSize must be equal or greater than 0'))
+
+                return
+            }
+
+            if (newSize === that.extension) {
+                reject(new Error(errors.POOL_NEWSIZE_SAME_AS_SIZE + 'the new size must be different than the current size'))
+
+                return
+            }
+
+            that.extension = newSize
+
+            resolve()
+
+        })
+    },
+
     destroy: function (that) {
-        that.sessions.forEach(async session => await session.session.disconnect())
+        if (that.sessions.length === 0) {
+            throw new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized')
+        }
+
+        that.sessions.forEach(async session => session.session.disconnect())
+
+        that.devOps.session.disconnect()
 
         that.sessions = []
     },
 
-    rundown: function (that) {
+    rundown: async function (that) {
+        if (that.sessions.length === 0) {
+            throw new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized')
+        }
 
+        let session
+
+        try {
+            session = await that.devOps._getDevOpsSession()
+            await session._staticPool._rundown()
+
+            session.disconnect()
+
+            that.sessions = []
+
+        } catch (err) {
+            try {
+                session.done()
+            } catch (err) {
+            }
+
+            throw new Error(err.message)
+        }
     },
 
-    getSessions: async function (that, classModule, timeout) {
+    getSession: async function (that, classModule, timeout) {
         return new Promise(async (resolve, reject) => {
-            const freeSlots = that.sessions.filter(session => session.inUse === false)
+            if (that.sessions.length === 0) {
+                reject(new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized'))
+
+                return
+            }
+
+            const freeSlotIx = that.sessions.findIndex(session => session.inUse === false && session.isExtension === false)
             let hInterval = null
 
             // can we get a normal session?
-            if (freeSlots.length > 0) {
-                freeSlots[0].inUse = true
+            if (freeSlotIx > -1) {
+                that.sessions[freeSlotIx].inUse = true
 
-                Object.assign(freeSlots[0].session, {
+                Object.assign(that.sessions[freeSlotIx].session, {
                     that: that,
-                    ix: that.sessions.length - 1,
-                    poolSlot: freeSlots[0],
+                    ix: freeSlotIx,
                     done: function () {
-                        this.poolSlot.inUse = false
+                        that.sessions[this.ix].inUse = false
                     }
                 })
 
                 that.stats.sessionsCreatedOk++
 
-                that.hidePropsInObject(freeSlots[0])
+                that.hidePropsInObject(that.sessions[freeSlotIx])
 
-                resolve(freeSlots[0].session)
+                resolve(that.sessions[freeSlotIx].session)
 
                 return
             }
@@ -111,6 +312,7 @@ module.exports = {
 
                 const newSession = {
                     session: session,
+                    guid: session.session.GUID,
                     inUse: true,
                     isExtension: true
                 }
@@ -119,21 +321,24 @@ module.exports = {
 
                 that.stats.extendsCreatedOk++
 
+                that.sessions.forEach(session => {
+                    //console.log(session.session.session)
+                })
+
                 Object.assign(newSession.session, {
                     that: that,
-                    ix: that.sessions.length - 1,
-                    poolSlot: newSession,
-
+                    newSession: newSession,
                     done: function () {
-                        this.poolSlot.session.disconnect()
+                        const ix = that.sessions.findIndex(session => {
+                            return session.session.session.GUID === this.newSession.session.session.GUID
+                        })
+                        that.sessions[ix].session.disconnect()
 
-                        this.that.sessions.splice(this.ix, 1)
+                        that.sessions.splice(ix, 1)
 
-                        this.that.extensionInUse--
+                        that.extensionInUse--
 
                         that.stats.extendsRemoved++
-
-                        this.poolSlot.inUse = false
                     }
                 })
 
@@ -179,31 +384,31 @@ module.exports = {
                     return
                 }
 
-                const freeSlots = that.sessions.filter(session => session.inUse === false)
+                const freeSlotIx = that.sessions.findIndex(session => session.inUse === false && session.isExtension === false)
+                //const freeSlots = that.sessions.filter(session => session.inUse === false)
 
-                if (freeSlots.length > 0) {
+                if (freeSlotIx > -1) {
                     that.timerTick = true
 
                     clearTimeout(hTimeout)
                     clearInterval(hInterval)
                     hInterval = null
 
-                    Object.assign(freeSlots[0].session, {
+                    Object.assign(that.sessions[freeSlotIx].session, {
                         that: that,
-                        ix: that.sessions.length - 1,
-                        poolSlot: freeSlots[0],
+                        ix: freeSlotIx,
                         done: function () {
-                            this.poolSlot.inUse = false
+                            that.sessions[this.ix].inUse = false
                         }
                     })
 
-                    that.hidePropsInObject(freeSlots[0])
+                    that.hidePropsInObject(that.sessions[freeSlotIx])
 
-                    freeSlots[0].inUse = true
+                    that.sessions[freeSlotIx].inUse = true
 
                     that.stats.sessionsCreatedOk++
 
-                    resolve(freeSlots[0].session)
+                    resolve(that.sessions[freeSlotIx].session)
 
                     return
                 }
@@ -231,6 +436,7 @@ module.exports = {
 
                     const newSession = {
                         session: session,
+                        guid: session.session.GUID,
                         inUse: true,
                         isExtension: true
                     }
@@ -239,19 +445,24 @@ module.exports = {
 
                     that.stats.extendsCreatedOk++
 
+                    that.sessions.forEach(session => {
+                        //console.log(session.session.session)
+                    })
+
                     Object.assign(newSession.session, {
                         that: that,
-                        ix: that.sessions.length - 1,
-                        poolSlot: newSession,
+                        newSession: newSession,
                         done: function () {
-                            this.poolSlot.session.disconnect()
-                            this.that.sessions.splice(this.ix, 1)
+                            const ix = that.sessions.findIndex(session => {
+                                return session.session.session.GUID === this.newSession.session.session.GUID
+                            })
+                            that.sessions[ix].session.disconnect()
 
-                            this.that.extensionInUse--
+                            that.sessions.splice(ix, 1)
+
+                            that.extensionInUse--
 
                             that.stats.extendsRemoved++
-
-                            this.poolSlot.inUse = false
                         }
                     })
 
@@ -273,17 +484,220 @@ module.exports = {
     },
 
     getStatus: function (that) {
-        const sessionsInUse = that.sessions.filter(session => session.inUse === true)
-        const sessionsExtended = that.sessions.filter(session => session.isExtension === true)
+        const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === false)
+        const sessionsExtended = that.sessions.filter(session => session.isExtension === true && session.inUse === true)
         const sessionsTotal = that.sessions.length
+        const extensions = that.extension
+        const size = that.size
 
         return {
+            size: size,
+            extensions: extensions,
             sessionsTotal: sessionsTotal,
-            sessionsExtended: sessionsExtended.length,
+            sessionsExtendedInUse: sessionsExtended.length,
             sessionsInUse: sessionsInUse.length,
             stats: that.stats
         }
+    },
+
+    devOps: {
+        _getDevOpsSession: async function (that, timeout = 0) {
+            if (Object.keys(that.session).length === 0 || (that.session.loggedIn && that.session.loggedIn === false)) {
+                throw new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized')
+            }
+
+            if (that.sessionInUse === true) {
+                throw new Error(errors.POOL_DEVOPS_SESSION_IN_USE + 'devOps session inUse')
+            }
+
+            that.sessionInUse = true
+
+            return that.session
+        },
+
+        getPoolStats: async function (that) {
+            if (Object.keys(that.session).length === 0 || (that.session.loggedIn && that.session.loggedIn === false)) {
+                throw new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized')
+            }
+
+            let session
+            try {
+                session = await that._getDevOpsSession()
+                const res = await session._staticPool._getPoolStats()
+
+                session.done()
+
+                return res
+
+            } catch (err) {
+                try {
+                    session.done()
+                } catch (err) {
+                }
+
+                throw new Error(err.message)
+            }
+        },
+
+        setLogLevel: async function (that, logLevel) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('logLevel', logLevel)
+
+                    session.done()
+
+                    resolve()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err.message)
+                }
+            })
+        },
+
+        setDumpResponse: async function (that, value) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('dumpResponse', value)
+
+                    session.done()
+
+                    resolve()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err.message)
+                }
+            })
+        },
+
+        setDumpRequest: async function (that, value) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('dumpRequest', value)
+
+                    session.done()
+
+                    resolve()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err.message)
+                }
+            })
+        },
+
+        setStats: async function (that, value) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('stats', value)
+
+                    session.done()
+
+                    resolve()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err.message)
+                }
+            })
+        },
+
+        setErrorDump: async function (that, value) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('errorDump', value)
+
+                    session.done()
+
+                    resolve()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err.message)
+                }
+            })
+        },
+
+        setIdleTimeout: async function (that, timeout) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('idleTimeout', timeout)
+
+                    session.done()
+
+                    resolve()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err.message)
+                }
+            })
+        },
+
+        resetSettings: async function (that) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('RESET_SETTINGS', 0)
+
+                    session.done()
+
+                    resolve()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err.message)
+                }
+            })
+        }
     }
-
-
 }

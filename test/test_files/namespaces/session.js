@@ -11,7 +11,7 @@
 ###############################################################*/
 
 const {expect} = require("chai");
-const {createYdbInstance, sleep} = require("../utils.cjs");
+const {createYdbInstance, sleep} = require("../../utils.cjs");
 
 describe("session.stats()", async () => {
     /* COMMENTED OUT because of server startup switches...
@@ -605,12 +605,12 @@ describe("session.setIdleTimeout()", async () => {
     });
 })
 
-describe("session.setStatsMode()", async () => {
+describe("session.setStats()", async () => {
     it("with no parameters", async function () {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.session.setStatsMode()
+            await ydb.session.setStats()
 
         } catch (err) {
             expect(err.message).to.have.string('PARAM_NOT_NUMBER')
@@ -623,7 +623,7 @@ describe("session.setStatsMode()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.session.setStatsMode('test')
+            await ydb.session.setStats('test')
 
         } catch (err) {
             expect(err.message).to.have.string('PARAM_NOT_NUMBER')
@@ -636,7 +636,7 @@ describe("session.setStatsMode()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.session.setStatsMode(true)
+            await ydb.session.setStats(true)
 
         } catch (err) {
             expect(err.message).to.have.string('PARAM_NOT_NUMBER')
@@ -649,7 +649,7 @@ describe("session.setStatsMode()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.session.setStatsMode(null)
+            await ydb.session.setStats(null)
 
         } catch (err) {
             expect(err.message).to.have.string('PARAM_NOT_NUMBER')
@@ -662,7 +662,7 @@ describe("session.setStatsMode()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.session.setStatsMode({test: 12})
+            await ydb.session.setStats({test: 12})
 
         } catch (err) {
             expect(err.message).to.have.string('PARAM_NOT_NUMBER')
@@ -675,7 +675,7 @@ describe("session.setStatsMode()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.session.setStatsMode([1, 2, 3, 4])
+            await ydb.session.setStats([1, 2, 3, 4])
 
         } catch (err) {
             expect(err.message).to.have.string('PARAM_NOT_NUMBER')
@@ -688,7 +688,7 @@ describe("session.setStatsMode()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.session.setStatsMode(-2)
+            await ydb.session.setStats(-2)
 
         } catch (err) {
             expect(err.message).to.have.string('PARAM_NOT_BETWEEN_ZERO_AND_ONE')
@@ -701,7 +701,7 @@ describe("session.setStatsMode()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.session.setStatsMode(3)
+            await ydb.session.setStats(3)
 
         } catch (err) {
             expect(err.message).to.have.string('PARAM_NOT_BETWEEN_ZERO_AND_ONE')
@@ -714,7 +714,7 @@ describe("session.setStatsMode()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.session.setStatsMode(ydb.session.STATS_NONE)
+            await ydb.session.setStats(ydb.session.STATS_NONE)
 
             const ret = await ydb.session.getCurrentSettings()
             expect(ret.stats).to.equal(0)
@@ -730,7 +730,7 @@ describe("session.setStatsMode()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.session.setStatsMode(ydb.session.STATS_GRAND_TOTALS)
+            await ydb.session.setStats(ydb.session.STATS_GRAND_TOTALS)
 
             const ret = await ydb.session.getCurrentSettings()
             expect(ret.stats).to.equal(1)
@@ -746,7 +746,7 @@ describe("session.setStatsMode()", async () => {
         const ydb = await createYdbInstance()
 
         try {
-            await ydb.session.setStatsMode(ydb.session.STATS_DETAILS)
+            await ydb.session.setStats(ydb.session.STATS_DETAILS)
 
             const ret = await ydb.session.getCurrentSettings()
             expect(ret.stats).to.equal(2)
@@ -1171,4 +1171,91 @@ describe("session.setLogLevel()", async () => {
 
         ydb.disconnect()
     });
+
+    describe("session.resetSettings()", async () => {
+        it("logLevel", async function () {
+            const ydb = await createYdbInstance()
+
+            await ydb.session.setLogLevel(0)
+            let res = await ydb.session.getCurrentSettings()
+            expect(res.logLevel).to.be.equal(0)
+
+            await ydb.session.resetSettings()
+            res = await ydb.session.getCurrentSettings()
+            expect(res.logLevel).to.be.equal(2)
+
+            ydb.disconnect()
+        });
+
+        it("idleTimeout", async function () {
+            const ydb = await createYdbInstance()
+
+            await ydb.session.setIdleTimeout(0)
+            let res = await ydb.session.getCurrentSettings()
+            expect(res.idleTimeout).to.be.equal(0)
+
+            await ydb.session.resetSettings()
+            res = await ydb.session.getCurrentSettings()
+            expect(res.idleTimeout).to.be.equal(30)
+
+            ydb.disconnect()
+        });
+
+        it("stats", async function () {
+            const ydb = await createYdbInstance()
+
+            await ydb.session.setStats(2)
+            let res = await ydb.session.getCurrentSettings()
+            expect(res.stats).to.be.equal(2)
+
+            await ydb.session.resetSettings()
+            res = await ydb.session.getCurrentSettings()
+            expect(res.stats).to.be.equal(0)
+
+            ydb.disconnect()
+        });
+
+        it("dumpRequest", async function () {
+            const ydb = await createYdbInstance()
+
+            await ydb.session.setDumpRequest(1)
+            let res = await ydb.session.getCurrentSettings()
+            expect(res.dumpRequest).to.be.equal(1)
+
+            await ydb.session.resetSettings()
+            res = await ydb.session.getCurrentSettings()
+            expect(res.dumpRequest).to.be.equal(0)
+
+            ydb.disconnect()
+        });
+
+        it("dumpResponse", async function () {
+            const ydb = await createYdbInstance()
+
+            await ydb.session.setDumpResponse(1)
+            let res = await ydb.session.getCurrentSettings()
+            expect(res.dumpResponse).to.be.equal(1)
+
+            await ydb.session.resetSettings()
+            res = await ydb.session.getCurrentSettings()
+            expect(res.dumpResponse).to.be.equal(0)
+
+            ydb.disconnect()
+        });
+
+        it("errorDump", async function () {
+            const ydb = await createYdbInstance()
+
+            await ydb.session.setErrorDump(2)
+            let res = await ydb.session.getCurrentSettings()
+            expect(res.errorDump).to.be.equal(2)
+
+            await ydb.session.resetSettings()
+            res = await ydb.session.getCurrentSettings()
+            expect(res.errorDump).to.be.equal(1)
+
+            ydb.disconnect()
+        });
+    })
 })
+

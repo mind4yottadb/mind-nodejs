@@ -21,6 +21,7 @@ const nsRESP3 = require('./namespaces/RESP3')
 const nsDb = require('./namespaces/db')
 const nsDbms = require('./namespaces/dbms')
 const nsSession = require('./namespaces/session')
+const nsStaticPool = require('./namespaces/_staticPool')
 const staticPool = require('./static-pool')
 const dynamicPool = require('./dynamic-pool')
 const login = require('./login')
@@ -28,9 +29,7 @@ const login = require('./login')
 const utils = require('./utils')
 const errors = require("./errors");
 
-const requiredMind = '0.28.0'         // required server version
-
-const requiredMind = '0.24.0'         // required server version
+const requiredMind = '0.29.0'         // required server version
 
 module.exports = {
     session: class mind extends EventEmitter {
@@ -53,6 +52,7 @@ module.exports = {
         db = new nsDb
         dbms = new nsDbms
         session = new nsSession
+        _staticPool = new nsStaticPool
 
         connect = (host, port, username, password, options = {}) => {
             const that = this
@@ -218,6 +218,7 @@ module.exports = {
             this.db = new nsDb
             this.dbms = new nsDbms
             this.session = new nsSession
+            this._staticPool = new nsStaticPool
 
             this.session.GUID = guid
         }
@@ -278,51 +279,45 @@ module.exports = {
         password = ''                 // credentials to connect extensions
         options = {}                     // credentials to connect extensions
         timerTick = false           // internal timer
+        guid = ''                    // the guid for the pool
 
         devOps = {
             session: {},
             sessionInUse: false,
-
-            shrink: function () {
-
+            _getDevOpsSession: function (timeout = 0) {
+                return staticPool.devOps._getDevOpsSession(this, timeout)
             },
-            expand: function () {
 
+            getPoolStats: async function () {
+                return await staticPool.devOps.getPoolStats(this)
             },
-            changeExtension: function () {
 
+            setLogLevel: async function (logLevel) {
+                return await staticPool.devOps.setLogLevel(this, logLevel)
             },
-            getCurrentSettings: function () {
 
+            setDumpRequest: async function (value) {
+                return await staticPool.devOps.setDumpRequest(this, value)
             },
-            server: {
-                getCurrentSettings: function () {
 
-                },
+            setDumpResponse: async function (value) {
+                return await staticPool.devOps.setDumpResponse(this, value)
+            },
 
-                changeLogLevel: function () {
+            setStats: async function (value) {
+                return await staticPool.devOps.setStats(this, value)
+            },
 
-                },
+            setErrorDump: async function (value) {
+                return await staticPool.devOps.setErrorDump(this, value)
+            },
 
-                changeDumpRequest: function () {
+            setIdleTimeout: async function (timeout) {
+                return await staticPool.devOps.setIdleTimeout(this, timeout)
+            },
 
-                },
-
-                changeDumpResponse: function () {
-
-                },
-
-                changeStatsMode: function () {
-
-                },
-
-                changeErrorDump: function () {
-
-                },
-
-                getPoolStats: function () {
-
-                }
+            resetSettings: async function () {
+                return await staticPool.devOps.resetSettings(this)
             }
         }
 
@@ -400,6 +395,112 @@ module.exports = {
                     configurable: true
                 }
             })
+
+            Object.defineProperties(this.devOps, {
+                _getDevOpsSession: {
+                    enumerable: false,
+                    configurable: true
+                },
+
+                ERROR_DUMP_NONE: {
+                    value: 0,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                ERROR_DUMP_BRIEF: {
+                    value: 1,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                ERROR_DUMP_FULL: {
+                    value: 2,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                STATS_NONE: {
+                    value: 0,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                STATS_GRAND_TOTALS: {
+                    value: 1,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                STATS_DETAILS: {
+                    value: 2,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                DUMP_REQUEST_OFF: {
+                    value: 0,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                DUMP_REQUEST_ON: {
+                    value: 1,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                DUMP_RESPONSE_OFF: {
+                    value: 0,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                DUMP_RESPONSE_ON: {
+                    value: 1,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                LOG_LEVEL_NONE: {
+                    value: 0,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                LOG_LEVEL_SESSIONS: {
+                    value: 1,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                LOG_LEVEL_COMMANDS: {
+                    value: 2,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+                LOG_LEVEL_TIMINGS: {
+                    value: 3,
+                    enumerable: true,
+                    configurable: true,
+                    writable: false
+                },
+
+            })
         }
 
         create = async function (host, port, username, password, options = {}) {
@@ -420,16 +521,24 @@ module.exports = {
             staticPool.destroy(this)
         }
 
-        rundown = function () {
-            staticPool.rundown(this)
+        rundown = async function () {
+            await staticPool.rundown(this)
         }
 
         getSession = async function (timeout = 0) {
-            return await staticPool.getSessions(this, module, timeout)
+            return await staticPool.getSession(this, module, timeout)
         }
 
         getStatus = function () {
             return staticPool.getStatus(this)
+        }
+
+        changeSize = async function (newSize) {
+            return await staticPool.changeSize(this, module, newSize)
+        }
+
+        changeExtension = function (newSize) {
+            return staticPool.changeExtension(this, newSize)
         }
 
         // ******************
@@ -437,6 +546,10 @@ module.exports = {
         // ******************
         hidePropsInObject = function (obj) {
             Object.defineProperties(obj.session, {
+                _staticPool: {
+                    enumerable: false,
+                    configurable: true
+                },
                 that: {
                     enumerable: false,
                     configurable: true

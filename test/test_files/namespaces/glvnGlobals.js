@@ -11,7 +11,7 @@
 ###############################################################*/
 
 const {expect} = require("chai");
-const {createYdbInstance, sleep} = require("../utils.cjs");
+const {createYdbInstance, sleep} = require("../../utils.cjs");
 
 describe("globals.hasValue()", async () => {
     it("test a valid global root", async () => {

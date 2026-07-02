@@ -11,7 +11,7 @@
 ###############################################################*/
 
 const {expect} = require("chai");
-const {createYdbInstance} = require("../utils.cjs");
+const {createYdbInstance} = require("../../utils.cjs");
 
 describe("vars.hasValue()", async () => {
     it("test a valid var root", async () => {

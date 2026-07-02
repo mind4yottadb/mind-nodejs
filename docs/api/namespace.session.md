@@ -28,10 +28,12 @@ This namespace allow you to inspect values related to your MIND session.
 - [log()](api/session/session.log.md)
 - [getCurrentSettings()](api/session/session.getCurrentSettings.md)
 - [setErrorDump()](api/session/session.setErrorDump.md)
-- [setStatsMode()](api/session/session.setStatsMode.md)
+- [setStats()](api/session/session.setStats.md)
 - [setDumpRequest()](api/session/session.setDumpRequest.md)
 - [setDumpResponse()](api/session/session.setDumpResponse.md)
 - [setLogLevel()](api/session/session.setLogLevel.md)
+- [setIdleTimeout()](api/session/session.setIdleTimeout.md)
+- [resetSettings()](api/session/session.resetSettings.md)
 
 
 ---

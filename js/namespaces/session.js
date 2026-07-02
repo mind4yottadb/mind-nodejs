@@ -278,7 +278,7 @@ class Session {
         })
     }
 
-    setStatsMode = function (value) {
+    setStats = function (value) {
         const that = this
         const RESP3 = that.objRoot.RESP3
 
@@ -302,7 +302,7 @@ class Session {
             }
 
             // send command
-            const opCode = 'session.setStatsMode'
+            const opCode = 'session.setStats'
             that.writer("*2" + RESP3.CRLF +
                 RESP3.build.blob(opCode) +
                 RESP3.build.blob(value)
@@ -472,7 +472,45 @@ class Session {
                 resolve()
             })
         })
+
     }
+
+    resetSettings = function () {
+        const that = this
+        const RESP3 = that.objRoot.RESP3
+
+        return new Promise(function (resolve, reject) {
+            if (that.connected === false || that.loggedIn === false) {
+                reject(new Error(errors.NOT_LOGGED_IN + 'Not logged in'))
+
+                return
+            }
+
+            // send command
+            const opCode = 'session.resetSettings'
+            that.writer("*1" + RESP3.CRLF +
+                RESP3.build.blob(opCode)
+            );
+
+            that.reader(data => {
+                if (data.charAt(0) === '-') {
+                    reject(new Error(RESP3.parse.simpleError(data)))
+
+                    return
+                }
+
+                if (data.indexOf('+no data') > -1) {
+                    //reject(new Error('No stats enabled on server'))
+                    resolve({})
+
+                    return
+                }
+
+                resolve()
+            })
+        })
+    }
+
     _init = function (obj) {
         Object.defineProperties(obj, {
             ERROR_DUMP_NONE: {

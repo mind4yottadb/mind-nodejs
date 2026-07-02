@@ -11,7 +11,7 @@
 ###############################################################*/
 
 const {expect} = require("chai");
-const {createYdbInstance} = require("../utils.cjs");
+const {createYdbInstance} = require("../../utils.cjs");
 
 describe("fs.readFile()", async () => {
     it("when filename is not provided", async () => {

@@ -24,7 +24,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(3);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             const session = await pool.getSession()
 
@@ -34,7 +34,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(3);
             expect(status.sessionsInUse).to.equal(1);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             pool.destroy()
         })
@@ -47,7 +47,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(3);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             const session = await pool.getSession()
             const session2 = await pool.getSession()
@@ -59,8 +59,8 @@ describe("Pool static: allocate / deallocate", async () => {
             status = pool.getStatus()
 
             expect(status.sessionsTotal).to.equal(4);
-            expect(status.sessionsInUse).to.equal(4);
-            expect(status.sessionsExtended).to.equal(1);
+            expect(status.sessionsInUse).to.equal(3);
+            expect(status.sessionsExtendedInUse).to.equal(1);
 
             pool.destroy()
         })
@@ -73,7 +73,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(3);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             const session = await pool.getSession()
 
@@ -81,7 +81,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(3);
             expect(status.sessionsInUse).to.equal(1);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             pool.destroy()
         })
@@ -94,7 +94,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(3);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             const session1 = await pool.getSession()
             const session2 = await pool.getSession()
@@ -103,7 +103,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(3);
             expect(status.sessionsInUse).to.equal(2);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             pool.destroy()
         })
@@ -116,7 +116,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(3);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             const session1 = await pool.getSession()
             const session2 = await pool.getSession()
@@ -126,7 +126,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(3);
             expect(status.sessionsInUse).to.equal(3);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             pool.destroy()
         })
@@ -139,7 +139,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(3);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             const session1 = await pool.getSession()
             const session2 = await pool.getSession()
@@ -149,8 +149,8 @@ describe("Pool static: allocate / deallocate", async () => {
             status = pool.getStatus()
 
             expect(status.sessionsTotal).to.equal(4);
-            expect(status.sessionsInUse).to.equal(4);
-            expect(status.sessionsExtended).to.equal(1);
+            expect(status.sessionsInUse).to.equal(3);
+            expect(status.sessionsExtendedInUse).to.equal(1);
 
             await pool.destroy()
         })
@@ -165,7 +165,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(2);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             const session = await pool.getSession()
             const session2 = await pool.getSession()
@@ -181,7 +181,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(2);
             expect(status.sessionsInUse).to.equal(2);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             pool.destroy()
         })
@@ -194,7 +194,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(2);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             const session = await pool.getSession()
             const session2 = await pool.getSession()
@@ -210,8 +210,8 @@ describe("Pool static: allocate / deallocate", async () => {
             status = pool.getStatus()
 
             expect(status.sessionsTotal).to.equal(3);
-            expect(status.sessionsInUse).to.equal(3);
-            expect(status.sessionsExtended).to.equal(1);
+            expect(status.sessionsInUse).to.equal(2);
+            expect(status.sessionsExtendedInUse).to.equal(1);
 
             session4.done()
 
@@ -226,7 +226,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(2);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             let session = await pool.getSession()
             const dir = await session.fs.isDir('/opt')
@@ -249,7 +249,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(2);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             pool.destroy()
         })
@@ -262,7 +262,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(2);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             let session = await pool.getSession()
             const dir = await session.fs.isDir('/opt')
@@ -293,7 +293,7 @@ describe("Pool static: allocate / deallocate", async () => {
 
             expect(status.sessionsTotal).to.equal(2);
             expect(status.sessionsInUse).to.equal(0);
-            expect(status.sessionsExtended).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
 
             let session = await pool.getSession()
             const session2 = await pool.getSession()
@@ -542,6 +542,219 @@ describe("Pool static: allocate / deallocate", async () => {
             expect(status.stats.extendsCreatedOk).to.be.greaterThan(0)
             expect(status.stats.noMoreSlotsHits).to.be.equal(0)
             expect(status.stats.extendsRemoved).to.be.equal(status.stats.extendsCreatedOk)
+        })
+
+        it("verify devOps.session done()", async () => {
+            const pool = new mindServer.staticPool(3)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+            expect(pool.devOps.sessionInUse).to.be.false
+
+            const session = await pool.devOps._getDevOpsSession()
+
+            setTimeout(async () => {
+                session.done()
+
+            }, 500, session)
+
+            expect(pool.devOps.sessionInUse).to.be.true
+
+            await sleep(1000)
+
+            expect(pool.devOps.sessionInUse).to.be.false
+
+            pool.destroy()
+        })
+    })
+
+    describe("stress: sessions array and flags integrity", async () => {
+        it("Using pool(2,2)", async () => {
+            const pool = new mindServer.staticPool(2, 2)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+            let status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(2);
+            expect(status.sessionsInUse).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
+
+            // *********************************
+            // ALLOCATE
+            // *********************************
+
+            // allocate first static
+            const sessionS1 = await pool.getSession()
+
+            // and verify
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(2);
+            expect(status.sessionsInUse).to.equal(1);
+            expect(status.sessionsExtendedInUse).to.equal(0);
+
+            // allocate second static
+            const sessionS2 = await pool.getSession()
+
+            // and verify
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(2);
+            expect(status.sessionsInUse).to.equal(2);
+            expect(status.sessionsExtendedInUse).to.equal(0);
+
+            // allocate first extended
+            const sessionE1 = await pool.getSession()
+
+            // and verify
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(3);
+            expect(status.sessionsInUse).to.equal(2);
+            expect(status.sessionsExtendedInUse).to.equal(1);
+
+            // allocate second extended
+            const sessionE2 = await pool.getSession()
+
+            // and verify
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(4);
+            expect(status.sessionsInUse).to.equal(2);
+            expect(status.sessionsExtendedInUse).to.equal(2);
+
+            // *********************************
+            // DEALLOCATE
+            // *********************************
+
+            // de-allocate second static
+            sessionS2.done()
+
+            // and verify
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(4);
+            expect(status.sessionsInUse).to.equal(1);
+            expect(status.sessionsExtendedInUse).to.equal(2);
+
+            // de-allocate first extended
+            sessionE1.done()
+
+            // and verify
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(3);
+            expect(status.sessionsInUse).to.equal(1);
+            expect(status.sessionsExtendedInUse).to.equal(1);
+
+            // de-allocate second extended
+            sessionE2.done()
+
+            // and verify
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(2);
+            expect(status.sessionsInUse).to.equal(1);
+            expect(status.sessionsExtendedInUse).to.equal(0);
+
+            // de-allocate first static
+            sessionS1.done()
+
+            // and verify
+            status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(2);
+            expect(status.sessionsInUse).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
+
+            pool.destroy()
+        })
+
+        it("Using pool(10,10)", async () => {
+            const pool = new mindServer.staticPool(10, 10)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+            let status = pool.getStatus()
+
+            expect(status.sessionsTotal).to.equal(10);
+            expect(status.sessionsInUse).to.equal(0);
+            expect(status.sessionsExtendedInUse).to.equal(0);
+
+            // *********************************
+            // ALLOCATE
+            // *********************************
+
+            let staticSessions = []
+            const staticLimit = 10
+
+            for (let ix = 0; ix < staticLimit; ix++) {
+                staticSessions[ix] = await pool.getSession()
+
+                // and verify
+                status = pool.getStatus()
+                expect(status.sessionsTotal).to.equal(10);
+                expect(status.sessionsInUse).to.equal(ix + 1);
+                expect(status.sessionsExtendedInUse).to.equal(0);
+            }
+
+            let extendedSessions = []
+            const extendedLimit = 10
+
+            for (let ix = 0; ix < extendedLimit; ix++) {
+                extendedSessions[ix] = await pool.getSession()
+
+                // and verify
+                status = pool.getStatus()
+                expect(status.sessionsTotal).to.equal(10 + ix + 1);
+                expect(status.sessionsInUse).to.equal(10);
+                expect(status.sessionsExtendedInUse).to.equal(ix + 1);
+            }
+
+            // *********************************
+            // DEALLOCATE
+            // *********************************
+
+            for (let ix = 0; ix < 5; ix++) {
+                staticSessions[ix].done()
+
+                // and verify
+                status = pool.getStatus()
+                expect(status.sessionsTotal).to.equal(20);
+                expect(status.sessionsInUse).to.equal(10 - (ix + 1));
+                expect(status.sessionsExtendedInUse).to.equal(10);
+            }
+
+            for (let ix = 0; ix < 5; ix++) {
+                extendedSessions[ix].done()
+
+                // and verify
+                status = pool.getStatus()
+                expect(status.sessionsTotal).to.equal(20 - (ix + 1));
+                expect(status.sessionsInUse).to.equal(5);
+                expect(status.sessionsExtendedInUse).to.equal(10 - (ix + 1));
+            }
+
+            for (let ix = 5; ix < 10; ix++) {
+                staticSessions[ix].done()
+
+                // and verify
+                status = pool.getStatus()
+                expect(status.sessionsTotal).to.equal(15);
+                expect(status.sessionsInUse).to.equal(10 - (ix + 1));
+                expect(status.sessionsExtendedInUse).to.equal(5);
+            }
+
+            for (let ix = 5; ix < 10; ix++) {
+                extendedSessions[ix].done()
+
+                // and verify
+                status = pool.getStatus()
+                expect(status.sessionsTotal).to.equal(20 - (ix + 1));
+                expect(status.sessionsInUse).to.equal(0);
+                expect(status.sessionsExtendedInUse).to.equal(10 - (ix + 1));
+            }
+
+            pool.destroy()
         })
     })
 })

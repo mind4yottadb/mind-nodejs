@@ -1,12 +1,13 @@
 {
     "name": "mind4yottadb",
-    "version": "0.15.0",
+    "version": "0.16.0",
     "description": "MIND4YOTTADB node.js driver ",
     "main": "js/index.js",
     "type": "commonjs",
     "scripts": {
         "test": "mocha ./test/bootstrap.js --exit --recursive --timeout=300000 test/test_files",
-        "test-uds": "mocha ./test/bootstrap.js --exit --recursive --timeout=300000 test/test_files_uds"
+        "test-uds": "mocha ./test/bootstrap.js --exit --recursive --timeout=300000 test/test-files-uds",
+        "test-continuity": "mocha ./test/bootstrap.js --exit --recursive --timeout=300000 test/test-files-continuity"
     },
     "repository": {
         "type": "git",

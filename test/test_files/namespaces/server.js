@@ -11,7 +11,7 @@
 ###############################################################*/
 
 const {expect} = require("chai");
-const {createYdbInstance} = require("../utils.cjs");
+const {createYdbInstance} = require("../../utils.cjs");
 
 describe("server.kill()", async () => {
     it("when pid is not a number", async () => {

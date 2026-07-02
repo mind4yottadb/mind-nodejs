@@ -15,6 +15,7 @@ jobs:
           repository: mind4yottadb/mind-demo-server
           ref: main
           path: mind-demo-server
+          clean: false
 
       - name: Use Node.js
         uses: actions/setup-node@v4

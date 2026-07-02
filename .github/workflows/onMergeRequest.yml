@@ -23,4 +23,6 @@ jobs:
 
       - name: build-and-execute-server+test
         run: |
+          ls -la
+          npm install
           npm test

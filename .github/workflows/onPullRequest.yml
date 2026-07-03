@@ -1,0 +1,33 @@
+name: node.js test
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-run-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pull
+        uses: actions/checkout@v2
+        with:
+          clean: false
+          repository: mind4yottadb/mind-demo-server
+          ref: main
+          path: ./mind-demo-server
+
+      - name: run-server
+        run: |
+          cd mind-demo-server
+          docker image build --build-arg SERVERMODE=client-test --build-arg BRANCH=main --progress=plain -t mind-server .
+          docker run -d --init --tty -p 10000:10000 --name=mind-server mind-server
+
+      - uses: actions/checkout@v6
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.x'
+
+      - run: npm install
+      - run: npm test

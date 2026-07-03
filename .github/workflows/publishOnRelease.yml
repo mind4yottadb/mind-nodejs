@@ -11,6 +11,7 @@ jobs:
       contents: read
       id-token: write
     steps:
+      - uses: actions/checkout@v6
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

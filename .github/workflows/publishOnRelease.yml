@@ -11,7 +11,14 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v6
+      - run: |
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi      - uses: actions/checkout@v6
       - run: npm ci
       - run: npm publish --provenance --access public
         env:

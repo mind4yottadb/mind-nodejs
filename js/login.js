@@ -15,9 +15,15 @@ const fs = require("fs");
 const errors = require("./errors");
 
 const driverName = 'mind4yottadb.js'
-//const driverVersion = JSON.parse(fs.readFileSync(__dirname.substring(0, __dirname.lastIndexOf('\\')) + '/package.json', 'utf8')).version
-const driverVersion = 'test-version'
 const driverDescription = 'MIND for YottaDB node.js driver'
+let driverVersion
+
+try {
+    driverVersion = JSON.parse(fs.readFileSync(__dirname.substring(0, __dirname.lastIndexOf('\\')) + '/package.json', 'utf8')).version
+
+} catch (err) {
+    driverVersion = "test-mode"
+}
 
 module.exports = async function (that, writer, reader, resolve, reject, username, password, options) {
     const opCode = 'server.login'

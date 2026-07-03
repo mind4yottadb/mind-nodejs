@@ -12,11 +12,6 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v6
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24.x'
-          registry-url: 'https://registry.npmjs.org/packages/mind-nodejs'
       - run: npm ci
       - run: npm publish --provenance --access public
         env:

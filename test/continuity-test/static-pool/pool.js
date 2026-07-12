@@ -13,8 +13,8 @@
 const mind = require("../../../js")
 
 module.exports = {
-    init: async function (maxSize = 10) {
-        const pool = new mind.staticPool(maxSize)
+    init: async function (maxSize = 10, extension = 0) {
+        const pool = new mind.staticPool(maxSize, extension)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 

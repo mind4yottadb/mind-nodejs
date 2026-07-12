@@ -14,31 +14,16 @@ const Burst = require('./burst')
 const utils = require('./utils')
 
 class Session {
-    burstsSize = 10         // 2-50
-    burstsDistance = 10     // 3-10 secs.
-
-    bursts = []
-
-    constructor(burstsSize, burstsDistance) {
-        if (!burstsSize || !burstsDistance) {
-            throw new Error('Session: no burstsSize or burstsDistance provided')
-        }
-
-        this.burstsDistance = burstsDistance
-        this.burstsSize = burstsSize
-
-    }
-
     run = async function () {
-        for (let ix = 0; ix < this.burstsSize; ix++) {
-            const burst = new Burst(utils.getRandom(1, 5), utils.getRandom(1, 10))
+        for (let ix = utils.params.session.bustsSize.min; ix < utils.params.session.bustsSize.max; ix++) {
+            const burst = new Burst()
 
             await burst.run()
 
-            const delay = (utils.getRandom(1, this.burstsDistance * 1000))
+            const delay = (utils.getRandom(utils.params.session.distance.min, utils.params.session.distance.max))
             console.log('sleeping...' + delay)
 
-            await utils.sleep(delay)
+            await utils.sleep(delay * 1000)
         }
 
     }

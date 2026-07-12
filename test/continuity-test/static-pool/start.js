@@ -15,16 +15,24 @@ const Session = require('./session')
 
 const process = require('process')
 
+process.on('SIGINT', () => {
+    console.log('ctrl-c detected')
+    console.log(pool.pool.getStatus())
+    process.exit(0)
+})
+
 const start = async () => {
-    await pool.init()
+    await pool.init(32, 0)
 
-    const session = new Session(20, 5)
+    for (let i = 0; i < 30; i++) {
+        const session = new Session()
+        session.run()
 
-    console.log(session)
+    }
 
-    await session.run()
+    console.log('init completed...')
 
-    process.exit()
+    //process.exit()
 }
 
 const initialize = async () => {

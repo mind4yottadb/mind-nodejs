@@ -24,7 +24,7 @@ module.exports = {
 
     params: {
         burst: {
-            commands: {
+            commandsSize: {
                 min: 1,
                 max: 5
             },

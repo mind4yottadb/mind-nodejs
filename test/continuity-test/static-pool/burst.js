@@ -14,43 +14,35 @@ const utils = require('./utils')
 const pool = require('./pool')
 
 class Burst {
-    commandsSize = 5            // 1-5
-    commandSeparation = 5       // 1-5 ms.
     commands = Commands
-
-    constructor(commandsSize, commandSeparation) {
-        if (!commandsSize || !commandSeparation) {
-            throw new Error('Burst: no commandsSize or commandSeparation provided')
-        }
-
-        this.commandsSize = commandsSize
-        this.commandSeparation = commandSeparation
-    }
 
     run = async function () {
         const commandsList = []
+        const mindSession = await pool.pool.getSession()
 
-        for (let ix = 0; ix < this.commandsSize; ix++) {
-            const index = utils.getRandom(0, this.commands.length - 1)
-            console.log(index)
-
+        for (let ix = 0; ix < utils.getRandom(utils.params.burst.commandsSize.min, utils.params.burst.commandsSize.max + 1); ix++) {
             commandsList.push({
-                command: this.commands[index]
+                command: this.commands[utils.getRandom(0, this.commands.length - 1)]
             })
         }
 
+        console.log('-Burst run: ' + commandsList.length)
+
         for (const command of commandsList) {
-            const mindSession = await pool.pool.getSession()
 
             console.log('Executing...')
 
             await command.command.exec(mindSession)
-            await mindSession.done()
 
-            const delay = utils.getRandom(1, this.commandSeparation)
+
+            const delay = utils.getRandom(utils.params.burst.separation.min, utils.params.burst.separation.max)
+
+            console.log('Delay: ' + delay)
 
             await utils.sleep(delay)
         }
+
+        await mindSession.done()
     }
 }
 

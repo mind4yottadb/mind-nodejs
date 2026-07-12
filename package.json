@@ -7,7 +7,6 @@
     "scripts": {
         "test": "mocha ./test/bootstrap.js --exit --recursive --timeout=300000 test/test_files",
         "test-uds": "mocha ./test/bootstrap.js --exit --recursive --timeout=300000 test/test-files-uds",
-        "test-continuity": "mocha ./test/bootstrap.js --exit --recursive --timeout=300000 test/test-files-continuity"
     },
     "repository": {
         "type": "git",

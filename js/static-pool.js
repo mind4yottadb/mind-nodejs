@@ -288,6 +288,9 @@ module.exports = {
 
                 that.stats.sessionsCreatedOk++
 
+                const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === false)
+                if (sessionsInUse.length > that.stats.sessionsPeak) that.stats.sessionsPeak = sessionsInUse.length
+
                 that.hidePropsInObject(that.sessions[freeSlotIx])
 
                 resolve(that.sessions[freeSlotIx].session)
@@ -320,6 +323,9 @@ module.exports = {
                 that.sessions.push(newSession)
 
                 that.stats.extendsCreatedOk++
+
+                const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === true)
+                if (sessionsInUse.length > that.stats.extendsPeak) that.stats.extendsPeak = sessionsInUse.length
 
                 that.sessions.forEach(session => {
                     //console.log(session.session.session)
@@ -407,6 +413,10 @@ module.exports = {
                     that.sessions[freeSlotIx].inUse = true
 
                     that.stats.sessionsCreatedOk++
+                    that.stats.noMoreSlotsHitsResolved++
+
+                    const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === false)
+                    if (sessionsInUse.length > that.stats.sessionsPeak) that.stats.sessionsPeak = sessionsInUse.length
 
                     resolve(that.sessions[freeSlotIx].session)
 
@@ -444,6 +454,10 @@ module.exports = {
                     that.sessions.push(newSession)
 
                     that.stats.extendsCreatedOk++
+                    that.stats.noMoreSlotsHitsResolved++
+
+                    const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === true)
+                    if (sessionsInUse.length > that.stats.extendsPeak) that.stats.extendsPeak = sessionsInUse.length
 
                     that.sessions.forEach(session => {
                         //console.log(session.session.session)

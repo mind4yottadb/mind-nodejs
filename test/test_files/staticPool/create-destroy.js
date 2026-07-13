@@ -388,4 +388,33 @@ describe("Pool static: creation / destroy", async () => {
             expect(status.sessionsExtendedInUse).to.equal(0);
         })
     })
+
+    describe("Enumerable pool structure ", async function () {
+        this.timeout(30000)
+
+        it("before init", async () => {
+            const pool = new mindServer.staticPool(2, 2)
+            const struct = JSON.parse(JSON.stringify(pool))
+
+            expect(typeof struct.stats === 'undefined').to.be.true
+            expect(typeof struct.devOps.session === 'undefined').to.be.true
+            expect(typeof struct.devOps.sessionInUse === 'undefined').to.be.true
+
+            pool.rundown()
+        })
+
+        it("after init", async () => {
+            const pool = new mindServer.staticPool(2, 2)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+            const struct = JSON.parse(JSON.stringify(pool))
+
+            expect(typeof struct.stats === 'undefined').to.be.true
+            expect(typeof struct.devOps.session === 'undefined').to.be.true
+            expect(typeof struct.devOps.sessionInUse === 'undefined').to.be.true
+
+            pool.rundown()
+        })
+    })
 })

@@ -22,9 +22,9 @@ process.on('SIGINT', () => {
 })
 
 const start = async () => {
-    await pool.init(32, 10)
+    await pool.init(32, 40)
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 70; i++) {
         const session = new Session()
         session.run()
 

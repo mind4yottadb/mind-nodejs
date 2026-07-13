@@ -26,11 +26,11 @@ module.exports = {
         burst: {
             commandsSize: {
                 min: 1,
-                max: 5
+                max: 15
             },
             separation: {
                 min: 1,
-                max: 5
+                max: 10
             }
         },
         session: {
@@ -39,7 +39,7 @@ module.exports = {
                 max: 50
             },
             distance: {
-                min: 3,
+                min: 1,
                 max: 10
             }
         }

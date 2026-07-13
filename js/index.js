@@ -397,6 +397,10 @@ module.exports = {
                     enumerable: false,
                     configurable: true
                 },
+                stats: {
+                    enumerable: false,
+                    configurable: true
+                },
                 hidePropsInObject: {
                     enumerable: false,
                     configurable: true
@@ -405,6 +409,16 @@ module.exports = {
 
             Object.defineProperties(this.devOps, {
                 _getDevOpsSession: {
+                    enumerable: false,
+                    configurable: true
+                },
+
+                sessionInUse: {
+                    enumerable: false,
+                    configurable: true
+                },
+
+                session: {
                     enumerable: false,
                     configurable: true
                 },

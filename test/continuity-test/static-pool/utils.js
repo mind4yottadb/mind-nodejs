@@ -21,6 +21,9 @@ module.exports = {
         })
     },
 
+    dumpTime: function (time) {
+        return ((time.getHours() - 1) < 10 ? '0' : '') + (time.getHours() - 1) + ':' + (time.getMinutes() < 10 ? '0' : '') + time.getMinutes() + ':' + (time.getSeconds() < 10 ? '0' : '') + time.getSeconds() + '.' + time.getMilliseconds()
+    },
     params: {
         pool: {
             size: 32,
@@ -49,7 +52,7 @@ module.exports = {
         },
         logging: false,
         dumpTotals: true,
-        dumpTotalsDelay: 5, // in minutes
+        dumpTotalsDelay: 1, // in minutes
     }
 }
 

@@ -20,8 +20,8 @@ class Session {
 
             await burst.run()
 
+            const delay = (utils.getRandom(utils.params.session.distance.min, utils.params.session.distance.max))
             if (utils.params.logging === true) {
-                const delay = (utils.getRandom(utils.params.session.distance.min, utils.params.session.distance.max))
                 console.log('sleeping...' + delay)
             }
 

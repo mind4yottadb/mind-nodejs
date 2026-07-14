@@ -36,8 +36,8 @@ class Burst {
             await command.command.exec(mindSession)
             await mindSession.done()
 
+            const delay = utils.getRandom(utils.params.burst.separation.min, utils.params.burst.separation.max)
             if (utils.params.logging === true) {
-                const delay = utils.getRandom(utils.params.burst.separation.min, utils.params.burst.separation.max)
                 console.log('Delay: ' + delay)
             }
 
@@ -60,6 +60,31 @@ const Commands = [
     {
         exec: async function (mindSession) {
             await mindSession.process.getEnvVars()
+        }
+    },
+    {
+        exec: async function (mindSession) {
+            await mindSession.server.GUID()
+        }
+    },
+    {
+        exec: async function (mindSession) {
+            await mindSession.server.stats()
+        }
+    },
+    {
+        exec: async function (mindSession) {
+            await mindSession.session.getCurrentSettings()
+        }
+    },
+    {
+        exec: async function (mindSession) {
+            await mindSession.fs.isDir('/opt')
+        }
+    },
+    {
+        exec: async function (mindSession) {
+            await mindSession.fs.isFile('/docker-main-startup.sh')
         }
     }
 ]

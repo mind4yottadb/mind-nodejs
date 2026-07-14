@@ -27,7 +27,7 @@ process.on('SIGINT', () => {
     const diff = new Date("1970-01-01T00:00:00Z")
     diff.setMilliseconds(endTime.valueOf() - startTime.valueOf())
 
-    const duration = ((diff.getHours() - 1) < 10 ? '0' : '') + (diff.getHours() - 1) + ':' + (diff.getMinutes() < 10 ? '0' : '') + diff.getMinutes() + ':' + (diff.getSeconds() < 10 ? '0' : '') + diff.getSeconds() + '.' + diff.getMilliseconds()
+    const duration = utils.dumpTime(diff)
     const startTimeAsDate = new Date(startTime)
     const endTimeAsDate = new Date(endTime)
 
@@ -50,7 +50,9 @@ const start = async () => {
         setInterval(async () => {
             const status = pool.pool.getStatus()
 
-            console.log(status.stats.sessionsCreatedOk)
+            const now = new Date()
+            const nowFormatted = now.toTimeString().split(' ')[0]
+            console.log(nowFormatted + ':', status.stats.sessionsCreatedOk, '/', status.stats.extendsCreatedOk)
 
         }, 60000 * utils.params.dumpTotalsDelay)
     }
@@ -63,9 +65,6 @@ const start = async () => {
 
         await utils.sleep(60000 * 4)
     }
-
-    console.log('init completed...')
-
 }
 
 start()

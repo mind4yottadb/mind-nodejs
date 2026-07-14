@@ -18,7 +18,6 @@ class Burst {
 
     run = async function () {
         const commandsList = []
-        const mindSession = await pool.pool.getSession()
 
         for (let ix = 0; ix < utils.getRandom(utils.params.burst.commandsSize.min, utils.params.burst.commandsSize.max + 1); ix++) {
             commandsList.push({
@@ -26,23 +25,24 @@ class Burst {
             })
         }
 
-        console.log('-Burst run: ' + commandsList.length)
+        if (utils.params.logging === true) console.log('-Burst run: ' + commandsList.length)
 
         for (const command of commandsList) {
 
-            console.log('Executing...')
+            if (utils.params.logging === true) console.log('Executing...')
+
+            const mindSession = await pool.pool.getSession()
 
             await command.command.exec(mindSession)
+            await mindSession.done()
 
-
-            const delay = utils.getRandom(utils.params.burst.separation.min, utils.params.burst.separation.max)
-
-            console.log('Delay: ' + delay)
+            if (utils.params.logging === true) {
+                const delay = utils.getRandom(utils.params.burst.separation.min, utils.params.burst.separation.max)
+                console.log('Delay: ' + delay)
+            }
 
             await utils.sleep(delay)
         }
-
-        await mindSession.done()
     }
 }
 

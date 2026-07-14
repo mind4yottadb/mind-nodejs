@@ -12,32 +12,60 @@
 
 const pool = require('./pool')
 const Session = require('./session')
+const utils = require('./utils')
 
 const process = require('process')
 
+let startTime
+
 process.on('SIGINT', () => {
+    const endTime = Date.now()
+
     console.log('ctrl-c detected')
+
+    // compute time difference
+    const diff = new Date("1970-01-01T00:00:00Z")
+    diff.setMilliseconds(endTime.valueOf() - startTime.valueOf())
+
+    const duration = ((diff.getHours() - 1) < 10 ? '0' : '') + (diff.getHours() - 1) + ':' + (diff.getMinutes() < 10 ? '0' : '') + diff.getMinutes() + ':' + (diff.getSeconds() < 10 ? '0' : '') + diff.getSeconds() + '.' + diff.getMilliseconds()
+    const startTimeAsDate = new Date(startTime)
+    const endTimeAsDate = new Date(endTime)
+
+    console.log('Start time:\t\t\t' + startTimeAsDate.toTimeString())
+    console.log('End time:\t\t\t' + endTimeAsDate.toTimeString())
+    console.log('Duration:\t\t\t' + duration)
+    console.log('\nParameters:')
+    console.log(utils.params)
+    console.log('\nStatus:')
     console.log(pool.pool.getStatus())
+
     process.exit(0)
 })
 
 const start = async () => {
-    await pool.init(32, 40)
+    await pool.init(utils.params.pool.size, utils.params.pool.extension)
+    startTime = Date.now()
 
-    for (let i = 0; i < 70; i++) {
-        const session = new Session()
-        session.run()
+    if (utils.params.dumpTotals === true) {
+        setInterval(async () => {
+            const status = pool.pool.getStatus()
 
+            console.log(status.stats.sessionsCreatedOk)
+
+        }, 60000 * utils.params.dumpTotalsDelay)
+    }
+
+    while (true) {
+        for (let i = 0; i < utils.params.mainLoopThreads; i++) {
+            const session = new Session()
+            session.run()
+        }
+
+        await utils.sleep(60000 * 4)
     }
 
     console.log('init completed...')
 
-    //process.exit()
 }
-
-const initialize = async () => {
-
-}
-
 
 start()

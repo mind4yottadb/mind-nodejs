@@ -21,28 +21,35 @@ module.exports = {
         })
     },
 
-
     params: {
-        burst: {
-            commandsSize: {
-                min: 1,
-                max: 15
-            },
-            separation: {
-                min: 1,
-                max: 10
-            }
+        pool: {
+            size: 32,
+            extension: 40
         },
+        mainLoopThreads: 80,
         session: {
             bustsSize: {
                 min: 2,
                 max: 50
             },
-            distance: {
+            distance: {     // is seconds
                 min: 1,
                 max: 10
             }
-        }
+        },
+        burst: {
+            commandsSize: {
+                min: 1,
+                max: 15
+            },
+            separation: {   // in ms.
+                min: 1,
+                max: 10
+            }
+        },
+        logging: false,
+        dumpTotals: true,
+        dumpTotalsDelay: 5, // in minutes
     }
 }
 

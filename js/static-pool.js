@@ -12,6 +12,8 @@
 const errors = require("./errors");
 const {size} = require("lodash");
 
+const noMoreHitsTimeout = 0
+
 module.exports = {
     create: async function (that, classModule, host, port, username, password, options) {
         return new Promise(async (resolve, reject) => {
@@ -493,7 +495,7 @@ module.exports = {
 
                     resolve(newSession.session)
                 }
-            }, 0)
+            }, noMoreHitsTimeout)
         })
     },
 

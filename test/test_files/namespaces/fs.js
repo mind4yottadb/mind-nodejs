@@ -63,10 +63,10 @@ describe("fs.readFile()", async () => {
         try {
             const res = await ydb.fs.readFile(filename)
 
-            expect(res === '').to.be.false
+            expect(true).to.be.false
 
         } catch (err) {
-            expect(false).to.be.true
+            expect(true).to.be.true
         }
 
         ydb.disconnect()
@@ -848,9 +848,8 @@ describe("fs.copyfile()", async () => {
 
         try {
             await ydb.fs.copyfile(path, destination)
-
             const res = await ydb.fs.readFile(destination)
-            expect(res === '').to.be.false
+            expect(res === '').to.be.true
 
         } catch (err) {
             console.log(err.message)

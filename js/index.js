@@ -261,12 +261,19 @@ module.exports = {
         stats = {
             sessionsCreatedOk: 0,           // how many sessions were created
             sessionsCreatedInError: 0,      // how many session got error on creation
+            sessionsPeak: 0,                 // the maximum number of sessions used in the pool
+
             extendsCreatedOk: 0,            // how many extends got created
             extendsCreatedInError: 0,       // how many extends got error on creation
             extendsRemoved: 0,              // how many extends got removed
+            extendsPeak: 0,                 // the maximum number of extensions used in the pool
+
             noMoreSlotsHits: 0,             // how many times no more slots were available and the getSession() had to wait
+            noMoreSlotsHitsResolved: 0,     // how many sessions got successfully released when pool is fully busy
             timeoutExpired: 0,              // how many times a timeout expired while getting a session
             remoteDisconnects: 0,           // how many sessions got remotely disconnected
+
+
         }
 
         size = 0                    // size (in sessions)
@@ -390,6 +397,10 @@ module.exports = {
                     enumerable: false,
                     configurable: true
                 },
+                stats: {
+                    enumerable: false,
+                    configurable: true
+                },
                 hidePropsInObject: {
                     enumerable: false,
                     configurable: true
@@ -398,6 +409,16 @@ module.exports = {
 
             Object.defineProperties(this.devOps, {
                 _getDevOpsSession: {
+                    enumerable: false,
+                    configurable: true
+                },
+
+                sessionInUse: {
+                    enumerable: false,
+                    configurable: true
+                },
+
+                session: {
                     enumerable: false,
                     configurable: true
                 },

@@ -12,6 +12,8 @@
 const errors = require("./errors");
 const {size} = require("lodash");
 
+const noMoreHitsTimeout = 0
+
 module.exports = {
     create: async function (that, classModule, host, port, username, password, options) {
         return new Promise(async (resolve, reject) => {
@@ -288,6 +290,9 @@ module.exports = {
 
                 that.stats.sessionsCreatedOk++
 
+                const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === false)
+                if (sessionsInUse.length > that.stats.sessionsPeak) that.stats.sessionsPeak = sessionsInUse.length
+
                 that.hidePropsInObject(that.sessions[freeSlotIx])
 
                 resolve(that.sessions[freeSlotIx].session)
@@ -320,6 +325,9 @@ module.exports = {
                 that.sessions.push(newSession)
 
                 that.stats.extendsCreatedOk++
+
+                const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === true)
+                if (sessionsInUse.length > that.stats.extendsPeak) that.stats.extendsPeak = sessionsInUse.length
 
                 that.sessions.forEach(session => {
                     //console.log(session.session.session)
@@ -407,6 +415,10 @@ module.exports = {
                     that.sessions[freeSlotIx].inUse = true
 
                     that.stats.sessionsCreatedOk++
+                    that.stats.noMoreSlotsHitsResolved++
+
+                    const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === false)
+                    if (sessionsInUse.length > that.stats.sessionsPeak) that.stats.sessionsPeak = sessionsInUse.length
 
                     resolve(that.sessions[freeSlotIx].session)
 
@@ -444,6 +456,10 @@ module.exports = {
                     that.sessions.push(newSession)
 
                     that.stats.extendsCreatedOk++
+                    that.stats.noMoreSlotsHitsResolved++
+
+                    const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === true)
+                    if (sessionsInUse.length > that.stats.extendsPeak) that.stats.extendsPeak = sessionsInUse.length
 
                     that.sessions.forEach(session => {
                         //console.log(session.session.session)
@@ -479,7 +495,7 @@ module.exports = {
 
                     resolve(newSession.session)
                 }
-            }, 0)
+            }, noMoreHitsTimeout)
         })
     },
 
@@ -491,6 +507,12 @@ module.exports = {
         const size = that.size
 
         return {
+            GUID: that.guid,
+            host: that.host,
+            port: that.port,
+            username: that.username,
+            options: that.options,
+            initialized: that.guid !== '',
             size: size,
             extensions: extensions,
             sessionsTotal: sessionsTotal,

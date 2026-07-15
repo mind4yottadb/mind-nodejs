@@ -15,6 +15,7 @@ const {expect} = require("chai");
 const {createYdbInstance, sleep} = require("../../utils.cjs");
 const mindServer = require("../../../js");
 
+/*
 describe("Pool dynamic: connect-errors", async () => {
     it("all good, should connect and authorize", async () => {
         try {
@@ -111,3 +112,4 @@ describe("Pool dynamic: connect-errors", async () => {
     });
 
 })
+*/

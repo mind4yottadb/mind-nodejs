@@ -388,4 +388,117 @@ describe("Pool static: creation / destroy", async () => {
             expect(status.sessionsExtendedInUse).to.equal(0);
         })
     })
+
+    describe("Enumerable pool structure ", async function () {
+        this.timeout(30000)
+
+        it("before init", async () => {
+            const pool = new mindServer.staticPool(2, 2)
+            const struct = JSON.parse(JSON.stringify(pool))
+
+            expect(typeof struct.stats === 'undefined').to.be.true
+            expect(typeof struct.devOps.session === 'undefined').to.be.true
+            expect(typeof struct.devOps.sessionInUse === 'undefined').to.be.true
+
+            pool.rundown()
+        })
+
+        it("after init", async () => {
+            const pool = new mindServer.staticPool(2, 2)
+
+            await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
+
+            const struct = JSON.parse(JSON.stringify(pool))
+
+            expect(typeof struct.stats === 'undefined').to.be.true
+            expect(typeof struct.devOps.session === 'undefined').to.be.true
+            expect(typeof struct.devOps.sessionInUse === 'undefined').to.be.true
+
+            pool.rundown()
+        })
+    })
+})
+
+describe("getStatus()()", async () => {
+    it("check info fields", async function () {
+        const pool = new mindServer.staticPool(2)
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+        const status = await pool.getStatus()
+
+        expect(typeof status.GUID).to.have.string('string')
+        expect(status.GUID.length).to.be.equal(36)
+
+        expect(status.host).to.have.string('127.0.0.1')
+        expect(status.port).to.be.equal(10000)
+        expect(status.username).to.have.string('admin')
+        expect(typeof status.options).to.have.string('object')
+        expect(status.initialized).to.be.true
+
+        pool.destroy()
+    });
+
+    it("check info fields for not initialized", async function () {
+        const pool = new mindServer.staticPool(2)
+        //await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+        const status = await pool.getStatus()
+
+        expect(status.GUID).to.have.string('')
+        expect(status.host).to.have.string('')
+        expect(status.port).to.be.equal(0)
+        expect(typeof status.options).to.have.string('object')
+        expect(status.initialized).to.be.false
+    });
+
+    it("check size fields 1", async function () {
+        const pool = new mindServer.staticPool(2)
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+        const status = await pool.getStatus()
+
+        expect(status.size).to.be.equal(2)
+        expect(status.extensions).to.be.equal(0)
+        expect(status.sessionsTotal).to.be.equal(2)
+        expect(status.sessionsExtendedInUse).to.be.equal(0)
+        expect(status.sessionsInUse).to.be.equal(0)
+
+        pool.destroy()
+    });
+
+    it("check size fields 2", async function () {
+        const pool = new mindServer.staticPool(5, 3)
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+        const status = await pool.getStatus()
+
+        expect(status.size).to.be.equal(5)
+        expect(status.extensions).to.be.equal(3)
+        expect(status.sessionsTotal).to.be.equal(5)
+        expect(status.sessionsExtendedInUse).to.be.equal(0)
+        expect(status.sessionsInUse).to.be.equal(0)
+
+        pool.destroy()
+    });
+
+    it("check stats", async function () {
+        const pool = new mindServer.staticPool(5, 3)
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+        const status = await pool.getStatus()
+
+        expect(status.stats.sessionsCreatedOk).to.be.equal(0)
+        expect(status.stats.sessionsCreatedInError).to.be.equal(0)
+        expect(status.stats.sessionsPeak).to.be.equal(0)
+        expect(status.stats.extendsCreatedOk).to.be.equal(0)
+        expect(status.stats.extendsCreatedInError).to.be.equal(0)
+        expect(status.stats.extendsRemoved).to.be.equal(0)
+        expect(status.stats.extendsPeak).to.be.equal(0)
+        expect(status.stats.noMoreSlotsHits).to.be.equal(0)
+        expect(status.stats.noMoreSlotsHitsResolved).to.be.equal(0)
+        expect(status.stats.timeoutExpired).to.be.equal(0)
+        expect(status.stats.remoteDisconnects).to.be.equal(0)
+
+        pool.destroy()
+    });
 })

@@ -45,7 +45,6 @@ process.on('SIGINT', () => {
 const start = async (params = {}) => {
     // merge incoming params
     utils.params = {...utils.params, ...params}
-    console.log(utils.params)
 
     await pool.init(utils.params.pool.size, utils.params.pool.extension)
     startTime = Date.now()
@@ -72,11 +71,9 @@ const start = async (params = {}) => {
 
         await utils.sleep(1000 * utils.params.singleShotTimeout)
 
-        const status = pool.pool.getStatus()
+        console.log(pool.pool.getStatus())
 
-        pool.pool.destroy()
-
-        return status
+        process.exit()
     }
 }
 
@@ -87,6 +84,6 @@ const _singleShot = function (params = {}) {
     }
 }
 
-start({singleShot: false, singleShotTimeout: 4})
+start({})
 
 module.exports.start = start

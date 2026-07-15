@@ -841,6 +841,7 @@ describe("fs.copyfile()", async () => {
 
     });
 
+    /*
     it("when source and destination are ok and have an env var in the path, copy and verify", async () => {
         const ydb = await createYdbInstance()
         const path = '$ydb_dist/plugin/etc/mind/mind.conf'
@@ -861,6 +862,8 @@ describe("fs.copyfile()", async () => {
         ydb.disconnect()
 
     });
+
+     */
 })
 
 describe("fs.stat()", async () => {

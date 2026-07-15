@@ -29,13 +29,16 @@ module.exports = {
             size: 40,
             extension: 40
         },
-        mainLoopThreads: 120,
+        singleShot: false,
+        singleShotTimeout: 15,      // seconds
+        mainLoopThreads: 300,
+        mainLoopDelay: 4,           // minutes
         session: {
             bustsSize: {
                 min: 2,
                 max: 50
             },
-            distance: {     // is seconds
+            distance: {             // is seconds
                 min: 1,
                 max: 10
             }
@@ -45,7 +48,7 @@ module.exports = {
                 min: 1,
                 max: 15
             },
-            separation: {   // in ms.
+            separation: {           // in ms.
                 min: 1,
                 max: 10
             },
@@ -55,7 +58,7 @@ module.exports = {
         },
         logging: false,
         dumpTotals: true,
-        dumpTotalsDelay: 1, // in minutes
+        dumpTotalsDelay: 1,         // in minutes
     },
 
     getCommands: function () {

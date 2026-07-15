@@ -42,7 +42,11 @@ process.on('SIGINT', () => {
     process.exit(0)
 })
 
-const start = async () => {
+const start = async (params = {}) => {
+    // merge incoming params
+    utils.params = {...utils.params, ...params}
+    console.log(utils.params)
+
     await pool.init(utils.params.pool.size, utils.params.pool.extension)
     startTime = Date.now()
 
@@ -57,14 +61,32 @@ const start = async () => {
         }, 60000 * utils.params.dumpTotalsDelay)
     }
 
-    while (true) {
-        for (let i = 0; i < utils.params.mainLoopThreads; i++) {
-            const session = new Session()
-            session.run()
-        }
+    if (utils.params.singleShot === false) {
+        while (true) {
+            _singleShot()
 
-        await utils.sleep(60000 * 4)
+            await utils.sleep(60000 * utils.params.mainLoopDelay)
+        }
+    } else {
+        _singleShot()
+
+        await utils.sleep(1000 * utils.params.singleShotTimeout)
+
+        const status = pool.pool.getStatus()
+
+        pool.pool.destroy()
+
+        return status
     }
 }
 
-start()
+const _singleShot = function (params = {}) {
+    for (let i = 0; i < utils.params.mainLoopThreads; i++) {
+        const session = new Session()
+        session.run()
+    }
+}
+
+start({singleShot: true, singleShotTimeout: 8})
+
+module.exports.start = start

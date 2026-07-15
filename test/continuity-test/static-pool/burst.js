@@ -14,7 +14,7 @@ const utils = require('./utils')
 const pool = require('./pool')
 
 class Burst {
-    commands = Commands
+    commands = utils.getCommands()
 
     run = async function () {
         const commandsList = []

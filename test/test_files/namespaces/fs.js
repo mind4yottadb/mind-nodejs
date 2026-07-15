@@ -846,6 +846,8 @@ describe("fs.copyfile()", async () => {
         const path = '$ydb_dist/plugin/etc/mind/mind.conf'
         const destination = '$ydb_dist/plugin/etc/mind/anew'
 
+        console.log('MR check')
+
         try {
             await ydb.fs.copyfile(path, destination)
             const res = await ydb.fs.readFile(destination)

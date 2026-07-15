@@ -26,10 +26,10 @@ module.exports = {
     },
     params: {
         pool: {
-            size: 32,
+            size: 40,
             extension: 40
         },
-        mainLoopThreads: 80,
+        mainLoopThreads: 120,
         session: {
             bustsSize: {
                 min: 2,
@@ -48,11 +48,105 @@ module.exports = {
             separation: {   // in ms.
                 min: 1,
                 max: 10
+            },
+            commands: {
+                includeDb: true,
             }
         },
         logging: false,
         dumpTotals: true,
         dumpTotalsDelay: 1, // in minutes
+    },
+
+    getCommands: function () {
+        const commands = [
+            {
+                exec: async function (mindSession) {
+                    await mindSession.process.cwdGet()
+                }
+            },
+            {
+                exec: async function (mindSession) {
+                    await mindSession.process.memUsage()
+                }
+            },
+            {
+                exec: async function (mindSession) {
+                    await mindSession.process.getEnvVars()
+                }
+            },
+            {
+                exec: async function (mindSession) {
+                    await mindSession.server.GUID()
+                }
+            },
+            {
+                exec: async function (mindSession) {
+                    await mindSession.server.stats()
+                }
+            },
+            {
+                exec: async function (mindSession) {
+                    await mindSession.session.getCurrentSettings()
+                }
+            },
+            {
+                exec: async function (mindSession) {
+                    await mindSession.fs.isDir('/opt')
+                }
+            },
+            {
+                exec: async function (mindSession) {
+                    await mindSession.fs.isFile('/docker-main-startup.sh')
+                }
+            }
+        ]
+
+        if (module.exports.params.burst.commands.includeDb === true) {
+            const dbCommands = [
+                {
+                    exec: async function (mindSession) {
+                        try {
+                            mindSession.db.globals.addName('testglobal')
+                        } catch (err) {
+                        }
+                        await mindSession.db.globals.testglobal.increment()
+                    }
+                },
+                {
+                    exec: async function (mindSession) {
+                        try {
+                            mindSession.db.globals.addName('testglobal')
+                        } catch (err) {
+                        }
+                        await mindSession.db.globals.testglobal.decrement()
+                    }
+                },
+                {
+                    exec: async function (mindSession) {
+                        try {
+                            mindSession.db.globals.addName('testglobal')
+                        } catch (err) {
+                        }
+                        await mindSession.db.globals.testglobal._('a1').increment()
+                    }
+                },
+                {
+                    exec: async function (mindSession) {
+                        try {
+                            mindSession.db.globals.addName('testglobal')
+                        } catch (err) {
+                        }
+                        await mindSession.db.globals.testglobal._('a1').decrement()
+                    }
+                },
+            ]
+
+            commands.push(...dbCommands)
+        }
+
+        return commands
     }
 }
+
 

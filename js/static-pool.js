@@ -507,6 +507,12 @@ module.exports = {
         const size = that.size
 
         return {
+            GUID: that.guid,
+            host: that.host,
+            port: that.port,
+            username: that.username,
+            options: that.options,
+            initialized: that.guid !== '',
             size: size,
             extensions: extensions,
             sessionsTotal: sessionsTotal,

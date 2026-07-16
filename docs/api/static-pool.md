@@ -60,3 +60,7 @@ This class gives you full access to the static pool.
 
 ---
 
+### Events:
+
+- [.on('noMoreSlotsHits')](api/static-pool/pool.noMoreSlotsHits.md)
+- [.on('noMoreSlotsHitsResolved')](api/static-pool/pool.noMoreSlotsHitsResolved.md)

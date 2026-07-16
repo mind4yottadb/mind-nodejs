@@ -12,7 +12,7 @@
 const errors = require("./errors");
 const {size} = require("lodash");
 
-const noMoreHitsTimeout = 0
+const noMoreHitsTimeout = 30
 
 module.exports = {
     create: async function (that, classModule, host, port, username, password, options) {
@@ -367,6 +367,7 @@ module.exports = {
             }
 
             that.stats.noMoreSlotsHits++
+            that.emit('noMoreSlotsHits')
 
             that.timerTick -= false
 
@@ -376,6 +377,7 @@ module.exports = {
                 // setup main timer
                 hTimeout = setTimeout(async () => {
                     that.stats.timeoutExpired++
+                    that.emit('timeoutExpired')
 
                     reject(new Error(errors.TIMEOUT_OCCURRED + 'timeout expired while trying to get a session'))
 
@@ -416,6 +418,7 @@ module.exports = {
 
                     that.stats.sessionsCreatedOk++
                     that.stats.noMoreSlotsHitsResolved++
+                    that.emit('noMoreSlotsHitsResolved')
 
                     const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === false)
                     if (sessionsInUse.length > that.stats.sessionsPeak) that.stats.sessionsPeak = sessionsInUse.length
@@ -457,6 +460,7 @@ module.exports = {
 
                     that.stats.extendsCreatedOk++
                     that.stats.noMoreSlotsHitsResolved++
+                    that.eimt('noMoreSlotsHitsResolved')
 
                     const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === true)
                     if (sessionsInUse.length > that.stats.extendsPeak) that.stats.extendsPeak = sessionsInUse.length
@@ -485,6 +489,7 @@ module.exports = {
                     session.on('disconnect', function () {
                         this.that.sessions.splice(this.ix, 1)
                         that.stats.remoteDisconnects++
+                        that.emit('remoteDisconnects')
                         that.extensionInUse--
                         that.extendsRemoved++
                     })

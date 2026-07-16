@@ -49,6 +49,14 @@ const start = async (params = {}) => {
     await pool.init(utils.params.pool.size, utils.params.pool.extension)
     startTime = Date.now()
 
+    pool.pool.on('noMoreSlotsHits', () => {
+        console.log('noMoreSlotsHits')
+    })
+
+    pool.pool.on('noMoreSlotsHitsResolved', () => {
+        console.log('noMoreSlotsHitsResolved')
+    })
+
     if (utils.params.dumpTotals === true) {
         setInterval(async () => {
             const status = pool.pool.getStatus()

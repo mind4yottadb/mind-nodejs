@@ -257,7 +257,7 @@ module.exports = {
     // ********************************
     // static pool
     // ********************************
-    staticPool: class StaticPool {
+    staticPool: class StaticPool extends EventEmitter {
         stats = {
             sessionsCreatedOk: 0,           // how many sessions were created
             sessionsCreatedInError: 0,      // how many session got error on creation
@@ -329,6 +329,7 @@ module.exports = {
         }
 
         constructor(size, extension = 0, credentials = {}) {
+            super();
             if (typeof size === 'undefined') {
                 throw new Error(errors.PARAM_MISSING + 'Missing pool size')
             }

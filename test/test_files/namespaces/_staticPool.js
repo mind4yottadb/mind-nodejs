@@ -24,9 +24,9 @@ describe("_staticPool.", async () => {
 
         expect(pool.guid !== '').to.be.true
 
-        ydb.db.globals.addName('_mindPools')
+        ydb.db.globals.addName('_mindSessions')
 
-        const val = await ydb.db.globals._mindPools._(pool.guid, "pids").findNext()
+        const val = await ydb.db.globals._mindSessions._('pools', pool.guid, "pids").findNext()
         expect(typeof val).to.have.string('number')
 
         pool.destroy()
@@ -312,7 +312,7 @@ describe("_staticPool.", async () => {
             const mind = await pool.devOps._getDevOpsSession()
 
             try {
-                await mind._staticPool._changeServerSetting('logLevel'[1, 2, 3, 4])
+                await mind._staticPool._changeServerSetting('logLevel', [1, 2, 3, 4])
                 expect(1 === 2).to.be.true
 
             } catch (err) {

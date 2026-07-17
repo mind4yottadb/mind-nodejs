@@ -28,7 +28,8 @@
 
 Release the session back to the pool.
 
-> This method exists ONLY if you are inside a static pool.
+> This method exists ONLY if you are inside a static pool, and you obtain a MIND session using the `pool.getSession()`
+> method.
 
 ---
 

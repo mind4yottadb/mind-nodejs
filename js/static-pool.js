@@ -284,7 +284,7 @@ module.exports = {
                     that: that,
                     ix: freeSlotIx,
                     done: function () {
-                        that.sessionsDone++
+                        that.devOps.sessionsDone++
 
                         that.sessions[this.ix].inUse = false
                     }
@@ -348,7 +348,7 @@ module.exports = {
 
                         that.extensionInUse--
 
-                        that.extendsDone++
+                        that.devOps.extendsDone++
 
                         that.stats.extendsRemoved++
                     }
@@ -413,7 +413,7 @@ module.exports = {
                         ix: freeSlotIx,
                         done: function () {
 
-                            that.sessionsDone++
+                            that.devOps.sessionsDone++
 
                             that.sessions[this.ix].inUse = false
                         }
@@ -489,7 +489,7 @@ module.exports = {
 
                             that.extensionInUse--
 
-                            that.extendsDone++
+                            that.devOps.extendsDone++
 
                             that.stats.extendsRemoved++
                         }
@@ -534,6 +534,24 @@ module.exports = {
             sessionsInUse: sessionsInUse.length,
             stats: that.stats
         }
+    },
+
+    resetStats: function (that) {
+        that.devOps.sessionsCreatedOk = 0
+        that.devOps.sessionsCreatedInError = 0
+        that.devOps.sessionsPeak = 0
+        that.devOps.sessionsDone = 0
+
+        that.devOps.extendsCreatedOk = 0
+        that.devOps.extendsCreatedInError = 0
+        that.devOps.extendsRemoved = 0
+        that.devOps.extendsPeak = 0
+        that.devOps.extendsDone = 0
+
+        that.devOps.noMoreSlotsHits = 0
+        that.devOps.noMoreSlotsHitsResolved = 0
+        that.devOps.timeoutExpired = 0
+        that.devOps.remoteDisconnects = 0
     },
 
     devOps: {

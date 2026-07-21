@@ -557,6 +557,10 @@ module.exports = {
             return staticPool.getStatus(this)
         }
 
+        resetStats = function () {
+            staticPool.resetStats(this)
+        }
+
         changeSize = async function (newSize) {
             return await staticPool.changeSize(this, module, newSize)
         }

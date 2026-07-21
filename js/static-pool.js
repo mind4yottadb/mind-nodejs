@@ -284,6 +284,8 @@ module.exports = {
                     that: that,
                     ix: freeSlotIx,
                     done: function () {
+                        that.sessionsDone++
+
                         that.sessions[this.ix].inUse = false
                     }
                 })
@@ -345,6 +347,8 @@ module.exports = {
                         that.sessions.splice(ix, 1)
 
                         that.extensionInUse--
+
+                        that.extendsDone++
 
                         that.stats.extendsRemoved++
                     }
@@ -408,6 +412,9 @@ module.exports = {
                         that: that,
                         ix: freeSlotIx,
                         done: function () {
+
+                            that.sessionsDone++
+
                             that.sessions[this.ix].inUse = false
                         }
                     })
@@ -481,6 +488,8 @@ module.exports = {
                             that.sessions.splice(ix, 1)
 
                             that.extensionInUse--
+
+                            that.extendsDone++
 
                             that.stats.extendsRemoved++
                         }

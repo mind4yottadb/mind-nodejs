@@ -261,12 +261,14 @@ module.exports = {
         stats = {
             sessionsCreatedOk: 0,           // how many sessions were created
             sessionsCreatedInError: 0,      // how many session got error on creation
-            sessionsPeak: 0,                 // the maximum number of sessions used in the pool
+            sessionsPeak: 0,                // the maximum number of sessions used in the pool
+            sessionsDone: 0,                 // the number of sessions that were terminated with done()
 
             extendsCreatedOk: 0,            // how many extends got created
             extendsCreatedInError: 0,       // how many extends got error on creation
             extendsRemoved: 0,              // how many extends got removed
             extendsPeak: 0,                 // the maximum number of extensions used in the pool
+            extendsDone: 0,                 // the number of extended sessions that were terminated with done()
 
             noMoreSlotsHits: 0,             // how many times no more slots were available and the getSession() had to wait
             noMoreSlotsHitsResolved: 0,     // how many sessions got successfully released when pool is fully busy

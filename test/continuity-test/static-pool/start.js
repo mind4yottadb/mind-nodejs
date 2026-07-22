@@ -57,13 +57,16 @@ const start = async (params = {}) => {
         console.log('noMoreSlotsHitsResolved')
     })
 
+    let previousSessions = 0
     if (utils.params.dumpTotals === true) {
         setInterval(async () => {
             const status = pool.pool.getStatus()
 
             const now = new Date()
             const nowFormatted = now.toTimeString().split(' ')[0]
-            console.log(nowFormatted + ':', status.stats.sessionsCreatedOk, '/', status.stats.extendsCreatedOk)
+            const sessionsPerSec = (status.stats.sessionsCreatedOk - previousSessions) / (60 * utils.params.dumpTotalsDelay)
+            previousSessions = status.stats.sessionsCreatedOk
+            console.log(nowFormatted + ':', status.stats.sessionsCreatedOk, '/', status.stats.extendsCreatedOk, '  Sessions / sec: ', sessionsPerSec)
 
         }, 60000 * utils.params.dumpTotalsDelay)
     }
@@ -85,10 +88,11 @@ const start = async (params = {}) => {
     }
 }
 
-const _singleShot = function (params = {}) {
+const _singleShot = async function (params = {}) {
     for (let i = 0; i < utils.params.mainLoopThreads; i++) {
         const session = new Session()
         session.run()
+        await utils.sleep(utils.params.session.initDelay)
     }
 }
 

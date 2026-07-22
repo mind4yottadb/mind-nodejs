@@ -258,6 +258,17 @@ module.exports = {
     // static pool
     // ********************************
     staticPool: class StaticPool extends EventEmitter {
+        size = 0                    // size (in sessions)
+        extension = 0               // extension size (in sessions)
+        extensionInUse = 0          // how many extension sessions are currently in use
+        sessions = []                 // sessions array
+        host = ''                    // credentials to connect extensions
+        port = 0                    // credentials to connect extensions
+        username = ''                 // credentials to connect extensions
+        password = ''                 // credentials to connect extensions
+        options = {}                     // credentials to connect extensions
+        timerTick = false           // internal timer
+        guid = ''                    // the guid for the pool
         stats = {
             sessionsCreatedOk: 0,           // how many sessions were created
             sessionsCreatedInError: 0,      // how many session got error on creation
@@ -274,21 +285,7 @@ module.exports = {
             noMoreSlotsHitsResolved: 0,     // how many sessions got successfully released when pool is fully busy
             timeoutExpired: 0,              // how many times a timeout expired while getting a session
             remoteDisconnects: 0,           // how many sessions got remotely disconnected
-
-
         }
-
-        size = 0                    // size (in sessions)
-        extension = 0               // extension size (in sessions)
-        extensionInUse = 0          // how many extension sessions are currently in use
-        sessions = []                 // sessions array
-        host = ''                    // credentials to connect extensions
-        port = 0                    // credentials to connect extensions
-        username = ''                 // credentials to connect extensions
-        password = ''                 // credentials to connect extensions
-        options = {}                     // credentials to connect extensions
-        timerTick = false           // internal timer
-        guid = ''                    // the guid for the pool
 
         devOps = {
             session: {},

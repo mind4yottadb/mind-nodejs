@@ -303,7 +303,7 @@ module.exports = {
             }
 
             // can we extend?
-            if (that.extension > 0 && that.extension - that.extensionInUse > 0) {
+            if (that.extension > 0 && (that.extension - that.extensionInUse) > 0) {
                 const session = new classModule.exports.session
 
                 try {
@@ -331,10 +331,6 @@ module.exports = {
                 const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === true)
                 if (sessionsInUse.length > that.stats.extendsPeak) that.stats.extendsPeak = sessionsInUse.length
 
-                that.sessions.forEach(session => {
-                    //console.log(session.session.session)
-                })
-
                 Object.assign(newSession.session, {
                     that: that,
                     newSession: newSession,
@@ -348,7 +344,7 @@ module.exports = {
 
                         that.extensionInUse--
 
-                        that.devOps.extendsDone++
+                        that.stats.extendsDone++
 
                         that.stats.extendsRemoved++
                     }
@@ -358,7 +354,7 @@ module.exports = {
                     this.that.sessions.splice(this.ix, 1)
                     that.stats.remoteDisconnects++
                     that.extensionInUse--
-                    that.extendsRemoved++
+                    that.stats.extendsRemoved++
                 })
 
                 that.hidePropsInObject(newSession)
@@ -436,7 +432,7 @@ module.exports = {
                 }
 
                 // can we extend?
-                if (that.extension > 0 && that.extension - that.extensionInUse > 0) {
+                if (that.extension > 0 && (that.extension - that.extensionInUse) > 0) {
                     that.timerTick = true
 
                     clearTimeout(hTimeout)
@@ -489,7 +485,7 @@ module.exports = {
 
                             that.extensionInUse--
 
-                            that.devOps.extendsDone++
+                            that.stats.extendsDone++
 
                             that.stats.extendsRemoved++
                         }
@@ -500,7 +496,7 @@ module.exports = {
                         that.stats.remoteDisconnects++
                         that.emit('remoteDisconnects')
                         that.extensionInUse--
-                        that.extendsRemoved++
+                        that.stats.extendsRemoved++
                     })
 
                     that.hidePropsInObject(newSession)
@@ -537,21 +533,21 @@ module.exports = {
     },
 
     resetStats: function (that) {
-        that.devOps.sessionsCreatedOk = 0
-        that.devOps.sessionsCreatedInError = 0
-        that.devOps.sessionsPeak = 0
-        that.devOps.sessionsDone = 0
+        that.stats.sessionsCreatedOk = 0
+        that.stats.sessionsCreatedInError = 0
+        that.stats.sessionsPeak = 0
+        that.stats.sessionsDone = 0
 
-        that.devOps.extendsCreatedOk = 0
-        that.devOps.extendsCreatedInError = 0
-        that.devOps.extendsRemoved = 0
-        that.devOps.extendsPeak = 0
-        that.devOps.extendsDone = 0
+        that.stats.extendsCreatedOk = 0
+        that.stats.extendsCreatedInError = 0
+        that.stats.extendsRemoved = 0
+        that.stats.extendsPeak = 0
+        that.stats.extendsDone = 0
 
-        that.devOps.noMoreSlotsHits = 0
-        that.devOps.noMoreSlotsHitsResolved = 0
-        that.devOps.timeoutExpired = 0
-        that.devOps.remoteDisconnects = 0
+        that.stats.noMoreSlotsHits = 0
+        that.stats.noMoreSlotsHitsResolved = 0
+        that.stats.timeoutExpired = 0
+        that.stats.remoteDisconnects = 0
     },
 
     devOps: {

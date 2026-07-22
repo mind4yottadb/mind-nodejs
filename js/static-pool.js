@@ -469,10 +469,6 @@ module.exports = {
                     const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === true)
                     if (sessionsInUse.length > that.stats.extendsPeak) that.stats.extendsPeak = sessionsInUse.length
 
-                    that.sessions.forEach(session => {
-                        //console.log(session.session.session)
-                    })
-
                     Object.assign(newSession.session, {
                         that: that,
                         newSession: newSession,

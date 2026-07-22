@@ -26,18 +26,18 @@ module.exports = {
     },
     params: {
         pool: {
-            size: 80,
+            size: 128,
             extension: 30
         },
         singleShot: false,
         singleShotTimeout: 15,      // seconds
-        mainLoopThreads: 700,
+        mainLoopThreads: 1200,
         mainLoopDelay: 3,           // minutes
         session: {
-            initDelay: 30,          // ms
+            initDelay: 50,          // ms
             bustsSize: {
-                min: 2,
-                max: 50
+                min: 20,
+                max: 80
             },
             distance: {             // is seconds
                 min: 1,

@@ -329,8 +329,6 @@ module.exports = {
 
                 that.stats.extendsCreatedOk++
 
-                console.log('extend')
-
                 const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === true)
                 if (sessionsInUse.length > that.stats.extendsPeak) that.stats.extendsPeak = sessionsInUse.length
 

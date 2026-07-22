@@ -128,6 +128,10 @@ module.exports = {
                             that.#socket = net.createConnection(port, host, async () => {
                                 socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
                             })
+                            that.#socket.on('error', function (err) {
+                                // on error
+                                reject(err)
+                            });
 
                         } catch (err) {
                             reject(err)
@@ -141,6 +145,10 @@ module.exports = {
                             that.#socket = net.createConnection(host, async () => {
                                 socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
                             })
+                            that.#socket.on('error', function (err) {
+                                // on error
+                                reject(err)
+                            });
 
                         } catch (err) {
                             reject(err)

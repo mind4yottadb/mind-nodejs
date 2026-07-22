@@ -36,8 +36,9 @@ class Burst {
 
                 await command.command.exec(mindSession)
                 await mindSession.done()
+
             } catch (err) {
-                console.error(err.message)
+                console.log('error is:' + err)
             }
 
             const delay = utils.getRandom(utils.params.burst.separation.min, utils.params.burst.separation.max)

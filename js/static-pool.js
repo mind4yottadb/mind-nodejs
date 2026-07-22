@@ -313,7 +313,7 @@ module.exports = {
                 } catch (err) {
                     that.stats.extendsCreatedInError++
 
-                    reject(err.message)
+                    reject(err)
 
                     return
                 }
@@ -448,7 +448,7 @@ module.exports = {
                     } catch (err) {
                         that.stats.extendsCreatedInError++
 
-                        reject(err.message)
+                        reject(err)
 
                         return
                     }
@@ -620,7 +620,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         },
@@ -643,7 +643,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         },
@@ -666,7 +666,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         },
@@ -689,7 +689,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         },
@@ -712,7 +712,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         },
@@ -735,7 +735,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         },
@@ -758,7 +758,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         }

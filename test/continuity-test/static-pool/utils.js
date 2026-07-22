@@ -27,11 +27,11 @@ module.exports = {
     params: {
         pool: {
             size: 80,
-            extension: 600
+            extension: 20
         },
         singleShot: false,
         singleShotTimeout: 15,      // seconds
-        mainLoopThreads: 800,
+        mainLoopThreads: 1000,
         mainLoopDelay: 3,           // minutes
         session: {
             initDelay: 30,          // ms

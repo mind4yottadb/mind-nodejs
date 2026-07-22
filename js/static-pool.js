@@ -9,8 +9,9 @@
 #   the license, please stop and do not read further.           #
 #                                                               #
 ###############################################################*/
-const errors = require("./errors");
-const {size} = require("lodash");
+const errors = require("./errors")
+const {size} = require("lodash")
+const utils = require("./utils")
 
 const noMoreHitsTimeout = 30
 
@@ -284,7 +285,7 @@ module.exports = {
                     that: that,
                     ix: freeSlotIx,
                     done: function () {
-                        that.devOps.sessionsDone++
+                        that.stats.sessionsDone++
 
                         that.sessions[this.ix].inUse = false
                     }
@@ -327,6 +328,8 @@ module.exports = {
                 that.sessions.push(newSession)
 
                 that.stats.extendsCreatedOk++
+
+                console.log('extend')
 
                 const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === true)
                 if (sessionsInUse.length > that.stats.extendsPeak) that.stats.extendsPeak = sessionsInUse.length
@@ -409,7 +412,7 @@ module.exports = {
                         ix: freeSlotIx,
                         done: function () {
 
-                            that.devOps.sessionsDone++
+                            that.stats.sessionsDone++
 
                             that.sessions[this.ix].inUse = false
                         }
@@ -509,7 +512,7 @@ module.exports = {
         })
     },
 
-    getStatus: function (that) {
+    getStatus: function (that, formatNumbers) {
         const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === false)
         const sessionsExtended = that.sessions.filter(session => session.isExtension === true && session.inUse === true)
         const sessionsTotal = that.sessions.length
@@ -528,7 +531,23 @@ module.exports = {
             sessionsTotal: sessionsTotal,
             sessionsExtendedInUse: sessionsExtended.length,
             sessionsInUse: sessionsInUse.length,
-            stats: that.stats
+            stats: formatNumbers === false
+                ? that.stats
+                : {
+                    sessionsCreatedOk: utils.formatNumber(that.stats.sessionsCreatedOk),
+                    sessionsCreatedInError: utils.formatNumber(that.stats.sessionsCreatedInError),
+                    sessionsPeak: utils.formatNumber(that.stats.sessionsPeak),
+                    sessionsDone: utils.formatNumber(that.stats.sessionsDone),
+                    extendsCreatedOk: utils.formatNumber(that.stats.extendsCreatedOk),
+                    extendsCreatedInError: utils.formatNumber(that.stats.extendsCreatedInError),
+                    extendsRemoved: utils.formatNumber(that.stats.extendsRemoved),
+                    extendsPeak: utils.formatNumber(that.stats.extendsPeak),
+                    extendsDone: utils.formatNumber(that.stats.extendsDone),
+                    noMoreSlotsHits: utils.formatNumber(that.stats.noMoreSlotsHits),
+                    noMoreSlotsHitsResolved: utils.formatNumber(that.stats.noMoreSlotsHitsResolved),
+                    timeoutExpired: utils.formatNumber(that.stats.timeoutExpired),
+                    remoteDisconnects: utils.formatNumber(that.stats.remoteDisconnects),
+                }
         }
     },
 

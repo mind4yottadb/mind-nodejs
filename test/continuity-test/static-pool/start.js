@@ -37,7 +37,7 @@ process.on('SIGINT', () => {
     console.log('\nParameters:')
     console.log(utils.params)
     console.log('\nStatus:')
-    console.log(pool.pool.getStatus())
+    console.log(pool.pool.getStatus(true))
 
     process.exit(0)
 })
@@ -66,7 +66,7 @@ const start = async (params = {}) => {
             const nowFormatted = now.toTimeString().split(' ')[0]
             const sessionsPerSec = (status.stats.sessionsCreatedOk - previousSessions) / (60 * utils.params.dumpTotalsDelay)
             previousSessions = status.stats.sessionsCreatedOk
-            console.log(nowFormatted + ':', status.stats.sessionsCreatedOk, '/', status.stats.extendsCreatedOk, '  Sessions / sec: ', sessionsPerSec)
+            console.log(nowFormatted + ':', status.stats.sessionsCreatedOk.toLocaleString().replaceAll('.', ','), '/', status.stats.extendsCreatedOk.toLocaleString().replaceAll('.', ','), '  Sessions / sec: ', sessionsPerSec.toFixed(2))
 
         }, 60000 * utils.params.dumpTotalsDelay)
     }

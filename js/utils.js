@@ -163,4 +163,12 @@ module.exports = {
             }
         })
     },
+
+    formatNumber: num => {
+        return num.toLocaleString().replaceAll('.', ',')
+    },
+
+    formatDecimals: (num, decimals = 2) => {
+        return num.toFixed(decimals)
+    }
 }

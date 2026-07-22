@@ -550,8 +550,8 @@ module.exports = {
             return await staticPool.getSession(this, module, timeout)
         }
 
-        getStatus = function () {
-            return staticPool.getStatus(this)
+        getStatus = function (formatNumbers = false) {
+            return staticPool.getStatus(this, formatNumbers)
         }
 
         resetStats = function () {

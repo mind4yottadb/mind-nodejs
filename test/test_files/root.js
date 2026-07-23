@@ -12,6 +12,12 @@
 
 const mind = require("../../js")
 
+const os = require('node:os')
+const child_process = require('node:child_process')
+const fs = require('node:fs')
+const fsPromises = require('node:fs/promises')
+const process = require('node:process')
+
 const {expect} = require("chai");
 const {createYdbInstance} = require("../utils.cjs");
 const {exit} = require("node:process");
@@ -837,3 +843,40 @@ describe("TLS", async () => {
 })
 
  */
+
+describe("version number increased", async () => {
+    it("compare package.json to main branch", async () => {
+        const tmpDir = os.tmpdir()
+        console.log('Temp dir is: ' + tmpDir)
+
+        // **************************
+        // REMOTE FIRST
+        // **************************
+
+        // remove the eventual previous version
+        fsPromises.rm(tmpDir + '/mind-nodejs', {recursive: true, force: true})
+
+        // fetch the repo at main
+        child_process.execSync('cd ' + tmpDir + ' && git clone --single-branch -b main https://github.com/mind4yottadb/mind-nodejs.git')
+
+        // and read the package
+        const packageFile = JSON.parse(fs.readFileSync(tmpDir + '/mind-nodejs/package.json').toString())
+
+        // **************************
+        // NOW LOCAL
+        // **************************
+
+        // now read the local version
+        const cwd = process.cwd()
+
+        // and read the package
+        const localPackageFile = JSON.parse(fs.readFileSync(cwd + '/package.json').toString())
+        console.log(localPackageFile.version + ' >>> ' + packageFile.version)
+
+        // COMPARE
+        expect(localPackageFile.version > packageFile.version).to.be.true
+
+        // remove the eventual previous version
+        fsPromises.rm(tmpDir + '/mind-nodejs', {recursive: true, force: true})
+    })
+})

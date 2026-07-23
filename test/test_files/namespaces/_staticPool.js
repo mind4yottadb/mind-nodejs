@@ -27,7 +27,7 @@ describe("_staticPool.", async () => {
         ydb.db.globals.addName('_mindSessions')
 
         const val = await ydb.db.globals._mindSessions._('pools', pool.guid, "pids").findNext()
-        expect(typeof val).to.have.string('number')
+        expect(typeof val).to.have.string('string')
 
         pool.destroy()
 

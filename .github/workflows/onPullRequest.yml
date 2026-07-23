@@ -12,6 +12,10 @@
 
 name: node.js test
 
+# this action builds and run a test server (with test files)
+# runs it
+# then run the tests out of the checkout of the commits
+
 on:
   pull_request:
     branches: [ "main" ]

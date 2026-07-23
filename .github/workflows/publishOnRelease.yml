@@ -11,6 +11,9 @@
 #################################################################
 
 name: Publish Package to npmjs
+
+# this action publishes a new npm package on release creation
+
 on:
   release:
     types: [ published ]

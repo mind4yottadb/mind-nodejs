@@ -29,7 +29,7 @@ const login = require('./login')
 const utils = require('./utils')
 const errors = require("./errors");
 
-const requiredMind = '0.29.0'         // required server version
+const requiredMind = '0.30.0'         // required server version
 
 module.exports = {
     session: class mind extends EventEmitter {
@@ -128,6 +128,10 @@ module.exports = {
                             that.#socket = net.createConnection(port, host, async () => {
                                 socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
                             })
+                            that.#socket.on('error', function (err) {
+                                // on error
+                                reject(err)
+                            });
 
                         } catch (err) {
                             reject(err)
@@ -141,6 +145,10 @@ module.exports = {
                             that.#socket = net.createConnection(host, async () => {
                                 socketInit(that, that.#socket, that.#writePacket, that.#readPacket, resolve, reject, username, password, options)
                             })
+                            that.#socket.on('error', function (err) {
+                                // on error
+                                reject(err)
+                            });
 
                         } catch (err) {
                             reject(err)
@@ -257,25 +265,7 @@ module.exports = {
     // ********************************
     // static pool
     // ********************************
-    staticPool: class StaticPool {
-        stats = {
-            sessionsCreatedOk: 0,           // how many sessions were created
-            sessionsCreatedInError: 0,      // how many session got error on creation
-            sessionsPeak: 0,                 // the maximum number of sessions used in the pool
-
-            extendsCreatedOk: 0,            // how many extends got created
-            extendsCreatedInError: 0,       // how many extends got error on creation
-            extendsRemoved: 0,              // how many extends got removed
-            extendsPeak: 0,                 // the maximum number of extensions used in the pool
-
-            noMoreSlotsHits: 0,             // how many times no more slots were available and the getSession() had to wait
-            noMoreSlotsHitsResolved: 0,     // how many sessions got successfully released when pool is fully busy
-            timeoutExpired: 0,              // how many times a timeout expired while getting a session
-            remoteDisconnects: 0,           // how many sessions got remotely disconnected
-
-
-        }
-
+    staticPool: class StaticPool extends EventEmitter {
         size = 0                    // size (in sessions)
         extension = 0               // extension size (in sessions)
         extensionInUse = 0          // how many extension sessions are currently in use
@@ -287,6 +277,23 @@ module.exports = {
         options = {}                     // credentials to connect extensions
         timerTick = false           // internal timer
         guid = ''                    // the guid for the pool
+        stats = {
+            sessionsCreatedOk: 0,           // how many sessions were created
+            sessionsCreatedInError: 0,      // how many session got error on creation
+            sessionsPeak: 0,                // the maximum number of sessions used in the pool
+            sessionsDone: 0,                 // the number of sessions that were terminated with done()
+
+            extendsCreatedOk: 0,            // how many extends got created
+            extendsCreatedInError: 0,       // how many extends got error on creation
+            extendsRemoved: 0,              // how many extends got removed
+            extendsPeak: 0,                 // the maximum number of extensions used in the pool
+            extendsDone: 0,                 // the number of extended sessions that were terminated with done()
+
+            noMoreSlotsHits: 0,             // how many times no more slots were available and the getSession() had to wait
+            noMoreSlotsHitsResolved: 0,     // how many sessions got successfully released when pool is fully busy
+            timeoutExpired: 0,              // how many times a timeout expired while getting a session
+            remoteDisconnects: 0,           // how many sessions got remotely disconnected
+        }
 
         devOps = {
             session: {},
@@ -329,6 +336,7 @@ module.exports = {
         }
 
         constructor(size, extension = 0, credentials = {}) {
+            super();
             if (typeof size === 'undefined') {
                 throw new Error(errors.PARAM_MISSING + 'Missing pool size')
             }
@@ -550,8 +558,12 @@ module.exports = {
             return await staticPool.getSession(this, module, timeout)
         }
 
-        getStatus = function () {
-            return staticPool.getStatus(this)
+        getStatus = function (formatNumbers = false) {
+            return staticPool.getStatus(this, formatNumbers)
+        }
+
+        resetStats = function () {
+            staticPool.resetStats(this)
         }
 
         changeSize = async function (newSize) {

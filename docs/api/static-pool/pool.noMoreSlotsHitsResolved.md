@@ -12,7 +12,7 @@
 ###############################################################*/
 -->
 
-# pool.ERROR_DUMP_FULL
+# pool.noMoreSlotsHitsResolved
 
 ---
 

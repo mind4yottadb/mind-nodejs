@@ -1,7 +1,7 @@
 {
     "name": "mind4yottadb",
-    "version": "0.17.0",
-    "description": "MIND4YOTTADB node.js driver ",
+    "version": "0.19.0",
+    "description": "node.js driver for MIND for YottaDB Server",
     "main": "js/index.js",
     "type": "commonjs",
     "scripts": {

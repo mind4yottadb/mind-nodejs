@@ -9,10 +9,11 @@
 #   the license, please stop and do not read further.           #
 #                                                               #
 ###############################################################*/
-const errors = require("./errors");
-const {size} = require("lodash");
+const errors = require("./errors")
+const {size} = require("lodash")
+const utils = require("./utils")
 
-const noMoreHitsTimeout = 0
+const noMoreHitsTimeout = 30
 
 module.exports = {
     create: async function (that, classModule, host, port, username, password, options) {
@@ -284,6 +285,8 @@ module.exports = {
                     that: that,
                     ix: freeSlotIx,
                     done: function () {
+                        that.stats.sessionsDone++
+
                         that.sessions[this.ix].inUse = false
                     }
                 })
@@ -301,7 +304,7 @@ module.exports = {
             }
 
             // can we extend?
-            if (that.extension > 0 && that.extension - that.extensionInUse > 0) {
+            if (that.extension > 0 && (that.extension - that.extensionInUse) > 0) {
                 const session = new classModule.exports.session
 
                 try {
@@ -310,7 +313,7 @@ module.exports = {
                 } catch (err) {
                     that.stats.extendsCreatedInError++
 
-                    reject(err.message)
+                    reject(err)
 
                     return
                 }
@@ -329,10 +332,6 @@ module.exports = {
                 const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === true)
                 if (sessionsInUse.length > that.stats.extendsPeak) that.stats.extendsPeak = sessionsInUse.length
 
-                that.sessions.forEach(session => {
-                    //console.log(session.session.session)
-                })
-
                 Object.assign(newSession.session, {
                     that: that,
                     newSession: newSession,
@@ -346,6 +345,8 @@ module.exports = {
 
                         that.extensionInUse--
 
+                        that.stats.extendsDone++
+
                         that.stats.extendsRemoved++
                     }
                 })
@@ -354,7 +355,7 @@ module.exports = {
                     this.that.sessions.splice(this.ix, 1)
                     that.stats.remoteDisconnects++
                     that.extensionInUse--
-                    that.extendsRemoved++
+                    that.stats.extendsRemoved++
                 })
 
                 that.hidePropsInObject(newSession)
@@ -367,6 +368,7 @@ module.exports = {
             }
 
             that.stats.noMoreSlotsHits++
+            that.emit('noMoreSlotsHits')
 
             that.timerTick -= false
 
@@ -376,6 +378,7 @@ module.exports = {
                 // setup main timer
                 hTimeout = setTimeout(async () => {
                     that.stats.timeoutExpired++
+                    that.emit('timeoutExpired')
 
                     reject(new Error(errors.TIMEOUT_OCCURRED + 'timeout expired while trying to get a session'))
 
@@ -406,6 +409,9 @@ module.exports = {
                         that: that,
                         ix: freeSlotIx,
                         done: function () {
+
+                            that.stats.sessionsDone++
+
                             that.sessions[this.ix].inUse = false
                         }
                     })
@@ -416,6 +422,7 @@ module.exports = {
 
                     that.stats.sessionsCreatedOk++
                     that.stats.noMoreSlotsHitsResolved++
+                    that.emit('noMoreSlotsHitsResolved')
 
                     const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === false)
                     if (sessionsInUse.length > that.stats.sessionsPeak) that.stats.sessionsPeak = sessionsInUse.length
@@ -426,7 +433,7 @@ module.exports = {
                 }
 
                 // can we extend?
-                if (that.extension > 0 && that.extension - that.extensionInUse > 0) {
+                if (that.extension > 0 && (that.extension - that.extensionInUse) > 0) {
                     that.timerTick = true
 
                     clearTimeout(hTimeout)
@@ -441,7 +448,7 @@ module.exports = {
                     } catch (err) {
                         that.stats.extendsCreatedInError++
 
-                        reject(err.message)
+                        reject(err)
 
                         return
                     }
@@ -457,13 +464,10 @@ module.exports = {
 
                     that.stats.extendsCreatedOk++
                     that.stats.noMoreSlotsHitsResolved++
+                    that.eimt('noMoreSlotsHitsResolved')
 
                     const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === true)
                     if (sessionsInUse.length > that.stats.extendsPeak) that.stats.extendsPeak = sessionsInUse.length
-
-                    that.sessions.forEach(session => {
-                        //console.log(session.session.session)
-                    })
 
                     Object.assign(newSession.session, {
                         that: that,
@@ -478,6 +482,8 @@ module.exports = {
 
                             that.extensionInUse--
 
+                            that.stats.extendsDone++
+
                             that.stats.extendsRemoved++
                         }
                     })
@@ -485,8 +491,9 @@ module.exports = {
                     session.on('disconnect', function () {
                         this.that.sessions.splice(this.ix, 1)
                         that.stats.remoteDisconnects++
+                        that.emit('remoteDisconnects')
                         that.extensionInUse--
-                        that.extendsRemoved++
+                        that.stats.extendsRemoved++
                     })
 
                     that.hidePropsInObject(newSession)
@@ -499,7 +506,7 @@ module.exports = {
         })
     },
 
-    getStatus: function (that) {
+    getStatus: function (that, formatNumbers) {
         const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === false)
         const sessionsExtended = that.sessions.filter(session => session.isExtension === true && session.inUse === true)
         const sessionsTotal = that.sessions.length
@@ -518,8 +525,42 @@ module.exports = {
             sessionsTotal: sessionsTotal,
             sessionsExtendedInUse: sessionsExtended.length,
             sessionsInUse: sessionsInUse.length,
-            stats: that.stats
+            stats: formatNumbers === false
+                ? that.stats
+                : {
+                    sessionsCreatedOk: utils.formatNumber(that.stats.sessionsCreatedOk),
+                    sessionsCreatedInError: utils.formatNumber(that.stats.sessionsCreatedInError),
+                    sessionsPeak: utils.formatNumber(that.stats.sessionsPeak),
+                    sessionsDone: utils.formatNumber(that.stats.sessionsDone),
+                    extendsCreatedOk: utils.formatNumber(that.stats.extendsCreatedOk),
+                    extendsCreatedInError: utils.formatNumber(that.stats.extendsCreatedInError),
+                    extendsRemoved: utils.formatNumber(that.stats.extendsRemoved),
+                    extendsPeak: utils.formatNumber(that.stats.extendsPeak),
+                    extendsDone: utils.formatNumber(that.stats.extendsDone),
+                    noMoreSlotsHits: utils.formatNumber(that.stats.noMoreSlotsHits),
+                    noMoreSlotsHitsResolved: utils.formatNumber(that.stats.noMoreSlotsHitsResolved),
+                    timeoutExpired: utils.formatNumber(that.stats.timeoutExpired),
+                    remoteDisconnects: utils.formatNumber(that.stats.remoteDisconnects),
+                }
         }
+    },
+
+    resetStats: function (that) {
+        that.stats.sessionsCreatedOk = 0
+        that.stats.sessionsCreatedInError = 0
+        that.stats.sessionsPeak = 0
+        that.stats.sessionsDone = 0
+
+        that.stats.extendsCreatedOk = 0
+        that.stats.extendsCreatedInError = 0
+        that.stats.extendsRemoved = 0
+        that.stats.extendsPeak = 0
+        that.stats.extendsDone = 0
+
+        that.stats.noMoreSlotsHits = 0
+        that.stats.noMoreSlotsHitsResolved = 0
+        that.stats.timeoutExpired = 0
+        that.stats.remoteDisconnects = 0
     },
 
     devOps: {
@@ -579,7 +620,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         },
@@ -602,7 +643,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         },
@@ -625,7 +666,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         },
@@ -648,7 +689,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         },
@@ -671,7 +712,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         },
@@ -694,7 +735,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         },
@@ -717,7 +758,7 @@ module.exports = {
                     } catch (err) {
                     }
 
-                    reject(err.message)
+                    reject(err)
                 }
             })
         }

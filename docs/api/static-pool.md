@@ -27,6 +27,7 @@ This class gives you full access to the static pool.
 - [rundown()](api/stdatic-pool/pool.rundown.md)
 - [getSession()](api/stdatic-pool/pool.getSession.md)
 - [getStatus()](api/stdatic-pool/pool.getStatus.md)
+- [resetStats()](api/stdatic-pool/pool.resetStats.md)
 - [changeSize()](api/stdatic-pool/pool.changeSize.md)
 - [changeExtension()](api/stdatic-pool/pool.changeExtension.md)
 - devOps
@@ -60,3 +61,7 @@ This class gives you full access to the static pool.
 
 ---
 
+### Events:
+
+- [.on('noMoreSlotsHits')](api/static-pool/pool.noMoreSlotsHits.md)
+- [.on('noMoreSlotsHitsResolved')](api/static-pool/pool.noMoreSlotsHitsResolved.md)

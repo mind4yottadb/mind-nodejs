@@ -12,6 +12,12 @@
 
 const mind = require("../../js")
 
+const os = require('node:os')
+const child_process = require('node:child_process')
+const fs = require('node:fs')
+const fsPromises = require('node:fs/promises')
+const process = require('node:process')
+
 const {expect} = require("chai");
 const {createYdbInstance} = require("../utils.cjs");
 const {exit} = require("node:process");
@@ -796,7 +802,6 @@ describe("connect()", async () => {
 
             ydb.disconnect()
         });
-
     })
 })
 
@@ -815,9 +820,162 @@ describe("structure after connect()", async () => {
         expect(typeof ydb.db.vars === 'object').to.be.true
         expect(typeof ydb.db.globals === 'object').to.be.true
         expect(typeof ydb.dbms === 'object').to.be.true
+        expect(typeof ydb._staticPool === 'object').to.be.true
+
 
         ydb.disconnect()
     })
+
+    it("verify hidden objects in root", async () => {
+        const ydb = await createYdbInstance()
+
+        const newYdb = JSON.parse(JSON.stringify(ydb))
+
+        expect(newYdb.connected).to.be.true
+        expect(newYdb.loggedIn).to.be.true
+        expect(newYdb.requiresMind !== undefined).to.be.true
+        expect(typeof newYdb.server === 'object').to.be.true
+        expect(typeof newYdb.process === 'object').to.be.true
+        expect(typeof newYdb.fs === 'object').to.be.true
+        expect(typeof newYdb.RESP3 === 'undefined').to.be.true
+        expect(typeof newYdb.db === 'object').to.be.true
+        expect(typeof newYdb.db.vars === 'object').to.be.true
+        expect(typeof newYdb.db.globals === 'object').to.be.true
+        expect(typeof newYdb.dbms === 'object').to.be.true
+        expect(typeof newYdb._staticPool).to.have.string('undefined')
+
+        ydb.disconnect()
+    })
+
+    it("verify hidden objects in fs", async () => {
+        const ydb = await createYdbInstance()
+
+        expect(typeof ydb.fs.objRoot).to.have.string('object')
+        expect(typeof ydb.fs.writer).to.have.string('function')
+        expect(typeof ydb.fs.reader).to.have.string('function')
+
+        const newInstance = JSON.parse(JSON.stringify(ydb.fs))
+
+        expect(typeof newInstance.objRoot).to.have.string('undefined')
+        expect(typeof newInstance.writer).to.have.string('undefined')
+        expect(typeof newInstance.reader).to.have.string('undefined')
+
+        ydb.disconnect()
+    })
+
+    it("verify hidden objects in process", async () => {
+        const ydb = await createYdbInstance()
+
+        expect(typeof ydb.process.objRoot).to.have.string('object')
+        expect(typeof ydb.process.writer).to.have.string('function')
+        expect(typeof ydb.process.reader).to.have.string('function')
+
+        const newInstance = JSON.parse(JSON.stringify(ydb.process))
+
+        expect(typeof newInstance.objRoot).to.have.string('undefined')
+        expect(typeof newInstance.writer).to.have.string('undefined')
+        expect(typeof newInstance.reader).to.have.string('undefined')
+
+        ydb.disconnect()
+    })
+
+    it("verify hidden objects in server", async () => {
+        const ydb = await createYdbInstance()
+
+        expect(typeof ydb.server.objRoot).to.have.string('object')
+        expect(typeof ydb.server.writer).to.have.string('function')
+        expect(typeof ydb.server.reader).to.have.string('function')
+
+        const newInstance = JSON.parse(JSON.stringify(ydb.server))
+
+        expect(typeof newInstance.objRoot).to.have.string('undefined')
+        expect(typeof newInstance.writer).to.have.string('undefined')
+        expect(typeof newInstance.reader).to.have.string('undefined')
+
+        ydb.disconnect()
+    })
+
+    it("verify hidden objects in session", async () => {
+        const ydb = await createYdbInstance()
+
+        expect(typeof ydb.session.objRoot).to.have.string('object')
+        expect(typeof ydb.session.writer).to.have.string('function')
+        expect(typeof ydb.session.reader).to.have.string('function')
+
+        const newInstance = JSON.parse(JSON.stringify(ydb.session))
+
+        expect(typeof newInstance.objRoot).to.have.string('undefined')
+        expect(typeof newInstance.writer).to.have.string('undefined')
+        expect(typeof newInstance.reader).to.have.string('undefined')
+
+        ydb.disconnect()
+    })
+
+    it("verify hidden objects in db", async () => {
+        const ydb = await createYdbInstance()
+
+        expect(typeof ydb.db.objRoot).to.have.string('object')
+        expect(typeof ydb.db.writer).to.have.string('function')
+        expect(typeof ydb.db.reader).to.have.string('function')
+
+        const newInstance = JSON.parse(JSON.stringify(ydb.db))
+
+        expect(typeof newInstance.objRoot).to.have.string('undefined')
+        expect(typeof newInstance.writer).to.have.string('undefined')
+        expect(typeof newInstance.reader).to.have.string('undefined')
+
+        ydb.disconnect()
+    })
+
+    it("verify hidden objects in db.vars", async () => {
+        const ydb = await createYdbInstance()
+
+        expect(typeof ydb.db.vars.objRoot).to.have.string('object')
+        expect(typeof ydb.db.vars.writer).to.have.string('function')
+        expect(typeof ydb.db.vars.reader).to.have.string('function')
+
+        const newInstance = JSON.parse(JSON.stringify(ydb.db.vars))
+
+        expect(typeof newInstance.objRoot).to.have.string('undefined')
+        expect(typeof newInstance.writer).to.have.string('undefined')
+        expect(typeof newInstance.reader).to.have.string('undefined')
+
+        ydb.disconnect()
+    })
+
+    it("verify hidden objects in db.globals", async () => {
+        const ydb = await createYdbInstance()
+
+        expect(typeof ydb.db.globals.objRoot).to.have.string('object')
+        expect(typeof ydb.db.globals.writer).to.have.string('function')
+        expect(typeof ydb.db.globals.reader).to.have.string('function')
+
+        const newInstance = JSON.parse(JSON.stringify(ydb.db.globals))
+
+        expect(typeof newInstance.objRoot).to.have.string('undefined')
+        expect(typeof newInstance.writer).to.have.string('undefined')
+        expect(typeof newInstance.reader).to.have.string('undefined')
+
+        ydb.disconnect()
+    })
+
+    it("verify hidden objects in _staticPool", async () => {
+        const ydb = await createYdbInstance()
+
+        expect(typeof ydb._staticPool.objRoot).to.have.string('object')
+        expect(typeof ydb._staticPool.writer).to.have.string('function')
+        expect(typeof ydb._staticPool.reader).to.have.string('function')
+
+        const newInstance = JSON.parse(JSON.stringify(ydb._staticPool))
+
+        expect(typeof newInstance.objRoot).to.have.string('undefined')
+        expect(typeof newInstance.writer).to.have.string('undefined')
+        expect(typeof newInstance.reader).to.have.string('undefined')
+
+        ydb.disconnect()
+    })
+
+
 })
 
 /*
@@ -837,3 +995,40 @@ describe("TLS", async () => {
 })
 
  */
+
+describe("version number increased", async () => {
+    it("compare package.json to main branch", async () => {
+        const tmpDir = os.tmpdir()
+        console.log('Temp dir is: ' + tmpDir)
+
+        // **************************
+        // REMOTE FIRST
+        // **************************
+
+        // remove the eventual previous version
+        await fsPromises.rm(tmpDir + '/mind-nodejs', {recursive: true, force: true})
+
+        // fetch the repo at main
+        child_process.execSync('cd ' + tmpDir + ' && git clone --single-branch -b main https://github.com/mind4yottadb/mind-nodejs.git')
+
+        // and read the package
+        const packageFile = JSON.parse(fs.readFileSync(tmpDir + '/mind-nodejs/package.json').toString())
+
+        // **************************
+        // NOW LOCAL
+        // **************************
+
+        // now read the local version
+        const cwd = process.cwd()
+
+        // and read the package
+        const localPackageFile = JSON.parse(fs.readFileSync(cwd + '/package.json').toString())
+        console.log(localPackageFile.version + ' >>> ' + packageFile.version)
+
+        // COMPARE
+        expect(localPackageFile.version > packageFile.version).to.be.true
+
+        // remove the eventual previous version
+        fsPromises.rm(tmpDir + '/mind-nodejs', {recursive: true, force: true})
+    })
+})

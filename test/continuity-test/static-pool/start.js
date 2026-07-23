@@ -13,10 +13,12 @@
 const pool = require('./pool')
 const Session = require('./session')
 const utils = require('./utils')
+const {formatNumber} = require('../../../js/utils')
 
 const process = require('process')
 
 let startTime
+let lastSessionsPerSec = 0
 
 process.on('SIGINT', () => {
     const endTime = Date.now()
@@ -30,41 +32,75 @@ process.on('SIGINT', () => {
     const duration = utils.dumpTime(diff)
     const startTimeAsDate = new Date(startTime)
     const endTimeAsDate = new Date(endTime)
+    const status = (pool.pool.getStatus(true))
+
+    status.stats.sessionsPerSec = formatNumber(lastSessionsPerSec)
 
     console.log('Start time:\t\t\t' + startTimeAsDate.toTimeString())
     console.log('End time:\t\t\t' + endTimeAsDate.toTimeString())
     console.log('Duration:\t\t\t' + duration)
     console.log('\nParameters:')
     console.log(utils.params)
-    console.log('\nStatus:')
-    console.log(pool.pool.getStatus())
 
+    console.log('\nStatus:')
+    console.log(status)
     process.exit(0)
 })
 
-const start = async () => {
+const start = async (params = {}) => {
+    // merge incoming params
+    utils.params = {...utils.params, ...params}
+
     await pool.init(utils.params.pool.size, utils.params.pool.extension)
     startTime = Date.now()
 
+    pool.pool.on('noMoreSlotsHits', () => {
+        console.log('noMoreSlotsHits')
+    })
+
+    pool.pool.on('noMoreSlotsHitsResolved', () => {
+        console.log('noMoreSlotsHitsResolved')
+    })
+
+    let previousSessions = 0
     if (utils.params.dumpTotals === true) {
         setInterval(async () => {
             const status = pool.pool.getStatus()
 
             const now = new Date()
             const nowFormatted = now.toTimeString().split(' ')[0]
-            console.log(nowFormatted + ':', status.stats.sessionsCreatedOk, '/', status.stats.extendsCreatedOk)
+            lastSessionsPerSec = (status.stats.sessionsCreatedOk - previousSessions) / (60 * utils.params.dumpTotalsDelay)
+            previousSessions = status.stats.sessionsCreatedOk
+            console.log(nowFormatted + ':', status.stats.sessionsCreatedOk.toLocaleString().replaceAll('.', ','), '/', status.stats.extendsCreatedOk.toLocaleString().replaceAll('.', ','), '  Sessions / sec: ', lastSessionsPerSec.toFixed(2))
 
         }, 60000 * utils.params.dumpTotalsDelay)
     }
 
-    while (true) {
-        for (let i = 0; i < utils.params.mainLoopThreads; i++) {
-            const session = new Session()
-            session.run()
-        }
+    if (utils.params.singleShot === false) {
+        while (true) {
+            _singleShot()
 
-        await utils.sleep(60000 * 4)
+            await utils.sleep(60000 * utils.params.mainLoopDelay)
+        }
+    } else {
+        _singleShot()
+
+        await utils.sleep(1000 * utils.params.singleShotTimeout)
+
+        console.log(pool.pool.getStatus())
+
+        process.exit()
     }
 }
 
-start()
+const _singleShot = async function (params = {}) {
+    for (let i = 0; i < utils.params.mainLoopThreads; i++) {
+        const session = new Session()
+        session.run()
+        await utils.sleep(utils.params.session.initDelay)
+    }
+}
+
+start({})
+
+module.exports.start = start

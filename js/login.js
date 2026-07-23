@@ -14,15 +14,20 @@ const uapi = require("./uapi")
 const fs = require("fs");
 const errors = require("./errors");
 
-const driverName = 'mind4yottadb.js'
-const driverDescription = 'MIND for YottaDB node.js driver'
+let driverName
+let driverDescription
 let driverVersion
 
 try {
-    driverVersion = JSON.parse(fs.readFileSync(__dirname.substring(0, __dirname.lastIndexOf('\\')) + '/package.json', 'utf8')).version
+    pack = JSON.parse(fs.readFileSync(__dirname.substring(0, __dirname.lastIndexOf('\\')) + '/package.json', 'utf8'))
+    driverVersion = pack.version
+    driverDescription = pack.description
+    driverName = pack.name
 
 } catch (err) {
     driverVersion = "test-mode"
+    driverDescription = "test-mode"
+    driverName = "test-mode"
 }
 
 module.exports = async function (that, writer, reader, resolve, reject, username, password, options) {
@@ -144,11 +149,15 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         that.db.globals._init(that.db.globals)
         that.db.vars._init(that.db.vars)
 
-        // make RESP3 not enumerable
+        // make RESP3 and _staticPool not enumerable
         Object.defineProperties(that, {
             RESP3: {
                 enumerable: false,
                 configurable: false
+            },
+            _staticPool: {
+                enumerable: false,
+                configurable: true
             },
         })
 

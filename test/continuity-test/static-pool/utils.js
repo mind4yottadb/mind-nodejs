@@ -26,18 +26,22 @@ module.exports = {
     },
     params: {
         pool: {
-            size: 40,
-            extension: 40
+            size: 32,
+            extension: 30
         },
-        mainLoopThreads: 120,
+        singleShot: false,
+        singleShotTimeout: 15,      // seconds
+        mainLoopThreads: 1200,
+        mainLoopDelay: 3,           // minutes
         session: {
+            initDelay: 50,          // ms
             bustsSize: {
-                min: 2,
-                max: 50
+                min: 20,
+                max: 80
             },
-            distance: {     // is seconds
+            distance: {             // is seconds
                 min: 1,
-                max: 10
+                max: 8
             }
         },
         burst: {
@@ -45,8 +49,8 @@ module.exports = {
                 min: 1,
                 max: 15
             },
-            separation: {   // in ms.
-                min: 1,
+            separation: {           // in ms.
+                min: 5,
                 max: 10
             },
             commands: {
@@ -55,7 +59,7 @@ module.exports = {
         },
         logging: false,
         dumpTotals: true,
-        dumpTotalsDelay: 1, // in minutes
+        dumpTotalsDelay: 1,         // in minutes
     },
 
     getCommands: function () {
@@ -146,7 +150,7 @@ module.exports = {
         }
 
         return commands
-    }
+    },
 }
 
 

@@ -144,11 +144,15 @@ module.exports = async function (that, writer, reader, resolve, reject, username
         that.db.globals._init(that.db.globals)
         that.db.vars._init(that.db.vars)
 
-        // make RESP3 not enumerable
+        // make RESP3 and _staticPool not enumerable
         Object.defineProperties(that, {
             RESP3: {
                 enumerable: false,
                 configurable: false
+            },
+            _staticPool: {
+                enumerable: false,
+                configurable: true
             },
         })
 

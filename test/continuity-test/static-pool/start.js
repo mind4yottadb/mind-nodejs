@@ -13,10 +13,12 @@
 const pool = require('./pool')
 const Session = require('./session')
 const utils = require('./utils')
+const {formatNumber} = require('../../../js/utils')
 
 const process = require('process')
 
 let startTime
+let lastSessionsPerSec = 0
 
 process.on('SIGINT', () => {
     const endTime = Date.now()
@@ -30,15 +32,18 @@ process.on('SIGINT', () => {
     const duration = utils.dumpTime(diff)
     const startTimeAsDate = new Date(startTime)
     const endTimeAsDate = new Date(endTime)
+    const status = (pool.pool.getStatus(true))
+
+    status.stats.sessionsPerSec = formatNumber(lastSessionsPerSec)
 
     console.log('Start time:\t\t\t' + startTimeAsDate.toTimeString())
     console.log('End time:\t\t\t' + endTimeAsDate.toTimeString())
     console.log('Duration:\t\t\t' + duration)
     console.log('\nParameters:')
     console.log(utils.params)
-    console.log('\nStatus:')
-    console.log(pool.pool.getStatus(true))
 
+    console.log('\nStatus:')
+    console.log(status)
     process.exit(0)
 })
 
@@ -64,9 +69,9 @@ const start = async (params = {}) => {
 
             const now = new Date()
             const nowFormatted = now.toTimeString().split(' ')[0]
-            const sessionsPerSec = (status.stats.sessionsCreatedOk - previousSessions) / (60 * utils.params.dumpTotalsDelay)
+            lastSessionsPerSec = (status.stats.sessionsCreatedOk - previousSessions) / (60 * utils.params.dumpTotalsDelay)
             previousSessions = status.stats.sessionsCreatedOk
-            console.log(nowFormatted + ':', status.stats.sessionsCreatedOk.toLocaleString().replaceAll('.', ','), '/', status.stats.extendsCreatedOk.toLocaleString().replaceAll('.', ','), '  Sessions / sec: ', sessionsPerSec.toFixed(2))
+            console.log(nowFormatted + ':', status.stats.sessionsCreatedOk.toLocaleString().replaceAll('.', ','), '/', status.stats.extendsCreatedOk.toLocaleString().replaceAll('.', ','), '  Sessions / sec: ', lastSessionsPerSec.toFixed(2))
 
         }, 60000 * utils.params.dumpTotalsDelay)
     }

@@ -26,7 +26,7 @@ module.exports = {
     },
     params: {
         pool: {
-            size: 128,
+            size: 32,
             extension: 30
         },
         singleShot: false,

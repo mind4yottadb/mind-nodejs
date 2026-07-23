@@ -419,7 +419,7 @@ describe("Pool static: creation / destroy", async () => {
     })
 })
 
-describe("getStatus()()", async () => {
+describe("getStatus()", async () => {
     it("check info fields", async function () {
         const pool = new mindServer.staticPool(2)
         await pool.create('127.0.0.1', 10000, 'admin', 'admin')
@@ -490,14 +490,39 @@ describe("getStatus()()", async () => {
         expect(status.stats.sessionsCreatedOk).to.be.equal(0)
         expect(status.stats.sessionsCreatedInError).to.be.equal(0)
         expect(status.stats.sessionsPeak).to.be.equal(0)
+        expect(status.stats.sessionsDone).to.be.equal(0)
         expect(status.stats.extendsCreatedOk).to.be.equal(0)
         expect(status.stats.extendsCreatedInError).to.be.equal(0)
         expect(status.stats.extendsRemoved).to.be.equal(0)
         expect(status.stats.extendsPeak).to.be.equal(0)
+        expect(status.stats.extendsDone).to.be.equal(0)
         expect(status.stats.noMoreSlotsHits).to.be.equal(0)
         expect(status.stats.noMoreSlotsHitsResolved).to.be.equal(0)
         expect(status.stats.timeoutExpired).to.be.equal(0)
         expect(status.stats.remoteDisconnects).to.be.equal(0)
+
+        pool.destroy()
+    });
+
+    it("check stats with formatted numbers", async function () {
+        const pool = new mindServer.staticPool(5, 3)
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+        const status = await pool.getStatus(true)
+
+        expect(typeof status.stats.sessionsCreatedOk).to.be.equal('string')
+        expect(typeof status.stats.sessionsCreatedInError).to.be.equal('string')
+        expect(typeof status.stats.sessionsPeak).to.be.equal('string')
+        expect(typeof status.stats.sessionsDone).to.be.equal('string')
+        expect(typeof status.stats.extendsCreatedOk).to.be.equal('string')
+        expect(typeof status.stats.extendsCreatedInError).to.be.equal('string')
+        expect(typeof status.stats.extendsRemoved).to.be.equal('string')
+        expect(typeof status.stats.extendsPeak).to.be.equal('string')
+        expect(typeof status.stats.extendsDone).to.be.equal('string')
+        expect(typeof status.stats.noMoreSlotsHits).to.be.equal('string')
+        expect(typeof status.stats.noMoreSlotsHitsResolved).to.be.equal('string')
+        expect(typeof status.stats.timeoutExpired).to.be.equal('string')
+        expect(typeof status.stats.remoteDisconnects).to.be.equal('string')
 
         pool.destroy()
     });

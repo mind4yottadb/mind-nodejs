@@ -218,5 +218,79 @@ describe("resetStats()", async () => {
 
         pool.destroy()
     });
+})
 
+describe("hidden nodes", async () => {
+    it("root", async function () {
+        const pool = new mindServer.staticPool(2)
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+        expect(typeof pool.size).to.have.string('number')
+        expect(typeof pool.extension).to.have.string('number')
+        expect(typeof pool.extensionInUse).to.have.string('number')
+        expect(typeof pool.sessions).to.have.string('object')
+        expect(typeof pool.host).to.have.string('string')
+        expect(typeof pool.port).to.have.string('number')
+        expect(typeof pool.username).to.have.string('string')
+        expect(typeof pool.password).to.have.string('string')
+        expect(typeof pool.options).to.have.string('object')
+        expect(typeof pool.timerTick).to.have.string('boolean')
+        expect(typeof pool.stats).to.have.string('object')
+        expect(typeof pool.hidePropsInObject).to.have.string('function')
+
+        const newPool = JSON.parse(JSON.stringify(pool))
+
+        expect(typeof newPool.size).to.have.string('undefined')
+        expect(typeof newPool.extension).to.have.string('undefined')
+        expect(typeof newPool.extensionInUse).to.have.string('undefined')
+        expect(typeof newPool.sessions).to.have.string('undefined')
+        expect(typeof newPool.host).to.have.string('undefined')
+        expect(typeof newPool.port).to.have.string('undefined')
+        expect(typeof newPool.username).to.have.string('undefined')
+        expect(typeof newPool.password).to.have.string('undefined')
+        expect(typeof newPool.options).to.have.string('undefined')
+        expect(typeof newPool.timerTick).to.have.string('undefined')
+        expect(typeof newPool.stats).to.have.string('undefined')
+        expect(typeof newPool.hidePropsInObject).to.have.string('undefined')
+
+        pool.destroy()
+    });
+
+    it("devOps", async function () {
+        const pool = new mindServer.staticPool(2)
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+        expect(typeof pool.devOps._getDevOpsSession).to.have.string('function')
+        expect(typeof pool.devOps.sessionInUse).to.have.string('boolean')
+        expect(typeof pool.devOps.session).to.have.string('object')
+
+        const newPool = JSON.parse(JSON.stringify(pool))
+
+        expect(typeof newPool.devOps._getDevOpsSession).to.have.string('undefined')
+        expect(typeof newPool.devOps.sessionInUse).to.have.string('undefined')
+        expect(typeof newPool.devOps.session).to.have.string('undefined')
+
+        pool.destroy()
+    });
+
+    it("devOps.session", async function () {
+        const pool = new mindServer.staticPool(2)
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+        const session = await pool.getSession()
+
+        expect(typeof session._staticPool).to.have.string('object')
+        expect(typeof session.that).to.have.string('object')
+        expect(typeof session.ix).to.have.string('number')
+        expect(typeof session.hTimer).to.have.string('object')
+
+        const newSession = JSON.parse(JSON.stringify(session))
+
+        expect(typeof newSession._staticPool).to.have.string('undefined')
+        expect(typeof newSession.that).to.have.string('undefined')
+        expect(typeof newSession.ix).to.have.string('undefined')
+        expect(typeof newSession.hTimer).to.have.string('undefined')
+
+        pool.destroy()
+    });
 })

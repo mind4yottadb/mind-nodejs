@@ -161,3 +161,62 @@ describe("getStatus()", async () => {
         pool.destroy()
     });
 })
+
+describe("resetStats()", async () => {
+    it("populate, verify, reset, verify", async function () {
+        const pool = new mindServer.staticPool(5, 3)
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+        pool.stats.sessionsCreatedOk = 123456
+        pool.stats.sessionsCreatedInError = 123456
+        pool.stats.sessionsPeak = 123456
+        pool.stats.sessionsDone = 123456
+        pool.stats.extendsCreatedOk = 123456
+        pool.stats.extendsCreatedInError = 123456
+
+        pool.stats.extendsRemoved = 123456
+        pool.stats.extendsPeak = 123456
+        pool.stats.extendsDone = 123456
+        pool.stats.noMoreSlotsHits = 123456
+        pool.stats.noMoreSlotsHitsResolved = 123456
+        pool.stats.timeoutExpired = 123456
+        pool.stats.remoteDisconnects = 123456
+
+        let status = await pool.getStatus(true)
+
+        expect(status.stats.sessionsCreatedOk).to.be.equal('123,456')
+        expect(status.stats.sessionsCreatedInError).to.be.equal('123,456')
+        expect(status.stats.sessionsPeak).to.be.equal('123,456')
+        expect(status.stats.sessionsDone).to.be.equal('123,456')
+        expect(status.stats.extendsCreatedOk).to.be.equal('123,456')
+        expect(status.stats.extendsCreatedInError).to.be.equal('123,456')
+        expect(status.stats.extendsRemoved).to.be.equal('123,456')
+        expect(status.stats.extendsPeak).to.be.equal('123,456')
+        expect(status.stats.extendsDone).to.be.equal('123,456')
+        expect(status.stats.noMoreSlotsHits).to.be.equal('123,456')
+        expect(status.stats.noMoreSlotsHitsResolved).to.be.equal('123,456')
+        expect(status.stats.timeoutExpired).to.be.equal('123,456')
+        expect(status.stats.remoteDisconnects).to.be.equal('123,456')
+
+        pool.resetStats()
+
+        status = await pool.getStatus()
+
+        expect(status.stats.sessionsCreatedOk).to.be.equal(0)
+        expect(status.stats.sessionsCreatedInError).to.be.equal(0)
+        expect(status.stats.sessionsPeak).to.be.equal(0)
+        expect(status.stats.sessionsDone).to.be.equal(0)
+        expect(status.stats.extendsCreatedOk).to.be.equal(0)
+        expect(status.stats.extendsCreatedInError).to.be.equal(0)
+        expect(status.stats.extendsRemoved).to.be.equal(0)
+        expect(status.stats.extendsPeak).to.be.equal(0)
+        expect(status.stats.extendsDone).to.be.equal(0)
+        expect(status.stats.noMoreSlotsHits).to.be.equal(0)
+        expect(status.stats.noMoreSlotsHitsResolved).to.be.equal(0)
+        expect(status.stats.timeoutExpired).to.be.equal(0)
+        expect(status.stats.remoteDisconnects).to.be.equal(0)
+
+        pool.destroy()
+    });
+
+})

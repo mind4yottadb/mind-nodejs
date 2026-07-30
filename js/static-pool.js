@@ -578,7 +578,7 @@ module.exports = {
             return that.session
         },
 
-        getPoolStats: async function (that) {
+        getServerStats: async function (that) {
             if (Object.keys(that.session).length === 0 || (that.session.loggedIn && that.session.loggedIn === false)) {
                 throw new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized')
             }

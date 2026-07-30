@@ -288,7 +288,7 @@ describe("Pool static: devOps", async () => {
         });
     })
 
-    describe("getPoolStats()", async () => {
+    describe("getServerStats()", async () => {
         it("small pool, no extension, randomly get and release sessions, trigger some waitHits in stats", async () => {
             const pool = new mindServer.staticPool(2)
 
@@ -315,7 +315,7 @@ describe("Pool static: devOps", async () => {
             }, captureDuration)
 
             captureTimer = setInterval(async () => {
-                captureResult.push(await pool.devOps.getPoolStats())
+                captureResult.push(await pool.devOps.getServerStats())
 
             }, captureInterval)
 

@@ -302,8 +302,8 @@ module.exports = {
                 return staticPool.devOps._getDevOpsSession(this, timeout)
             },
 
-            getPoolStats: async function () {
-                return await staticPool.devOps.getPoolStats(this)
+            getServerStats: async function () {
+                return await staticPool.devOps.getServerStats(this)
             },
 
             setLogLevel: async function (logLevel) {

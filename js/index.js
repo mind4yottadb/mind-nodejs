@@ -29,7 +29,7 @@ const login = require('./login')
 const utils = require('./utils')
 const errors = require("./errors");
 
-const requiredMind = '0.30.0'         // required server version
+const requiredMind = '0.31.0'         // required server version
 
 module.exports = {
     session: class mind extends EventEmitter {
@@ -332,6 +332,10 @@ module.exports = {
 
             resetSettings: async function () {
                 return await staticPool.devOps.resetSettings(this)
+            },
+
+            resetServerStats: async function () {
+                return await staticPool.devOps.resetServerStats(this)
             }
         }
 

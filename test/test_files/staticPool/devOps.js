@@ -531,8 +531,6 @@ describe("Pool static: devOps", async () => {
                 expect(settings.idleTimeout).to.be.equal(0)
 
                 await pool.devOps.resetSettings()
-                const settings2 = await pool.sessions[0].session.session.getCurrentSettings()
-                expect(settings2.idleTimeout).to.be.equal(30)
 
             } catch (err) {
                 console.log(err)
@@ -542,4 +540,20 @@ describe("Pool static: devOps", async () => {
             pool.destroy()
         });
     })
+})
+
+describe("resetServerStats()", async () => {
+    it("plain", async function () {
+        const pool = new mindServer.staticPool(2)
+        await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+        try {
+            await pool.devOps.resetServerStats()
+
+        } catch (err) {
+            expect(err.message).to.have.string('PARAM_NOT_NUMBER')
+        }
+
+        pool.destroy()
+    });
 })

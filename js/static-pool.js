@@ -761,6 +761,29 @@ module.exports = {
                     reject(err)
                 }
             })
+        },
+
+        resetServerStats: async function (that) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('RESET_SERVER_STATS', 0)
+
+                    session.done()
+
+                    resolve()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err)
+                }
+            })
         }
     }
 }

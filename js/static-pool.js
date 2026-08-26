@@ -578,7 +578,7 @@ module.exports = {
             return that.session
         },
 
-        getPoolStats: async function (that) {
+        getServerStats: async function (that) {
             if (Object.keys(that.session).length === 0 || (that.session.loggedIn && that.session.loggedIn === false)) {
                 throw new Error(errors.POOL_NOT_INITIALIZED + 'pool not initialized')
             }
@@ -747,6 +747,29 @@ module.exports = {
                 try {
                     session = await that._getDevOpsSession()
                     await session._staticPool._changeServerSetting('RESET_SETTINGS', 0)
+
+                    session.done()
+
+                    resolve()
+
+                } catch (err) {
+                    try {
+                        session.done()
+                    } catch (err) {
+                    }
+
+                    reject(err)
+                }
+            })
+        },
+
+        resetServerStats: async function (that) {
+            return new Promise(async (resolve, reject) => {
+                let session
+
+                try {
+                    session = await that._getDevOpsSession()
+                    await session._staticPool._changeServerSetting('RESET_SERVER_STATS', 0)
 
                     session.done()
 

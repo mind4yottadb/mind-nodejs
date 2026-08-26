@@ -1023,7 +1023,7 @@ describe("version number increased", async () => {
 
         // and read the package
         const localPackageFile = JSON.parse(fs.readFileSync(cwd + '/package.json').toString())
-        console.log(localPackageFile.version + ' >>> ' + packageFile.version)
+        console.log(packageFile.version + ' >>> ' + localPackageFile.version)
 
         // COMPARE
         expect(localPackageFile.version > packageFile.version).to.be.true

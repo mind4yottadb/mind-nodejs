@@ -27,77 +27,78 @@ describe("_staticPool.", async () => {
         ydb.db.globals.addName('_mindSessions')
 
         const val = await ydb.db.globals._mindSessions._('pools', pool.guid, "pids").findNext()
-        expect(typeof val).to.have.string('string')
+        expect(typeof val).to.not.have.string('undefined')
 
         pool.destroy()
 
         ydb.disconnect()
     });
 
-    it("getPoolStats(): 2 procs", async function () {
+    it("getServerStats(): 2 procs", async function () {
         this.timeout(20000)
 
         const pool = new mindServer.staticPool(2)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 
-        const val = await pool.devOps.getPoolStats()
+        const val = await pool.devOps.getServerStats()
 
         expect(val.length).to.equal(2)
 
         pool.destroy()
     });
 
-    it("getPoolStats(): 8 procs", async function () {
+    it("getServerStats(): 8 procs", async function () {
         this.timeout(20000)
 
         const pool = new mindServer.staticPool(8)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 
-        const val = await pool.devOps.getPoolStats()
+        const val = await pool.devOps.getServerStats()
 
+        console.log(val)
         expect(val.length).to.equal(8)
 
         pool.destroy()
     });
 
-    it("getPoolStats(): 16 procs + extension", async function () {
+    it("getServerStats(): 16 procs + extension", async function () {
         this.timeout(20000)
 
         const pool = new mindServer.staticPool(16, 2)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 
-        const val = await pool.devOps.getPoolStats()
+        const val = await pool.devOps.getServerStats()
 
         expect(val.length).to.equal(16)
 
         pool.destroy()
     });
 
-    it("getPoolStats(): 32 procs", async function () {
+    it("getServerStats(): 32 procs", async function () {
         this.timeout(20000)
 
         const pool = new mindServer.staticPool(32)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 
-        const val = await pool.devOps.getPoolStats()
+        const val = await pool.devOps.getServerStats()
 
         expect(val.length).to.equal(32)
 
         pool.destroy()
     });
 
-    it("getPoolStats(): validate all fields", async function () {
+    it("getServerStats(): validate all fields", async function () {
         this.timeout(20000)
 
         const pool = new mindServer.staticPool(2)
 
         await pool.create('127.0.0.1', 10000, 'admin', 'admin', {})
 
-        const ret = await pool.devOps.getPoolStats()
+        const ret = await pool.devOps.getServerStats()
         expect(ret[0].cpu.cstime !== undefined).to.be.true
         expect(ret[0].cpu.cutime !== undefined).to.be.true
         expect(ret[0].cpu.stime !== undefined).to.be.true

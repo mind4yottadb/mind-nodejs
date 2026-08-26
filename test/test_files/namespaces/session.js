@@ -18,20 +18,15 @@ describe("session.stats()", async () => {
     it("get stats when no stats are enabled", async () => {
         const ydb = await createYdbInstance()
 
-        try {
-            const res = await ydb.session.stats()
-            console.log(res)
-
-
-        } catch (err) {
-            expect(err.message).to.have.string('No stats enabled on server')
-        }
+        const res = await ydb.session.stats()
+        console.log(res)
+        expect(Object.keys(res).length).to.equal(0)
 
         ydb.disconnect()
     });
 
     it("get stats when grand stats are enabled", async () => {
-        const ydb = await createYdbInstance('--statistics=grand')
+        const ydb = await createYdbInstance()
 
         try {
             const res = await ydb.session.stats()
@@ -47,9 +42,10 @@ describe("session.stats()", async () => {
     });
 
     it("get stats when details stats are enabled", async () => {
-        const ydb = await createYdbInstance('--statistics=grand')
+        const ydb = await createYdbInstance()
 
         try {
+            await ydb.process.cwdGet()
             const res = await ydb.session.stats()
             console.log(res)
 

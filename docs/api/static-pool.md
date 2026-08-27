@@ -20,6 +20,10 @@ This class gives you full access to the static pool.
 
 ---
 
+### Constructor:
+
+- [(size, extension)](api/static-pool/pool.constructor.md)
+
 ### Methods:
 
 - [create()](api/static-pool/pool.create.md)

@@ -57,7 +57,6 @@ describe("_staticPool.", async () => {
 
         const val = await pool.devOps.getServerStats()
 
-        console.log(val)
         expect(val.length).to.equal(8)
 
         pool.destroy()

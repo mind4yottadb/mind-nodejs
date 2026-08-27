@@ -339,7 +339,7 @@ module.exports = {
             }
         }
 
-        constructor(size, extension = 0, credentials = {}) {
+        constructor(size, extension = 0) {
             super();
             if (typeof size === 'undefined') {
                 throw new Error(errors.PARAM_MISSING + 'Missing pool size')

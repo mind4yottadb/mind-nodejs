@@ -566,8 +566,8 @@ module.exports = {
             return staticPool.getStatus(this, formatNumbers)
         }
 
-        resetStats = function () {
-            staticPool.resetStats(this)
+        resetStatus = function () {
+            staticPool.resetStatus(this)
         }
 
         changeSize = async function (newSize) {

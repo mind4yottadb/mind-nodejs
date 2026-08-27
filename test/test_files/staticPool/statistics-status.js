@@ -162,7 +162,7 @@ describe("getStatus()", async () => {
     });
 })
 
-describe("resetStats()", async () => {
+describe("resetStatus()", async () => {
     it("populate, verify, reset, verify", async function () {
         const pool = new mindServer.staticPool(5, 3)
         await pool.create('127.0.0.1', 10000, 'admin', 'admin')
@@ -198,7 +198,7 @@ describe("resetStats()", async () => {
         expect(status.stats.timeoutExpired).to.be.equal('123,456')
         expect(status.stats.remoteDisconnects).to.be.equal('123,456')
 
-        pool.resetStats()
+        pool.resetStatus()
 
         status = await pool.getStatus()
 

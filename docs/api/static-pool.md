@@ -22,24 +22,24 @@ This class gives you full access to the static pool.
 
 ### Methods:
 
-- [create()](api/stdatic-pool/pool.create.md)
-- [destroy()](api/stdatic-pool/pool.destroy.md)
-- [rundown()](api/stdatic-pool/pool.rundown.md)
-- [getSession()](api/stdatic-pool/pool.getSession.md)
-- [getStatus()](api/stdatic-pool/pool.getStatus.md)
-- [resetStats()](api/stdatic-pool/pool.resetStats.md)
-- [changeSize()](api/stdatic-pool/pool.changeSize.md)
-- [changeExtension()](api/stdatic-pool/pool.changeExtension.md)
+- [create()](api/static-pool/pool.create.md)
+- [destroy()](api/static-pool/pool.destroy.md)
+- [rundown()](api/static-pool/pool.rundown.md)
+- [getSession()](api/static-pool/pool.getSession.md)
+- [getStatus()](api/static-pool/pool.getStatus.md)
+- [resetStatus()](api/static-pool/pool.resetStatus.md)
+- [changeSize()](api/static-pool/pool.changeSize.md)
+- [changeExtension()](api/static-pool/pool.changeExtension.md)
 - devOps
-    - [_getDevOpsSession()](api/stdatic-pool/devOps/pool._getDevOpsSession.md)
-    - [getPoolStats()](api/stdatic-pool/devOps/pool.getPoolStats.md)
-    - [setLogLevel()](api/stdatic-pool/devOps/pool.setLogLevel.md)
-    - [setDumpRequest()](api/stdatic-pool/devOps/pool.setDumpRequest.md)
-    - [setDumpResponse()](api/stdatic-pool/devOps/pool.setDumpResponse.md)
-    - [setStats()](api/stdatic-pool/devOps/pool.setStats.md)
-    - [setErrorDump()](api/stdatic-pool/devOps/pool.setErrorDump.md)
-    - [setIdleTimeout()](api/stdatic-pool/devOps/pool.setIdleTimeout.md)
-    - [resetSettings()](api/stdatic-pool/devOps/pool.resetSettings.md)
+  - [_getDevOpsSession()](api/static-pool/devOps/pool._getDevOpsSession.md)
+  - [getServerStats()](api/static-pool/devOps/pool.getServerStats.md)
+  - [setLogLevel()](api/static-pool/devOps/pool.setLogLevel.md)
+  - [setDumpRequest()](api/static-pool/devOps/pool.setDumpRequest.md)
+  - [setDumpResponse()](api/static-pool/devOps/pool.setDumpResponse.md)
+  - [setStats()](api/static-pool/devOps/pool.setStats.md)
+  - [setErrorDump()](api/static-pool/devOps/pool.setErrorDump.md)
+  - [setIdleTimeout()](api/static-pool/devOps/pool.setIdleTimeout.md)
+  - [resetSettings()](api/static-pool/devOps/pool.resetSettings.md)
 
 ### Properties:
 
@@ -65,3 +65,5 @@ This class gives you full access to the static pool.
 
 - [.on('noMoreSlotsHits')](api/static-pool/pool.noMoreSlotsHits.md)
 - [.on('noMoreSlotsHitsResolved')](api/static-pool/pool.noMoreSlotsHitsResolved.md)
+- [.on('timeoutExpired')](api/static-pool/pool.timeoutExpired.md)
+- [.on('remoteDisconnects')](api/static-pool/pool.remoteDisconnects.md)

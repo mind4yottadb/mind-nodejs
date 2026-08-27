@@ -545,7 +545,7 @@ module.exports = {
         }
     },
 
-    resetStats: function (that) {
+    resetStatus: function (that) {
         that.stats.sessionsCreatedOk = 0
         that.stats.sessionsCreatedInError = 0
         that.stats.sessionsPeak = 0

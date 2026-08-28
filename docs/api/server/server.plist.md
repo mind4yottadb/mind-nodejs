@@ -44,9 +44,9 @@ Returns an array of object, where each object represent a running process and ha
 Get the process list and display it.
 
 ````js
-import mindServerServer from 'mind4yottadb'
+import mindServerServer from 'mind-client-js'
 
-const mind = new mind4yottadb.session
+const mind = new mind-client-js.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

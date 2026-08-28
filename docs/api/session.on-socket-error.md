@@ -43,9 +43,9 @@ Register your function to be triggered by an internal socket error.
 ### EXAMPLES
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 
-const mind = new mind4yottadb.session
+const mind = new mind-client-js.session
 
 console.dir(mind, {depth: 5})
 

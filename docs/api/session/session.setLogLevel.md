@@ -54,9 +54,9 @@ The `value` parameter can be one of the following constants:
 This will set the LOG_LEVEL to record only sessions-related log dumps.
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 
-const mind = new mind4yottadb.session
+const mind = new mind-client-js.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

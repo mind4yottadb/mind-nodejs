@@ -16,7 +16,7 @@
 
 ---
 
-- mind4yottadb
+- mind-client-js
     - session
         - fs
         - server

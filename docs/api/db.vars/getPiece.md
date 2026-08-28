@@ -53,9 +53,9 @@ If you return a single piece and it is a number, a number datatype will be used,
 get the first piece
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 
-const mind = new mind4yottadb.session
+const mind = new mind-client-js.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -77,9 +77,9 @@ res = 'aaa'
 get the second piece
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 
-const mind = new mind4yottadb.session
+const mind = new mind-client-js.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -101,9 +101,9 @@ res = 'bbb'
 get the second, third and fourth pieces
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 
-const mind = new mind4yottadb.session
+const mind = new mind-client-js.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -125,9 +125,9 @@ res = 'bbb^ccc^ddd'
 get a single number
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 
-const mind = new mind4yottadb.session
+const mind = new mind-client-js.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

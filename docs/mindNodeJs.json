@@ -2,7 +2,7 @@
     "landing_page": "home-page.md",
     "data": [
         {
-            "text": "node.js driver for mind4yottadb",
+            "text": "node.js driver for mind-client-js",
             "id": "home-page.md",
             "icon": ""
         },

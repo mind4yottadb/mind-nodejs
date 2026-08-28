@@ -45,9 +45,9 @@ If finds the next collating subscript to the passed parameter `findValue` or an 
 Find the next subscript when used with no parameters
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 
-const mind = new mind4yottadb.session
+const mind = new mind-client-js.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

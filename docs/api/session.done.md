@@ -36,7 +36,7 @@ Release the session back to the pool.
 ### EXAMPLES
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 
 
 mind.disconnect()

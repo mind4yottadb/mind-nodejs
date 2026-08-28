@@ -16,26 +16,26 @@
 
 ---
 
-The `mind4yottadb` is available in the npm public registry.
+The `mind-client-js` is available in the npm public registry.
 
-From the root of your repo simply type: ``npm install mind4yottadb`` and it will be added to your package.json file.
+From the root of your repo simply type: ``npm install mind-client-js`` and it will be added to your package.json file.
 
 You can now start using it right away, by simply referencing it:
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 ````
 
 or
 
 ````js
-const mind4yottadb = require('mind4yottadb')
+const mind-client-js = require('mind-client-js')
 ````
 
 and then instancing the driver as single session...
 
 ````js
-const mind = new mind4yottadb
+const mind = new mind-client-js
 
 ````
 
@@ -45,7 +45,7 @@ or multiple sessions that can execute in parallel...
 const mySessions = []
 
 for (let ix = 0; ix < 16; ix++) {
-    mySessions.push(new mind4yottadb)
+    mySessions.push(new mind-client-js)
 }
 
 ````

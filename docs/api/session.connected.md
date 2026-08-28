@@ -35,9 +35,13 @@ Returns true if you are connected to the MIND server.
 ### EXAMPLES
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind
 
-const mind = new mind4yottadb.session
+-client - js
+from
+'mind-client-js'
+
+const mind = new mind - client - js.session
 
 let isConnected = mind.connected
 console.log(isConnected)

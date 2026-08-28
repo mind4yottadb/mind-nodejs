@@ -1,5 +1,5 @@
 <!--
-###############################################################
+#################################################################
 #                                                               #
 # Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
@@ -12,19 +12,44 @@
 ###############################################################*/
 -->
 
-# MIND object structure
+### loggedIn
 
 ---
 
-- mind4yottadb
-    - session
-        - fs
-        - server
-        - process
-        - session
-        - db
-            - globals
-            - vars
-    - staticPool
-        - devOps
-    - dynamicPool
+**Type**: property / readonly
+
+**Async**: no
+
+**Parameters**:
+<br><br>
+**Returns**:
+
+`<bool>`
+
+---
+
+Returns true if you are logged in the MIND server.
+
+---
+
+### EXAMPLES
+
+````js
+import mind4yottadb from 'mind4yottadb'
+
+const mind = new mind4yottadb.session
+
+let isLoggedIn = mind.loggedIn
+console.log(isLoggedIn)
+
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+isLoggedIn = mind.loggedIn
+console.log(isLoggedIn)
+
+mind.disconnect()
+````
+
+---
+
+[Back](api/mind.md)

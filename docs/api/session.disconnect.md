@@ -1,5 +1,5 @@
 <!--
-###############################################################
+#################################################################
 #                                                               #
 # Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
@@ -12,19 +12,40 @@
 ###############################################################*/
 -->
 
-# MIND object structure
+### disconnect()
 
 ---
 
-- mind4yottadb
-    - session
-        - fs
-        - server
-        - process
-        - session
-        - db
-            - globals
-            - vars
-    - staticPool
-        - devOps
-    - dynamicPool
+**Type**: method
+
+**Async**: no
+
+**Parameters**:
+<br><br>
+**Returns**: `<undefined>`
+
+---
+
+Terminates the TCP connection with the server, meaning you can NOT execute any command anymore.
+
+If you were using variables in your session, everything will be lost.
+
+---
+
+### EXAMPLES
+
+````js
+import mind4yottadb from 'mind4yottadb'
+
+const mind = new mind4yottadb.session
+
+console.dir(mind, {depth: 5})
+
+await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
+
+mind.disconnect()
+````
+
+---
+
+[Back](api/mind.md)

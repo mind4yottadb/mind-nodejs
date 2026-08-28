@@ -1,5 +1,5 @@
 <!--
-###############################################################
+#################################################################
 #                                                               #
 # Copyright (c) 2026 DnaSoft BV and/or its subsidiaries.        #
 # All rights reserved.                                          #
@@ -12,19 +12,36 @@
 ###############################################################*/
 -->
 
-# MIND object structure
+### done()
 
 ---
 
-- mind4yottadb
-    - session
-        - fs
-        - server
-        - process
-        - session
-        - db
-            - globals
-            - vars
-    - staticPool
-        - devOps
-    - dynamicPool
+**Type**: method
+
+**Async**: no
+
+**Parameters**:
+<br><br>
+**Returns**: `<undefined>`
+
+---
+
+Release the session back to the pool.
+
+> This method exists ONLY if you are inside a static pool, and you obtain a MIND session using the `pool.getSession()`
+> method.
+
+---
+
+### EXAMPLES
+
+````js
+import mind4yottadb from 'mind4yottadb'
+
+
+mind.disconnect()
+````
+
+---
+
+[Back](api/mind.md)

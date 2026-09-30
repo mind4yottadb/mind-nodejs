@@ -25,6 +25,8 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    env:
+      CI: false
     steps:
       - uses: actions/checkout@v6
 
@@ -34,6 +36,4 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           #package-manager-cache: false  # never use caching in release builds
       - run: npm stage publish --provenance --access public
-        env:
-          CI: false
 

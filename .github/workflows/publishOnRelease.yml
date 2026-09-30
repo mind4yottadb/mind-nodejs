@@ -20,7 +20,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  stage-on-npm:
     runs-on: ubuntu-24.04
     permissions:
       contents: read

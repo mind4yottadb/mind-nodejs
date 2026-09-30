@@ -1,6 +1,6 @@
 {
     "name": "mind-client-js",
-    "version": "0.20.0",
+    "version": "0.21.0",
     "description": "node.js client driver for MIND",
     "main": "js/index.js",
     "type": "commonjs",

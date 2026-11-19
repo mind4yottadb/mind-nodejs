@@ -39,6 +39,8 @@ class Burst {
 
             } catch (err) {
                 console.log('error is:' + err)
+
+                return
             }
 
             const delay = utils.getRandom(utils.params.burst.separation.min, utils.params.burst.separation.max)

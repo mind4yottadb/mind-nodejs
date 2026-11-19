@@ -26,8 +26,8 @@ module.exports = {
     },
     params: {
         pool: {
-            size: 32,
-            extension: 30
+            size: 150,
+            extension: 500
         },
         singleShot: false,
         singleShotTimeout: 15,      // seconds

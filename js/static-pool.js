@@ -563,6 +563,7 @@ module.exports = {
                     sessionsPeak: utils.formatNumber(that.stats.sessionsPeak),
                     sessionsDone: utils.formatNumber(that.stats.sessionsDone),
                     extendsCreatedOk: utils.formatNumber(that.stats.extendsCreatedOk),
+                    extendsCreatedWithRetry: utils.formatNumber(that.stats.extendsCreatedWithRetry),
                     extendsCreatedInError: utils.formatNumber(that.stats.extendsCreatedInError),
                     extendsRemoved: utils.formatNumber(that.stats.extendsRemoved),
                     extendsPeak: utils.formatNumber(that.stats.extendsPeak),

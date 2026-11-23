@@ -47,7 +47,7 @@ process.on('SIGINT', () => {
     console.log(utils.params)
 
     console.log('\nStatus:')
-    console.log(status)
+    console.dir(status, {depth: 20})
     process.exit(0)
 })
 

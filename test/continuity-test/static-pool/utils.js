@@ -26,12 +26,12 @@ module.exports = {
     },
     params: {
         pool: {
-            size: 20,
-            extension: 30
+            size: 35,
+            extension: 500
         },
         singleShot: false,
         singleShotTimeout: 15,      // seconds
-        mainLoopThreads: 1200,
+        mainLoopThreads: 1500,
         mainLoopDelay: 3,           // minutes
         session: {
             initDelay: 50,          // ms
@@ -40,18 +40,18 @@ module.exports = {
                 max: 80
             },
             distance: {             // is seconds
-                min: 1,
+                min: 2,
                 max: 8
             }
         },
         burst: {
             commandsSize: {
-                min: 1,
-                max: 15
+                min: 3,
+                max: 10
             },
             separation: {           // in ms.
-                min: 5,
-                max: 10
+                min: 30,
+                max: 60
             },
             commands: {
                 includeDb: true,

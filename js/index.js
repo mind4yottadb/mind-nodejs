@@ -301,6 +301,7 @@ module.exports = {
             sessionsDone: 0,                 // the number of sessions that were terminated with done()
 
             extendsCreatedOk: 0,            // how many extends got created
+            extendsCreatedWithRetry: 0,     // how many extends were created with a retry
             extendsCreatedInError: 0,       // how many extends got error on creation
             extendsRemoved: 0,              // how many extends got removed
             extendsPeak: 0,                 // the maximum number of extensions used in the pool

@@ -318,14 +318,9 @@ module.exports = {
 
                         connected = true
 
-                        /*
                         if (retry !== -1) {
-                            console.log('extend OK,  r' + retry)
-                        } else {
-                            console.log('OK')
+                            that.stats.extendsCreatedWithRetry++
                         }
-
-                         */
 
                         break
 

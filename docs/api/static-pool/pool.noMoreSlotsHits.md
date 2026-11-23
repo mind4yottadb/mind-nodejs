@@ -16,4 +16,39 @@
 
 ---
 
+**Type**: event
+
+**Async**: no
+
+**Parameters**:
+<br><br>
+**Returns**:
+
+`Nothing`
+
+---
+
+Register your function to be triggered when the `getSession()` method couldn't allocate a session and it is either
+waiting for a timeout or an allocation.
+
+---
+
+### EXAMPLES
+
+````js
+import mindClient from 'mind-client-js'
+
+const pool = new mindClient.staticPool(20)
+
+await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+pool.on('noMoreSlotsHits', () => {
+    // your code here
+
+})
+
+````
+
+---
+
 [Back](api/namespace.staticPool.md)

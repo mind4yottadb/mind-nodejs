@@ -12,8 +12,42 @@
 ###############################################################*/
 -->
 
-# pool.STATS_GRAND_TOTALS
+# pool.devOps.resetServerStats()
 
 ---
 
-[Back](api/namespace.staticPool.md)
+**Type**: method
+
+***Async**: Yes
+
+**Parameters**:
+<br><br>
+**Returns**: `<undefined>`
+
+---
+
+The devOps.resetServerStats() method resets all the stat counters at the process level (when stats mode is set to
+STATS_DETAILS.
+
+> THIS AFFECTS ALL THE PROCESSES IN THE POOL
+
+
+---
+
+### EXAMPLES
+
+````js
+import mindClient from 'mind-client-js'
+
+const pool = new mindClient.staticPool(20)
+
+await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+// This will set the performance counters to DETAILS
+await pool.devOps.resetServerStats()
+
+````
+
+---
+
+[Back](api/staticPool.md)

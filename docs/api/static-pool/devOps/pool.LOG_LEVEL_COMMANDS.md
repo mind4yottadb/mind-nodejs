@@ -12,7 +12,37 @@
 ###############################################################*/
 -->
 
-# pool.STATS_NONE
+# pool.LOG_LEVEL_COMMANDS
+
+---
+
+**Type**: property
+
+**Async**: no
+
+**Parameters**:
+<br><br>
+**Returns**: `<number>`
+
+---
+
+Returns the value corresponding to LOG_LEVEL_COMMANDS.
+
+LOG_LEVEL_COMMANDS = 2
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind-client-js'
+
+const pool = new mind.staticPool(2)
+await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+await pool.devOps.setLogLevel(pool.devOps.LOG_LEVEL_COMMANDS)
+
+````
 
 ---
 

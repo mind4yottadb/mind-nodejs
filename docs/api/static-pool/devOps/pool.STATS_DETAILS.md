@@ -12,7 +12,37 @@
 ###############################################################*/
 -->
 
-# pool.DUMP_REQUEST_OFF
+# pool.STATS_DETAILS
+
+---
+
+**Type**: property
+
+**Async**: no
+
+**Parameters**:
+<br><br>
+**Returns**: `<number>`
+
+---
+
+Returns the value corresponding to STATS_DETAILS.
+
+STATS_DETAILS = 2
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind-client-js'
+
+const pool = new mind.staticPool(2)
+await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+await pool.devOps.setStatsl(pool.devOps.STATS_DETAILS)
+
+````
 
 ---
 

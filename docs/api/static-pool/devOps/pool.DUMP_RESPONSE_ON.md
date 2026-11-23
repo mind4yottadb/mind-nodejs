@@ -12,7 +12,37 @@
 ###############################################################*/
 -->
 
-# pool.resetServerStats()
+# pool.DUMP_RESPONSE_ON
+
+---
+
+**Type**: property
+
+**Async**: no
+
+**Parameters**:
+<br><br>
+**Returns**: `<number>`
+
+---
+
+Returns the value corresponding to DUMP_RESPONSE_ON.
+
+DUMP_RESPONSE_ON = 1
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind-client-js'
+
+const pool = new mind.staticPool(2)
+await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+await pool.devOps.setDumpResponse(pool.devOps.DUMP_RESPONSE_ON)
+
+````
 
 ---
 

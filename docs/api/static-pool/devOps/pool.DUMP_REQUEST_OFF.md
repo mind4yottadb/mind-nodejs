@@ -12,7 +12,37 @@
 ###############################################################*/
 -->
 
-# pool.LOG_LEVEL_NONE
+# pool.DUMP_REQUEST_OFF
+
+---
+
+**Type**: property
+
+**Async**: no
+
+**Parameters**:
+<br><br>
+**Returns**: `<number>`
+
+---
+
+Returns the value corresponding to DUMP_REQUEST_OFF.
+
+DUMP_REQUEST_OFF = 0
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind-client-js'
+
+const pool = new mind.staticPool(2)
+await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+await pool.devOps.setDumpRequest(pool.devOps.DUMP_REQUEST_OFF)
+
+````
 
 ---
 

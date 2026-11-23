@@ -12,8 +12,39 @@
 ###############################################################*/
 -->
 
-# pool.ERROR_DUMP_FULL
+# pool.STATS_GRAND_TOTALS
 
 ---
 
-[Back](api/namespace.staticPool.md)
+`````
+**Type**: property
+
+**Async**: no
+
+**Parameters**:
+<br><br>
+**Returns**: `<number>`
+
+---
+
+Returns the value corresponding to STATS_GRAND_TOTALS.
+
+STATS_GRAND_TOTALS = 1
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind-client-js'
+
+const pool = new mind.staticPool(2)
+await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+await pool.devOps.setStatsl(pool.devOps.STATS_GRAND_TOTALS)
+
+````
+
+---
+
+[Back](api/namespace.staticPool.md)`````

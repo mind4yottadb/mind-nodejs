@@ -12,7 +12,37 @@
 ###############################################################*/
 -->
 
-# pool.DUMP_RESPONSE_OFF
+# pool.ERROR_DUMP_BRIEF
+
+---
+
+**Type**: property
+
+**Async**: no
+
+**Parameters**:
+<br><br>
+**Returns**: `<number>`
+
+---
+
+Returns the value corresponding to ERROR_DUMP_BRIEF.
+
+ERROR_DUMP_BRIEF = 1
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind-client-js'
+
+const pool = new mind.staticPool(2)
+await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+await pool.devOps.setErrorDump(pool.devOps.ERROR_DUMP_BRIEF)
+
+````
 
 ---
 

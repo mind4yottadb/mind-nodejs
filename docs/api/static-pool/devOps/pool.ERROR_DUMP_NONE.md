@@ -12,7 +12,37 @@
 ###############################################################*/
 -->
 
-# pool.LOG_LEVEL_SESSIONS
+# pool.ERROR_DUMP_NONE
+
+---
+
+**Type**: property
+
+**Async**: no
+
+**Parameters**:
+<br><br>
+**Returns**: `<number>`
+
+---
+
+Returns the value corresponding to ERROR_DUMP_NONE.
+
+ERROR_DUMP_NONE = 0
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind-client-js'
+
+const pool = new mind.staticPool(2)
+await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+await pool.devOps.setErrorDump(pool.devOps.ERROR_DUMP_NONE)
+
+````
 
 ---
 

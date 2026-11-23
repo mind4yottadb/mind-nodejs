@@ -55,7 +55,12 @@ const start = async (params = {}) => {
     // merge incoming params
     utils.params = {...utils.params, ...params}
 
+    console.log('Pool init...')
     await pool.init(utils.params.pool.size, utils.params.pool.extension)
+    console.log('Pool OK')
+
+    console.log('\nTimestamp totSessions / sessionsInUse / maxSessions / extensions ( extensionsInError )\n')
+
     startTime = Date.now()
 
     pool.pool.on('noMoreSlotsHits', () => {
@@ -73,21 +78,23 @@ const start = async (params = {}) => {
 
             const now = new Date()
             const nowFormatted = now.toTimeString().split(' ')[0]
+            const sessionsInUse = pool.pool.sessions.filter(session => session.inUse === true && session.isExtension === false)
+
             lastSessionsPerSec = (status.stats.sessionsCreatedOk - previousSessions) / (60 * utils.params.dumpTotalsDelay)
             previousSessions = status.stats.sessionsCreatedOk
-            console.log(nowFormatted + ':', status.stats.sessionsCreatedOk.toLocaleString().replaceAll('.', ','), '/', status.stats.extendsCreatedOk.toLocaleString().replaceAll('.', ','), '  Sessions / sec: ', lastSessionsPerSec.toFixed(0))
+            console.log(nowFormatted + ':', status.stats.sessionsCreatedOk.toLocaleString().replaceAll('.', ','), '/', sessionsInUse.length, '/', status.stats.sessionsPeak, '/', status.stats.extendsCreatedOk.toLocaleString().replaceAll('.', ','), '(', status.stats.extendsCreatedInError, '),', '  Sessions / sec: ', lastSessionsPerSec.toFixed(0))
 
         }, 60000 * utils.params.dumpTotalsDelay)
     }
 
     if (utils.params.singleShot === false) {
         while (true) {
-            _singleShot()
+            await _singleShot()
 
             await utils.sleep(60000 * utils.params.mainLoopDelay)
         }
     } else {
-        _singleShot()
+        await _singleShot()
 
         await utils.sleep(1000 * utils.params.singleShotTimeout)
 

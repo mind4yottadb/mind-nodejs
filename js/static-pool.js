@@ -535,7 +535,7 @@ module.exports = {
         })
     },
 
-    getStatus: function (that, formatNumbers) {
+    getStatus: function (that, formatNumbers = false) {
         const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === false)
         const sessionsExtended = that.sessions.filter(session => session.isExtension === true && session.inUse === true)
         const sessionsTotal = that.sessions.length

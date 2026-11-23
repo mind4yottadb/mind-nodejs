@@ -48,20 +48,21 @@ This class gives you full access to the static pool.
 ### Properties:
 
 - [guid](api/static-pool/pool.guid.md)
-- [ERROR_DUMP_NONE](api/static-pool/pool.ERROR_DUMP_NONE.md)
-- [ERROR_DUMP_BRIEF](api/static-pool/pool.ERROR_DUMP_BRIEF.md)
-- [ERROR_DUMP_FULL](api/static-pool/pool.ERROR_DUMP_FULL.md)
-- [STATS_NONE](api/static-pool/pool.STATS_NONE.md)
-- [STATS_GRAND_TOTALS](api/static-pool/pool.STATS_GRAND_TOTALS.md)
-- [STATS_DETAILS](api/static-pool/pool.STATS_DETAILS.md)
-- [DUMP_REQUEST_OFF](api/static-pool/pool.DUMP_REQUEST_OFF.md)
-- [DUMP_REQUEST_ON](api/static-pool/pool.DUMP_REQUEST_ON.md)
-- [DUMP_RESPONSE_OFF](api/static-pool/pool.DUMP_RESPONSE_OFF.md)
-- [DUMP_RESPONSE_ON](api/static-pool/pool.DUMP_RESPONSE_ON.md)
-- [LOG_LEVEL_NONE](api/static-pool/pool.LOG_LEVEL_NONE.md)
-- [LOG_LEVEL_SESSIONS](api/static-pool/pool.LOG_LEVEL_SESSIONS.md)
-- [LOG_LEVEL_COMMANDS](api/static-pool/pool.LOG_LEVEL_COMMANDS.md)
-- [LOG_LEVEL_TIMINGS](api/static-pool/pool.LOG_LEVEL_TIMINGS.md)
+- devops
+    - [ERROR_DUMP_NONE](api/static-pool/pool.ERROR_DUMP_NONE.md)
+    - [ERROR_DUMP_BRIEF](api/static-pool/pool.ERROR_DUMP_BRIEF.md)
+    - [ERROR_DUMP_FULL](api/static-pool/pool.ERROR_DUMP_FULL.md)
+    - [STATS_NONE](api/static-pool/pool.STATS_NONE.md)
+    - [STATS_GRAND_TOTALS](api/static-pool/pool.STATS_GRAND_TOTALS.md)
+    - [STATS_DETAILS](api/static-pool/pool.STATS_DETAILS.md)
+    - [DUMP_REQUEST_OFF](api/static-pool/pool.DUMP_REQUEST_OFF.md)
+    - [DUMP_REQUEST_ON](api/static-pool/pool.DUMP_REQUEST_ON.md)
+    - [DUMP_RESPONSE_OFF](api/static-pool/pool.DUMP_RESPONSE_OFF.md)
+    - [DUMP_RESPONSE_ON](api/static-pool/pool.DUMP_RESPONSE_ON.md)
+    - [LOG_LEVEL_NONE](api/static-pool/pool.LOG_LEVEL_NONE.md)
+    - [LOG_LEVEL_SESSIONS](api/static-pool/pool.LOG_LEVEL_SESSIONS.md)
+    - [LOG_LEVEL_COMMANDS](api/static-pool/pool.LOG_LEVEL_COMMANDS.md)
+    - [LOG_LEVEL_TIMINGS](api/static-pool/pool.LOG_LEVEL_TIMINGS.md)
 
 ---
 

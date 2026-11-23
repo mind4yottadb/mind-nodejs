@@ -12,7 +12,8 @@
 ###############################################################*/
 -->
 
-# pool._getDevOpsSession()
+# pool.devOps._getDevOpsSession (timeout)
 
 ---
 
+[Back](api/namespace.staticPool.md)

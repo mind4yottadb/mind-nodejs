@@ -583,6 +583,7 @@ module.exports = {
         that.stats.sessionsDone = 0
 
         that.stats.extendsCreatedOk = 0
+        that.stats.extendsCreatedWithRetry = 0
         that.stats.extendsCreatedInError = 0
         that.stats.extendsRemoved = 0
         that.stats.extendsPeak = 0

@@ -16,4 +16,38 @@
 
 ---
 
+**Type**: event
+
+**Async**: no
+
+**Parameters**:
+<br><br>
+**Returns**:
+
+`Nothing`
+
+---
+
+Register your function to be triggered when the client disconnects from the socket.
+
+---
+
+### EXAMPLES
+
+````js
+import mindClient from 'mind-client-js'
+
+const pool = new mindClient.staticPool(20)
+
+await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+pool.on('remoteDisconnects', () => {
+    // your code here
+
+})
+
+````
+
+---
+
 [Back](api/namespace.staticPool.md)

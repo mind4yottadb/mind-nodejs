@@ -306,18 +306,48 @@ module.exports = {
             // can we extend?
             if (that.extension > 0 && (that.extension - that.extensionInUse) > 0) {
                 const session = new classModule.exports.session
+                let connected = false
+                let socketError = 'Not set'
 
-                try {
-                    await session.connect(that.host, that.port, that.username, that.password, that.options)
+                // implement retry circuitry
+                for (let retry = -1; retry <= (that.poolOptions.extensions.retry.count - 1); retry++) {
+                    if (connected === true) break
 
-                } catch (err) {
+                    try {
+                        await session.connect(that.host, that.port, that.username, that.password, that.options)
+
+                        connected = true
+
+                        /*
+                        if (retry !== -1) {
+                            console.log('extend OK,  r' + retry)
+                        } else {
+                            console.log('OK')
+                        }
+
+                         */
+
+                        break
+
+                    } catch (err) {
+                        socketError = err
+
+                        await utils.sleep(that.poolOptions.extensions.retry.delay + utils.getRandom(that.poolOptions.extensions.retry.delayRndMin, that.poolOptions.extensions.retry.delayRndMax))
+                    }
+                }
+
+                // if failed, throw
+                if (connected === false) {
                     that.stats.extendsCreatedInError++
 
-                    reject(err)
+                    // console.log(socketError.message ? socketError.message : socketError)
+
+                    reject((socketError.message ? socketError.message : socketError) + ' after ' + that.poolOptions.extensions.retry.count)
 
                     return
                 }
 
+                // or finalize the new session
                 const newSession = {
                     session: session,
                     guid: session.session.GUID,
@@ -366,6 +396,10 @@ module.exports = {
 
                 return
             }
+
+            // *****************************************
+            // HERE WE ARE OUT OF SLOTS AND / OR EXTENSIONS
+            // *****************************************
 
             that.stats.noMoreSlotsHits++
             that.emit('noMoreSlotsHits')
@@ -522,6 +556,7 @@ module.exports = {
             initialized: that.guid !== '',
             size: size,
             extensions: extensions,
+            poolOptions: that.poolOptions,
             sessionsTotal: sessionsTotal,
             sessionsExtendedInUse: sessionsExtended.length,
             sessionsInUse: sessionsInUse.length,

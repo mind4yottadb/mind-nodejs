@@ -306,18 +306,43 @@ module.exports = {
             // can we extend?
             if (that.extension > 0 && (that.extension - that.extensionInUse) > 0) {
                 const session = new classModule.exports.session
+                let connected = false
+                let socketError = 'Not set'
 
-                try {
-                    await session.connect(that.host, that.port, that.username, that.password, that.options)
+                // implement retry circuitry
+                for (let retry = -1; retry <= (that.poolOptions.extensions.retry.count - 1); retry++) {
+                    if (connected === true) break
 
-                } catch (err) {
+                    try {
+                        await session.connect(that.host, that.port, that.username, that.password, that.options)
+
+                        connected = true
+
+                        if (retry !== -1) {
+                            that.stats.extendsCreatedWithRetry++
+                        }
+
+                        break
+
+                    } catch (err) {
+                        socketError = err
+
+                        await utils.sleep(that.poolOptions.extensions.retry.delay + utils.getRandom(that.poolOptions.extensions.retry.delayRndMin, that.poolOptions.extensions.retry.delayRndMax))
+                    }
+                }
+
+                // if failed, throw
+                if (connected === false) {
                     that.stats.extendsCreatedInError++
 
-                    reject(err)
+                    // console.log(socketError.message ? socketError.message : socketError)
+
+                    reject((socketError.message ? socketError.message : socketError) + ' after ' + that.poolOptions.extensions.retry.count)
 
                     return
                 }
 
+                // or finalize the new session
                 const newSession = {
                     session: session,
                     guid: session.session.GUID,
@@ -366,6 +391,10 @@ module.exports = {
 
                 return
             }
+
+            // *****************************************
+            // HERE WE ARE OUT OF SLOTS AND / OR EXTENSIONS
+            // *****************************************
 
             that.stats.noMoreSlotsHits++
             that.emit('noMoreSlotsHits')
@@ -506,7 +535,7 @@ module.exports = {
         })
     },
 
-    getStatus: function (that, formatNumbers) {
+    getStatus: function (that, formatNumbers = false) {
         const sessionsInUse = that.sessions.filter(session => session.inUse === true && session.isExtension === false)
         const sessionsExtended = that.sessions.filter(session => session.isExtension === true && session.inUse === true)
         const sessionsTotal = that.sessions.length
@@ -522,6 +551,7 @@ module.exports = {
             initialized: that.guid !== '',
             size: size,
             extensions: extensions,
+            poolOptions: that.poolOptions,
             sessionsTotal: sessionsTotal,
             sessionsExtendedInUse: sessionsExtended.length,
             sessionsInUse: sessionsInUse.length,
@@ -533,6 +563,7 @@ module.exports = {
                     sessionsPeak: utils.formatNumber(that.stats.sessionsPeak),
                     sessionsDone: utils.formatNumber(that.stats.sessionsDone),
                     extendsCreatedOk: utils.formatNumber(that.stats.extendsCreatedOk),
+                    extendsCreatedWithRetry: utils.formatNumber(that.stats.extendsCreatedWithRetry),
                     extendsCreatedInError: utils.formatNumber(that.stats.extendsCreatedInError),
                     extendsRemoved: utils.formatNumber(that.stats.extendsRemoved),
                     extendsPeak: utils.formatNumber(that.stats.extendsPeak),
@@ -545,13 +576,14 @@ module.exports = {
         }
     },
 
-    resetStats: function (that) {
+    resetStatus: function (that) {
         that.stats.sessionsCreatedOk = 0
         that.stats.sessionsCreatedInError = 0
         that.stats.sessionsPeak = 0
         that.stats.sessionsDone = 0
 
         that.stats.extendsCreatedOk = 0
+        that.stats.extendsCreatedWithRetry = 0
         that.stats.extendsCreatedInError = 0
         that.stats.extendsRemoved = 0
         that.stats.extendsPeak = 0

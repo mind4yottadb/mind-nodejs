@@ -46,9 +46,9 @@ If a `timeout` is specified and it expires, an error will be thrown.
 Applies two locks and display them.
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 
-const mind = new mind4yottadb.session
+const mind = new mind-client-js.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

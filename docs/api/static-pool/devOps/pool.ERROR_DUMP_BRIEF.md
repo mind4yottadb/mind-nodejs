@@ -12,37 +12,38 @@
 ###############################################################*/
 -->
 
-# Session object root
+# pool.ERROR_DUMP_BRIEF
 
 ---
 
-#### Methods:
+**Type**: property
 
-- [connect()](api/mind.connect.md)
-- [disconnect()](api/mind.disconnect.md)
-- [done()](api/mind.done.md)
+**Async**: no
 
-#### Properties:
-
-- [connected](api/mind.connected.md)
-- [loggedIn](api/mind.loggedIn.md)
-
-#### Events
-
-- [socketError](api/mind.on-socket-error.md)
-- [disconnect](api/mind.on-disconnect.md)
-
-#### Namespaces:
-
-- [process](api/namespace.process.md)
-- [server](api/namespace.server.md)
-- [fs](api/namespace.fs.md)
-- [RESP3](api/namespace.RESP3.md)
-- [session](api/namespace.session.md)
-- db
-    - [globals](api/namespace.db.globals.md)
-    - [vars](api/namespace.db.vars.md)
-- dbms
+**Parameters**:
+<br><br>
+**Returns**: `<number>`
 
 ---
 
+Returns the value corresponding to ERROR_DUMP_BRIEF.
+
+ERROR_DUMP_BRIEF = 1
+
+---
+
+### EXAMPLES
+
+````js
+import mind from 'mind-client-js'
+
+const pool = new mind.staticPool(2)
+await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+await pool.devOps.setErrorDump(pool.devOps.ERROR_DUMP_BRIEF)
+
+````
+
+---
+
+[Back](api/namespace.staticPool.md)

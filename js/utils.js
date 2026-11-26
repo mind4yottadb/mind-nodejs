@@ -170,5 +170,16 @@ module.exports = {
 
     formatDecimals: (num, decimals = 2) => {
         return num.toFixed(decimals)
-    }
+    },
+
+    sleep: async msDelay => {
+        return new Promise(function (resolve, reject) {
+            setTimeout(resolve, msDelay)
+        })
+    },
+
+    getRandom: function (min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    },
+
 }

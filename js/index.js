@@ -237,7 +237,14 @@ module.exports = {
             let total_sent = 0;
             while (total_sent < msg.length) {
                 const msg_sliced = msg.slice(total_sent, msg.length);
-                const sentOk = that.#socket.write(msg_sliced);
+                let sentOk
+
+                try {
+                    sentOk = that.#socket.write(msg_sliced)
+
+                } catch (err) {
+                    throw new Error(errors.SOCKET_DISCONNECTED + 'RuntimeError: ' + err.message);
+                }
 
                 if (!sentOk) throw new Error(errors.SOCKET_DISCONNECTED + 'RuntimeError: socket connection broken');
 
@@ -268,13 +275,23 @@ module.exports = {
     staticPool: class StaticPool extends EventEmitter {
         size = 0                    // size (in sessions)
         extension = 0               // extension size (in sessions)
+        poolOptions = {      // pool options (optional)
+            extensions: {
+                retry: {
+                    count: 30,              // how many times it should retry if error. 0 is NO RETRY. Values: 0 - 100
+                    delay: 10,               // delay between the retries in ms. Values: 10 - 1000
+                    delayRndMin: 10,         // minimum rnd value to be added to the delay in ms. Values: 1 - 100
+                    delayRndMax: 20         // maximum rnd value to be added to the delay in ms. Values: 1 - 1000
+                }
+            }
+        }
         extensionInUse = 0          // how many extension sessions are currently in use
         sessions = []                 // sessions array
         host = ''                    // credentials to connect extensions
         port = 0                    // credentials to connect extensions
-        username = ''                 // credentials to connect extensions
-        password = ''                 // credentials to connect extensions
-        options = {}                     // credentials to connect extensions
+        username = ''                // credentials to connect extensions
+        password = ''                // credentials to connect extensions
+        options = {}                    // credentials to connect extensions
         timerTick = false           // internal timer
         guid = ''                    // the guid for the pool
         stats = {
@@ -284,6 +301,7 @@ module.exports = {
             sessionsDone: 0,                 // the number of sessions that were terminated with done()
 
             extendsCreatedOk: 0,            // how many extends got created
+            extendsCreatedWithRetry: 0,     // how many extends were created with a retry
             extendsCreatedInError: 0,       // how many extends got error on creation
             extendsRemoved: 0,              // how many extends got removed
             extendsPeak: 0,                 // the maximum number of extensions used in the pool
@@ -339,8 +357,9 @@ module.exports = {
             }
         }
 
-        constructor(size, extension = 0, credentials = {}) {
+        constructor(size, extension = 0, options) {
             super();
+
             if (typeof size === 'undefined') {
                 throw new Error(errors.PARAM_MISSING + 'Missing pool size')
             }
@@ -357,12 +376,70 @@ module.exports = {
                 throw new Error('Pool size must be at least 2')
             }
 
-            if (extension && extension < 1) {
-                throw new Error('Pool extension must be at least 1')
+            if (extension && extension < 0) {
+                throw new Error('Pool extension can not be negative')
+            }
+
+            if (options && typeof options !== 'object') {
+                throw new Error(errors.PARAM_NOT_OBJECT + 'pool options must be an object')
             }
 
             this.size = size
             this.extension = extension
+
+            if (options) {
+                if (options.extensions && typeof options.extensions !== 'object') {
+                    throw new Error(errors.PARAM_NOT_OBJECT + 'extensions must be an object')
+                }
+
+                if (options.extensions) {
+                    if (options.extensions.retry && typeof options.extensions.retry !== 'object') {
+                        throw new Error(errors.PARAM_NOT_OBJECT + 'extensions.retry must be an object')
+                    }
+
+                    if (options.extensions.retry) {
+                        if (options.extensions.retry.count && typeof options.extensions.retry.count !== 'number') {
+                            throw new Error(errors.PARAM_NOT_NUMBER + 'retry.count must be a number')
+                        }
+
+                        if (options.extensions.retry.count) {
+                            if (options.extensions.retry.count < 0 || options.extensions.retry.count > 100) {
+                                throw new Error(errors.PARAM_BAD_VALUE + 'retry.count must be >=0 and <=100')
+                            }
+
+                            this.poolOptions.extensions.retry.count = options.extensions.retry.count
+                        }
+
+                        if (options.extensions.retry.delay && typeof options.extensions.retry.delay !== 'number') {
+                            throw new Error(errors.PARAM_NOT_NUMBER + 'retry.delay must be a number')
+                        }
+
+                        if (options.extensions.retry.delay) {
+                            if (options.extensions.retry.delay < 10 || options.extensions.retry.delay > 1000) {
+                                throw new Error(errors.PARAM_BAD_VALUE + 'retry.delay must be >=10 and <=1000')
+                            }
+
+                            this.poolOptions.extensions.retry.delay = options.extensions.retry.delay
+                        }
+
+                        if (options.extensions.retry.delayRndMin) {
+                            if (options.extensions.retry.delayRndMin < 1 || options.extensions.retry.delayRndMin > 100) {
+                                throw new Error(errors.PARAM_BAD_VALUE + 'retry.delayRndMin be >=1 and <=100')
+                            }
+
+                            this.poolOptions.extensions.retry.delayRndMin = options.extensions.retry.delayRndMin
+                        }
+
+                        if (options.extensions.retry.delayRndMax) {
+                            if (options.extensions.retry.delayRndMax < 1 || options.extensions.retry.delayRndMax > 500) {
+                                throw new Error(errors.PARAM_BAD_VALUE + 'retry.delayRndMax must be >=1 and <=1000')
+                            }
+
+                            this.poolOptions.extensions.retry.delayRndMax = options.extensions.retry.delayRndMax
+                        }
+                    }
+                }
+            }
 
             Object.defineProperties(this, {
                 size: {
@@ -370,6 +447,10 @@ module.exports = {
                     configurable: true
                 },
                 extension: {
+                    enumerable: false,
+                    configurable: true
+                },
+                poolOptions: {
                     enumerable: false,
                     configurable: true
                 },
@@ -566,8 +647,8 @@ module.exports = {
             return staticPool.getStatus(this, formatNumbers)
         }
 
-        resetStats = function () {
-            staticPool.resetStats(this)
+        resetStatus = function () {
+            staticPool.resetStatus(this)
         }
 
         changeSize = async function (newSize) {

@@ -25,6 +25,10 @@ process.on('SIGINT', () => {
 
     console.log('ctrl-c detected')
 
+    if (!startTime) {
+        process.exit(0)
+    }
+
     // compute time difference
     const diff = new Date("1970-01-01T00:00:00Z")
     diff.setMilliseconds(endTime.valueOf() - startTime.valueOf())
@@ -34,7 +38,7 @@ process.on('SIGINT', () => {
     const endTimeAsDate = new Date(endTime)
     const status = (pool.pool.getStatus(true))
 
-    status.stats.sessionsPerSec = formatNumber(lastSessionsPerSec)
+    status.stats.sessionsPerSec = lastSessionsPerSec.toFixed(0)
 
     console.log('Start time:\t\t\t' + startTimeAsDate.toTimeString())
     console.log('End time:\t\t\t' + endTimeAsDate.toTimeString())
@@ -43,7 +47,7 @@ process.on('SIGINT', () => {
     console.log(utils.params)
 
     console.log('\nStatus:')
-    console.log(status)
+    console.dir(status, {depth: 20})
     process.exit(0)
 })
 
@@ -51,7 +55,12 @@ const start = async (params = {}) => {
     // merge incoming params
     utils.params = {...utils.params, ...params}
 
+    console.log('Pool init...')
     await pool.init(utils.params.pool.size, utils.params.pool.extension)
+    console.log('Pool OK')
+
+    console.log('\nTimestamp totSessions / sessionsInUse / maxSessions / extensions ( extensionsInError )\n')
+
     startTime = Date.now()
 
     pool.pool.on('noMoreSlotsHits', () => {
@@ -69,21 +78,23 @@ const start = async (params = {}) => {
 
             const now = new Date()
             const nowFormatted = now.toTimeString().split(' ')[0]
+            const sessionsInUse = pool.pool.sessions.filter(session => session.inUse === true && session.isExtension === false)
+
             lastSessionsPerSec = (status.stats.sessionsCreatedOk - previousSessions) / (60 * utils.params.dumpTotalsDelay)
             previousSessions = status.stats.sessionsCreatedOk
-            console.log(nowFormatted + ':', status.stats.sessionsCreatedOk.toLocaleString().replaceAll('.', ','), '/', status.stats.extendsCreatedOk.toLocaleString().replaceAll('.', ','), '  Sessions / sec: ', lastSessionsPerSec.toFixed(2))
+            console.log(nowFormatted + ':', status.stats.sessionsCreatedOk.toLocaleString().replaceAll('.', ','), '/', sessionsInUse.length, '/', status.stats.sessionsPeak, '/', status.stats.extendsCreatedOk.toLocaleString().replaceAll('.', ','), '(', status.stats.extendsCreatedInError, '),', '  Sessions / sec: ', lastSessionsPerSec.toFixed(0))
 
         }, 60000 * utils.params.dumpTotalsDelay)
     }
 
     if (utils.params.singleShot === false) {
         while (true) {
-            _singleShot()
+            await _singleShot()
 
             await utils.sleep(60000 * utils.params.mainLoopDelay)
         }
     } else {
-        _singleShot()
+        await _singleShot()
 
         await utils.sleep(1000 * utils.params.singleShotTimeout)
 

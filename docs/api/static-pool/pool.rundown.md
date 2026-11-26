@@ -14,6 +14,40 @@
 
 # pool.rundown()
 
+--- 
+
+**Type**: method
+
+***Async**: No
+
+**Parameters**:
+<br><br>
+**Returns**: '<undefined>`
+
 ---
 
-[Back](api/namespace.staticPool.md)
+The `rundown` method will use the devOps process to send signals to the processes, in order to wait for commands to be
+executed before to terminate the process.
+
+This method should be used if client sessions are in use.
+
+To terminate the pool when NO client sessions are in use, use the `destroy()` method instead.
+
+---
+
+### EXAMPLES
+
+````js
+import mindClient from 'mind-client-js'
+
+const pool = new mindClient.staticPool(20)
+
+await pool.create('127.0.0.1', 10000, 'admin', 'admin')
+
+pool.rundown()
+
+````
+
+---
+
+[Back](api/staticPool.md)

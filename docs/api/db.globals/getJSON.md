@@ -45,9 +45,9 @@ This method is meant to be used when JSON has to be transferred directly, withou
 Create a JDOM node and retrieve the JSON.
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 
-const mind = new mind4yottadb.session
+const mind = new mind-client-js.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -70,9 +70,9 @@ res = '{"test":23}'
 Create a more complex JDOM node and retrieve the JSON.
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 
-const mind = new mind4yottadb.session
+const mind = new mind-client-js.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -98,9 +98,9 @@ res = '{"prop1":"this is a string","prop2":45.23,"prop3":{"usbprop2":45.23},"tes
 Accessing an empty or not existing node
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 
-const mind = new mind4yottadb.session
+const mind = new mind-client-js.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 

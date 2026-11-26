@@ -15,3 +15,16 @@
 # MIND object structure
 
 ---
+
+- mind-client-js
+    - session
+        - fs
+        - server
+        - process
+        - session
+        - db
+            - globals
+            - vars
+    - staticPool
+        - devOps
+    - dynamicPool

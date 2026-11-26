@@ -42,9 +42,9 @@ It returns an array of objects, where each object represent a session with the f
 ### EXAMPLES
 
 ````js
-import mind4yottadb from 'mind4yottadb'
+import mind-client-js from 'mind-client-js'
 
-const mind = new mind4yottadb.session
+const mind = new mind-client-js.session
 
 await mind.connect('127.0.0.1', 10000, 'admin', 'admin')
 
@@ -62,7 +62,7 @@ returns:
 sessions = [
     {
         description: 'MIND for YottaDB node.js driver',
-        driverName: 'mind4yottadb.js',
+        driverName: 'mind-client-js.js',
         driverVersion: '0.5.0',
         elapsedTime: {hour: 0, min: 0, sec: 0},
         ipNumber: '172.18.0.1',

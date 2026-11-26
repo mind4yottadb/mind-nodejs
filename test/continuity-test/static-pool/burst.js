@@ -31,14 +31,17 @@ class Burst {
 
             if (utils.params.logging === true) console.log('Executing...')
 
-            try {
-                const mindSession = await pool.pool.getSession()
+            let mindSession
 
+            try {
+                mindSession = await pool.pool.getSession()
                 await command.command.exec(mindSession)
                 await mindSession.done()
 
             } catch (err) {
-                console.log('error is:' + err)
+                //console.log('error 1 is:' + err)
+
+                break
             }
 
             const delay = utils.getRandom(utils.params.burst.separation.min, utils.params.burst.separation.max)
